@@ -36,7 +36,9 @@ class AuthenticatedSessionController extends Controller
         }else if($user === 'dosen'){
             return redirect()->route('dosen.index');
         }else if($user === 'admin'){
-            return redirect()->route('dashboard');
+            return redirect()->route('admin.dashboard');
+        }else {
+            return redirect()->route('home');
         }
     }
 

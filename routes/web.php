@@ -18,12 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('indeks'); //welcome
+    return view('home'); //welcome
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/learning', function () {
     return view('learning');
@@ -40,7 +36,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
