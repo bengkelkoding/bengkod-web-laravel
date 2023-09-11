@@ -32,16 +32,16 @@ Route::get('/activate-token', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');   
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['verified'])->name('dashboard');
+        return view('admin.dashboard');
+    })->middleware(['verified'])->name('admin.dashboard');
 
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('dosen.create');
-    Route::post('/register-dosen', [RegisteredDosenController::class, 'store'])->name('dosen.store');    
+    Route::post('/register-dosen', [RegisteredDosenController::class, 'store'])->name('dosen.store');
     // Route::get('/admin', function(){
     //     return 'ini halaman admin via role';
     // });
