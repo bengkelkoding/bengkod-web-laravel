@@ -3,7 +3,7 @@
         <div class="w-[500px] my-40">
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
-
+            
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div>

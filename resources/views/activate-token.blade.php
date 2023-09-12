@@ -1,5 +1,5 @@
 <x-universal-layout>
-    <div class="mt-5 h-[60vh] flex justify-center items-center">
+    <!-- <div class="mt-5 h-[60vh] flex justify-center items-center">
             <div class="bg-white border p-[50px] rounded-md">
                 <h3 class="font-bold text-[24px] text-center font-inter mb-[5px]">Aktivasi Token</h3>
                 <p class="text-[14px] text-center mt-[-10px] mb-5">Aktifkan token kelas belajar anda disini</p>
@@ -10,10 +10,30 @@
                         <x-tombol-universal class="mt-3">
                         {{ __('Aktivasi Token') }}
                         </x-tombol-universal>
-                        <!-- <input type="text" id="token" placeholder="Masukan Token" required class="w-[300px] h-[30px] rounded border-[#F1F1F1] mb-[20px]" ></input> -->
-                        <!-- <button type="button" class="bg-[#114D91] w-[300px] h-[30px] rounded text-[#FFF]">aktifkan token</button> -->
                     </form>
                 </div>
             </div>
+        </div> -->
+
+        <div class="w-[100%] flex justify-center items-center">
+        <div class="w-[300px] my-40">
+            <!-- Session Status -->
+            <x-auth-session-status class="mb-4" :status="session('status')" />
+            <h3 class="font-bold text-[24px] text-center font-inter mb-[5px]">Aktivasi Token</h3>
+            <p class="text-[14px] text-center mt-[-10px] mb-[70px]">Aktifkan token kelas belajar anda disini</p>
+            <form method="POST" action="">
+                @csrf
+                <div>
+                    <x-text-input id="token" class="block mt-1 w-full px-2 py-2 " type="text" name="token" :value="old('token')" required autofocus autocomplete="username" placeholder="Masukan Token"/>
+                    <x-input-error :messages="$errors->get('token')" class="mt-2" />
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+                    <x-primary-button class="flex justify-center items-center w-[100%]">
+                        {{ __('Log in') }}
+                    </x-primary-button>
+                </div>
+            </form>
         </div>
+    </div>
 </x-universal-layout>
