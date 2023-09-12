@@ -1,6 +1,8 @@
 <x-universal-layout>
     <div class="w-[100%] flex justify-center items-center">
         <div class="w-[500px] my-40">
+            <x-judul-form>{{ __('Masuk') }}</x-judul-form>
+
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
             

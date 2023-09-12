@@ -57,6 +57,7 @@ Route::group(['middleware' => ['role:dosen']], function () {
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
+    
     // Route::get('/mahasiswa', function(){
     //     return 'ini halaman mhs via role';
     // });

@@ -28,9 +28,7 @@ $tes = Auth::user()->roles()->pluck('name')->first();
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
-          @php
-          if($tes == 'mahasiswa'){
-          @endphp
+          @if ($tes == 'mahasiswa')
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -83,19 +81,11 @@ $tes = Auth::user()->roles()->pluck('name')->first();
               </a>
             </li>
           </ul>
-          @php
-          }else if($tes == 'dosen'){
-          @endphp
+          @elseif($tes == 'dosen')
             <p>punya dosen</p>
-          @php
-          }else{
-          @endphp
+          @else
             <p>punya admin</p>
-          @php
-          }
-          @endphp
-
-
+          @endif
         </nav>
         <!-- End Sidebar navigation -->
       </div>

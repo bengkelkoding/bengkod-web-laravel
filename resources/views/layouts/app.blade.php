@@ -71,7 +71,7 @@
             <!--  Header End -->
 
             <!-- Page Content -->
-            <div class="container-fluid">
+            <div class="pt-[7em]">
                 {{ $slot }}
             </div>
         </div>

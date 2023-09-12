@@ -24,7 +24,6 @@ $haloo = "Some value"; // Define the haloo variable
                     <a href="{{ url($url) }}" class="ml-5">Dashboard</a>
                 @else
                     <x-tombol-login href="{{ route('login') }}">Masuk</x-tombol-login>
-                    <!-- :teks="$haloo" -->
                 @endauth
             @endif
             </div>
