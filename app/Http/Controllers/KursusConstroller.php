@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KursusRequest;
+use App\Models\Kursus;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr;
 
 class KursusConstroller extends Controller
 {
@@ -11,7 +15,7 @@ class KursusConstroller extends Controller
      */
     public function index()
     {
-        return view('kursus.index');
+        return view('kursus.index', ['kursuses' => Kursus::all()]);
     }
 
     /**
@@ -25,9 +29,18 @@ class KursusConstroller extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(KursusRequest $request)
     {
-        
+        try {
+
+            Kursus::create($request->all());
+            return response()->redirectToRoute('kursus.index');
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -43,15 +56,27 @@ class KursusConstroller extends Controller
      */
     public function edit(string $id)
     {
-        return view('kursus.edit');
+        $kursus = Kursus::find($id);
+        // dd($kursus->id);
+        return view('kursus.edit', compact('kursus'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(KursusRequest $request, string $id)
     {
-        //
+        try {
+            Kursus::updateOrCreate(
+                ['id' => $id],
+                $request->all(),
+            );
+            return response()->redirectToRoute('kursus.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -59,6 +84,13 @@ class KursusConstroller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Kursus::find($id)->delete();
+            return response()->redirectToRoute('kursus.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }
