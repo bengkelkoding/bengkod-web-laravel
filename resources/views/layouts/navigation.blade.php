@@ -1,5 +1,6 @@
 @php
 $tes = Auth::user()->roles()->pluck('name')->first();
+$dashboard = $tes == 'admin' ? '/dashboard' : $tes;
 @endphp
 
 <aside class="left-sidebar">
@@ -21,7 +22,7 @@ $tes = Auth::user()->roles()->pluck('name')->first();
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="" aria-expanded="false">
+              <a class="sidebar-link" href="{{ $dashboard }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -29,6 +30,59 @@ $tes = Auth::user()->roles()->pluck('name')->first();
               </a>
             </li>
           @if ($tes == 'mahasiswa')
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Learning</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/dipelajari" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Materi Yang Dipelajari</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/diselesaikan" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Materi Yang Diselesaikan</span>
+              </a>
+            </li>
+          </ul>
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Task</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="kumpulkan" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Kumpulkan Tugas</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="daftar-nilai" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Daftar Nilai</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="kontak" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Kontak Asisten</span>
+              </a>
+            </li>
+          </ul>
+          @elseif($tes == 'dosen')
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -81,8 +135,6 @@ $tes = Auth::user()->roles()->pluck('name')->first();
               </a>
             </li>
           </ul>
-          @elseif($tes == 'dosen')
-            <p>punya dosen</p>
           @else
             <p>punya admin</p>
           @endif

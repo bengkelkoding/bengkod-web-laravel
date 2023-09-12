@@ -61,4 +61,29 @@ class MahasiswaController extends Controller
     {
         //
     }
+
+    function showMateriDipelajari()
+    {
+        return view('mahasiswa.materiDipelajari');
+    }
+
+    function showMateriDiselesaikan()
+    {
+        return view('mahasiswa.materiDiselesaikan');
+    }
+
+    function showKumpulkanTugas()
+    {
+        return view('mahasiswa.kumpulkanTugas');
+    }
+
+    function showDaftarNilai()
+    {
+        return view('mahasiswa.daftarNilai');
+    }
+
+    function showKontakAsisten()
+    {
+        return view('mahasiswa.kontakAsisten');
+    }
 }

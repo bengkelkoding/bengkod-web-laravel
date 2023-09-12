@@ -60,6 +60,11 @@ Route::group(['middleware' => ['role:dosen']], function () {
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
+    Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);
+    Route::get('diselesaikan', [MahasiswaController::class, 'showMateriDiselesaikan']);
+    Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
+    Route::get('daftar-nilai', [MahasiswaController::class, 'showDaftarNilai']);
+    Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
     
     // Route::get('/mahasiswa', function(){
     //     return 'ini halaman mhs via role';
