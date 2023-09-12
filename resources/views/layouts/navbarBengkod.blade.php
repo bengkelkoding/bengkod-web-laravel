@@ -11,7 +11,17 @@ $haloo = "Some value"; // Define the haloo variable
             @if (True) <!-- nanti logicnya ganti -->
             <div>
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="ml-5">Dashboard</a>
+                    @php
+                    $tes = Auth::user()->roles()->pluck('name')->first();
+                    if($tes == 'mahasiswa'){
+                        $url = 'mahasiswa';
+                    }else if($tes == 'dosen'){
+                        $url = 'dosen';
+                    }else{
+                        $url = 'dashboard';
+                    }
+                    @endphp
+                    <a href="{{ url($url) }}" class="ml-5">Dashboard</a>
                 @else
                     <x-tombol-login href="{{ route('login') }}">Masuk</x-tombol-login>
                     <!-- :teks="$haloo" -->
