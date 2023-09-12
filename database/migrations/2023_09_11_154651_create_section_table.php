@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('section', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_kursus');
+            $table->string('id_kursus');
             $table->foreign('id_kursus')->references('id')->on('kursus');
             $table->string('nama_section');
             $table->timestamps();

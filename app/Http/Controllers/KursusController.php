@@ -32,4 +32,8 @@ class KursusController extends Controller
 
         return view('kursus.artikel', compact('kursus', 'section', 'artikel'));
     }    
+
+    public function create() {
+        
+    }
 }
