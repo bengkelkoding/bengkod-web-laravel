@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\KursusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     //     return 'ini halaman mhs via role';
     // });
 });
+
+Route::get('/kursus', [KursusController::class, 'index']);
+Route::get('/kursus/{kursusId}/section/{sectionId}', [KursusController::class, 'showSection']);
+Route::get('/kursus/{kursusId}/section/{sectionId}/artikel/{artikelId}', [KursusController::class, 'showArtikel'])->name('kursus.artikel');
+
 
 
 // Route::group(['middleware' => ['permission:edit modul|delete modul']], function () {
