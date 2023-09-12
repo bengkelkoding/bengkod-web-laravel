@@ -15,21 +15,21 @@ class SectionSeeder extends Seeder
     {
         // Relation with Web Developer
         DB::table('section')->insert([
-            'id_kursus' => 'KWD23',
+            'id_kursus' => 1,
             'nama_section' => 'Pengantar',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KWD23',
+            'id_kursus' => 1,
             'nama_section' => 'Konsep',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KWD23',
+            'id_kursus' => 1,
             'nama_section' => 'Studi Kasus',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
@@ -37,21 +37,21 @@ class SectionSeeder extends Seeder
 
         // Relation with Mobile Developer
         DB::table('section')->insert([
-            'id_kursus' => 'KMD23',
+            'id_kursus' => 2,
             'nama_section' => 'Pengantar',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KMD23',
+            'id_kursus' => 2,
             'nama_section' => 'Konsep',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KMD23',
+            'id_kursus' => 2,
             'nama_section' => 'Studi Kasus',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
@@ -59,21 +59,21 @@ class SectionSeeder extends Seeder
 
         // Relation with Data Science
         DB::table('section')->insert([
-            'id_kursus' => 'KDS23',
+            'id_kursus' => 3,
             'nama_section' => 'Pengantar',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KDS23',
+            'id_kursus' => 3,
             'nama_section' => 'Konsep',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KDS23',
+            'id_kursus' => 3,
             'nama_section' => 'Studi Kasus',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
@@ -81,21 +81,21 @@ class SectionSeeder extends Seeder
 
         // Relation with Computer Vision
         DB::table('section')->insert([
-            'id_kursus' => 'KCV23',
+            'id_kursus' => 4,
             'nama_section' => 'Pengantar',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KCV23',
+            'id_kursus' => 4,
             'nama_section' => 'Konsep',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KCV23',
+            'id_kursus' => 4,
             'nama_section' => 'Studi Kasus',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
@@ -103,28 +103,28 @@ class SectionSeeder extends Seeder
 
         // Relation with Game Programming
         DB::table('section')->insert([
-            'id_kursus' => 'KGP23',
+            'id_kursus' => 5,
             'nama_section' => 'Pengantar',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KGP23',
+            'id_kursus' => 5,
             'nama_section' => 'Konsep',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KGP23',
+            'id_kursus' => 5,
             'nama_section' => 'Studi Kasus',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
         DB::table('section')->insert([
-            'id_kursus' => 'KGP23',
+            'id_kursus' => 5,
             'nama_section' => 'Contoh Produk',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),

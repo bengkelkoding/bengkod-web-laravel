@@ -13,7 +13,6 @@ class KursusSeeder extends Seeder
     public function run(): void
     {
         DB::table('kursus')->insert([
-            'id' => 'KWD23',
             'judul' => 'Web Developer',
             'author' => 'Bengkel Koding',
             'hari' => 'Senin - Jumat',
@@ -23,7 +22,6 @@ class KursusSeeder extends Seeder
         ]);
 
         DB::table('kursus')->insert([
-            'id' => 'KMD23',
             'judul' => 'Mobile Developer',
             'author' => 'Fahri Firdausillah, Syaifur Rohman, dkk',
             'hari' => 'Senin - Jumat',
@@ -33,7 +31,6 @@ class KursusSeeder extends Seeder
         ]);       
         
         DB::table('kursus')->insert([
-            'id' => 'KDS23',
             'judul' => 'Data Science',
             'author' => 'Bengkel Koding',
             'hari' => 'Senin - Jumat',
@@ -43,7 +40,6 @@ class KursusSeeder extends Seeder
         ]);        
         
         DB::table('kursus')->insert([
-            'id' => 'KCV23',
             'judul' => 'Computer Vision',
             'author' => 'Bengkel Koding',
             'hari' => 'Senin - Jumat',
@@ -53,7 +49,6 @@ class KursusSeeder extends Seeder
         ]);        
         
         DB::table('kursus')->insert([
-            'id' => 'KGP23',
             'judul' => 'Game Programming',
             'author' => 'Bengkel Koding',
             'hari' => 'Senin - Jumat',
