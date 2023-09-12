@@ -3,8 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\KursusConstroller;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\KursusController;
+use App\Http\Controllers\ModulConstroller;
+use App\Http\Controllers\ModulController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,17 +66,17 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     // });
 });
 
-Route::get('/kursus', [KursusController::class, 'index']);
-Route::get('/kursus/{kursusId}/section/{sectionId}', [KursusController::class, 'showSection']);
-Route::get('/kursus/{kursusId}/section/{sectionId}/artikel/{artikelId}', [KursusController::class, 'showArtikel'])->name('kursus.artikel');
+Route::resource('kursus', KursusConstroller::class);
 
-
+// debuging data kursus
+Route::get('/modul', [ModulController::class, 'index']);
+Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
+Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulController::class, 'showArtikel'])->name('modul.artikel');
 
 // Route::group(['middleware' => ['permission:edit modul|delete modul']], function () {
 //     Route::get('/permission', function(){
 //         return 'ini halaman ian via permission';
 //     });
 // });
-
 
 require __DIR__.'/auth.php';

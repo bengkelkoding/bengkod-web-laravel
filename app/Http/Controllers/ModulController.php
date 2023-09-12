@@ -7,13 +7,13 @@ use App\Models\Kursus;
 use App\Models\Section;
 use App\Models\Artikel;
 
-class KursusController extends Controller
+class ModulController extends Controller
 {
     public function index()
     {
         $kursus = Kursus::with('sections.artikels')->get();
     
-        return view('kursus.index', compact('kursus'));
+        return view('modul.index', compact('kursus'));
     }
     
     public function showSection($kursusId, $sectionId)
@@ -21,7 +21,7 @@ class KursusController extends Controller
         $kursus = Kursus::with('sections.artikels')->find($kursusId);
         $section = Section::with('artikels')->find($sectionId);
 
-        return view('kursus.show', compact('kursus', 'section'));
+        return view('modul.show', compact('kursus', 'section'));
     }
 
     public function showArtikel($kursusId, $sectionId, $artikelId)
@@ -30,7 +30,7 @@ class KursusController extends Controller
         $section = Section::with('artikels')->find($sectionId);
         $artikel = Artikel::find($artikelId);
 
-        return view('kursus.artikel', compact('kursus', 'section', 'artikel'));
+        return view('modul.artikel', compact('kursus', 'section', 'artikel'));
     }    
 
     public function create() {
