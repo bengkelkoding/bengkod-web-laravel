@@ -1,6 +1,12 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
+        <!-- Name -->
+        <div>
+            <x-input-label for="kode" :value="__('Kode')" />
+            <x-text-input id="kode" class="block mt-1 w-full" type="text" name="kode" :value="old('name')" required autofocus autocomplete="kode" />
+            <x-input-error :messages="$errors->get('kode')" class="mt-2" />
+        </div>
 
         <!-- Name -->
         <div>
