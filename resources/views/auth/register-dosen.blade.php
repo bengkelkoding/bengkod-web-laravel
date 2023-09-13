@@ -1,12 +1,12 @@
 <x-universal-layout>
     <div class="w-[100%] flex justify-center items-center">
         <div class="w-[500px] my-40">
-            <x-judul-form>{{__('Buat Akun Mahasiswa')}}</x-judul-form>
+            <x-judul-form>{{__('Buat Akun Dosen')}}</x-judul-form>
             
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
             
-            <form method="POST" action="{{ route('mahasiswa.store') }}">
+            <form method="POST" action="{{ route('dosen.store') }}">
                 @csrf
         
                 <!-- Name -->
@@ -16,11 +16,11 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
         
-                <!-- NIM -->
+                <!-- NPP -->
                 <div class="mt-4">
-                    <x-input-label for="nim" :value="__('Nomor Induk Mahasiswa')" />
-                    <x-text-input id="nim" class="block mt-1 w-full" type="text" name="nim" :value="old('nim')" required autofocus autocomplete="" />
-                    <x-input-error :messages="$errors->get('nim')" class="mt-2" />
+                    <x-input-label for="npp" :value="__('Nomor Pegawai Perusahaan')" />
+                    <x-text-input id="npp" class="block mt-1 w-full" type="text" name="npp" :value="old('npp')" required autofocus autocomplete="" />
+                    <x-input-error :messages="$errors->get('npp')" class="mt-2" />
                 </div>
         
                 <!-- Email Address -->
