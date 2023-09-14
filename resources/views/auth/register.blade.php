@@ -6,7 +6,7 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
             
-            <form method="POST" action="{{ route('mahasiswa.store') }}">
+            <form method="POST" action="{{ route('register') }}">
                 @csrf
         
                 <!-- Name -->
@@ -28,6 +28,20 @@
                     <x-input-label for="email" :value="__('Email Mahasiswa')" />
                     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+
+                <!-- Pilih Kursus -->
+                <div class="mt-4">
+                    <x-input-label for="id_kursus" :value="__('Pilih Kursus')" />
+                    <select id="id_kursus" name="id_kursus" class="block mt-1 w-full" required>
+                        <option value="" disabled selected>Pilih Kursus</option>
+                        <option value="1">Web Developer</option>
+                        <option value="2">Mobile Developer</option>
+                        <option value="3">Data Science</option>
+                        <option value="4">Computer Vision</option>
+                        <option value="5">Game Programming</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('id_kursus')" class="mt-2" />
                 </div>
         
                 <!-- Password -->

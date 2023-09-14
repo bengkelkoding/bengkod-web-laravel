@@ -30,16 +30,17 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        
         $request->validate([
-            'kode' => ['required', 'string', 'max:20'],
+            'nim' => ['required', 'string', 'max:20'],
             'name' => ['required', 'string', 'max:255'],
+            'id_kursus' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
         $user = User::create([
             'id_kursus' => $request->id_kursus,
-            'kode' => $request->kode,
+            'kode' => $request->nim,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -51,6 +52,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('mahasiswa.index');
     }
 }
