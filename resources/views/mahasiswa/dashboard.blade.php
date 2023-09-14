@@ -4,11 +4,7 @@
     <x-slot name="header">
         Bengkel Koding
     </x-slot>
-
-    <div class="py-9 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div>ini isi dashboard</div>
-    </div>
-
+    @dd($user->kursus)
     <h2>Kursus Anda:</h2>
         <ul>
             @if($user->kursus)
