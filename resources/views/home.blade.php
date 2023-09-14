@@ -12,8 +12,8 @@
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
-        <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
-        <h1 class="text-5xl">Bengkel Koding</h1>
+        <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
+        <h1 class="text-5xl max-xl:text-md">Bengkel Koding</h1>
         <p class="text-center mt-9">
             Merupakan program yang diselenggarakan oleh Program Studi <br>
             Teknik Informatika Universitas Dian Nuswantoro untuk membantu <br>
@@ -22,8 +22,8 @@
     </div>
     
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
-        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
-        <h1 class="text-5xl">Kursus di Bengkel Koding</h1>
+        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[80px]"></div>
+        <h1 class="text-5xl text-center">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
             @foreach ($kursuses as $kursus)
             <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
@@ -32,7 +32,7 @@
                     <p class="text-[25px] mt-1">{{ $kursus->judul }}</p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
                         <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                        {{ $kursus->users_count }}
+                        {{ $kursus->users_count }} mahasiswa terdaftar
                     </p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px]">
                         <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">

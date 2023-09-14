@@ -18,9 +18,9 @@ $haloo = "Some value"; // Define the haloo variable
                     $url = 'dashboard';
                 }
                 @endphp
-                <a href="{{ url($url) }}" class="ml-5 text-2xl hover:border-b-2 pb-1 px-3">Dashboard</a>
+                <a href="{{ url($url) }}" class="ml-5 text-2xl hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150 active:bg-transparent focus:bg-transparent ">Dashboard</a>
             @else
-                <x-tombol-login href="{{ route('login') }}" class="text-white duration-500 px-5 mx-4 hover:bg-cyan-500 rounded">Masuk</x-tombol-login>
+                <x-tombol-login href="{{ route('login') }}" class="">Masuk</x-tombol-login>
             @endauth
         @endif
         </div>

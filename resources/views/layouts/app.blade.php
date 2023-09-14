@@ -22,59 +22,51 @@
         data-sidebar-position="fixed" data-header-position="fixed">
             {{-- @include('layouts.navigation') --}}
 
-            <div class="body-wrapper">
+            <div class="body-wrapper relative">
                 <!--  Header Start -->
                 @if (isset($header))
-                <header class="app-header bg-[#114D91]">
+                <header class="app-header bg-[#114D91] sticky top-0">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item d-block d-xl-none">
-                        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                            <i class="ti ti-menu-2"></i>
-                        </a>
-                        </li>
-                        <li>
-                        <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">Bengkel Koding</p>
-                        </li>
-                    </ul>
-                    <ul class="ml-12 text-xl font-medium text-white">
-                        <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3">Home</a></li>
-                    </ul>
-                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-
-                            <img src="{{asset('admin/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                            <div class="message-body">
-                                <a href="{{route('profile.edit')}}" class="d-flex align-items-center gap-2 dropdown-item">
-                                <i class="ti ti-user fs-6"></i>
-                                <p class="mb-0 fs-3">My Profile</p>
-                                </a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </div>
-                            </div>
-                        </li>
+                        <ul class="navbar-nav">
+                            <li>
+                                <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">Bengkel Koding</p>
+                            </li>
                         </ul>
-                    </div>
+                        <ul class="ml-12 text-xl font-medium text-white">
+                            <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Home</a></li>
+                        </ul>
+                        <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                                <img src="{{asset('admin/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                <div class="message-body">
+                                    <a href="{{route('profile.edit')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                                    <i class="ti ti-user fs-6"></i>
+                                    <p class="mb-0 fs-3">My Profile</p>
+                                    </a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <x-dropdown-link :href="route('logout')"
+                                                onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                            {{ __('Log Out') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </div>
+                                </div>
+                            </li>
+                            </ul>
+                        </div>
                     </nav>
                 </header>
             @endif
             <!--  Header End -->
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">{{ $header }}</p>
-            </div>
+            
                 <!-- Page Content -->
                 <div class="min-h-screen">
                     {{ $slot }}
