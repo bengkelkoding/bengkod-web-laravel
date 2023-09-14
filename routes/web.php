@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 
 /*
@@ -41,9 +42,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->middleware(['verified'])->name('dashboard');
+    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('dosen.create');
     Route::post('/register-dosen', [RegisteredDosenController::class, 'store'])->name('dosen.store');
