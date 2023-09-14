@@ -20,4 +20,9 @@ class Kursus extends Model
     {
         return $this->hasMany(Section::class, 'id_kursus');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'id_kursus');
+    }
 }
