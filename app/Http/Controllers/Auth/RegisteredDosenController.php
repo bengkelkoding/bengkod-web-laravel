@@ -28,12 +28,10 @@ class RegisteredDosenController extends Controller
         $request->validate([
             'npp' => ['required', 'string', 'max:20'],
             'name' => ['required', 'string', 'max:255'],
-            'id_kursus' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         $user = User::create([
-            'id_kursus' => $request->id_kursus,
             'kode' => $request->npp,
             'name' => $request->name,
             'email' => $request->email,
@@ -42,6 +40,6 @@ class RegisteredDosenController extends Controller
 
         $user->assignRole('dosen');
 
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard');
     }
 }
