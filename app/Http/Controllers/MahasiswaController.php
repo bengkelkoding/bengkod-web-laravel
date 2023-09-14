@@ -15,9 +15,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $data = User::with('kursus')->get();
-        dd($data);
-        return view('mahasiswa.dashboard', compact('data'));
+        $user = auth()->user();
+        return view('mahasiswa.dashboard', compact('user'));
     }
 
     /**

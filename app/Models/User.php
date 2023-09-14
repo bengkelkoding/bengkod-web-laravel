@@ -47,5 +47,5 @@ class User extends Authenticatable
     public function kursus()
     {
         return $this->belongsTo(Kursus::class, 'id_kursus');
-    }
+    }    
 }
