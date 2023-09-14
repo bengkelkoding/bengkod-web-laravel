@@ -36,10 +36,6 @@
                 </div>
             </div>
         </div>
-    @else
-        <li>Anda belum mendaftar ke kursus manapun.</li>
-    @endif
-
         <div class="border-box w-[150px] h-[141px] border mt-10 mr-[390px] flex flex-col justify-center items-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
             <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
@@ -48,7 +44,7 @@
         </div>
     </div>
 
-    <div class="box-border h-auto w-[136px] p-1 border ml-[190px] mt-12 flex flex-col justify-center rounded">
+    <div class="box-border h-auto w-[136px] p-1 border ml-[190px] mt-12 mb-15 flex flex-col justify-center rounded">
         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
         <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
             @if($tugas === null || $tugas->status === 0)
@@ -67,6 +63,12 @@
             </div>
             @endisset
 
+            @if($errors->any())
+                <div class="text-red-500 mt-2 ml-1 text-sm">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
             @if($tugas === null || $tugas->status === 0)
             <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
             @else
@@ -82,6 +84,9 @@
         </form>
         @endisset
     </div>
+    @else
+        <li>Anda belum mendaftar ke kursus manapun.</li>
+    @endif
 
     <script>
         function openInputFile() {
