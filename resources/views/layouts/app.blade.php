@@ -34,10 +34,10 @@
                         </a>
                         </li>
                         <li>
-                        <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">{{ $header }}</p>
+                        <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">Bengkel Koding</p>
                         </li>
                     </ul>
-                    <ul class="ml-32 text-2xl font-medium text-white">
+                    <ul class="ml-12 text-xl font-medium text-white">
                         <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3">Home</a></li>
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
@@ -72,9 +72,11 @@
                 </header>
             @endif
             <!--  Header End -->
-
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">{{ $header }}</p>
+            </div>
                 <!-- Page Content -->
-                <div>
+                <div class="min-h-screen">
                     {{ $slot }}
                 </div>
             </div>
