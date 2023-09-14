@@ -74,7 +74,7 @@
             <!--  Header End -->
 
                 <!-- Page Content -->
-                <div class="pt-[7em]">
+                <div>
                     {{ $slot }}
                 </div>
             </div>

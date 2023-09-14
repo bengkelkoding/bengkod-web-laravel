@@ -12,7 +12,7 @@
         <div class="w-[100%] min-h-[40vh]">
             {{ $slot }}
         </div>
-        @include('layouts.footerBengkod')
+        <!-- @include('layouts.footerBengkod') -->
     </div>
 </body>
 </html>
