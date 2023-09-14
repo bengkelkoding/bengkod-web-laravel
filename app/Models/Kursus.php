@@ -12,7 +12,7 @@ class Kursus extends Model
     protected $table = 'kursus';
 
     protected $fillable = [
-        'judul', 'author', 'hari', 'jam',
+        'image', 'judul', 'author', 'hari', 'jam', 'url',
     ];
 
     // Definisikan relasi dengan tabel Section

@@ -43,4 +43,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function kursus()
+    {
+        return $this->belongsTo(Kursus::class, 'id_kursus');
+    }
 }
