@@ -1,4 +1,7 @@
-<x-universal-layout>
+<x-app-layout>
+    <x-slot name="header">
+        Bengkel Koding
+    </x-slot>
     <div class="box-content h-[210px] w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 ">
         <div class="box-content w-[441px] h-auto ml-[190px] mb-[40px]">
             <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, Arif Saputra!</h1>
@@ -21,4 +24,4 @@
             </div>
         </div>
     </div>
-</x-universal-layout>
+</x-app-layout>

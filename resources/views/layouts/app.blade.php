@@ -18,14 +18,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        <div class="page-wrapper relative" id="" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
             {{-- @include('layouts.navigation') --}}
 
             <div class="body-wrapper">
-            <!--  Header Start -->
-            @if (isset($header))
-                <header class="app-header">
+                <!--  Header Start -->
+                @if (isset($header))
+                <header class="app-header bg-[#114D91]">
                     <nav class="navbar navbar-expand-lg navbar-light">
                     <ul class="navbar-nav">
                         <li class="nav-item d-block d-xl-none">
@@ -34,8 +34,11 @@
                         </a>
                         </li>
                         <li>
-                        <p class="p-2 mr-2">{{ $header }}</p>
+                        <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">{{ $header }}</p>
                         </li>
+                    </ul>
+                    <ul class="ml-32 text-2xl font-medium text-white">
+                        <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3">Home</a></li>
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
@@ -70,11 +73,14 @@
             @endif
             <!--  Header End -->
 
-            <!-- Page Content -->
-            <div class="pt-[7em]">
-                {{ $slot }}
+                <!-- Page Content -->
+                <div class="pt-[7em]">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
+
+        @include('layouts.footerBengkod')
         <script src="{{asset('admin/libs/jquery/dist/jquery.min.js')}}"></script>
         <script src="{{asset('admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('admin/js/sidebarmenu.js')}}"></script>
