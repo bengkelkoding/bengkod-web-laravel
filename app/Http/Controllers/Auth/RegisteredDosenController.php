@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -23,17 +25,16 @@ class RegisteredDosenController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        // return $request;
         $request->validate([
-            'kode' => ['required', 'string', 'max:30'],
+            'npp' => ['required', 'string', 'max:20'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'id_kursus' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
         $user = User::create([
-            'kode' => $request->kode,
+            'id_kursus' => $request->id_kursus,
+            'kode' => $request->npp,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -41,6 +42,6 @@ class RegisteredDosenController extends Controller
 
         $user->assignRole('dosen');
 
-        return redirect()->route('dosen');
+        return redirect()->route('dashboard');
     }
 }

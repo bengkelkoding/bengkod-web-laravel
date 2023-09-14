@@ -44,8 +44,8 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
-    Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('dosen.create');
-    Route::post('/register-dosen', [RegisteredDosenController::class, 'store'])->name('dosen.store');
+    Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
+    Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
     Route::resource('admin/kursus', SampleController::class);
     // Route::get('/admin', function(){
     //     return 'ini halaman admin via role';
