@@ -1,6 +1,6 @@
 <x-universal-layout>
     <div class="w-[100%] flex justify-center items-center">
-        <div class="w-[500px] my-40">
+        <div class="md:w-[40%] my-40 ">
             <x-judul-form>{{ __('Masuk') }}</x-judul-form>
 
             <!-- Session Status -->

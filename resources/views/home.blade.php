@@ -13,17 +13,17 @@
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
         <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
-        <h1 class="text-5xl max-xl:text-md">Bengkel Koding</h1>
-        <p class="text-center mt-9">
-            Merupakan program yang diselenggarakan oleh Program Studi <br>
-            Teknik Informatika Universitas Dian Nuswantoro untuk membantu <br>
+        <h1 class="text-5xl max-md:text-[40px]">Bengkel Koding</h1>
+        <p class="text-center mt-9 max-md:w-[90vw] w-[70vw]">
+            Merupakan program yang diselenggarakan oleh Program Studi
+            Teknik Informatika Universitas Dian Nuswantoro untuk membantu
             mahasiswa memahami pembelajaran dibidang ilmu teknologi.
         </p>
     </div>
     
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
-        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[80px]"></div>
-        <h1 class="text-5xl text-center">Kursus di Bengkel Koding</h1>
+        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
+        <h1 class="text-5xl text-center max-md:text-[40px]">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
             @foreach ($kursuses as $kursus)
             <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">

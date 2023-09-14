@@ -67,12 +67,6 @@
             </div>
             @endisset
 
-            @if($errors->any())
-                <div class="text-red-500 mt-2 ml-1 text-sm">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
             @if($tugas === null || $tugas->status === 0)
             <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
             @else
