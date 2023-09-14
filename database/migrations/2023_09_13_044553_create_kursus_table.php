@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('kursus', function (Blueprint $table) {
             $table->id();
+            $table->string('image');
             $table->string('judul');
             $table->string('author');
             $table->string('hari')->nullable();
             $table->string('jam')->nullable();
+            $table->string('url');
             $table->timestamps();
         });
     }

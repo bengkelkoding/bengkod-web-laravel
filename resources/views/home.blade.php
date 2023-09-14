@@ -11,13 +11,110 @@
             <img src="http://bengkelkoding.dinus.ac.id/assets/2.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
         </div>
     </div>
-    <div class="w-[100%] my-36 flex flex-col justify-center items-center">
+    <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
+        <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
         <h1 class="text-5xl">Bengkel Koding</h1>
         <p class="text-center mt-9">
             Merupakan program yang diselenggarakan oleh Program Studi <br>
             Teknik Informatika Universitas Dian Nuswantoro untuk membantu <br>
             mahasiswa memahami pembelajaran dibidang ilmu teknologi.
         </p>
+    </div>
+    <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
+        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
+        <h1 class="text-5xl">Kursus di Bengkel Koding</h1>
+        <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
+            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
+                <div class="m-4 py-1">
+                    <img src="assets\admin\backgrounds\web-dev.png" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">Web Developer</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
+                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                        26 Mahasiswa Terdaftar
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                        Senin - Jumat
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                        09.30 - 12.00 / 12.30 - 15.00
+                    </p>
+                </div>
+            </div>
+            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
+                <div class="m-4 py-1">
+                    <img src="assets\admin\backgrounds\web-dev.png" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">Web Developer</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
+                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                        26 Mahasiswa Terdaftar
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                        Senin - Jumat
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                        09.30 - 12.00 / 12.30 - 15.00
+                    </p>
+                </div>
+            </div>
+            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
+                <div class="m-4 py-1">
+                    <img src="assets\admin\backgrounds\web-dev.png" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">Web Developer</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
+                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                        26 Mahasiswa Terdaftar
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                        Senin - Jumat
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                        09.30 - 12.00 / 12.30 - 15.00
+                    </p>
+                </div>
+            </div>
+            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
+                <div class="m-4 py-1">
+                    <img src="assets\admin\backgrounds\web-dev.png" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">Web Developer</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
+                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                        26 Mahasiswa Terdaftar
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                        Senin - Jumat
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                        09.30 - 12.00 / 12.30 - 15.00
+                    </p>
+                </div>
+            </div>
+            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
+                <div class="m-4 py-1">
+                    <img src="assets\admin\backgrounds\web-dev.png" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">Web Developer</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
+                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                        26 Mahasiswa Terdaftar
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                        Senin - Jumat
+                    </p>
+                    <p class="font-medium leading-1 text-gray-500 text-[13px]">
+                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                        09.30 - 12.00 / 12.30 - 15.00
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         let slideIndex = 0;
