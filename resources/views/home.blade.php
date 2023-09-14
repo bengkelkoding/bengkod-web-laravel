@@ -116,6 +116,17 @@
             </div>
         </div>
     </div>
+
+    {{-- contoh iterasi konten kursus --}}
+    @foreach ($kursuses as $kursus)
+        <img src="{{$user->kursus->image}}">
+        <li>{{ $user->kursus->id }}</li>
+        <li>{{ $user->kursus->judul }}</li>
+        <li>{{ $user->kursus->author }}</li>
+        <li>{{ $user->kursus->hari }}</li>
+        <li>{{ $user->kursus->jam }}</li>
+    @endforeach
+    
     <script>
         let slideIndex = 0;
 

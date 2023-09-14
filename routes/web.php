@@ -11,6 +11,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
+use App\Models\Kursus;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ use App\Http\Controllers\Auth\RegisteredDosenController;
  */
 
 Route::get('/', function () {
-    return view('home'); //welcome
+    return view('home', ['kursuses' => Kursus::all()]); //welcome
 });
 
 Route::get('/learning', function () {
