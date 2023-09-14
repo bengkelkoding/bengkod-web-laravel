@@ -72,9 +72,7 @@
                 </header>
             @endif
             <!--  Header End -->
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">{{ $header }}</p>
-            </div>
+            
                 <!-- Page Content -->
                 <div class="min-h-screen">
                     {{ $slot }}
