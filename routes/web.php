@@ -1,17 +1,18 @@
 <?php
 
+use App\Models\Kursus;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\TugasController;
 use App\Http\Controllers\KursusController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
-use App\Models\Kursus;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,8 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
     Route::get('daftar-nilai', [MahasiswaController::class, 'showDaftarNilai']);
     Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
+    Route::post('simpan-tugas', [TugasController::class, 'store'])->name('simpan-tugas');
+    Route::post('submit-tugas', [TugasController::class, 'submitTugas'])->name('submit-tugas');
 
     // Route::get('/mahasiswa', function(){
     //     return 'ini halaman mhs via role';

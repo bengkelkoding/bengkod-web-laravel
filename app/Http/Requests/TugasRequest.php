@@ -13,7 +13,7 @@ class TugasRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,7 @@ class TugasRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_mahasiswa' => 'nullable|string',
-            'id_kursus' => 'nullable|string',
-            'file_tugas' => 'nullable|string',
-            'nilai_akhir' => 'nullable|string'
+            'file_tugas' => 'required|file|mimes:pdf,doc,docx|max:4096',
         ];
     }
 }

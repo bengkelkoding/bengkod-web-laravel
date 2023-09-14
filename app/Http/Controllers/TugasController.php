@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tugas;
 use Illuminate\Http\Request;
+use App\Http\Requests\TugasRequest;
+use Illuminate\Support\Facades\Validator;
 
 class TugasController extends Controller
 {
@@ -32,9 +35,33 @@ class TugasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TugasRequest $request)
     {
-        //
+        try {
+            // Rename tugas file to be unique
+            $existing_doc = Tugas::where('id_mahasiswa', auth()->user()->id)->first();
+            // dd($existing_doc->file_tugas);
+            if (isset($existing_doc->file_tugas)) {
+                unlink(public_path('storage/tugas/' . $existing_doc->file_tugas));
+            }
+
+            $tugas = $request->file('file_tugas');
+            $tugasName = time() . '_' . $tugas->getClientOriginalName();
+            $tugas->move(public_path('storage/tugas'), $tugasName);
+            $id_mhs = auth()->user();
+            Tugas::updateOrCreate([
+                'id_mahasiswa' => $id_mhs->id,
+                'id_kursus' => $id_mhs->id_kursus,
+            ], [
+                'file_tugas' => $tugasName,
+            ]);
+
+            return redirect()->back()->with('success', 'Tugas berhasil diupload');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -80,5 +107,26 @@ class TugasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function submitTugas(Request $request)
+    {
+        try {
+            $tugas = Tugas::where('id_mahasiswa', auth()->user()->id)->firstOrFail();
+            $validator = Validator::make($request->all(), [
+                'check_value' => 'required|in:1|numeric',
+            ]);
+            $validator->validate();
+
+            $result = $tugas->update([
+                'status' => $request->check_value,
+            ]);
+
+            return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }

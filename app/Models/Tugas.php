@@ -9,10 +9,23 @@ class Tugas extends Model
 {
     use HasFactory;
 
+    protected $table = 'tugas';
+
     protected $fillable = [
         'id_mahasiswa',
         'id_kursus',
         'file_tugas',
         'nilai_akhir',
+        'status'
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(User::class, 'id_mahasiswa');
+    }
+
+    public function kursus()
+    {
+        return $this->belongsTo(Kursus::class, 'id_kursus');
+    }
 }

@@ -25,4 +25,9 @@ class Kursus extends Model
     {
         return $this->hasMany(User::class, 'id_kursus');
     }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'id_kursus');
+    }
 }

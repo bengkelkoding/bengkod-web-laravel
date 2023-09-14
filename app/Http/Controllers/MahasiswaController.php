@@ -16,7 +16,13 @@ class MahasiswaController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view('mahasiswa.dashboard', compact('user'));
+        $kursus_member = Kursus::where('id', $user->id)->with('users')->get();
+        $tugas = $user->tugas;
+        $member_count = 0;
+        foreach($kursus_member as $kursus){
+            $member_count = $kursus->users->count();
+        }
+        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas'));
     }
 
     /**

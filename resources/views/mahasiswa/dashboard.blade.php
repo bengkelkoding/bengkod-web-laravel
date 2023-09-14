@@ -50,24 +50,70 @@
 
     <div class="box-border h-auto w-[136px] p-1 border ml-[190px] mt-12 flex flex-col justify-center rounded">
         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
-        <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center">
-            <img src="assets\admin\icons\upload.png" alt="" width="58px" height="58px">
+        <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
+            @if($tugas === null || $tugas->status === 0)
+            <img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
+            @else
+            <img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px">
+            @endif
         </div>
-        <x-tombol-universal href="{{ $user->kursus->url }}" class="w-[116px] h-auto mr-5 ml-1"><span class="text-[14px]">Belajar Sekarang</span></x-tombol-universal>
+        <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
+
+            @isset($tugas)
+            <div class="text-black-500 mt-2 ml-1 text-xs">
+                <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}">{{ $tugas->file_tugas }}</a>
+            </div>
+            @endisset
+
+            @if($errors->any())
+                <div class="text-red-500 mt-2 ml-1 text-sm">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            @if($tugas === null || $tugas->status === 0)
+            <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
+            @else
+            <button class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
+            @endempty
+        </form>
+
+        @isset($tugas)
+        <form action="{{ route('submit-tugas') }}" method="POST">
+            @csrf
+            <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
+            <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+        </form>
+        @endisset
     </div>
 
-    {{-- <h2>Kursus Anda:</h2>
-        <ul>
-            @if($user->kursus)
-                <img src="{{$user->kursus->image}}">
-                <li>{{ $user->kursus->id }}</li>
-                <li>{{ $user->kursus->judul }}</li>
-                <li>{{ $user->kursus->author }}</li>
-                <li>{{ $user->kursus->hari }}</li>
-                <li>{{ $user->kursus->jam }}</li>
-                <li>{{ $user->kursus->url }}</li>
-            @else
-                <li>Anda belum mendaftar ke kursus manapun.</li>
-            @endif
-        </ul> --}}
+    <script>
+        function openInputFile() {
+            let input = document.getElementById('tugas');
+            input.click();
+        }
+
+        function uploadIcon() {
+            let input = document.getElementById('tugas');
+            let icon = document.getElementById('upload-icon');
+            let currentSaved = document.getElementById('current_saved');
+
+            if(currentSaved === null) {
+                currentSaved = document.createElement('a');
+                currentSaved.setAttribute('id', 'current_saved');
+                currentSaved.setAttribute('class', 'text-black-500 mt-2 ml-1 text-xs');
+                icon.after(currentSaved);
+            }
+
+            if (input.value !== '') {
+                currentSaved.removeAttribute('href');
+                currentSaved.innerHTML = input.files[0].name;
+            } else {
+                icon.innerHTML = '<img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">';
+                currentSaved.innerHTML = '';
+            }
+        }
+    </script>
 </x-app-layout>
