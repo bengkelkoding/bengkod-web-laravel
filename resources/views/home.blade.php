@@ -21,14 +21,6 @@
         </p>
     </div>
 
-    @php
-    $srcGambar = array('web-dev.png');
-    $judul = array('sekolah 1');
-    $jmlMhs = array('9');
-    $hari = array('Senin - Jumat');
-    $jam = array('09.00-12.00');
-    @endphp
-
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
         <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
         <h1 class="text-5xl">Kursus di Bengkel Koding</h1>

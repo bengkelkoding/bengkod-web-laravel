@@ -5,7 +5,7 @@
     <div class="box-content h-[210px] w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 ">
         <div class="box-content w-[441px] h-auto ml-[190px] mb-[40px]">
             <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, Arif Saputra!</h1>
-            <p class="text-white mt-2 text-[16px] w-[427] text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
+            <p class="text-white mt-2 text-[16px] w-[427]">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
             <p class="text-white">~ Imam Syafi’i</p>
         </div>
     </div>
