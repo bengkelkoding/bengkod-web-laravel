@@ -20,27 +20,27 @@
             mahasiswa memahami pembelajaran dibidang ilmu teknologi.
         </p>
     </div>
-
+    
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
         <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
         <h1 class="text-5xl">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
-            @foreach ($srcGambar as $i)
+            @foreach ($kursuses as $kursus)
             <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white max-w-[350px] flex flex-col justify-center">
                 <div class="m-4 py-1">
-                    <img src="assets\admin\backgrounds\{{ $i }}" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
-                    <p class="text-[25px] mt-1">{{ $i }}</p>
+                    <img src="{{ $kursus->image }}" alt="" class="w-64 h-64 rounded-md object-cover shadow-md"/>
+                    <p class="text-[25px] mt-1">{{ $kursus->judul }}</p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
                         <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                        {{ __('sdad') }}
+                        {{ rand(1,100) }} siswa terdaftar
                     </p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px]">
                         <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
-                        {{ __('sdad') }}
+                        {{ $kursus->hari }}
                     </p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px]">
                         <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
-                        {{ __('sdad') }}
+                        {{ $kursus->jam }}
                     </p>
                 </div>
             </div>
@@ -49,14 +49,13 @@
     </div>
 
     {{-- contoh iterasi konten kursus --}}
-    @foreach ($kursuses as $kursus)
-        <img src="{{$user->kursus->image}}">
-        <li>{{ $user->kursus->id }}</li>
-        <li>{{ $user->kursus->judul }}</li>
-        <li>{{ $user->kursus->author }}</li>
-        <li>{{ $user->kursus->hari }}</li>
-        <li>{{ $user->kursus->jam }}</li>
-    @endforeach
+    {{-- @foreach ($kursuses as $kursus)
+        <img src="{{$kursus->image}}">
+        <li>{{ $kursus->judul }}</li>
+        <li>{{ $kursus->author }}</li>
+        <li>{{ $kursus->hari }}</li>
+        <li>{{ $kursus->jam }}</li>
+    @endforeach --}}
     
     <script>
         let slideIndex = 0;
