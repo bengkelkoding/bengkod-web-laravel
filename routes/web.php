@@ -25,7 +25,8 @@ use App\Models\Kursus;
  */
 
 Route::get('/', function () {
-    return view('home', ['kursuses' => Kursus::all()]); //welcome
+    $kursuses = Kursus::withCount('users')->get();
+    return view('home', compact('kursuses'));
 });
 
 Route::get('/learning', function () {

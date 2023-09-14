@@ -32,7 +32,7 @@
                     <p class="text-[25px] mt-1">{{ $kursus->judul }}</p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px] mt-2">
                         <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                        {{ rand(1,100) }} siswa terdaftar
+                        {{ $kursus->users_count }}
                     </p>
                     <p class="font-medium leading-1 text-gray-500 text-[13px]">
                         <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
