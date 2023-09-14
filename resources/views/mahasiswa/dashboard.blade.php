@@ -4,7 +4,7 @@
     </x-slot>
     <div class="box-content h-[210px] w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 ">
         <div class="box-content w-[441px] h-auto ml-[190px] mb-[40px]">
-            <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, Arif Saputra!</h1>
+            <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
             <p class="text-white mt-2 text-[16px] w-[427]">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
             <p class="text-white">~ Imam Syafi’i</p>
         </div>
@@ -52,21 +52,4 @@
             </div>
         </div>
     </div>
-
-
-
-    <h2>Kursus Anda:</h2>
-        <ul>
-            @if($user->kursus)
-                <img src="{{$user->kursus->image}}">
-                <li>{{ $user->kursus->id }}</li>
-                <li>{{ $user->kursus->judul }}</li>
-                <li>{{ $user->kursus->author }}</li>
-                <li>{{ $user->kursus->hari }}</li>
-                <li>{{ $user->kursus->jam }}</li>
-                <li>{{ $user->kursus->url }}</li>
-            @else
-                <li>Anda belum mendaftar ke kursus manapun.</li>
-            @endif
-        </ul>
 </x-app-layout>

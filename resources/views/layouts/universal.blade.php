@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="overflow-x-hidden ">
-    <div class="min-h-screen w-[100vw] flex flex-col bg-gray">
+    <div class="min-h-[100vh] w-[100vw] flex flex-col bg-gray ">
         @include('layouts.navbarBengkod')
         <div class="w-[100%] min-h-[40vh]">
             {{ $slot }}
