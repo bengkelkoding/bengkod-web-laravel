@@ -25,7 +25,7 @@
             <div class="body-wrapper relative">
                 <!--  Header Start -->
                 @if (isset($header))
-                <header class="app-header bg-[#114D91] sticky top-0">
+                <header class="app-header bg-[#114D91] sticky top-0 flex justify-between w-full">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <ul class="navbar-nav">
                             <li>
