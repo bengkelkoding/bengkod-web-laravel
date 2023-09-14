@@ -21,7 +21,7 @@
         </p>
     </div>
     
-    <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
+    <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
         <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px]"></div>
         <h1 class="text-5xl">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
