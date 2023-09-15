@@ -13,28 +13,28 @@
 
     <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center">
         <div class="flex justify-between flex-wrap items-center  max-md:justify-center">
-        @if($user->kursus)
+        @if($user->course)
             <div class="box-border p-1 border mt-12 rounded">
                 <h3 class="text-black font-bold ml-2 my-2 text-[14px]">Kursus Anda</h3>
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
-                        <img src="{{ $user->kursus->image }}" alt="" width="90px" height="90px" class="rounded">
+                        <img src="{{ $user->course->image }}" alt="" width="90px" height="90px" class="rounded">
                         <div class=" h-auto pl-5">
-                            <h1 class="text-black font-bold text-[20px]">{{ $user->kursus->judul }}</h1>
+                            <h1 class="text-black font-bold text-[20px]">{{ $user->course->judul }}</h1>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
                                 10 Mahasiswa Terdaftar</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
-                                {{ $user->kursus->hari }}</p>
+                                {{ $user->course->hari }}</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
-                                {{ $user->kursus->jam }}
+                                {{ $user->course->jam }}
                             </p>
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ $user->kursus->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ $user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="box-border h-auto w-[136px] p-1 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
@@ -59,26 +59,26 @@
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
-    
+
                 @isset($tugas)
                 <div class="text-black-500 mt-4 ml-1 text-xs break-all">
                     <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}">{{ $tugas->file_tugas }}</a>
                 </div>
                 @endisset
-    
+
                 @if($errors->any())
                     <div class="text-red-500 mt-2 ml-1 text-sm">
                         {{ $errors->first() }}
                     </div>
                 @endif
-    
+
                 @if($tugas === null || $tugas->status === 0)
                 <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
                 @else
                 <button class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
                 @endempty
             </form>
-    
+
             @isset($tugas)
             <form action="{{ route('submit-tugas') }}" method="POST">
                 @csrf
