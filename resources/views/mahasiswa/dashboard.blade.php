@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ $user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{env('APP_URL_QUARTO') . $user->kursus->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,11 @@
             <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
-                    <h1 class="text-[#00C136] text-[40px] font-bold">100</h1>
+                    @forelse($tugasMahasiswa as $tugas)
+                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ $tugas->nilai_akhir }}</h1>
+                    @empty
+                        <h1 class="text-[#c10000] text-[40px] font-bold">-</h1>
+                    @endforelse
                 </div>
             </div>
         </div>
