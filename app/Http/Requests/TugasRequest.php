@@ -24,7 +24,7 @@ class TugasRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_tugas' => 'required|file|mimes:pdf,doc,docx|max:4096',
+            'file_tugas' => 'required|file|mimes:rar,zip,pdf,doc,docx|max:10000',
         ];
     }
 }
