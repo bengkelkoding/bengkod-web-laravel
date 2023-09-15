@@ -2,6 +2,7 @@
     <x-slot name="header">
         Bengkel Koding
     </x-slot>
+
     <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mt ">
         <div class="box-content h-auto mb-[40px] mx-24 max-md:mx-12">
             <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
@@ -9,6 +10,7 @@
             <p class="text-white">~ Imam Syafi’i</p>
         </div>
     </div>
+
     <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center">
         <div class="flex justify-between flex-wrap items-center  max-md:justify-center">
         @if($user->kursus)
@@ -36,6 +38,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
@@ -43,6 +46,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="box-border h-auto w-[136px] p-1 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
@@ -57,7 +61,7 @@
                 <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
     
                 @isset($tugas)
-                <div class="text-black-500 mt-2 ml-1 text-xs">
+                <div class="text-black-500 mt-4 ml-1 text-xs break-all">
                     <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}">{{ $tugas->file_tugas }}</a>
                 </div>
                 @endisset
@@ -71,7 +75,7 @@
                 @if($tugas === null || $tugas->status === 0)
                 <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
                 @else
-                <button class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
+                <button class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
                 @endempty
             </form>
     
@@ -79,7 +83,7 @@
             <form action="{{ route('submit-tugas') }}" method="POST">
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
-                <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+                <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
             </form>
             @endisset
         </div>
@@ -87,6 +91,7 @@
             <li>Anda belum mendaftar ke kursus manapun.</li>
         @endif
     </div>
+
     <script>
         function openInputFile() {
             let input = document.getElementById('tugas');
