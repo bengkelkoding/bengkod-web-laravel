@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center">
-        <div class="flex justify-between flex-wrap items-center  max-md:justify-center">
+    <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center drop-shadow-lg">
+        <div class="flex justify-between flex-wrap items-center drop-shadow-lg max-md:justify-center">
         @if($user->course)
             <div class="box-border p-1 border mt-12 rounded">
                 <h3 class="text-black font-bold ml-2 my-2 text-[14px]">Kursus Anda</h3>
@@ -51,9 +51,9 @@
             </div>
         </div>
 
-        <div class="box-border h-auto w-[136px] p-1 border my-12 mb-15 flex flex-col justify-center rounded">
+        <div class="box-border h-auto p-1 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
-            <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
+            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md" id="upload-icon">
                 @if($tugas === null || $tugas->status === 0)
                 <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
                 @else
@@ -75,19 +75,22 @@
                         {{ $errors->first() }}
                     </div>
                 @endif
-
-                @if($tugas === null || $tugas->status === 0)
-                <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
-                @else
-                <button class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
-                @endempty
+                <div class="w-100% h-auto flex justify-center items-center">
+                    @if($tugas === null || $tugas->status === 0)
+                    <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
+                    @else
+                    <button class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
+                    @endempty
+                </div>
             </form>
 
             @isset($tugas)
-            <form action="{{ route('submit-tugas') }}" method="POST">
+            <form action="{{ route('submit-tugas') }}" method="POST" >
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
-                <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+                <div class=" w-100% h-auto flex justify-center items-center mb-3">
+                    <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+                </div>
             </form>
             @endisset
         </div>
@@ -97,6 +100,30 @@
     </div>
 
     <script>
+        const dropArea = document.getElementById('upload-icon');
+        const fileContainer = document.getElementById('tugas');
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('bg-red-500');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('bg-red-500');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('bg-red-500');
+            let input = document.getElementById('tugas');
+            let currentSaved = document.getElementById('current_saved');
+
+            const files = e.dataTransfer.files;
+            console.log(files);
+        });
+
+        // 
+
         function openInputFile() {
             let input = document.getElementById('tugas');
             input.click();
