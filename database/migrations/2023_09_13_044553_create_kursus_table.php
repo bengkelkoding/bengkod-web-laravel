@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('hari')->nullable();
             $table->string('jam')->nullable();
             $table->string('url');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

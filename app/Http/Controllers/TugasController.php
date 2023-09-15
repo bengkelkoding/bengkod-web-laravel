@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Requests\TugasRequest;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 
 class TugasController extends Controller
