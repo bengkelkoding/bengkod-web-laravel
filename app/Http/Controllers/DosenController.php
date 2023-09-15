@@ -13,7 +13,7 @@ class DosenController extends Controller
      */
     public function index()
     {
-        return view('dosen.dashboard');
+        return view('lecture.dashboard');
     }
 
     /**
@@ -84,21 +84,21 @@ class DosenController extends Controller
 
     public function showDaftarDanKelolaMahasiswa()
     {
-        return view('dosen.daftarDanKelolaMahasiswa');
+        return view('lecture.daftarDanKelolaMahasiswa');
     }
 
     public function showDaftarMateri()
     {
-        return view('dosen.daftarMateri');
+        return view('lecture.daftarMateri');
     }
 
     public function showLogAktivitas()
     {
-        return view('dosen.logAktivitas');
+        return view('lecture.logAktivitas');
     }
 
     public function showKontakAsisten()
     {
-        return view('dosen.kontakAsisten');
+        return view('lecture.kontakAsisten');
     }
 }

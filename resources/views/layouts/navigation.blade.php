@@ -89,41 +89,35 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               <span class="hide-menu">Organize</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="daftar-kelola" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('lecture/student') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                    <i class="ti ti-users"></i>
                 </span>
-                <span class="hide-menu"></span>
+                <span class="hide-menu">Daftar & Kelola Mahasiswa</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="daftar-materi" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('lecture/assign') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                    <i class="ti ti-book-upload"></i>
                 </span>
-                <span class="hide-menu">Daftar Materi</span>
-              </a>
-            </li>
-          </ul>
-          <ul id="sidebarnav">
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Other</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="log-aktivitas" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Log Aktivitas</span>
+                <span class="hide-menu">Tugas Terkirim</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="kontak-asisten" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('lecture/assignincomplete') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                    <i class="ti ti-book-off"></i>
                 </span>
-                <span class="hide-menu">Kontak Asisten</span>
+                <span class="hide-menu">Tugas Belum Dinilai</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ url('lecture/assigncomplete') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-book"></i>
+                </span>
+                <span class="hide-menu">Tugas Sudah Dinilai</span>
               </a>
             </li>
           </ul>

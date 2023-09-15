@@ -13,7 +13,7 @@ $haloo = "Some value"; // Define the haloo variable
                 if($tes == 'mahasiswa'){
                     $url = 'mahasiswa';
                 }else if($tes == 'dosen'){
-                    $url = 'dosen';
+                    $url = 'lecture';
                 }else{
                     $url = 'dashboard';
                 }
@@ -24,6 +24,6 @@ $haloo = "Some value"; // Define the haloo variable
             @endauth
         @endif
         </div>
-        
+
     </div>
 </nav>

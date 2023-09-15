@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Lecture;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class StudentController extends Controller
+class AssignCompleteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-
-        $students = User::role('mahasiswa')->with('course')->get();
-        return view('admin.student.index', compact('students'));
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.kursus.create');
+        //
     }
 
     /**
@@ -49,7 +46,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        return view('admin.kursus.detail');
+        //
     }
 
     /**
@@ -60,7 +57,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.edit');
+        //
     }
 
     /**

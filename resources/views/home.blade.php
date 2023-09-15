@@ -2,13 +2,13 @@
     <!-- <img src="http://bengkelkoding.dinus.ac.id/assets/1.jpg" alt="Lobby H6" class="w-[100%] h-auto"> -->
     <div class="relative w-[100%] m-0">
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/1.jpg" class="w-[100%] h-auto" alt="Lobby H6 1">
+            <img src="http://bengkelkoding.dinus.ac.id/assets/img/1.jpg" class="w-[100%] h-auto" alt="Lobby H6 1">
         </div>
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/3.jpg" class="w-[100%] h-auto" alt="Lobby H6 2">
+            <img src="http://bengkelkoding.dinus.ac.id/assets/img/3.jpg" class="w-[100%] h-auto" alt="Lobby H6 2">
         </div>
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/2.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
+            <img src="http://bengkelkoding.dinus.ac.id/assets/img/2.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
@@ -20,7 +20,7 @@
             mahasiswa memahami pembelajaran dibidang ilmu teknologi.
         </p>
     </div>
-    
+
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
         <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
         <h1 class="text-5xl text-center max-md:text-[40px]">Kursus di Bengkel Koding</h1>
@@ -56,7 +56,7 @@
         <li>{{ $kursus->hari }}</li>
         <li>{{ $kursus->jam }}</li>
     @endforeach --}}
-    
+
     <script>
         let slideIndex = 0;
 
@@ -73,7 +73,7 @@
             setTimeout(showSlides, 5000); // Change image every 2 seconds
         }
 
-        showSlides(); 
+        showSlides();
 
     </script>
 </x-universal-layout>

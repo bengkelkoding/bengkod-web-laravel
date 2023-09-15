@@ -11,19 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
-<<<<<<< HEAD
-use App\Http\Controllers\Auth\RegisteredDosenController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-=======
-use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\Admin\AssignController;
-use App\Http\Controllers\Admin\AssignInCompleteController;
-use App\Http\Controllers\Admin\AssignCompleteController;
+use App\Http\Controllers\Lecture\StudentController;
+use App\Http\Controllers\Lecture\AssignController;
+use App\Http\Controllers\Lecture\AssignInCompleteController;
+use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 
-use App\Models\Kursus;
->>>>>>> ecc6eec (admin menu)
 
 /*
 |--------------------------------------------------------------------------
@@ -62,21 +56,22 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
     Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
-    Route::name('admin.')->prefix('admin')->group(function () {
+
+});
+// End Admin Space Routing
+
+Route::group(['middleware' => ['role:dosen']], function () {
+    Route::resource('lecture', DosenController::class);
+    Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
+    Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
+    Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
+    Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
+    Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::resource('student', StudentController::class);
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
     });
-});
-// End Admin Space Routing
-
-Route::group(['middleware' => ['role:dosen']], function () {
-    Route::resource('dosen', DosenController::class);
-    Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
-    Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
-    Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
-    Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
     // Route::get('/dosen', function(){
     //     return 'ini halaman dosen';
     // });

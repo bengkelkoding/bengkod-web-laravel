@@ -49,7 +49,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Kursus::class, 'id_kursus');
     }
-<<<<<<< HEAD
 
     public function tugas()
     {
@@ -60,6 +59,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tugas::class, 'id_mahasiswa');
     }
-=======
->>>>>>> ecc6eec (admin menu)
 }
