@@ -19,7 +19,7 @@
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
                         <img src="{{ $user->kursus->image }}" alt="" width="90px" height="90px" class="rounded">
-                        <div class="w-[170px] h-auto pl-5">
+                        <div class=" h-auto pl-5">
                             <h1 class="text-black font-bold text-[20px]">{{ $user->kursus->judul }}</h1>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
