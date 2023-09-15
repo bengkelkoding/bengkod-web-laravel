@@ -18,7 +18,7 @@
                 <h3 class="text-black font-bold ml-2 my-2 text-[14px]">Kursus Anda</h3>
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
-                        <img src="{{ $user->course->image }}" alt="" width="90px" height="90px" class="rounded">
+                        <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded">
                         <div class=" h-auto pl-5">
                             <h1 class="text-black font-bold text-[20px]">{{ $user->course->judul }}</h1>
                             <p class="text-[#828282] text-[12px]">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{env('APP_URL_QUARTO') . $user->kursus->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
