@@ -51,9 +51,9 @@
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             <div class="w-[116px] h-auto border ml-1 p-2 mb-[-20px] flex items-center justify-center" id="upload-icon">
                 @if($tugas === null || $tugas->status === 0)
-                <img src="assets\admin\icons\upload.png" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
+                <img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
                 @else
-                <img src="assets\admin\icons\upload.png" width="58px" height="58px">
+                <img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px">
                 @endif
             </div>
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
@@ -114,7 +114,7 @@
                 currentSaved.removeAttribute('href');
                 currentSaved.innerHTML = input.files[0].name;
             } else {
-                icon.innerHTML = '<img src="{{ asset('admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">';
+                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">';
                 currentSaved.innerHTML = '';
             }
         }

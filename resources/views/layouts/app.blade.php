@@ -11,8 +11,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <link rel="shortcut icon" type="image/png" href="{{asset('admin/images/logos/LogoUdinus.png')}}" />
-        <link rel="stylesheet" href="{{asset('admin/css/styles.min.css')}}" />
+        <link rel="shortcut icon" type="image/png" href="{{asset('assets/admin/images/logos/LogoUdinus.png')}}" />
+        <link rel="stylesheet" href="{{asset('assets/admin/css/styles.min.css')}}" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -42,7 +42,7 @@
                                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                                         aria-expanded="false">
 
-                                        <img src="assets\admin\images\profile\user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                                        <img src="{{asset('admin/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                                         <div class="message-body">
@@ -68,7 +68,7 @@
                 </header>
             @endif
             <!--  Header End -->
-            
+
                 <!-- Page Content -->
                 <div class="min-h-screen">
                     {{ $slot }}
@@ -77,12 +77,12 @@
         </div>
 
         @include('layouts.footerBengkod')
-        <script src="{{asset('admin/libs/jquery/dist/jquery.min.js')}}"></script>
-        <script src="{{asset('admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{asset('admin/js/sidebarmenu.js')}}"></script>
-        <script src="{{asset('admin/js/app.min.js')}}"></script>
-        <script src="{{asset('admin/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
-        <script src="{{asset('admin/libs/simplebar/dist/simplebar.js')}}"></script>
-        <script src="{{asset('admin/js/dashboard.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/jquery/dist/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assets/admin/js/sidebarmenu.js')}}"></script>
+        <script src="{{asset('assets/admin/js/app.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/simplebar/dist/simplebar.js')}}"></script>
+        <script src="{{asset('assets/admin/js/dashboard.js')}}"></script>
     </body>
 </html>
