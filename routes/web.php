@@ -17,7 +17,7 @@ use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
-
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +43,6 @@ Route::get('/activate-token', function () {
     return view('activate-token');
 })->name('activate-token');
 
-route::get('/rincian', function (){
-    return view('rincian');
-})->name('rincian');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -61,6 +57,10 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
     Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
 
+    Route::get('register', [RegisteredUserController::class, 'create'])
+                ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store']);
 });
 // End Admin Space Routing
 
