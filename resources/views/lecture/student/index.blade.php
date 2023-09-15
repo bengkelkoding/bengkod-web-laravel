@@ -63,7 +63,7 @@
                             <i class="ti ti-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url('admin/kursus/show') }}"><i class="ti ti-eye"></i> Detail</a></li>
+                                <li><a class="dropdown-item" href="{{ url('assets/admin/kursus/show') }}"><i class="ti ti-eye"></i> Detail</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="ti ti-edit"></i> Edit</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Hapus</a></li>
                             </ul>

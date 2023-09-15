@@ -66,12 +66,12 @@ Route::group(['middleware' => ['role:dosen']], function () {
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
-    Route::name('lecture.')->prefix('lecture')->group(function () {
-        Route::resource('student', StudentContr::class);
-        Route::resource('assign', AssignController::class);
-        Route::resource('assignincomplete', AssignInCompleteController::class);
-        Route::resource('assigncomplete', AssignCompleteController::class);
-    });
+    // Route::name('lecture.')->prefix('lecture')->group(function () {
+    //     Route::resource('student', StudentController::class);
+    //     Route::resource('assign', AssignController::class);
+    //     Route::resource('assignincomplete', AssignInCompleteController::class);
+    //     Route::resource('assigncomplete', AssignCompleteController::class);
+    // });
     // Route::get('/dosen', function(){
     //     return 'ini halaman dosen';
     // });
