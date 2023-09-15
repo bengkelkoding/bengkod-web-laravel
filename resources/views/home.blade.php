@@ -2,13 +2,13 @@
     <!-- <img src="http://bengkelkoding.dinus.ac.id/assets/1.jpg" alt="Lobby H6" class="w-[100%] h-auto"> -->
     <div class="relative w-[100%] m-0">
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/img/1.jpg" class="w-[100%] h-auto" alt="Lobby H6 1">
+            <img src="assets\img\h61.jpg" class="w-[100%] h-auto" alt="Lobby H6 1">
         </div>
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/img/3.jpg" class="w-[100%] h-auto" alt="Lobby H6 2">
+            <img src="assets\img\h62.jpg" class="w-[100%] h-auto" alt="Lobby H6 2">
         </div>
         <div class="hidden slide">
-            <img src="http://bengkelkoding.dinus.ac.id/assets/img/2.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
+            <img src="assets\img\h63.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
