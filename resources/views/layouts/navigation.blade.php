@@ -8,7 +8,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="{{ url('/') }}" class="text-nowrap logo-img">
-            <img src="{{asset('admin/images/logos/LogoBengkelKoding.png')}}" width="185" />
+            <img src="{{asset('assets/admin/images/logos/LogoBengkelKoding.png')}}" width="185" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -129,7 +129,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/student') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('assets/admin/student') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
@@ -137,7 +137,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/assign') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('assets/admin/assign') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-book-upload"></i>
                 </span>
@@ -145,7 +145,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/assignincomplete') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('assets/admin/assignincomplete') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-book-off"></i>
                 </span>
@@ -153,7 +153,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/assigncomplete') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('assets/admin/assigncomplete') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-book"></i>
                 </span>
