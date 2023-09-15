@@ -11,8 +11,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
+<<<<<<< HEAD
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+=======
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\AssignController;
+use App\Http\Controllers\Admin\AssignInCompleteController;
+use App\Http\Controllers\Admin\AssignCompleteController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredDosenController;
+
+use App\Models\Kursus;
+>>>>>>> ecc6eec (admin menu)
 
 /*
 |--------------------------------------------------------------------------
@@ -44,16 +55,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Admin Space Routing
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
     Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
-    Route::resource('admin/kursus', SampleController::class);
-    // Route::get('/admin', function(){
-    //     return 'ini halaman admin via role';
-    // });
+    Route::name('admin.')->prefix('admin')->group(function () {
+        Route::resource('student', StudentController::class);
+        Route::resource('assign', AssignController::class);
+        Route::resource('assignincomplete', AssignInCompleteController::class);
+        Route::resource('assigncomplete', AssignCompleteController::class);
+    });
 });
+// End Admin Space Routing
 
 Route::group(['middleware' => ['role:dosen']], function () {
     Route::resource('dosen', DosenController::class);

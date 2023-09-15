@@ -45,10 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function kursus()
+    public function course()
     {
         return $this->belongsTo(Kursus::class, 'id_kursus');
     }
+<<<<<<< HEAD
 
     public function tugas()
     {
@@ -59,4 +60,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tugas::class, 'id_mahasiswa');
     }
+=======
+>>>>>>> ecc6eec (admin menu)
 }
