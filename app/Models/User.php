@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Tugas::class, 'id_mahasiswa');
     }
+
+    public function nilaiTugas()
+    {
+        return $this->hasMany(Tugas::class, 'id_mahasiswa');
+    }
 }
