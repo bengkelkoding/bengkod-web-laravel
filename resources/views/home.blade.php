@@ -2,19 +2,19 @@
     <!-- <img src="http://bengkelkoding.dinus.ac.id/assets/1.jpg" alt="Lobby H6" class="w-[100%] h-auto"> -->
     <div class="relative w-[100%] m-0">
         <div class="hidden slide">
-            <img src="assets\img\h61.jpg" class="w-[100%] h-auto" alt="Lobby H6 1">
+            <img src="assets\img\h61.jpg" class="w-[100%] h-96" alt="Lobby H6 1">
         </div>
         <div class="hidden slide">
-            <img src="assets\img\h62.jpg" class="w-[100%] h-auto" alt="Lobby H6 2">
+            <img src="assets\img\h62.jpg" class="w-[100%] h-96" alt="Lobby H6 2">
         </div>
         <div class="hidden slide">
-            <img src="assets\img\h63.jpg" class="w-[100%] h-auto" alt="Lobby H6 3">
+            <img src="assets\img\h63.jpg" class="w-[100%] h-96" alt="Lobby H6 3">
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
         <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
         <h1 class="text-5xl max-md:text-[40px]">Bengkel Koding</h1>
-        <p class="text-center mt-9 max-md:w-[90vw] w-[70vw]">
+        <p class="text-center mt-9 max-md:w-[90vw] w-[70vw] text-[18px]">
             Merupakan program yang diselenggarakan oleh Program Studi
             Teknik Informatika Universitas Dian Nuswantoro untuk membantu
             mahasiswa memahami pembelajaran dibidang ilmu teknologi.
