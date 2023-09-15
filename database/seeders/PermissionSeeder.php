@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 
 class PermissionSeeder extends Seeder
 {
@@ -46,8 +47,9 @@ class PermissionSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'id_kursus' => '1',
             'kode' => 'MHS01',
-            'name' => 'Fadly Sofyansyah',
-            'email' => 'ian@gmail.com',
+            'name' => 'Muhammad Roynaldy',
+            'email' => 'roy@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role1);
 
@@ -55,28 +57,74 @@ class PermissionSeeder extends Seeder
             'id_kursus' => '2',
             'kode' => 'MHS02',
             'name' => 'Samuel Andrey',
-            'email' => 'sam@gmail.com',
+            'email' => 'sam@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role1);
+
+        $user = \App\Models\User::factory()->create([
+            'id_kursus' => '3',
+            'kode' => 'MHS03',
+            'name' => 'Muhammad hafizh Dzaky',
+            'email' => 'hafizh@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role1);
+
+        $user = \App\Models\User::factory()->create([
+            'id_kursus' => '4',
+            'kode' => 'MHS04',
+            'name' => 'Rajendra Nohan',
+            'email' => 'rano@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
             'kode' => 'DSN01',
             'name' => 'Arif Saputra',
-            'email' => 'arif@gmail.com',
+            'email' => 'arif@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role2);
+
+        $user = \App\Models\User::factory()->create([
+            'kode' => 'DSN02',
+            'name' => 'Sri Winarno',
+            'email' => 'sri@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role2);
+
+        $user = \App\Models\User::factory()->create([
+            'kode' => 'DSN03',
+            'name' => 'Adhitya Nugraha',
+            'email' => 'adhitya@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role2);
+
+        $user = \App\Models\User::factory()->create([
+            'kode' => 'DSN04',
+            'name' => 'Ardytha Luthfiarta',
+            'email' => 'ardytha@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
             'kode' => 'ADMN01',
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role3);
 
         $user = \App\Models\User::factory()->create([
             'kode' => 'SPRADMN',
             'name' => 'superadmin',
-            'email' => 'superadmin@gmail.com',
+            'email' => 'superadmin@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role4);
     }
