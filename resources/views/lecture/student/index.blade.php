@@ -11,7 +11,7 @@
             <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span><a href="{{route('admin.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span><a href="#" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
 
                 </div>
                 <div class="col">
@@ -22,7 +22,7 @@
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <i class="ti ti-certificate"></i>
                             </div>
-                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" required>
+                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" name="search">
                         </div>
                         <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -41,9 +41,10 @@
                     <th scope="col">No</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Email</th>
                     <th scope="col">Kursus yang di ikuti</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">File Tugas</th>
+                    <th scope="col">Nilai</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,25 +56,53 @@
                         <th scope="row">{{$num++}}</th>
                         <td>{{$student->kode}}</td>
                         <td>{{$student->name}}</td>
-                        <td>{{$student->email}}</td>
                         <td>{{$student->course->judul}}</td>
                         <td>
-                        <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url('assets/admin/kursus/show') }}"><i class="ti ti-eye"></i> Detail</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="ti ti-edit"></i> Edit</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Hapus</a></li>
-                            </ul>
-                        </div>
+                            @if(!isset($student->tugas))
+                            <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
+                            {{ __('Belum ada tugas') }}
+                            </div>
+                            @else
+                                @if ($student->tugas->status === 0)
+                                <div class="alert alert-primary py-2 px-3 mb-0" role="alert">
+                                    {{ __('Tugas belum disubmit') }}
+                                </div>
+                                @elseif ($student->tugas->status === 1)
+                                <div class="alert alert-success py-2 px-3 mb-0" role="alert">
+                                    {{ __('Tugas telah disubmit') }}
+                                </div>
+                                @endif
+                            @endif
+                        </td>
+                        <td>
+                            @isset($student->tugas)
+                            <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
+                            @else
+                            <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
+                                {{ __('Belum ada tugas') }}
+                            </div>
+                            @endisset
+                        </td>
+                        <td>
+                            @isset($student->tugas)
+                            <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
+                                @csrf
+                                @method('PATCH')
+                                <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
+                            </form>
+                            @else
+                            <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
+                                {{ __('Belum ada tugas') }}
+                            </div>
+                            @endisset
                         </td>
                     </tr>
                     @empty
                     @endforelse
                 </tbody>
                 </table>
+                {{ $students->links() }}
             </div>
           </div>
         </div>

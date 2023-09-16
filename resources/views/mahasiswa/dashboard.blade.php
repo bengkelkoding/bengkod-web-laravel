@@ -123,8 +123,6 @@
             uploadIcon()
         });
 
-        // 
-
         function openInputFile() {
             let input = document.getElementById('tugas');
             input.click();

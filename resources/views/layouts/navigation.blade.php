@@ -1,5 +1,8 @@
 @php
 $tes = Auth::user()->roles()->pluck('name')->first();
+if($tes == 'dosen') {
+    $tes = 'lecture';
+}
 $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
 @endphp
 
@@ -82,7 +85,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               </a>
             </li>
           </ul>
-          @elseif($tes == 'dosen')
+          @elseif($tes == 'lecture')
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
