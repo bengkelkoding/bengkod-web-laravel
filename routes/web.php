@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
+use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
@@ -62,7 +63,7 @@ Route::group(['middleware' => ['role:admin']], function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('contact-assistant', ContactAssistantController::class);
     });
 });
