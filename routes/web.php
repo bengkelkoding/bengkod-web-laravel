@@ -18,6 +18,7 @@ use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,17 +92,19 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::post('simpan-tugas', [TugasController::class, 'store'])->name('simpan-tugas');
     Route::post('submit-tugas', [TugasController::class, 'submitTugas'])->name('submit-tugas');
 
+    Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
+
     // Route::get('/mahasiswa', function(){
     //     return 'ini halaman mhs via role';
     // });
 });
 
 // Route for kursus / module learning in admin?
-Route::resource('kursus', KursusController::class);
+Route::resource('kursus', KursusController::class)->except('edit');
 Route::resource('section', SectionController::class);
 Route::resource('artikel', ArtikelController::class);
 
-Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
+
 
 // debuging data kursus
 Route::get('/modul', [ModulController::class, 'index']);
@@ -113,5 +116,9 @@ Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulCo
 //         return 'ini halaman ian via permission';
 //     });
 // });
+
+// import csv
+Route::get('/import', [UserImportController::class, 'showForm']);
+Route::post('/import', [UserImportController::class, 'import']);
 
 require __DIR__ . '/auth.php';

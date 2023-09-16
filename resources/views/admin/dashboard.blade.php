@@ -14,4 +14,11 @@
             </div>
         </div>
     </div>
+
+    <form action="/import" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="csv_file">
+        <button type="submit">Import CSV</button>
+    </form>
+    
 </x-admin>
