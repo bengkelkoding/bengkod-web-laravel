@@ -23,7 +23,7 @@
                             <h1 class="text-black font-bold text-[20px]">{{ $user->course->judul }}</h1>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                                10 Mahasiswa Terdaftar</p>
+                                {{ $member_count }} Mahasiswa Terdaftar</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
                                 {{ $user->course->hari }}</p>
