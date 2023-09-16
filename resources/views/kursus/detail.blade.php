@@ -4,7 +4,7 @@
         <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0  mt-3">
             <img src="{{ asset($kursus->image) }}" alt="Gambar Kursus" width="200px" height="200px" class="rounded">
             <div class=" h-auto pl-5">
-                <h1 class="text-black font-bold text-[50px]">{{ $kursus->judul }}</h1>
+                <h1 class="text-black font-bold text-[50px] max-md:text-center">{{ $kursus->judul }}</h1>
                 <p class="text-[#828282] text-[12px]">
                     <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
                     {{ $kursus->users_count }} Mahasiswa Terdaftar</p>
