@@ -62,6 +62,9 @@ Route::group(['middleware' => ['role:admin']], function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::prefix('admin')->group(function () {
+        Route::resource('contact-assistant', ContactAssistantController::class);
+    });
 });
 // End Admin Space Routing
 

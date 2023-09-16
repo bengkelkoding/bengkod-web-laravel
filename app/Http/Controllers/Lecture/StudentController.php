@@ -18,7 +18,6 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $search = $request->search ? $request->search : "";
-        // dd($search);
         $students = User::role('mahasiswa')->where('name', 'LIKE', "%{$search}%")->with('course', 'tugas')->paginate(10);
         return view('lecture.student.index', compact('students'));
     }
@@ -30,7 +29,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('lecture.kursus.create');
+        return view('lecture.student.create');
     }
 
     /**
@@ -52,7 +51,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        return view('lecture.kursus.detail');
+        return view('lecture.student.detail');
     }
 
     /**

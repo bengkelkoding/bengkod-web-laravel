@@ -11,7 +11,7 @@
             <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span><a href="#" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span><a href="{{route('lecture.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
 
                 </div>
                 <div class="col">
