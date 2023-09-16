@@ -117,4 +117,23 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.kontakAsisten');
     }
+
+    public function updateKursus(Request $request)
+    {
+        // Mendapatkan user yang terautentikasi
+        $user = auth()->user();
+
+        // Validasi data yang dikirimkan
+        $request->validate([
+            'kursus_id' => 'required|numeric', // Anda dapat menambahkan validasi sesuai kebutuhan
+        ]);
+
+        User::updateOrCreate(
+            ['id' => auth()->id()], // Kriteria pencarian, misalnya berdasarkan ID pengguna yang terautentikasi
+            ['id_kursus' => $request->kursus_id]
+        );
+
+        return redirect()->back()->with('success', 'Anda sudah terdaftar pada kursus ini.');
+    }
+
 }

@@ -1,14 +1,14 @@
 <x-universal-layout>
     <!-- <img src="http://bengkelkoding.dinus.ac.id/assets/1.jpg" alt="Lobby H6" class="w-[100%] h-auto"> -->
-    <div class="relative w-[100%] m-0">
-        <div class="hidden slide">
-            <img src="assets\img\h61.jpg" class="w-[100%] h-96" alt="Lobby H6 1">
+    <div class="relative w-[100%] overflow-hidden">
+        <div class="w-[100%] h-96 hidden slide bg-contain ">
+            <img src="assets\img\h61.jpg" class="w-full h-96 object-cover overflow-hidden" alt="Lobby H6 1">
         </div>
-        <div class="hidden slide">
-            <img src="assets\img\h62.jpg" class="w-[100%] h-96" alt="Lobby H6 2">
+        <div class="hidden slide bg-contain bg-center">
+            <img src="assets\img\h62.jpg" class="w-full h-96 object-cover" alt="Lobby H6 2">
         </div>
-        <div class="hidden slide">
-            <img src="assets\img\h63.jpg" class="w-[100%] h-96" alt="Lobby H6 3">
+        <div class="hidden slide bg-contain ">
+            <img src="assets\img\h63.jpg" class="w-full h-96 object-cover" alt="Lobby H6 3">
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
