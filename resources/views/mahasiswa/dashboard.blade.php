@@ -53,12 +53,12 @@
 
         <div class="box-border h-auto p-1 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
-            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md" id="upload-icon">
-                @if($tugas === null || $tugas->status === 0)
-                <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
-                @else
+            @if($tugas === null || $tugas->status === 0)
+            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
+            @else
+            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-not-allowed" id="upload-icon">
+            @endif
                 <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px">
-                @endif
             </div>
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -121,8 +121,6 @@
             const files = e.dataTransfer.files;
             console.log(files);
         });
-
-        // 
 
         function openInputFile() {
             let input = document.getElementById('tugas');
