@@ -63,7 +63,8 @@ Route::group(['middleware' => ['role:admin']], function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::name('admin.')->prefix('admin')->group(function () {
+        Route::get('/', [DosenController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
     });
 });
@@ -74,9 +75,9 @@ Route::group(['middleware' => ['role:dosen']], function () {
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
-    Route::prefix('lecture')->group(function () {
+    Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
-        Route::resource('student', StudentController::class)->names('lecture.student', '*');
+        Route::resource('student', StudentController::class);
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
