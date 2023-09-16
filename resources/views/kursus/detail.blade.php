@@ -21,11 +21,25 @@
                         </div>
                     </div>
                     <div>
-                        @auth
-                            <x-tombol-universal href="{{ url($kursus->url) }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                    @auth
+                        @if (!is_null(auth()->user()->id_kursus))
+                            @if (auth()->user()->id_kursus == $kursus->id)
+                                <x-tombol-universal href="{{ url($kursus->url) }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                            @else
+                                <div class="alert alert-warning">
+                                    Anda sudah terdaftar pada kursus lain.
+                                </div>
+                            @endif
                         @else
-                            <x-tombol-universal href="{{ url('login') }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Daftar Kursus</x-tombol-universal>
-                        @endauth
+                            <form action="{{ route('update.kursus') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mendaftar ke kursus ini?')">
+                                @csrf
+                                <input type="hidden" name="kursus_id" value="{{ $kursus->id }}">
+                                <button type="submit" class="btn btn-primary">Daftar Kursus</button>
+                            </form>
+                        @endif
+                    @else
+                        <x-tombol-universal href="{{ url('login') }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Daftar Kursus</x-tombol-universal>
+                    @endauth
                     </div>
                 </div>
 

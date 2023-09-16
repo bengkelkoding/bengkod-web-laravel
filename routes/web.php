@@ -101,6 +101,8 @@ Route::resource('kursus', KursusController::class);
 Route::resource('section', SectionController::class);
 Route::resource('artikel', ArtikelController::class);
 
+Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
+
 // debuging data kursus
 Route::get('/modul', [ModulController::class, 'index']);
 Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
