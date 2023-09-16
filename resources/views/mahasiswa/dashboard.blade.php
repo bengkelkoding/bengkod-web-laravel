@@ -14,9 +14,9 @@
     <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center drop-shadow-lg">
         <div class="flex justify-between flex-wrap items-center max-md:justify-center">
         @if($user->course)
-            <div class="box-border p-1 border mt-12 rounded">
-                <h3 class="text-black font-bold ml-2 my-2 text-[14px]">Kursus Anda</h3>
-                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap">
+            <div class="box-border p-1 border mt-12 rounded-md">
+                <h3 class="text-black font-bold ml-4 my-2 text-[14px]">Kursus Anda</h3>
+                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap m-3 rounded-md">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
                         <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded">
                         <div class=" h-auto pl-5">
@@ -107,16 +107,16 @@
 
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropArea.classList.add('bg-red-500');
+            dropArea.classList.add('bg-green-400');
         });
 
         dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('bg-red-500');
+            dropArea.classList.remove('bg-green-400');
         });
 
         dropArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropArea.classList.remove('bg-red-500');
+            dropArea.classList.remove('bg-green-400');
             let input = document.getElementById('tugas');
             let currentSaved = document.getElementById('current_saved');
 
