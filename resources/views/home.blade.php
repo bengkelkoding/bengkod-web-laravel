@@ -26,6 +26,7 @@
         <h1 class="text-5xl text-center max-md:text-[40px]">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-x-scroll max-md:flex-col">
             @foreach ($kursuses as $kursus)
+            <a href="/kursus/{{ $kursus->id }}">
             <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white min-w-[200px] flex flex-col justify-center">
                 <div class="m-4 py-1">
                     <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover shadow-md"/>
@@ -44,6 +45,7 @@
                     </p>
                 </div>
             </div>
+            </a>
             @endforeach
         </div>
     </div>
