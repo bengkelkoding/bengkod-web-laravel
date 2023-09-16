@@ -12,11 +12,11 @@
     </div>
 
     <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center drop-shadow-lg">
-        <div class="flex justify-between flex-wrap items-center drop-shadow-lg max-md:justify-center">
+        <div class="flex justify-between flex-wrap items-center max-md:justify-center">
         @if($user->course)
-            <div class="box-border p-1 border mt-12 rounded">
-                <h3 class="text-black font-bold ml-2 my-2 text-[14px]">Kursus Anda</h3>
-                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap">
+            <div class="box-border p-1 border mt-12 rounded-md">
+                <h3 class="text-black font-bold ml-4 my-2 text-[14px]">Kursus Anda</h3>
+                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap m-3 rounded-md">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
                         <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded">
                         <div class=" h-auto pl-5">
@@ -51,14 +51,15 @@
             </div>
         </div>
 
-        <div class="box-border h-auto p-1 border my-12 mb-15 flex flex-col justify-center rounded">
+        <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             @if($tugas === null || $tugas->status === 0)
-            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
+            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
+                <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
             @else
-            <div class="h-[20vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-not-allowed" id="upload-icon">
-            @endif
+            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
                 <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px">
+            @endif
             </div>
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -66,7 +67,7 @@
 
                 @isset($tugas)
                 <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                    <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}">{{ $tugas->file_tugas }}</a>
+                    <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}" class="">{{ $tugas->file_tugas }}</a>
                 </div>
                 @endisset
 
@@ -77,9 +78,9 @@
                 @endif
                 <div class="w-100% h-auto flex justify-center items-center">
                     @if($tugas === null || $tugas->status === 0)
-                    <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-[#114D91] mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
+                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
                     @else
-                    <button class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-4 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
+                    <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
                     @endempty
                 </div>
             </form>
@@ -89,7 +90,7 @@
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                    <button type="submit" class="w-[116px] h-auto mr-5 ml-1 bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+                    <button type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
                 </div>
             </form>
             @endisset
@@ -105,21 +106,21 @@
 
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropArea.classList.add('bg-red-500');
+            dropArea.classList.add('bg-green-400');
         });
 
         dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('bg-red-500');
+            dropArea.classList.remove('bg-green-400');
         });
 
         dropArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropArea.classList.remove('bg-red-500');
-            let input = document.getElementById('tugas');
-            let currentSaved = document.getElementById('current_saved');
+            dropArea.classList.remove('bg-green-400');
 
-            const files = e.dataTransfer.files;
-            console.log(files);
+            fileContainer.files = e.dataTransfer.files;
+            // currSaved.removeAttribute('href');
+            // currSaved.innerHTML = input.files[0].name;
+            uploadIcon()
         });
 
         function openInputFile() {
@@ -135,7 +136,7 @@
             if(currentSaved === null) {
                 currentSaved = document.createElement('a');
                 currentSaved.setAttribute('id', 'current_saved');
-                currentSaved.setAttribute('class', 'text-black-500 mt-2 ml-1 text-xs');
+                currentSaved.setAttribute('class', 'text-black-500 mt-4 ml-1 text-xs');
                 icon.after(currentSaved);
             }
 
