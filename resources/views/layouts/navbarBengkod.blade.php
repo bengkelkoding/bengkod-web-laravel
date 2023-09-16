@@ -4,7 +4,7 @@ $haloo = "Some value"; // Define the haloo variable
 
 <nav x-data="{ open: false }" class="sticky top-0 right-0 left-0 py-4 z-10 bg-[#114D91] flex items-center justify-center max-md:h-auto max-md:py-4">
     <div class="w-[90%] h-[20px] text-white flex items-center justify-between px-5 ">
-    <a href="{{ url('/') }}" class="text-xl font-medium max-md:mb-1">Bengkel Koding</a>
+        <a href="{{ url('/') }}" class="text-xl font-medium max-md:mb-1">Bengkel Koding</a>
         @if (True) <!-- nanti logicnya ganti -->
         <div>
             @auth

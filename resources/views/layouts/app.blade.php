@@ -25,14 +25,10 @@
             <div class="body-wrapper relative">
                 <!--  Header Start -->
                 @if (isset($header))
-                <header class="app-header bg-[#114D91] sticky top-0">
-                    <nav class="navbar navbar-expand-lg navbar-light flex justify-between w-full text-center max-md:flex-col">
-                        <ul class="navbar-nav">
-                            <li>
-                                <p class="ml-10 p-2 mr-5 text-4xl font-medium text-white cursor-default">Bengkel Koding</p>
-                            </li>
-                        </ul>
-                        <div class="flex justify-between items-center">
+                <header class=" bg-[#114D91] sticky top-0 flex items-center justify-center z-10">
+                    <nav class="w-[90%] px-4 flex justify-between items-center text-center max-md:flex-col">
+                        <a class="text-xl font-semibold text-white cursor-default max-md:mb-1">Bengkel Koding</a>
+                        <div class="flex justify-between items-center w-[15%]">
                             <ul class="text-xl font-medium text-white">
                                 <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Home</a></li>
                             </ul>
