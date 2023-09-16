@@ -65,17 +65,17 @@ Route::group(['middleware' => ['role:admin']], function () {
 // End Admin Space Routing
 
 Route::group(['middleware' => ['role:dosen']], function () {
-    Route::resource('lecture', DosenController::class);
     Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
-    // Route::name('lecture.')->prefix('lecture')->group(function () {
-    //     Route::resource('student', StudentController::class);
-    //     Route::resource('assign', AssignController::class);
-    //     Route::resource('assignincomplete', AssignInCompleteController::class);
-    //     Route::resource('assigncomplete', AssignCompleteController::class);
-    // });
+    Route::prefix('lecture')->group(function () {
+        Route::get('/', [DosenController::class, 'index']);
+        Route::resource('student', StudentController::class)->names('lecture.student', '*');
+        Route::resource('assign', AssignController::class);
+        Route::resource('assignincomplete', AssignInCompleteController::class);
+        Route::resource('assigncomplete', AssignCompleteController::class);
+    });
     // Route::get('/dosen', function(){
     //     return 'ini halaman dosen';
     // });
