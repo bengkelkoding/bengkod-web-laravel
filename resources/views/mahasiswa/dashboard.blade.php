@@ -11,12 +11,12 @@
         </div>
     </div>
 
-    <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center drop-shadow-lg">
-        <div class="flex justify-between flex-wrap items-center max-md:justify-center">
+    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center drop-shadow-lg">
+        <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
         @if($user->course)
             <div class="box-border p-1 border mt-12 rounded-md">
                 <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
-                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap m-3 rounded-md">
+                <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
                         <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
                         <div class="h-auto pl-5 max-md:pl-2">
