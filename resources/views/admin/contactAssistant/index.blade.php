@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard Admin') }}
@@ -11,7 +11,7 @@
             <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kursus  </span><button type="button" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</button></p>
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kontak Asisten  </span><a href="{{route('admin.contact-assistant.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
 
                 </div>
                 <div class="col">
@@ -39,39 +39,46 @@
                 <thead>
                     <tr>
                     <th scope="col">No</th>
-                    <th scope="col" style="width:15%">Thumbnail</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Hari</th>
-                    <th scope="col">Jam</th>
-                    <th scope="col">Penulis</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Nomor Telepon</th>
+                    <th scope="col">Kursus</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php $num = 1 ; @endphp
+                    @forelse($contactAssistant as $ca)
                     <tr>
-                    <th scope="row">1</th>
-                    <td><img src="https://plus.unsplash.com/premium_photo-1675063044882-522a7d281b2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2788&q=80" class="rounded mx-auto d-block" alt="..."></td>
-                    <td>Junior Web Developer</td>
-                    <td>Senin</td>
-                    <td>09:00</td>
-                    <td>Bengkel Koding</td>
+                    <th scope="row">{{ $num++ }}</th>
+                    <td>{{$ca->name}}</td>
+                    <td>{{$ca->phone_number}}</td>
+                    <td>{{$ca->course->judul}}</td>
                     <td>
                     <div class="dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="ti ti-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url('assets/admin/kursus/show') }}"><i class="ti ti-eye"></i> Detail</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="ti ti-edit"></i> Edit</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Hapus</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.contact-assistant.edit',$ca->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
+                            <form action="{{ route('admin.contact-assistant.destroy',$ca->id) }}" method="post">
+                                <li><button type="submit" class="dropdown-item"><i class="ti ti-trash"></i> Hapus</button></li>
+                                @method('delete')
+                                @csrf
+                            </form>
+
                         </ul>
                     </div>
                     </td>
                     </tr>
+                    @empty
+                    <tr>
+                    <td colspan="5">Data Kosong</td>
+                    </tr>
+                    @endforelse
                 </tbody>
                 </table>
             </div>
           </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin   >

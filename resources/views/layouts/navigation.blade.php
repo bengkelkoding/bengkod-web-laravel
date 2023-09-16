@@ -99,30 +99,6 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
                 <span class="hide-menu">Daftar & Kelola Mahasiswa</span>
               </a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('lecture/assign') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-book-upload"></i>
-                </span>
-                <span class="hide-menu">Tugas Terkirim</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('lecture/assignincomplete') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-book-off"></i>
-                </span>
-                <span class="hide-menu">Tugas Belum Dinilai</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('lecture/assigncomplete') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-book"></i>
-                </span>
-                <span class="hide-menu">Tugas Sudah Dinilai</span>
-              </a>
-            </li>
           </ul>
           @else
           <ul id="sidebarnav">
@@ -132,7 +108,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('assets/admin/student') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('admin/student') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
@@ -140,27 +116,11 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('assets/admin/assign') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('admin/contact-assistant') }}" aria-expanded="false">
                 <span>
-                    <i class="ti ti-book-upload"></i>
+                    <i class="ti ti-users"></i>
                 </span>
-                <span class="hide-menu">Tugas Terkirim</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('assets/admin/assignincomplete') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-book-off"></i>
-                </span>
-                <span class="hide-menu">Tugas Belum Dinilai</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('assets/admin/assigncomplete') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-book"></i>
-                </span>
-                <span class="hide-menu">Tugas Sudah Dinilai</span>
+                <span class="hide-menu">Kontak Asisten</span>
               </a>
             </li>
           </ul>

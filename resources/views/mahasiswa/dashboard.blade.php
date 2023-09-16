@@ -11,17 +11,17 @@
         </div>
     </div>
 
-    <div class="mx-52 max-md:mx-24 flex flex-col max-md:justify-center max-md:items-center drop-shadow-lg">
-        <div class="flex justify-between flex-wrap items-center max-md:justify-center">
+    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center drop-shadow-lg">
+        <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
         @if($user->course)
             <div class="box-border p-1 border mt-12 rounded-md">
-                <h3 class="text-black font-bold ml-4 my-2 text-[14px]">Kursus Anda</h3>
-                <div class="box-border h-auto shadow-lg flex justify-between items-center max-md:justify-center flex-wrap m-3 rounded-md">
-                    <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0">
-                        <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded">
-                        <div class=" h-auto pl-5">
-                            <h1 class="text-black font-bold text-[20px]">{{ $user->course->judul }}</h1>
-                            <p class="text-[#828282] text-[12px]">
+                <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
+                <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
+                    <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                        <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                        <div class="h-auto pl-5 max-md:pl-2">
+                            <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->judul }}</h1>
+                            <p class="text-[#828282] text-[12p2x]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
                                 {{ $member_count }} Mahasiswa Terdaftar</p>
                             <p class="text-[#828282] text-[12px]">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>

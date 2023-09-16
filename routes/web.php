@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\SampleController;
+use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
@@ -62,6 +63,10 @@ Route::group(['middleware' => ['role:admin']], function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::name('admin.')->prefix('admin')->group(function () {
+        Route::get('/', [DosenController::class, 'index']);
+        Route::resource('contact-assistant', ContactAssistantController::class);
+    });
 });
 // End Admin Space Routing
 
@@ -70,9 +75,9 @@ Route::group(['middleware' => ['role:dosen']], function () {
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
-    Route::prefix('lecture')->group(function () {
+    Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
-        Route::resource('student', StudentController::class)->names('lecture.student', '*');
+        Route::resource('student', StudentController::class);
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
