@@ -12,8 +12,8 @@
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
-        <div class="w-[400px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
-        <h1 class="text-5xl max-md:text-[40px]">Bengkel Koding</h1>
+        <div class="w-[280px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
+        <h1 class="text-4xl font-semibold max-md:text-[38px]">Bengkel Koding</h1>
         <p class="text-center mt-9 max-md:w-[90vw] w-[35vw] text-[18px]">
             Merupakan program yang diselenggarakan oleh Program Studi
             Teknik Informatika Universitas Dian Nuswantoro untuk membantu
@@ -22,24 +22,24 @@
     </div>
 
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
-        <div class="w-[600px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
-        <h1 class="text-5xl text-center max-md:text-[40px]">Kursus di Bengkel Koding</h1>
-        <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-x-scroll max-md:flex-col">
+        <div class="w-[450px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
+        <h1 class="text-4xl font-semibold text-center max-md:text-[38px]">Kursus di Bengkel Koding</h1>
+        <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-x-scroll max-md:overflow-y-scrolli scrollbar-hide">
             @foreach ($kursuses as $kursus)
             <a href="/kursus/{{ $kursus->id }}">
-            <div class="m-[15px] border-2 rounded-md drop-shadow-md bg-white min-w-[200px] flex flex-col justify-center">
+            <div class="m-[8px] border-2 rounded-md drop-shadow-md bg-white min-w-[300px] flex flex-col justify-center">
                 <div class="m-4 py-1">
                     <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover shadow-md"/>
-                    <p class="text-[17px] mt-1">{{ $kursus->judul }}</p>
-                    <p class="font-medium leading-1 text-gray-500 text-[10px] mt-2">
+                    <p class="text-[20px] font-semibold mt-1">{{ $kursus->judul }}</p>
+                    <p class="font-medium leading-1 text-gray-500 text-[14px] mt-2">
                         <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
                         {{ $kursus->users_count }} mahasiswa terdaftar
                     </p>
-                    <p class="font-medium leading-1 text-gray-500 text-[10px]">
+                    <p class="font-medium leading-1 text-gray-500 text-[14px]">
                         <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
                         {{ $kursus->hari }}
                     </p>
-                    <p class="font-medium leading-1 text-gray-500 text-[10px]">
+                    <p class="font-medium leading-1 text-gray-500 text-[14px]">
                         <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
                         {{ $kursus->jam }}
                     </p>
