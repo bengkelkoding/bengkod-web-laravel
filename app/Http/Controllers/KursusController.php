@@ -56,7 +56,7 @@ class KursusController extends Controller
      */
     public function show($id)
     {
-        $kursus = Kursus::find($id);
+        $kursus = Kursus::withCount('users')->find($id);
         return view('kursus.detail', compact('kursus'));
     }
 

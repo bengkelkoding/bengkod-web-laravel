@@ -9,7 +9,7 @@
                             <h1 class="text-black font-bold text-[20px]">{{ $kursus->judul }}</h1>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                                {{-- $member_count --}} Mahasiswa Terdaftar</p>
+                                {{ $kursus->users_count }} Mahasiswa Terdaftar</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
                                 {{ $kursus->hari }}
