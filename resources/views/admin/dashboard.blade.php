@@ -5,16 +5,9 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div> --}}
+    <div class="py-5 ">
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-[500px] h-[400px] rounded border-2 border-indigo-500/100 mt-3">
+        <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[500px] h-[400px] rounded border-2 border-indigo-500/100 mt-3">
             <h1 class="font-bold text-[28px] text-center py-3">Upload CSV</h1>
 
             <div class="h-[30vh] mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md mb-3 cursor-pointer" id="upload-icon" onclick="openInputFile()">
