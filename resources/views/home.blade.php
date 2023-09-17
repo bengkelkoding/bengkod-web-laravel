@@ -23,7 +23,7 @@
 
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
         <div class="w-[490px] h-[30px] rounded-b-xl bg-blue-500/10 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
-        <h1 class="text-4xl font-medium text-center max-md:text-[38px]">Kursus di Bengkel Koding</h1>
+        <h1 class="text-4xl font-medium text-center max-md:text-[38px]" id="kursus">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-x-scroll max-md:overflow-y-scrolli scrollbar-hide">
             @foreach ($kursuses as $kursus)
             <a href="/kursus/{{ $kursus->id }}">
