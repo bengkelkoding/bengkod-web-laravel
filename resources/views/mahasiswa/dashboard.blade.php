@@ -6,12 +6,12 @@
     <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mt ">
         <div class="box-content h-auto mb-[40px] mx-24 max-md:mx-12">
             <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
-            <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
+            <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
             <p class="text-white">~ Imam Syafi’i</p>
         </div>
     </div>
 
-    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center drop-shadow-lg">
+    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
         @if($user->course)
             <div class="box-border p-1 border mt-12 rounded-md">
