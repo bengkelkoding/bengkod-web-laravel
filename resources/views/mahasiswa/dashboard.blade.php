@@ -13,7 +13,7 @@
 
     <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
-        @if(!$user->course)
+        @if($user->course)
             <div class="box-border p-1 border mt-12 rounded-md">
                 <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
