@@ -8,9 +8,9 @@
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/admin/images/logos/LogoUdinus.png')}}" />
 </head>
 <body class="overflow-x-hidden">
-    <div class="min-h-[100vh] w-[100vw] flex flex-col relative bg-gray ">
+    <div class="min-h-[100vh] w-[100vw] flex flex-col relative bg-gray">
         @include('layouts.navbarBengkod')
-        <div class="w-[100%] min-h-screen">
+        <div class="w-[100%] min-h-screen max-lg:min-h-[90vh]">
             {{ $slot }}
         </div>
         @include('layouts.footerBengkod')

@@ -54,13 +54,16 @@
         <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             @if($tugas === null || $tugas->status === 0)
-            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
-                <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">
-            @else
-            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
-                <img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px">
-            @endif
+            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
+                <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer invert">
+                <h4>Seret File atau Klik Disini Untuk Upload File</h4>
             </div>
+            @else
+            <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
+                <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="invert">
+                <h4>Semoga Mendapatkan Hasil Terbaik!</h4>
+            </div>
+            @endif
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
@@ -77,10 +80,12 @@
                     </div>
                 @endif
                 <div class="w-100% h-auto flex justify-center items-center">
-                    @if($tugas === null || $tugas->status === 0)
-                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Simpan</span></button>
+                    @if($tugas === null && $tugas->status === 0)
+                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Upload File</span></button>
+                    @elseif($tugas === null || $tugas->status === 0)
+                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Update File</span></button>
                     @else
-                    <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">Simpan</span></button>
+                    <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">File Telah Tersimpan</span></button>
                     @endempty
                 </div>
             </form>
@@ -90,7 +95,7 @@
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                    <button type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit</span></button>
+                    <button type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
                 </div>
             </form>
             @endisset
@@ -121,8 +126,6 @@
             dropArea.classList.remove('bg-green-400');
 
             fileContainer.files = e.dataTransfer.files;
-            // currSaved.removeAttribute('href');
-            // currSaved.innerHTML = input.files[0].name;
             uploadIcon()
         });
 
