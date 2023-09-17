@@ -25,7 +25,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ $dashboard }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url($dashboard) }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
