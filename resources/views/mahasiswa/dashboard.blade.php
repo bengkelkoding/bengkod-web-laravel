@@ -3,7 +3,7 @@
         Bengkel Koding
     </x-slot>
 
-    <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mt ">
+    <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
         <div class="box-content h-auto mb-[40px] mx-24 max-md:mx-12">
             <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
             <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
@@ -13,7 +13,7 @@
 
     <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
-        @if($user->course)
+        @if(!$user->course)
             <div class="box-border p-1 border mt-12 rounded-md">
                 <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
@@ -96,9 +96,9 @@
             @endisset
         </div>
         @else
-        <div class="h-screen w-full p-4 border-4 m-3 flex justify-center items-center flex-col bg-gray-300/50">
-            <h1 class="text-black font-bold text-[40px] mb-2">Anda belum mendaftar ke kursus manapun.</h1>
-            <button class="text-black font-bold text-[20px] w-[100px] h-[30px] bg-[#114D91] rounded hover:bg-cyan-500" ><a href="{{url('/#kursus') }}" class="text-[14px] text-white">Pilih Kursus</a></button>
+        <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[600px] h-[400px] rounded border-2 bg-gray-300/50 my-5 flex justify-center items-center flex-col">
+            <h1 class="text-black font-bold text-[24px] mb-3">Anda belum mendaftar ke kursus manapun.</h1>
+            <button class="text-black font-bold text-[20px] w-[130px] h-[40px] bg-[#114D91] rounded hover:bg-cyan-500" ><a href="{{url('/#kursus') }}" class="text-[16px] text-white">Pilih Kursus</a></button>
         </div>
         @endif
     </div>
