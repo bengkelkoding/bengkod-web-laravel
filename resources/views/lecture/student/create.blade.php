@@ -1,7 +1,7 @@
 <x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Admin') }}
+            {{ __('Dashboard Dosen') }}
         </h2>
     </x-slot>
     <div class="container-fluid">

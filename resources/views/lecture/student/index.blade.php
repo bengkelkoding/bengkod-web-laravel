@@ -1,7 +1,7 @@
 <x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Admin') }}
+            {{ __('Dashboard Dosen') }}
         </h2>
     </x-slot>
 
@@ -56,7 +56,11 @@
                         <th scope="row">{{$num++}}</th>
                         <td>{{$student->kode}}</td>
                         <td>{{$student->name}}</td>
-                        <td>{{$student->course->judul}}</td>
+                        @if($student->course !== null && $student->course->judul !== null)
+                            <td>{{$student->course->judul}}</td>
+                        @else
+                            <td>-</td>
+                        @endif                  
                         <td>
                             @if(!isset($student->tugas))
                             <div class="alert alert-danger py-2 px-3 mb-0" role="alert">

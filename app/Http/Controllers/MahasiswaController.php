@@ -18,12 +18,10 @@ class MahasiswaController extends Controller
         $user = auth()->user();
         $kursus_member = Kursus::where('id', $user->id)->with('users')->get();
         $tugasMahasiswa = $user->nilaiTugas->whereNotNull('nilai_akhir');
-
         $tugas = $user->tugas;
-        $member_count = 0;
-        foreach($kursus_member as $kursus){
-            $member_count = $kursus->users->count();
-        }
+        $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
+        $member_count = $kursuses->sum('users_count');
+
         return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa'));
     }
 
