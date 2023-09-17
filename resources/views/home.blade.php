@@ -12,8 +12,8 @@
         </div>
     </div>
     <div class="w-[100%] my-36 flex flex-col justify-center items-center relative">
-        <div class="w-[280px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
-        <h1 class="text-4xl font-semibold max-md:text-[38px]">Bengkel Koding</h1>
+        <div class="w-[320px] h-[30px] rounded-b-xl bg-blue-500/10 absolute z-[-10] top-[30px] max-md:w-[100%] "></div>
+        <h1 class="text-4xl font-medium max-md:text-[38px]">Bengkel Koding</h1>
         <p class="text-center mt-9 max-md:w-[90vw] w-[35vw] text-[18px]">
             Merupakan program yang diselenggarakan oleh Program Studi
             Teknik Informatika Universitas Dian Nuswantoro untuk membantu
@@ -22,14 +22,14 @@
     </div>
 
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
-        <div class="w-[450px] h-[30px] rounded-b-xl bg-gray-300 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
-        <h1 class="text-4xl font-semibold text-center max-md:text-[38px]">Kursus di Bengkel Koding</h1>
+        <div class="w-[490px] h-[30px] rounded-b-xl bg-blue-500/10 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
+        <h1 class="text-4xl font-medium text-center max-md:text-[38px]">Kursus di Bengkel Koding</h1>
         <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-x-scroll max-md:overflow-y-scrolli scrollbar-hide">
             @foreach ($kursuses as $kursus)
             <a href="/kursus/{{ $kursus->id }}">
-            <div class="m-[8px] border-2 rounded-md drop-shadow-md bg-white min-w-[300px] flex flex-col justify-center">
+            <div class="m-[8px] border-2 rounded-md hover:drop-shadow-md bg-white min-w-[250px] flex flex-col justify-center transition ease-in-out duration-150">
                 <div class="m-4 py-1">
-                    <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover shadow-md"/>
+                    <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover"/>
                     <p class="text-[20px] font-semibold mt-1">{{ $kursus->judul }}</p>
                     <p class="font-medium leading-1 text-gray-500 text-[14px] mt-2">
                         <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
