@@ -55,7 +55,7 @@
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
             @if($tugas === null || $tugas->status === 0)
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
-                <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer invert">
+                <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
                 <h4>Seret File atau Klik Disini Untuk Upload File</h4>
             </div>
             @else
@@ -95,7 +95,7 @@
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                    <button type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
+                    <button id="summit" type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
                 </div>
             </form>
             @endisset
@@ -111,6 +111,7 @@
     <script>
         const dropArea = document.getElementById('upload-icon');
         const fileContainer = document.getElementById('tugas');
+        var buttonSubmit = document.getElementById('summit');
 
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -147,6 +148,7 @@
             }
 
             if (input.value !== '') {
+                buttonSubmit.classList.add('hidden')
                 currentSaved.removeAttribute('href');
                 currentSaved.innerHTML = input.files[0].name;
             } else {
