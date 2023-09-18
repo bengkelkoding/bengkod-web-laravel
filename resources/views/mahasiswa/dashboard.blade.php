@@ -75,18 +75,18 @@
                 @endisset
 
                 @if($errors->any())
-                    <div class="text-red-500 mt-2 ml-1 text-sm">
+                    <div class="text-red-500 mt-4 ml-1 text-sm">
                         {{ $errors->first() }}
                     </div>
                 @endif
                 <div class="w-100% h-auto flex justify-center items-center">
-                    @if($tugas === null && $tugas->status === 0)
+                    @if($tugas === null)
                     <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Upload File</span></button>
-                    @elseif($tugas === null || $tugas->status === 0)
+                    @elseif($tugas->status === 0)
                     <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Update File</span></button>
                     @else
                     <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">File Telah Tersimpan</span></button>
-                    @endempty
+                    @endif
                 </div>
             </form>
 
