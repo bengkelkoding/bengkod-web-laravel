@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" target="_blank" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
@@ -91,14 +91,17 @@
             </form>
 
             @isset($tugas)
+            <div class=" w-100% h-auto flex justify-center items-center mb-3">
+                <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
+            </div>
+            @endisset
+
             <form action="{{ route('submit-tugas') }}" method="POST" >
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
-                <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                    <button id="summit" type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
-                </div>
+                <input id="realSubmit" type="submit" class="hidden">
             </form>
-            @endisset
+
         </div>
         @else
         <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[600px] h-[400px] rounded border-2 bg-gray-300/50 my-5 flex justify-center items-center flex-col">
@@ -109,6 +112,16 @@
     </div>
 
     <script>
+        function yakin() {
+            const tombollSubmit = document.getElementById('realSubmit')
+            const yakin = window.confirm("Apakah Kamu Yakin? File Yang Telah Disubmit Tidak Bisa Dibatalkan!");
+            if (yakin) {
+                tombollSubmit.click()
+            } else {
+                console.log("gagal")
+            }
+        }
+
         const dropArea = document.getElementById('upload-icon');
         const fileContainer = document.getElementById('tugas');
         var buttonSubmit = document.getElementById('summit');
@@ -145,6 +158,9 @@
                 currentSaved.setAttribute('id', 'current_saved');
                 currentSaved.setAttribute('class', 'text-black-500 mt-4 ml-1 text-xs');
                 icon.after(currentSaved);
+                currentSaved.innerHTML = input.files[0].name;
+            } else {
+                currentSaved.innerHTML = input.files[0].name;
             }
 
             if (input.value !== '') {
@@ -152,7 +168,7 @@
                 currentSaved.removeAttribute('href');
                 currentSaved.innerHTML = input.files[0].name;
             } else {
-                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">';
+                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert"><h4>Seret File atau Klik Disini Untuk Upload File</h4>';
                 currentSaved.innerHTML = '';
             }
         }

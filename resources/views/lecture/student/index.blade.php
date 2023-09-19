@@ -83,7 +83,7 @@
                         <td>
                             @isset($student->tugas)
                             @if ($student->tugas->status === 0)
-                            <button class="btn btn-primary" disabled><i class="ti ti-download"></i> Download</button>
+                            <button class="btn btn-primary" disabled><i class="ti ti-download"></i>Force Submit</button>
                             @else
                             <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
                             @endif
