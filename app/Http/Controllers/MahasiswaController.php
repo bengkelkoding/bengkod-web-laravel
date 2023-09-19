@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kursus;
+use App\Models\ContactAssistant;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,9 @@ class MahasiswaController extends Controller
         $tugas = $user->tugas;
         $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
         $member_count = $kursuses->sum('users_count');
+        $contactAssistants = User::with('assistant')->find(auth()->user()->id)->assistant;
 
-        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa'));
+        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa','contactAssistants'));
     }
 
     /**
