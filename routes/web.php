@@ -10,13 +10,11 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\Admin\SampleController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserImportController;
@@ -66,6 +64,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
+        Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
+        Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
+
     });
 });
 // End Admin Space Routing
