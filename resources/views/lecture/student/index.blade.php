@@ -83,7 +83,7 @@
                         <td>
                             @isset($student->tugas)
                             @if ($student->tugas->status === 0)
-                            <button class="btn btn-primary" disabled><i class="ti ti-download"></i>Force Submit</button>
+                            <button class="btn btn-primary" onclick="forceSubmit()"><i class="ti ti-download"></i>Force Submit</button>
                             @else
                             <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
                             @endif
@@ -98,14 +98,14 @@
                             @if ($student->tugas->status === 0)
                             <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
                                 <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
-                                <button class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 py-2 px-3 ml-1 w-55" disabled><i class="ti ti-device-floppy"></i> Simpan</button>
+                                <button class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55" disabled><i class="ti ti-device-floppy"></i> Simpan</button>
                             </form>
                             @else
                             <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
                                 @csrf
                                 @method('PATCH')
                                 <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
                             </form>
                             @endif
                             @else
@@ -134,4 +134,22 @@
           </div>
         </div>
     </div>
+{{-- route() nya nanti dirubah --}}
+    <form action="{{ route('submit-tugas') }}" method="POST" > 
+        @csrf
+        <input id="realSubmit" type="submit" class="hidden">
+    </form>
+    
+    <script>
+        function forceSubmit() {
+            const realSubmit = document.getElementById('realSubmit')
+
+            const yakin = window.confirm("Apakah Anda Yakin? File Yang Telah Disubmit Tidak Bisa Dibatalkan!");
+            if (yakin) {
+                realSubmit.click()
+            } else {
+                console.log("gagal")
+            }
+        }
+    </script>
 </x-admin>
