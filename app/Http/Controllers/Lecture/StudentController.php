@@ -7,6 +7,8 @@ use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Requests\NilaiRequest;
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -17,8 +19,13 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         $search = $request->search ? $request->search : "";
-        $students = User::role('mahasiswa')->where('name', 'LIKE', "%{$search}%")->with('course', 'tugas')->paginate(10);
+        $students = User::role('mahasiswa')
+                        ->where('name', 'LIKE', "%{$search}%")
+                        ->where('id_kursus', $user->id_kursus)
+                        ->with('course', 'tugas')
+                        ->paginate(10);
         return view('lecture.student.index', compact('students'));
     }
 
