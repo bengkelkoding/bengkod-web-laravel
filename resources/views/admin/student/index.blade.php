@@ -11,7 +11,7 @@
             <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span></p>
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa</span><a href="{{route('admin.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
 
                 </div>
                 <div class="col">
@@ -39,6 +39,7 @@
                 <thead>
                     <tr>
                     <th scope="col">No</th>
+                    <th scope="col">ID Kursus</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
@@ -50,7 +51,8 @@
                     @endphp
                     @forelse($students as $student)
                     <tr>
-                        <th scope="row">{{$num++}}</th>
+                        <th scope="row">{{$num++}}</th> 
+                        <td>{{$student->id_kursus}}</td>
                         <td>{{$student->kode}}</td>
                         <td>{{$student->name}}</td>
                         <td>{{$student->email}}</td>

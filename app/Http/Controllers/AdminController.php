@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Kursus;
-use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class StudentController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +13,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = User::role('mahasiswa')->get();
-        return view('admin.student.index', compact('students'));
+        //
     }
 
     /**
@@ -29,7 +23,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create', ['courses' => Kursus::all()]);
+        //
     }
 
     /**
@@ -40,23 +34,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $data = [
-                'id_kursus' => $request->course,
-                'kode' => $request->nim,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make('password'),
-            ];
-            $user = User::create($data);
-            $user->assignRole('mahasiswa');
-            return response()->redirectToRoute('admin.student.index');
-
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
-        }
+        //
     }
 
     /**
@@ -102,5 +80,15 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showDataStudent()
+    {
+
+    }
+
+    public function showDataStudent()
+    {
+
     }
 }

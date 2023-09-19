@@ -67,8 +67,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
-        Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
+        // Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
+        // Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
+
+        Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
+        Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
 
     });
 });
