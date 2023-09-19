@@ -115,6 +115,16 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
                 <span class="hide-menu">Daftar & Kelola Mahasiswa</span>
               </a>
             </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ url('admin/lecture') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-users"></i>
+                </span>
+                <span class="hide-menu">Daftar & Kelola Dosen</span>
+              </a>
+            </li>
+
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ url('admin/contact-assistant') }}" aria-expanded="false">
                 <span>
