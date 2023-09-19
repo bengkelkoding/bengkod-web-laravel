@@ -2,6 +2,7 @@
 
 use App\Models\Kursus;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\TugasController;
@@ -10,16 +11,16 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\Admin\SampleController;
-use App\Http\Controllers\Admin\ContactAssistantController;
-use App\Http\Controllers\Lecture\StudentController;
-use App\Http\Controllers\Lecture\AssignController;
-use App\Http\Controllers\Lecture\AssignInCompleteController;
-use App\Http\Controllers\Lecture\AssignCompleteController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredDosenController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserImportController;
+use App\Http\Controllers\Admin\SampleController;
+use App\Http\Controllers\Lecture\AssignController;
+use App\Http\Controllers\Lecture\StudentController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\RegisteredDosenController;
+use App\Http\Controllers\Admin\ContactAssistantController;
+use App\Http\Controllers\Lecture\AssignCompleteController;
+use App\Http\Controllers\Lecture\AssignInCompleteController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,7 @@ Route::group(['middleware' => ['role:dosen']], function () {
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
+    Route::resource('logs', LogController::class);
     Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);
     Route::get('diselesaikan', [MahasiswaController::class, 'showMateriDiselesaikan']);
     Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);

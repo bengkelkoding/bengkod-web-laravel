@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tugas::class, 'id_mahasiswa');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'id_mahasiswa');
+    }
 }
