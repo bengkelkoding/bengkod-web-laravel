@@ -11,7 +11,7 @@
             <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span><a href="{{route('lecture.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa  </span></p>
 
                 </div>
                 <div class="col">
@@ -41,10 +41,11 @@
                     <th scope="col">No</th>
                     <th scope="col">NIM</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Kursus yang di ikuti</th>
+                    {{-- <th scope="col">Kursus yang di ikuti</th> --}}
                     <th scope="col">Status</th>
                     <th scope="col">File Tugas</th>
                     <th scope="col">Nilai</th>
+                    <th scope="col">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,10 +57,11 @@
                         <th scope="row">{{$num++}}</th>
                         <td>{{$student->kode}}</td>
                         <td>{{$student->name}}</td>
+                        {{-- menghapus kolom kursus yang diikuti --}}
                         @if($student->course !== null && $student->course->judul !== null)
-                            <td>{{$student->course->judul}}</td>
+                            {{-- <td>{{$student->course->judul}}</td> --}}
                         @else
-                            <td>-</td>
+                            {{-- <td>-</td> --}}
                         @endif                  
                         <td>
                             @if(!isset($student->tugas))
@@ -80,8 +82,12 @@
                         </td>
                         <td>
                             @isset($student->tugas)
-                            <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
+                            @if ($student->tugas->status === 0)
+                            <button class="btn btn-primary" disabled><i class="ti ti-download"></i> Download</button>
                             @else
+                            <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
+                            @endif
+                            @else   
                             <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
                                 {{ __('Belum ada tugas') }}
                             </div>
@@ -89,16 +95,33 @@
                         </td>
                         <td>
                             @isset($student->tugas)
+                            @if ($student->tugas->status === 0)
+                            <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
+                                <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
+                                <button class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 py-2 px-3 ml-1 w-55" disabled><i class="ti ti-device-floppy"></i> Simpan</button>
+                            </form>
+                            @else
                             <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
                                 @csrf
                                 @method('PATCH')
                                 <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
                                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
                             </form>
+                            @endif
                             @else
                             <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
                                 {{ __('Belum ada tugas') }}
                             </div>
+                            @endisset
+                        </td>
+                        {{-- menambahkan kolom keterangan --}}
+                        <td>
+                            @isset($student->tugas->nilai_akhir)
+                            <p class="text-center">
+                                {{$student->tugas->nilai_akhir}}
+                            </p>
+                            @else
+                            <p class="text-center">-</p>
                             @endisset
                         </td>
                     </tr>
