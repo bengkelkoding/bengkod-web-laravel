@@ -44,7 +44,7 @@ class LectureController extends Controller
             if (gettype($request->course) == "string") {
                 $request->course = null;
             }
-            
+
             $data = [
                 'id_kursus' => $request->course,
                 'kode' => $request->kode,
@@ -105,6 +105,13 @@ class LectureController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            User::find($id)->delete();
+            return response()->redirectToRoute('admin.lecture.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }

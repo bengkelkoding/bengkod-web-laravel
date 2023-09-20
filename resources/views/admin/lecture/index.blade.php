@@ -43,6 +43,7 @@
                     <th scope="col">NPP</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +57,14 @@
                         <td>{{$lecture->kode}}</td>
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>
+                        <td>
+                            <a href="">Edit</a>
+                            <form method="POST" action="{{ route('admin.lecture.destroy', $lecture->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     @empty
                     @endforelse

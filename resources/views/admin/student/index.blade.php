@@ -43,6 +43,7 @@
                     <th scope="col">NIM</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +57,14 @@
                         <td>{{$student->kode}}</td>
                         <td>{{$student->name}}</td>
                         <td>{{$student->email}}</td>
+                        <td>
+                            <a href="">Edit</a>
+                            <form method="POST" action="{{ route('admin.student.destroy', $student->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     @empty
                     @endforelse

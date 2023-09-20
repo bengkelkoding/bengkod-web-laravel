@@ -105,6 +105,13 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            User::find($id)->delete();
+            return response()->redirectToRoute('admin.student.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }
