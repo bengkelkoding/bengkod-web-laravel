@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 " target="blank">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
