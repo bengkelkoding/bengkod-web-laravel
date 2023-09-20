@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kursus;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LectureController extends Controller
 {
@@ -26,7 +29,7 @@ class LectureController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.lecture.create', ['courses' => Kursus::all()]);
     }
 
     /**
@@ -37,7 +40,27 @@ class LectureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if (gettype($request->course) == "string") {
+                $request->course = null;
+            }
+            
+            $data = [
+                'id_kursus' => $request->course,
+                'kode' => $request->kode,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make('password'),
+            ];
+            $user = User::create($data);
+            $user->assignRole('dosen');
+            return response()->redirectToRoute('admin.lecture.index');
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**

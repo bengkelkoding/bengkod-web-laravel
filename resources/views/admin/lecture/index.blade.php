@@ -39,6 +39,7 @@
                 <thead>
                     <tr>
                     <th scope="col">No</th>
+                    <th scope="col">ID Kursus</th>
                     <th scope="col">NPP</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
@@ -51,6 +52,7 @@
                     @forelse($lectures as $lecture)
                     <tr>
                         <th scope="row">{{$num++}}</th>
+                        <td>{{$lecture->id_kursus}}</td>
                         <td>{{$lecture->kode}}</td>
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>
