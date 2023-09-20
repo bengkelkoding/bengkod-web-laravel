@@ -30,6 +30,9 @@
                         <a class="text-xl font-semibold text-white cursor-default max-lg:mb-1">Bengkel Koding</a>
                         <div class="flex justify-between items-center ">
                             <ul class="text-xl font-medium text-white mr-5">
+                                <li><a href=" {{route('logs.index') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Logs</a></li>
+                            </ul>
+                            <ul class="text-xl font-medium text-white mr-5">
                                 <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Home</a></li>
                             </ul>
                             <div class="navbar-collapse justify-content-end px-0" id="navbarNav">

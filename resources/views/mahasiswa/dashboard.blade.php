@@ -3,17 +3,55 @@
         Bengkel Koding
     </x-slot>
 
-    <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-        <div class="box-content h-auto mb-[40px] mx-24 max-md:mx-12">
-            <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
-            <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
-            <p class="text-white">~ Imam Syafi’i</p>
+    <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
+        <div class="grid lg:grid-cols-12 gap-4 md:grid-rows">
+            <div class="box-content xl:col-span-6 md:col-span-12 h-auto mb-[40px] mx-24 max-md:mx-12">
+                <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
+                <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
+                <p class="text-white">~ Imam Syafi’i</p>
+            </div>
+            @if(!empty($contactAssistants))
+            <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12">
+            <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten Dosen</h3>
+                <div class="box-border p-2 border rounded-md">
+
+                    <div class="relative overflow-x-auto">
+                        <table class="w-full text-xs text-left">
+                            <thead class="text-xs text-gray-50">
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3">
+                                        Nama
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        No. Telp
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-gray-100">
+                                    <th scope="row" class="px-3 py-3 whitespace-nowrap ">
+                                        {{$contactAssistants->name}}
+                                    </th>
+                                    <td class="px-3 py-3">
+                                        {{$contactAssistants->phone_number}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            @endif
+
         </div>
+
+
     </div>
 
     <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
-        <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
         @if($user->course)
+        <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="box-border p-1 border mt-12 rounded-md">
                 <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
                 <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
@@ -34,7 +72,7 @@
                         </div>
                     </div>
                     <div>
-                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 " target="blank">Belajar Sekarang</x-tombol-universal>
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" target="_blank" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
                     </div>
                 </div>
             </div>
@@ -49,7 +87,9 @@
                     @endforelse
                 </div>
             </div>
+
         </div>
+
 
         <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
@@ -91,14 +131,17 @@
             </form>
 
             @isset($tugas)
+            <div class=" w-100% h-auto flex justify-center items-center mb-3">
+                <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
+            </div>
+            @endisset
+
             <form action="{{ route('submit-tugas') }}" method="POST" >
                 @csrf
                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
-                <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                    <button id="summit" type="submit" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
-                </div>
+                <input id="realSubmit" type="submit" class="hidden">
             </form>
-            @endisset
+
         </div>
         @else
         <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[600px] h-[400px] rounded border-2 bg-gray-300/50 my-5 flex justify-center items-center flex-col">
@@ -109,6 +152,16 @@
     </div>
 
     <script>
+        function yakin() {
+            const tombollSubmit = document.getElementById('realSubmit')
+            const yakin = window.confirm("Apakah Kamu Yakin? File Yang Telah Disubmit Tidak Bisa Dibatalkan!");
+            if (yakin) {
+                tombollSubmit.click()
+            } else {
+                console.log("gagal")
+            }
+        }
+
         const dropArea = document.getElementById('upload-icon');
         const fileContainer = document.getElementById('tugas');
         var buttonSubmit = document.getElementById('summit');
@@ -145,6 +198,9 @@
                 currentSaved.setAttribute('id', 'current_saved');
                 currentSaved.setAttribute('class', 'text-black-500 mt-4 ml-1 text-xs');
                 icon.after(currentSaved);
+                currentSaved.innerHTML = input.files[0].name;
+            } else {
+                currentSaved.innerHTML = input.files[0].name;
             }
 
             if (input.value !== '') {
@@ -152,7 +208,7 @@
                 currentSaved.removeAttribute('href');
                 currentSaved.innerHTML = input.files[0].name;
             } else {
-                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/upload.png') }}" width="58px" height="58px" onclick="openInputFile()" class="cursor-pointer">';
+                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert"><h4>Seret File atau Klik Disini Untuk Upload File</h4>';
                 currentSaved.innerHTML = '';
             }
         }

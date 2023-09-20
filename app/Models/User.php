@@ -55,8 +55,18 @@ class User extends Authenticatable
         return $this->hasOne(Tugas::class, 'id_mahasiswa');
     }
 
+    public function assistant()
+    {
+        return $this->hasOne(ContactAssistant::class, 'id','id_asisten');
+    }
+
     public function nilaiTugas()
     {
         return $this->hasMany(Tugas::class, 'id_mahasiswa');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'id_mahasiswa');
     }
 }

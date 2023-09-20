@@ -6,7 +6,7 @@ use App\Models\ContactAssistant;
 use App\Models\Kursus;
 use App\Http\Requests\Admin\ContactAssistant\PostRequest;
 use App\Http\Controllers\Controller;
-
+use Exception;
 
 class ContactAssistantController extends Controller
 {
