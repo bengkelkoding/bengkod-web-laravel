@@ -40,11 +40,16 @@ class LogController extends Controller
     public function create()
     {
         $data = Log::where('id_mahasiswa', auth()->user()->id);
+        $data = $data->latest()->first();
         $allow_access = false;
-        $date = Carbon::parse($data->latest()->first()->created_at->format('Y-m-d'));
         $now = Carbon::parse(now()->format('Y-m-d'));
-        if ($data->first() === null || $date->diffInDays($now) > 0) {
+        if ($data === null) {
             $allow_access = true;
+        } else {
+            $date = Carbon::parse($data->created_at->format('Y-m-d'));
+            if ($date->diffInDays($now) < 0) {
+                $allow_access = false;
+            }
         }
 
         return view('mahasiswa.log.create', compact('allow_access'));
