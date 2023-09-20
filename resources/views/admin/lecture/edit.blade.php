@@ -10,31 +10,39 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i> Back</a>
           <div class="card">
             <div class="card-body">
-            <p class="fw-semibold mb-4"><span class="card-title mr-4">Edit Kontak Asisten</span></p>
-            <form method="POST" action="{{ route('admin.contact-assistant.update', $contactAssistant->id) }}">
+            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tambah Mahasiswa</span></p>
+            <form method="POST" action="{{ route('admin.lecture.update', $lecture->id) }}">
                 @csrf
                 @method('PATCH')
+
+                <!-- NIM -->
+                <div class="mb-3">
+                    <x-input-label for="npp" :value="__('NPP')" />
+                    <x-text-input id="npp" class="block mt-1 w-full" type="text" name="kode" :value="$lecture->kode" required autofocus autocomplete="npp" />
+                    <x-input-error :messages="$errors->get('npp')" class="mt-2" />
+                </div>
+
                 <!-- Nama -->
                 <div class="mb-3">
-                    <x-input-label for="name" :value="__('Nama Asisten')" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$contactAssistant->name" required autofocus autocomplete="name" />
+                    <x-input-label for="name" :value="__('Nama Mahasiswa')" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$lecture->name" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
-                <!-- Nomor Telepon -->
+                <!-- Nama -->
                 <div class="mb-3">
-                    <x-input-label for="phone_number" :value="__('Nomor Telepon')" />
-                    <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="$contactAssistant->phone_number" required autofocus autocomplete="phone_number" />
-                    <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+                    <x-input-label for="email" :value="__('Email')" />
+                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$lecture->email" required autofocus autocomplete="email" />
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <!-- Select Option  -->
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
-                    <select class="form-select" name="course">
-                        <option>Pilih Kursus</option>
+                    <select class="form-select" name="id_kursus">
+                        <option selected disabled>{{$lecture->id_kursus}}</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}" @if($course->id==$contactAssistant->id_kursus) selected @endif>{{$course->id}} - {{$course->judul}}</option>
+                        <option value="{{$course->id}}">{{$course->id}} - {{$course->judul}}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
@@ -43,7 +51,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <x-primary-button class="ml-4">
-                        {{ __('Edit Kontak Asisten') }}
+                        {{ __('Edit Mahasiswa') }}
                     </x-primary-button>
                 </div>
             </form>

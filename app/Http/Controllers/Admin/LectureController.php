@@ -82,7 +82,10 @@ class LectureController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lecture = User::find($id);
+        $courses = Kursus::all();
+        // dd($lecture->id);
+        return view('admin.lecture.edit', compact('lecture', 'courses'));
     }
 
     /**
@@ -94,7 +97,17 @@ class LectureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            User::updateOrCreate(
+                ['id' => $id],
+                $request->all(),
+            );
+            return response()->redirectToRoute('admin.lecture.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
