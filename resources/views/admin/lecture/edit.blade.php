@@ -29,7 +29,7 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
-                <!-- Nama -->
+                <!-- Email -->
                 <div class="mb-3">
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$lecture->email" required autofocus autocomplete="email" />
