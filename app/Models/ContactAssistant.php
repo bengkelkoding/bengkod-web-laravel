@@ -9,10 +9,15 @@ class ContactAssistant extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_kursus', 'name', 'phone_number',
+        'id_kursus', 'id_mahasiswa', 'name', 'phone_number',
     ];
     public function course()
     {
         return $this->belongsTo(Kursus::class, 'id_kursus');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'id_mahasiswa');
     }
 }

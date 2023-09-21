@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
 
 
 // Admin Space Routing
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
@@ -77,7 +77,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 // End Admin Space Routing
 
-Route::group(['middleware' => ['role:dosen']], function () {
+Route::group(['middleware' => ['role:dosen', 'auth']], function () {
     Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
@@ -94,7 +94,7 @@ Route::group(['middleware' => ['role:dosen']], function () {
     // });
 });
 
-Route::group(['middleware' => ['role:mahasiswa']], function () {
+Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('logs', LogController::class);
     Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);

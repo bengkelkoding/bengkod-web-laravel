@@ -18,7 +18,7 @@ class LectureController extends Controller
      */
     public function index()
     {
-        $lectures = User::role('dosen')->get();
+        $lectures = User::role('dosen')->with('course')->get();
         return view('admin.lecture.index', compact('lectures'));
     }
 

@@ -6,6 +6,7 @@ use App\Models\ContactAssistant;
 use App\Models\Kursus;
 use App\Http\Requests\Admin\ContactAssistant\PostRequest;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Exception;
 
 class ContactAssistantController extends Controller
@@ -17,7 +18,7 @@ class ContactAssistantController extends Controller
      */
     public function index()
     {
-        $contactAssistant = ContactAssistant::with('course')->get();
+        $contactAssistant = ContactAssistant::with('course')->with('student')->get();
         return view('admin/contactAssistant/index', compact('contactAssistant'));
     }
 
@@ -28,7 +29,7 @@ class ContactAssistantController extends Controller
      */
     public function create()
     {
-        return view('admin/contactAssistant/create', ['courses' => Kursus::all()]);
+        return view('admin/contactAssistant/create', ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
     }
 
     /**
@@ -42,6 +43,7 @@ class ContactAssistantController extends Controller
         try {
             $data = [
                 'id_kursus' => $request->course,
+                'id_mahasiswa' => $request->student,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
 
@@ -75,7 +77,7 @@ class ContactAssistantController extends Controller
      */
     public function edit(ContactAssistant $contactAssistant)
     {
-        return view('admin/contactAssistant/edit', compact('contactAssistant'), ['courses' => Kursus::all()]);
+        return view('admin/contactAssistant/edit', compact('contactAssistant'), ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
     }
 
     /**
@@ -90,6 +92,7 @@ class ContactAssistantController extends Controller
         try{
             $data = [
                 'id_kursus' => $request->course,
+                'id_mahasiswa' => $request->student,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
 
