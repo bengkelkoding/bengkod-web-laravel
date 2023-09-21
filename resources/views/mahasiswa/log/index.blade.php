@@ -3,43 +3,39 @@
         Bengkel Koding
     </x-slot>
 
-    <div class="box-content flex w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-        <div class="box-content h-auto mb-[40px] mx-24 max-md:mx-12">
-            <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
-            <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah
-                menahan perihnya kebodohan.</p>
-            <p class="text-white">~ Imam Syafi’i</p>
-        </div>
-    </div>
+    <x-header />
 
-    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
+    <div class="mx-52 max-md:mx-0 max-md:block flex flex-col max-lg:justify-center max-lg:items-center  max-md:overflow-x-scroll">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="container-fluid">
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Log Kegiatan
-                                            Mahasiswa </span>
-
-                                            @if ($allow_insert == 0)
-                                            <button type="button"
-                                            class="btn btn-outline-dark rounded-pill" disabled><i class="ti ti-plus"></i>
-                                            Tidak dapat input log</button>
-                                            @else
-                                            <a href="{{route('logs.create')}}"
-                                                class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i>
-                                                Tambah Data</a>
-                                            @endif
+                            <a href="{{ url('/mahasiswa') }}" class="text-[17px] font-medium transition ease-in-out duration-150 hover:text-gray-700">< Kembali</a>
+                            <div class="flex max-md:flex-col">
+                                <div class="mb-3">
+                                    <p class="fw-semibold mb-2">
+                                        <span class="card-title mr-4">
+                                            Tabel Log Kegiatan Mahasiswa
+                                        </span>
+                                        @if ($allow_insert == 0)
+                                        <p class="btn btn-outline-dark rounded-pill">
+                                            <i class="ti ti-plus"></i>
+                                            Tidak dapat input log</p>
+                                        @else
+                                        <p>
+                                            <a href="{{route('logs.create')}}" class="btn btn-outline-dark rounded-pill">
+                                                <i class="ti ti-plus"></i>
+                                                Tambah Data
+                                            </a>
+                                        </p>
+                                        @endif
                                     </p>
-
                                 </div>
-                                <div class="col">
-
+                                <div class="mb-3">
                                     <form class="flex items-center">
                                         <label for="simple-search" class="sr-only">Search</label>
-                                        <div class="relative w-full">
+                                        <div class="relative">
                                             <div
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                 <i class="ti ti-certificate"></i>
@@ -61,51 +57,53 @@
                                     </form>
                                 </div>
                             </div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Pesan</th>
-                                        <th scope="col">Hari</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $no = 1;
-                                    @endphp
-                                    @forelse ($logs as $log)
-                                    @php
-                                    $hari = \Carbon\Carbon::parse($log->created_at)->locale('id');
-                                    $date = \Carbon\Carbon::parse($log->created_at->format('Y-m-d'));
-                                    $now = \Carbon\Carbon::parse(now()->format('Y-m-d'));
-                                    @endphp
-                                    <tr>
-                                        <th scope="row">{{ $no }}</th>
-                                        <td>{{ Str::limit($log->pesan, 15, '...') }}</td>
-                                        <td>{{$hari->settings(['formatFunction' => 'translatedFormat'])->format('l')}}</td>
-                                        <td>{{$hari->settings(['formatFunction' => 'translatedFormat'])->format('d F Y')}}</td>
-                                        <td>{{ $log->status == 0 ? 'Belum diapprove' : 'Sudah diapprove' }} </td>
-                                        <td>
-                                            @if ($date->diffInDays($now) >= 1)
-                                            <button class="btn btn-primary bg-[#5D87FF]" disabled>Tidak dapat edit</button>
-                                            @else
-                                            <a href="{{ route('logs.edit', $log->id) }}" class="btn btn-primary bg-[#5D87FF]"><i class="ti ti-edit"></i> Edit</a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @php
-                                    $no++;
-                                    @endphp
-                                    @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Data Kosong</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped min-w-[200vw]" >
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Pesan</th>
+                                            <th scope="col">Hari</th>
+                                            <th scope="col">Tanggal</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $no = 1;
+                                        @endphp
+                                        @forelse ($logs as $log)
+                                        @php
+                                        $hari = \Carbon\Carbon::parse($log->created_at)->locale('id');
+                                        $date = \Carbon\Carbon::parse($log->created_at->format('Y-m-d'));
+                                        $now = \Carbon\Carbon::parse(now()->format('Y-m-d'));
+                                        @endphp
+                                        <tr>
+                                            <th scope="row">{{ $no }}</th>
+                                            <td>{{ Str::limit($log->pesan, 15, '...') }}</td>
+                                            <td>{{$hari->settings(['formatFunction' => 'translatedFormat'])->format('l')}}</td>
+                                            <td>{{$hari->settings(['formatFunction' => 'translatedFormat'])->format('d F Y')}}</td>
+                                            <td>{{ $log->status == 0 ? 'Belum diapprove' : 'Sudah diapprove' }} </td>
+                                            <td>
+                                                @if ($date->diffInDays($now) >= 1)
+                                                <button class="btn btn-primary bg-[#5D87FF]" disabled>Tidak dapat edit</button>
+                                                @else
+                                                <a href="{{ route('logs.edit', $log->id) }}" class="btn btn-primary bg-[#5D87FF]"><i class="ti ti-edit"></i> Edit</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @php
+                                        $no++;
+                                        @endphp
+                                        @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Data Kosong</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                             {{ $logs->links() }}
                         </div>
                     </div>

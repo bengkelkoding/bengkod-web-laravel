@@ -9,13 +9,11 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-            <div class="row">
+            <div class="flex max-md:flex-col">
                 <div class="col">
                     <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kontak Asisten  </span><a href="{{route('admin.contact-assistant.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
-
                 </div>
                 <div class="col">
-
                     <form class="flex items-center">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -34,14 +32,15 @@
                 </div>
             </div>
 
-
-              <table class="table table-striped">
+            <div class="table-responsive">
+              <table class="table table-striped max-md:min-w-[250vw]">
                 <thead>
                     <tr>
                     <th scope="col">No</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Kursus</th>
+                    <th scope="col">Mahasiswa</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -53,6 +52,7 @@
                     <td>{{$ca->name}}</td>
                     <td>{{$ca->phone_number}}</td>
                     <td>{{$ca->course->judul}}</td>
+                    <td>{{$ca->student->name}}</td>
                     <td>
                     <div class="dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,18 +65,18 @@
                                 @method('delete')
                                 @csrf
                             </form>
-
                         </ul>
                     </div>
                     </td>
                     </tr>
                     @empty
                     <tr>
-                    <td colspan="5">Data Kosong</td>
+                    <td colspan="6">Data Kosong</td>
                     </tr>
                     @endforelse
                 </tbody>
                 </table>
+            </div>
             </div>
           </div>
         </div>

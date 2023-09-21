@@ -9,10 +9,9 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-            <div class="row">
+            <div class="flex max-md:flex-col">
                 <div class="col">
                     <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Dosen</span><a href="{{route('admin.lecture.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
-
                 </div>
                 <div class="col">
 
@@ -34,8 +33,8 @@
                 </div>
             </div>
 
-
-              <table class="table table-striped">
+            <div class="table-responsive">
+              <table class="table table-striped max-md:min-w-[250vw]">
                 <thead>
                     <tr>
                     <th scope="col">No</th>
@@ -53,7 +52,11 @@
                     @forelse($lectures as $lecture)
                     <tr>
                         <th scope="row">{{$num++}}</th> 
-                        <td>{{$lecture->id_kursus}}</td>
+                        <td>
+                        @isset($lecture->course->judul)
+                            {{$lecture->course->judul}}
+                        @endisset
+                        </td>
                         <td>{{$lecture->kode}}</td>
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>
@@ -70,7 +73,7 @@
                     @endforelse
                 </tbody>
                 </table>
-                
+            </div>
             </div>
           </div>
         </div>

@@ -3,53 +3,9 @@
         Bengkel Koding
     </x-slot>
 
-    <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-        <div class="grid lg:grid-cols-12 gap-4 md:grid-rows">
-            <div class="box-content xl:col-span-6 md:col-span-12 h-auto mb-[40px] mx-24 max-md:mx-12">
-                <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
-                <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
-                <p class="text-white">~ Imam Syafi’i</p>
-            </div>
-            @if(!empty($contactAssistants))
-            <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12">
-            <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten Dosen</h3>
-                <div class="box-border p-2 border rounded-md">
-
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-xs text-left">
-                            <thead class="text-xs text-gray-50">
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3">
-                                        Nama
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        No. Telp
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-gray-100">
-                                    <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                        {{$contactAssistants->name}}
-                                    </th>
-                                    <td class="px-3 py-3">
-                                        {{$contactAssistants->phone_number}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-            @endif
-
-        </div>
-
-
-    </div>
-
-    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
+    <x-header />
+    
+    <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center">
         @if($user->course)
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="box-border p-1 border mt-12 rounded-md">
@@ -90,18 +46,33 @@
 
         </div>
 
+        <div class="box-border h-auto p-3 border mt-12 flex flex-col justify-center rounded max-lg:w-full">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
+                <p class="text-[25px] font-black">Penugasan</p>
+            </div>
+            <ol class="list-decimal my-3 ml-7 text-base">
+                <li><a href="#">Ini tugas pertama</a></li>
+                <li><a href="#">Ini tugas kedua</a></li>
+                <li><a href="#">Ini tugas ketiga</a></li>
+                <li><a href="#">Ini tugas keempat</a></li>
+                <li><a href="#">Ini tugas kelima</a></li>
+            </ol>
+        </div>
 
         <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
-            <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
+            <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
             @if($tugas === null || $tugas->status === 0)
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
                 <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
-                <h4>Seret File atau Klik Disini Untuk Upload File</h4>
+                <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File</h4>
             </div>
             @else
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
                 <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="invert">
-                <h4>Semoga Mendapatkan Hasil Terbaik!</h4>
+                <h4 class="mx-5 mt-4 text-center">Semoga Mendapatkan Hasil Terbaik!</h4>
             </div>
             @endif
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
@@ -214,3 +185,10 @@
         }
     </script>
 </x-app-layout>
+
+        
+        {{-- @forelse ($asistant as $as)
+            {{$as->name}}
+        @empty
+            kosong
+        @endforelse --}}
