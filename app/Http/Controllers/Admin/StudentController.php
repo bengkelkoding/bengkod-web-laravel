@@ -41,7 +41,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         try {
-            if (gettype($request->course) == "string") {
+            if ($request->course == "Pilih Kursus") {
                 $request->course = null;
             }
 
