@@ -5,7 +5,7 @@
 
     <x-header />
     
-    <div class="mx-52 max-md:mx-24 flex flex-col max-lg:justify-center max-lg:items-center">
+    <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center">
         @if($user->course)
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="box-border p-1 border mt-12 rounded-md">

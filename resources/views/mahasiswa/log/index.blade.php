@@ -11,7 +11,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ url('/mahasiswa') }}" class="max-md:ml-6 text-[17px] font-medium px-2 transition ease-in-out duration-150 hover:text-gray-700">< Kembali</a>
+                            <a href="{{ url('/mahasiswa') }}" class="text-[17px] font-medium transition ease-in-out duration-150 hover:text-gray-700">< Kembali</a>
                             <div class="flex max-md:flex-col">
                                 <div class="mb-3">
                                     <p class="fw-semibold mb-2">
