@@ -58,7 +58,7 @@
                         <td>{{$student->name}}</td>
                         <td>{{$student->email}}</td>
                         <td>
-                            <a href="">Edit</a>
+                            <a href="{{route('admin.student.edit', $student->id)}}">Edit</a>
                             <form method="POST" action="{{ route('admin.student.destroy', $student->id) }}">
                                 @csrf
                                 @method('DELETE')

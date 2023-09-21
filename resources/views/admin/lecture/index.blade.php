@@ -52,13 +52,13 @@
                     @endphp
                     @forelse($lectures as $lecture)
                     <tr>
-                        <th scope="row">{{$num++}}</th>
+                        <th scope="row">{{$num++}}</th> 
                         <td>{{$lecture->id_kursus}}</td>
                         <td>{{$lecture->kode}}</td>
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>
                         <td>
-                            <a href="">Edit</a>
+                            <a href="{{route('admin.lecture.edit', $lecture->id)}}">Edit</a>
                             <form method="POST" action="{{ route('admin.lecture.destroy', $lecture->id) }}">
                                 @csrf
                                 @method('DELETE')
