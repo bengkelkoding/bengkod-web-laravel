@@ -33,102 +33,102 @@
                     </form>
                 </div>
             </div>
-
-
-              <table class="table table-striped">
-                <thead>
-                    <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">NIM</th>
-                    <th scope="col">Nama</th>
-                    {{-- <th scope="col">Kursus yang di ikuti</th> --}}
-                    <th scope="col">Status</th>
-                    <th scope="col">File Tugas</th>
-                    <th scope="col">Nilai</th>
-                    <th scope="col">Keterangan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                     $num = 1;
-                    @endphp
-                    @forelse($students as $student)
-                    <tr>
-                        <th scope="row">{{$num++}}</th>
-                        <td>{{$student->kode}}</td>
-                        <td>{{$student->name}}</td>
-                        {{-- menghapus kolom kursus yang diikuti --}}
-                        @if($student->course !== null && $student->course->judul !== null)
-                            {{-- <td>{{$student->course->judul}}</td> --}}
-                        @else
-                            {{-- <td>-</td> --}}
-                        @endif                  
-                        <td>
-                            @if(!isset($student->tugas))
-                            <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
-                            {{ __('Belum ada tugas') }}
-                            </div>
-                            @else
-                                @if ($student->tugas->status === 0)
-                                <div class="alert alert-primary py-2 px-3 mb-0" role="alert">
-                                    {{ __('Tugas belum disubmit') }}
-                                </div>
-                                @elseif ($student->tugas->status === 1)
-                                <div class="alert alert-success py-2 px-3 mb-0" role="alert">
-                                    {{ __('Tugas telah disubmit') }}
-                                </div>
-                                @endif
-                            @endif
-                        </td>
-                        <td>
-                            @isset($student->tugas)
-                            @if ($student->tugas->status === 0)
-                            <button class="btn btn-primary" disabled><i class="ti ti-download"></i> Download</button>
-                            @else
-                            <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
-                            @endif
-                            @else   
-                            <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
-                                {{ __('Belum ada tugas') }}
-                            </div>
-                            @endisset
-                        </td>
-                        <td>
-                            @isset($student->tugas)
-                            @if ($student->tugas->status === 0)
-                            <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
-                                <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
-                                <button class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55" disabled><i class="ti ti-device-floppy"></i> Simpan</button>
-                            </form>
-                            @else
-                            <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
-                                @csrf
-                                @method('PATCH')
-                                <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
-                            </form>
-                            @endif
-                            @else
-                            <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
-                                {{ __('Belum ada tugas') }}
-                            </div>
-                            @endisset
-                        </td>
-                        {{-- menambahkan kolom keterangan --}}
-                        <td>
-                            @isset($student->tugas->nilai_akhir)
-                            <p class="text-center">
-                                {{$student->tugas->nilai_akhir}}
-                            </p>
-                            @else
-                            <p class="text-center">-</p>
-                            @endisset
-                        </td>
-                    </tr>
-                    @empty
-                    @endforelse
-                </tbody>
-                </table>
+            <div class="table-responsive">
+                <table class="table table-striped max-md:min-w-[250vw]" >
+                        <thead>
+                            <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">NIM</th>
+                            <th scope="col">Nama</th>
+                            {{-- <th scope="col">Kursus yang di ikuti</th> --}}
+                            <th scope="col">Status</th>
+                            <th scope="col">File Tugas</th>
+                            <th scope="col">Nilai</th>
+                            <th scope="col">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                            $num = 1;
+                            @endphp
+                            @forelse($students as $student)
+                            <tr>
+                                <th scope="row">{{$num++}}</th>
+                                <td>{{$student->kode}}</td>
+                                <td>{{$student->name}}</td>
+                                {{-- menghapus kolom kursus yang diikuti --}}
+                                @if($student->course !== null && $student->course->judul !== null)
+                                    {{-- <td>{{$student->course->judul}}</td> --}}
+                                @else
+                                    {{-- <td>-</td> --}}
+                                @endif                  
+                                <td>
+                                    @if(!isset($student->tugas))
+                                    <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
+                                    {{ __('Belum ada tugas') }}
+                                    </div>
+                                    @else
+                                        @if ($student->tugas->status === 0)
+                                        <div class="alert alert-primary py-2 px-3 mb-0" role="alert">
+                                            {{ __('Tugas belum disubmit') }}
+                                        </div>
+                                        @elseif ($student->tugas->status === 1)
+                                        <div class="alert alert-success py-2 px-3 mb-0" role="alert">
+                                            {{ __('Tugas telah disubmit') }}
+                                        </div>
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    @isset($student->tugas)
+                                    @if ($student->tugas->status === 0)
+                                    <button class="btn btn-primary" disabled><i class="ti ti-download"></i> Download</button>
+                                    @else
+                                    <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
+                                    @endif
+                                    @else   
+                                    <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
+                                        {{ __('Belum ada tugas') }}
+                                    </div>
+                                    @endisset
+                                </td>
+                                <td>
+                                    @isset($student->tugas)
+                                    @if ($student->tugas->status === 0)
+                                    <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
+                                        <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
+                                        <button class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55" disabled><i class="ti ti-device-floppy"></i> Simpan</button>
+                                    </form>
+                                    @else
+                                    <form action="{{ route('lecture.student.update', $student->tugas->id) }}" method="POST" class="flex">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="number" name="nilai" id="nilai" class="form-control rounded-md w-20 py-2 px-3 h-9" value="{{ (int) $student->tugas->nilai_akhir }}">
+                                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i class="ti ti-device-floppy"></i> Simpan</button>
+                                    </form>
+                                    @endif
+                                    @else
+                                    <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
+                                        {{ __('Belum ada tugas') }}
+                                    </div>
+                                    @endisset
+                                </td>
+                                {{-- menambahkan kolom keterangan --}}
+                                <td>
+                                    @isset($student->tugas->nilai_akhir)
+                                    <p class="text-center">
+                                        {{$student->tugas->nilai_akhir}}
+                                    </p>
+                                    @else
+                                    <p class="text-center">-</p>
+                                    @endisset
+                                </td>
+                            </tr>
+                            @empty
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
                 {{ $students->links() }}
             </div>
           </div>

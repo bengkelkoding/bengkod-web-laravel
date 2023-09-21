@@ -26,8 +26,8 @@
                 <!--  Header Start -->
                 @if (isset($header))
                 <header class=" bg-[#114D91] sticky top-0 flex items-center justify-center z-10">
-                    <nav class="w-[90%] max-md:w-[100%] px-4 flex justify-between items-center text-center">
-                        <a class="text-xl font-semibold text-white cursor-default max-lg:mb-1">Bengkel Koding</a>
+                    <nav class="w-[90%] max-md:w-[100%] px-4 flex max-md:flex-col justify-between items-center text-center">
+                        <p class="text-xl max-md:text-2xl font-semibold text-white cursor-default max-lg:mb-1">Bengkel Koding</p>
                         <div class="flex justify-between items-center ">
                             <ul class="text-xl font-medium text-white mr-5">
                                 <li><a href=" {{route('logs.index') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Logs</a></li>
