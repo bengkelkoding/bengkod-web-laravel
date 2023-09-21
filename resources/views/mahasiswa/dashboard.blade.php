@@ -185,3 +185,10 @@
         }
     </script>
 </x-app-layout>
+
+        
+        {{-- @forelse ($asistant as $as)
+            {{$as->name}}
+        @empty
+            kosong
+        @endforelse --}}
