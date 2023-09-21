@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <a href="{{ url('/mahasiswa') }}" class="max-md:ml-2 text-xl font-medium px-2 transition ease-in-out duration-150 text-black hover:border-b-2 hover:border-b-gray-500">< Kembali</a>
+            <a href="{{ url()->previous() }}" class="max-md:ml-2 text-xl font-medium px-2 transition ease-in-out duration-150 text-black hover:border-b-2 hover:border-b-gray-500">< Kembali</a>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-profile-information-form')

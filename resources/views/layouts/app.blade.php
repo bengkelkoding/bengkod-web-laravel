@@ -26,7 +26,7 @@
                 <!--  Header Start -->
                 @if (isset($header))
                 <header class=" bg-[#114D91] sticky top-0 flex items-center justify-center z-10">
-                    <nav class="w-[90%] px-4 flex justify-between items-center text-center">
+                    <nav class="w-[90%] max-md:w-[100%] px-4 flex justify-between items-center text-center">
                         <a class="text-xl font-semibold text-white cursor-default max-lg:mb-1">Bengkel Koding</a>
                         <div class="flex justify-between items-center ">
                             <ul class="text-xl font-medium text-white mr-5">
@@ -65,8 +65,8 @@
                         </div>
                     </nav>
                 </header>
-            @endif
-            <!--  Header End -->
+                @endif
+                <!--  Header End -->
 
                 <!-- Page Content -->
                 <div class="min-h-screen">
