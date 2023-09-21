@@ -63,7 +63,6 @@
                                 @method('delete')
                                 @csrf
                             </form>
-
                         </ul>
                     </div>
                     </td>
