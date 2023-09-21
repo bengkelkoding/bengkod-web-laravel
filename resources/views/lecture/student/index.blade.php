@@ -62,7 +62,7 @@
                             {{-- <td>{{$student->course->judul}}</td> --}}
                         @else
                             {{-- <td>-</td> --}}
-                        @endif                  
+                        @endif
                         <td>
                             @if(!isset($student->tugas))
                             <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
@@ -87,7 +87,7 @@
                             @else
                             <a class="btn btn-primary" href="{{ url('storage/tugas/' . $student->tugas->file_tugas) }}"><i class="ti ti-download"></i> Download</a></li>
                             @endif
-                            @else   
+                            @else
                             <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
                                 {{ __('Belum ada tugas') }}
                             </div>
@@ -135,11 +135,11 @@
         </div>
     </div>
 {{-- route() nya nanti dirubah --}}
-    <form action="{{ route('submit-tugas') }}" method="POST" > 
+    <form action="{{ route('submit-tugas') }}" method="POST" >
         @csrf
         <input id="realSubmit" type="submit" class="hidden">
     </form>
-    
+
     <script>
         function forceSubmit() {
             const realSubmit = document.getElementById('realSubmit')

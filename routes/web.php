@@ -11,6 +11,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\Admin\SampleController;
 use App\Http\Controllers\Lecture\AssignController;
@@ -88,6 +89,7 @@ Route::group(['middleware' => ['role:dosen']], function () {
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
+        Route::resource('assignment', AssignmentController::class);
     });
     // Route::get('/dosen', function(){
     //     return 'ini halaman dosen';

@@ -7,7 +7,9 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        "./node_modules/tw-elements/dist/js/**/*.js",
     ],
+    darkMode: '',
 
     theme: {
         extend: {
@@ -17,5 +19,5 @@ export default {
         },
     },
 
-    plugins: [forms,require('tailwind-scrollbar-hide')],
+    plugins: [forms,require('tailwind-scrollbar-hide'),require("tw-elements/dist/plugin.cjs")],
 };
