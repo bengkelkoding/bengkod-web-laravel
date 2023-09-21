@@ -51,7 +51,11 @@
                             @forelse($students as $student)
                             <tr>
                                 <th scope="row">{{$num++}}</th> 
-                                <td>{{$student->id_kursus}}</td>
+                                <td>
+                                @isset($student->course->judul)
+                                    {{$student->course->judul}}
+                                @endisset
+                                </td>
                                 <td>{{$student->kode}}</td>
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->email}}</td>

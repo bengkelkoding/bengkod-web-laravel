@@ -40,6 +40,7 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Kursus</th>
+                    <th scope="col">Mahasiswa</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -51,6 +52,7 @@
                     <td>{{$ca->name}}</td>
                     <td>{{$ca->phone_number}}</td>
                     <td>{{$ca->course->judul}}</td>
+                    <td>{{$ca->student->name}}</td>
                     <td>
                     <div class="dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +71,7 @@
                     </tr>
                     @empty
                     <tr>
-                    <td colspan="5">Data Kosong</td>
+                    <td colspan="6">Data Kosong</td>
                     </tr>
                     @endforelse
                 </tbody>

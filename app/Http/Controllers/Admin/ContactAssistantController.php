@@ -41,6 +41,7 @@ class ContactAssistantController extends Controller
     public function store(PostRequest $request)
     {
         try {
+
             $data = [
                 'id_kursus' => $request->course,
                 'id_mahasiswa' => $request->student,

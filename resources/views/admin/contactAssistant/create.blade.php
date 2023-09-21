@@ -42,7 +42,7 @@
                 <!-- Select Option Student -->
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Mahasiswa')" />
-                    <select class="form-select" name="course">
+                    <select class="form-select" name="student">
                         <option selected>Pilih Mahasiswa</option>
                         @foreach($students as $student)
                         <option value="{{$student->id}}">{{$student->name}}</option>

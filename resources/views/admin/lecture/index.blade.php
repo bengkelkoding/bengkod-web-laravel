@@ -52,7 +52,11 @@
                     @forelse($lectures as $lecture)
                     <tr>
                         <th scope="row">{{$num++}}</th> 
-                        <td>{{$lecture->id_kursus}}</td>
+                        <td>
+                        @isset($lecture->course->judul)
+                            {{$lecture->course->judul}}
+                        @endisset
+                        </td>
                         <td>{{$lecture->kode}}</td>
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>

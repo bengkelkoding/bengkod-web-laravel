@@ -34,7 +34,7 @@
                     <select class="form-select" name="course">
                         <option>Pilih Kursus</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}" @if($course->id==$contactAssistant->id_kursus) selected @endif>{{$course->id}} - {{$course->judul}}</option>
+                        <option value="{{$course->id}}" @if($course->id==$contactAssistant->id_kursus) selected @endif>{{$course->judul}}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
@@ -44,7 +44,7 @@
                 <div class="mb-3">
                     <x-input-label for="student" :value="__('Nama Mahasiswa')" />
                     <select class="form-select" name="student">
-                        <option disabled>Pilih Mahasiswa</option>
+                        <option>Pilih Mahasiswa</option>
                         @foreach($students as $student)
                         <option value="{{$student->id}}" @if($student->id==$contactAssistant->id_mahasiswa) selected @endif>{{$student->name}}</option>
                         @endforeach
