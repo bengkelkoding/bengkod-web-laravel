@@ -35,41 +35,58 @@
                     </tr>
                 </table>
             </div>
-            <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
-
-                @isset($tugas)
-                <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                    <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}" class="">{{ $tugas->file_tugas }}</a>
+            <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
+                <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
+                @if($tugas === null || $tugas->status === 0)
+                <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
+                    <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
+                    <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File</h4>
                 </div>
-                @endisset
-
-                @if($errors->any())
-                    <div class="text-red-500 mt-4 ml-1 text-sm">
-                        {{ $errors->first() }}
-                    </div>
+                @else
+                <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
+                    <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="invert">
+                    <h4 class="mx-5 mt-4 text-center">Semoga Mendapatkan Hasil Terbaik!</h4>
+                </div>
                 @endif
-                <div class="w-100% h-auto flex justify-center items-center">
-                    @if($tugas === null)
-                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Upload File</span></button>
-                    @elseif($tugas->status === 0)
-                    <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Update File</span></button>
-                    @else
-                    <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">File Telah Tersimpan</span></button>
+                <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
+    
+                    @isset($tugas)
+                    <div class="text-black-500 mt-4 ml-1 text-xs break-all">
+                        <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}" class="">{{ $tugas->file_tugas }}</a>
+                    </div>
+                    @endisset
+    
+                    @if($errors->any())
+                        <div class="text-red-500 mt-4 ml-1 text-sm">
+                            {{ $errors->first() }}
+                        </div>
                     @endif
-                </div>
+                    <div class="w-100% h-auto flex justify-center items-center">
+                        @if($tugas === null)
+                        <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Upload File</span></button>
+                        @elseif($tugas->status === 0)
+                        <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Update File</span></button>
+                        @else
+                        <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">File Telah Tersimpan</span></button>
+                        @endif
+                    </div>
+                </form>
+    
                 @isset($tugas)
                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
                     <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
                 </div>
                 @endisset
-            </form>
-            <form action="{{ route('submit-tugas') }}" method="POST" >
-                @csrf
-                <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
-                <input id="realSubmit" type="submit" class="hidden">
-            </form>
+    
+                <form action="{{ route('submit-tugas') }}" method="POST" >
+                    @csrf
+                    <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
+                    <input id="realSubmit" type="submit" class="hidden">
+                </form>
+    
+            </div>
             
         </div>
     </div>
