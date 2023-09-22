@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use App\Http\Requests\LogRequest;
+use App\Models\ContactAssistant;
 
 class LogController extends Controller
 {
@@ -29,7 +30,10 @@ class LogController extends Controller
             $allow_insert = $data->latest()->first()->created_at->diffInDays(now()) > 0 ? true : false;
         }
 
-        return view('mahasiswa.log.index', compact('logs', 'allow_insert'));
+        $user = auth()->user();
+        $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
+
+        return view('mahasiswa.log.index', compact('logs', 'allow_insert', 'asistant'));
     }
 
     /**

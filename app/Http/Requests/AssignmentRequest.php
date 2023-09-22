@@ -26,7 +26,7 @@ class AssignmentRequest extends FormRequest
     {
         return [
             'judul' => 'required|string',
-            'deskripsi' => 'required|string',
+            'deskripsi' => 'string',
             'file_soal' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10000',
             'waktu_mulai' => 'required|date_format:Y-m-d H:i:s|after:now',
             'deadline' => 'required|date_format:Y-m-d H:i:s|after:waktu_mulai',

@@ -16,9 +16,16 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = User::role('mahasiswa')->with('course')->get();
+        $search = $request->search ? $request->search : "";
+        $students = User::role('mahasiswa')->with('course')
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('kode', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+        })
+        ->get();
         return view('admin.student.index', compact('students'));
     }
 

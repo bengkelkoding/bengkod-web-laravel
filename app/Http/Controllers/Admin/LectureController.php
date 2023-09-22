@@ -16,9 +16,15 @@ class LectureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lectures = User::role('dosen')->with('course')->get();
+        $search = $request->search ? $request->search : "";
+        $lectures = User::role('dosen')->with('course')
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('kode', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+        })->get();
         return view('admin.lecture.index', compact('lectures'));
     }
 
