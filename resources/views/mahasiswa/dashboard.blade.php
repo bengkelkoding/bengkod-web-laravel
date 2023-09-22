@@ -54,11 +54,11 @@
                 <p class="text-[25px] font-black">Penugasan</p>
             </div>
             <ol class="list-decimal my-3 ml-7 text-base">
-                <li><a href="#">Ini tugas pertama</a></li>
-                <li><a href="#">Ini tugas kedua</a></li>
-                <li><a href="#">Ini tugas ketiga</a></li>
-                <li><a href="#">Ini tugas keempat</a></li>
-                <li><a href="#">Ini tugas kelima</a></li>
+                @forelse ($assignments as $sa)
+                    <li><a href="{{ route('detail-tugas', $sa->id) }}">{{ $sa->judul }}</a></li>
+                @empty
+                    <p>Belum ada tugas sementara ini.</p>
+                @endforelse
             </ol>
         </div>
 

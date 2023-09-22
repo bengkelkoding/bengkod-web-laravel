@@ -106,7 +106,7 @@ Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
     Route::post('simpan-tugas', [TugasController::class, 'store'])->name('simpan-tugas');
     Route::post('submit-tugas', [TugasController::class, 'submitTugas'])->name('submit-tugas');
-
+    Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
     Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
 
     // Route::get('/mahasiswa', function(){
