@@ -20,7 +20,7 @@
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <i class="ti ti-certificate"></i>
                             </div>
-                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" required>
+                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" name="search">
                         </div>
                         <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -40,7 +40,6 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Kursus</th>
-                    <th scope="col">Mahasiswa</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -52,7 +51,6 @@
                     <td>{{$ca->name}}</td>
                     <td>{{$ca->phone_number}}</td>
                     <td>{{$ca->course->judul}}</td>
-                    <td>{{$ca->student->name}}</td>
                     <td>
                     <div class="dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,7 +69,7 @@
                     </tr>
                     @empty
                     <tr>
-                    <td colspan="6">Data Kosong</td>
+                    <td colspan="6">Data tidak ditemukan</td>
                     </tr>
                     @endforelse
                 </tbody>
