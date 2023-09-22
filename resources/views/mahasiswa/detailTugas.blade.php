@@ -3,17 +3,15 @@
         Bengkel Koding
     </x-slot>
 
-    <x-header />
-
-    <div class="mx-48 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center border rounded-md p-10 my-5">
+    <div class="mx-48 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center border rounded-md p-10 my-5 bg-yellow-300">
         <a href="{{ url('mahasiswa') }}" class="max-md:ml-2 text-xl font-medium px-2 transition ease-in-out duration-150 text-gray-500 hover:text-gray-700">< Kembali</a>
-        <h3 class="text-black font-bold text-2xl max-md:w-full max-md:text-center max-md:ml-0 mt-7">Detail Penugasan</h3>
-        <div class="mt-7 h-auto shadow-lg flex justify-rounded max-lg:flex-col items-center max-lg:justify-center flex-wrap rounded-md">
-            <div class="p-9 max-md:mr-0 max-md:p-0 h-auto pl-5 max-md:pl-2">
-                <h1 class="text-black font-bold text-xl max-md:my-2 mb-4">{{ $assignment->judul }}</h1>
-                <div class="mb-4">
+        <h3 class="text-black font-bold text-2xl max-md:w-full max-md:text-center max-md:ml-0 mt-7 bg-green-300">Detail Penugasan</h3>
+        <div class="mt-7 h-auto shadow-lg flex flex-col items-center justify-center rounded-md bg-red-300">
+            <div class="p-9 max-md:mr-0 max-md:p-0 h-auto pl-5 max-md:pl-2 bg-blue-300">
+                <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 max-md:text-center">{{ $assignment->judul }}</h1>
+                <div class="mb-4 bg-yellow-300 max-md:w-auto">
                     <p class="pr-5">Deskripsi :</p>
-                    <p class="max-w-[500px] ml-5">{{ $assignment->deskripsi }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, impedit? Alias, blanditiis accusamus ea expedita cumque inventore illo quidem, culpa dicta officiis ipsa quasi neque atque error reiciendis nostrum excepturi. Autem dicta porro neque libero molestiae. Ipsa, aut asperiores! Alias provident qui non consequuntur, corrupti fugit error quo, quibusdam porro ipsam sunt. Exercitationem quam est earum accusamus. Itaque maiores molestiae ipsam consequuntur alias doloribus repellat soluta velit facere voluptatum ex maxime, accusantium expedita amet pariatur exercitationem, odit laborum asperiores! Pariatur, nobis. Voluptatum quidem eum et illum quo, sequi tempora ex eaque dolor, harum sapiente esse, incidunt ipsa maiores fugit beatae!</p>
+                    <p class="max-w-[500px] ml-5 text-justify">{{ $assignment->deskripsi }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, impedit? Alias, blanditiis accusamus ea expedita cumque inventore illo quidem, culpa dicta officiis ipsa quasi neque atque error reiciendis nostrum excepturi. Autem dicta porro neque libero molestiae. Ipsa, aut asperiores! Alias provident qui non consequuntur, corrupti fugit error quo, quibusdam porro ipsam sunt. Exercitationem quam est earum accusamus. Itaque maiores molestiae ipsam consequuntur alias doloribus repellat soluta velit facere voluptatum ex maxime, accusantium expedita amet pariatur exercitationem, odit laborum asperiores! Pariatur, nobis. Voluptatum quidem eum et illum quo, sequi tempora ex eaque dolor, harum sapiente esse, incidunt ipsa maiores fugit beatae!</p>
                 </div>
                 <table class="">
                     @if (isset($assignment->file_soal))
