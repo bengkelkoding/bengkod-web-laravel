@@ -25,6 +25,7 @@ class TugasRequest extends FormRequest
     {
         return [
             'file_tugas' => 'required|file|mimes:rar,zip,pdf,doc,docx|max:10000',
+            'id_assignment' => 'required|exists:assignments,id',
         ];
     }
 }
