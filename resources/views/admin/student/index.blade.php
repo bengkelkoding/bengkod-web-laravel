@@ -38,6 +38,7 @@
                             <tr>
                             <th scope="col">No</th>
                             <th scope="col">ID Kursus</th>
+                            <th scope="col">Asistensi</th>
                             <th scope="col">NIM</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
@@ -50,10 +51,15 @@
                             @endphp
                             @forelse($students as $student)
                             <tr>
-                                <th scope="row">{{$num++}}</th> 
+                                <th scope="row">{{$num++}}</th>
                                 <td>
                                 @isset($student->course->judul)
                                     {{$student->course->judul}}
+                                @endisset
+                                </td>
+                                <td>
+                                @isset($student->assistant->name)
+                                    {{$student->assistant->name}}
                                 @endisset
                                 </td>
                                 <td>{{$student->kode}}</td>

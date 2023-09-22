@@ -6,6 +6,7 @@ use App\Models\ContactAssistant;
 use App\Models\Kursus;
 use App\Http\Requests\Admin\ContactAssistant\PostRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
 
@@ -16,9 +17,14 @@ class ContactAssistantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contactAssistant = ContactAssistant::with('course')->with('student')->get();
+        $search = $request->search ? $request->search : "";
+        $contactAssistant = ContactAssistant::with('course')->with('student')
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('phone_number', 'LIKE', "%{$search}%");
+        })->get();
         return view('admin/contactAssistant/index', compact('contactAssistant'));
     }
 

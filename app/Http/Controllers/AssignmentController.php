@@ -110,7 +110,9 @@ class AssignmentController extends Controller
     {
         try {
             if ($request->hasFile('file_soal')) {
-                unlink(public_path('storage/soal/' . $assignment->file_soal));
+                if (isset($assignment->file_soal)) {
+                    unlink(public_path('storage/soal/' . $assignment->file_soal));
+                }
                 $file = $request->file('file_soal');
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('storage/soal'), $file_name);
