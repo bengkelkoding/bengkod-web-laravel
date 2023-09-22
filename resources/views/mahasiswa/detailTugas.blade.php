@@ -18,7 +18,7 @@
                 <table class="">
                     @if (isset($assignment->file_soal))
                     <tr>
-                        <td class="pr-5">File</td>
+                        <td class="pr-5">File Soal</td>
                         <td class="pr-3">:</td>
                         <td class="min-w-[500px]"><a href="{{ url('storage/soal/' . $assignment->file_soal) }}">{{ $assignment->file_soal }}</a></td>
                     </tr>
@@ -36,7 +36,7 @@
                 </table>
             </div>
             <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
-                <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
+                <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
                 @if($tugas === null || $tugas->status === 0)
                 <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
                     <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
@@ -50,14 +50,15 @@
                 @endif
                 <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id_assignment" class="hidden" value="{{ $assignment->id }}">
                     <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
-    
+
                     @isset($tugas)
                     <div class="text-black-500 mt-4 ml-1 text-xs break-all">
                         <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}" class="">{{ $tugas->file_tugas }}</a>
                     </div>
                     @endisset
-    
+
                     @if($errors->any())
                         <div class="text-red-500 mt-4 ml-1 text-sm">
                             {{ $errors->first() }}
@@ -73,21 +74,21 @@
                         @endif
                     </div>
                 </form>
-    
+
                 @isset($tugas)
                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
                     <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
                 </div>
                 @endisset
-    
+
                 <form action="{{ route('submit-tugas') }}" method="POST" >
                     @csrf
                     <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
                     <input id="realSubmit" type="submit" class="hidden">
                 </form>
-    
+
             </div>
-            
+
         </div>
     </div>
     <script>
