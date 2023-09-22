@@ -12,61 +12,43 @@
             </div>
             @forelse ($asistant as $as)
             <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12 mt-4">
-            <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
-                <div class="box-border p-2 border rounded-md">
-    
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-xs text-left">
-                            <thead class="text-xs text-gray-50">
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3">
-                                        Nama
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        No. Telp
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-gray-100">
-                                    <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                        {{$as->name}}
-                                    </th>
-                                    <td class="px-3 py-3">
-                                        {{$as->phone_number}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-    
-                </div>
-            </div>
-            @empty
-            <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12 mt-4">
                 <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
-                    <div class="box-border p-2 border rounded-md">
-        
-                        <div class="relative overflow-x-auto">
+                <div class="box-border p-2 border rounded-md">
+                    
+                    
+                    <div class="overflow-x-auto">
                             <table class="w-full text-xs text-left">
                                 <thead class="text-xs text-gray-50">
                                     <tr class="border-b">
-                                        <th scope="col" class="px-6 py-3 text-center">
-                                            Kosong
+                                        <th scope="col" class="px-6 py-3">
+                                            Nama
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            No. Telp
                                         </th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <tr class="text-gray-100">
+                                        <th scope="row" class="px-3 py-3 whitespace-nowrap ">
+                                            {{$as->name}}
+                                        </th>
+                                        <td class="px-3 py-3">
+                                            {{$as->phone_number}}
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
-                        </div>
-    
+                        
                     </div>
                 </div>
+            </div>
+            @empty
+
             @endforelse
-    
         </div>
+    </div>
     
-    
-    </div>  
 
     <div class="mx-52 max-md:mx-0 max-md:block flex flex-col max-lg:justify-center max-lg:items-center  max-md:overflow-x-scroll">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
