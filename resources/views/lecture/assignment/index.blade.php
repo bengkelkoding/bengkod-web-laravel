@@ -78,7 +78,7 @@
                                         <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="ti ti-eye"></i>Detail</a> </li>
+                                            <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li>
                                             <li><a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
                                             <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
                                                 @method('delete')
