@@ -29,7 +29,9 @@ class LogController extends Controller
             $allow_insert = $data->latest()->first()->created_at->diffInDays(now()) > 0 ? true : false;
         }
 
-        return view('mahasiswa.log.index', compact('logs', 'allow_insert'));
+        $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
+
+        return view('mahasiswa.log.index', compact('logs', 'allow_insert', 'asistant'));
     }
 
     /**
