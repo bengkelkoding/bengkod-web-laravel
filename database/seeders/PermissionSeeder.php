@@ -81,6 +81,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
+            'id_kursus' => '1',
             'kode' => 'DSN01',
             'name' => 'Arif Saputra',
             'email' => 'arif@bengkelkoding.id',
@@ -89,6 +90,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
+            'id_kursus' => '2',
             'kode' => 'DSN02',
             'name' => 'Sri Winarno',
             'email' => 'sri@bengkelkoding.id',
@@ -97,6 +99,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
+            'id_kursus' => '3',
             'kode' => 'DSN03',
             'name' => 'Adhitya Nugraha',
             'email' => 'adhitya@bengkelkoding.id',
@@ -105,6 +108,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
+            'id_kursus' => '4',
             'kode' => 'DSN04',
             'name' => 'Ardytha Luthfiarta',
             'email' => 'ardytha@bengkelkoding.id',
