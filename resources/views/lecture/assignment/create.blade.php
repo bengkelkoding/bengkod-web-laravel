@@ -33,7 +33,7 @@
                         <!-- File Soal -->
                         <div class="mb-3">
                             <x-input-label for="file_soal" :value="__('File Soal')" />
-                            <div class="flex items-center justify-center w-full">
+                            <div class="flex items-center justify-center w-full" id="areaDrop">
                                 <label for="dropzone-file"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -48,9 +48,10 @@
                                         <p class="text-xs text-gray-500 dark:text-gray-400">DOC, DOCX, PDF, OR ZIP (MAX
                                             10MB)</p>
                                     </div>
-                                    <input id="dropzone-file" type="file" name="file_soal" class="hidden"/>
+                                    <input id="dropzone-file" type="file" name="file_soal" class="hidden" onchange="masukInput()"/>
                                 </label>
                             </div>
+                            <p id="namaFile"></p>
                             <x-input-error :messages="$errors->get('file_soal')" class="mt-2" />
                         </div>
 
@@ -95,6 +96,28 @@
     </div>
     <x-slot name="scripts">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
+        <script>
+            const tempatDrop = document.getElementById('areaDrop')
+            const tempatLabel = document.getElementById('namaFile')
+            const tempatInput = document.getElementById('dropzone-file')
+
+            function masukInput() {
+                tempatLabel.innerHTML = tempatInput.files[0].name
+            }
+
+            tempatDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+
+            tempatDrop.addEventListener('dragleave', () => {
+            });
+
+            tempatDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                tempatInput.files = e.dataTransfer.files
+                masukInput()
+            });
+        </script>
         <script type="text/javascript">
             $( document ).ready(function() {
                 console.log('ready');
