@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Lecture;
 
-use Exception;
 use App\Models\User;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Requests\NilaiRequest;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -108,25 +107,4 @@ class StudentController extends Controller
     {
         //
     }
-
-    // public function forceSubmit(Request $request, $id)
-    // {
-    //     try {
-    //         $tugas = Tugas::where('id_mahasiswa', $id)->firstOrFail();
-    //         $validator = Validator::make($request->all(), [
-    //             'check_value' => 'required|in:1|numeric',
-    //         ]);
-    //         $validator->validate();
-
-    //         $result = $tugas->update([
-    //             'status' => $request->check_value,
-    //         ]);
-
-    //         return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan');
-    //     } catch (Exception $e) {
-    //         return response()->json([
-    //             'message' => $e->getMessage(),
-    //         ]);
-    //     }
-    // }
 }

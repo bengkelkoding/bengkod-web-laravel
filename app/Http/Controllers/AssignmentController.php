@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AssignmentRequest;
+use App\Models\User;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
+use App\Http\Requests\AssignmentRequest;
 
 class AssignmentController extends Controller
 {
@@ -13,12 +14,12 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $search = $request->search ?? '';
         $assignments = Assignment::where('id_kursus', auth()->user()->kursus_id)
-            ->orWhere('judul', 'like', "%$search%")
-            ->orWhere('deskripsi', 'like', "%$search%")
+            ->where('judul', 'LIKE', "%$search%")
+            ->orWhere('deskripsi', 'LIKE', "%$search%")
             ->with('kursus')
             ->paginate(10);
 
@@ -73,9 +74,15 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function show(Assignment $assignment)
+    public function show(Assignment $assignment, Request $request)
     {
-        //
+        $search = $request->search ?? '';
+        $mahasiswa = User::where('id_kursus', auth()->user()->id_kursus)
+            ->where('name', 'like', "%$search%")
+            ->with('tugas')
+            ->paginate(10);
+
+        return view('lecture.assignment.detail', compact('assignment', 'mahasiswa'));
     }
 
     /**
@@ -103,7 +110,9 @@ class AssignmentController extends Controller
     {
         try {
             if ($request->hasFile('file_soal')) {
-                unlink(public_path('storage/soal/' . $assignment->file_soal));
+                if (isset($assignment->file_soal)) {
+                    unlink(public_path('storage/soal/' . $assignment->file_soal));
+                }
                 $file = $request->file('file_soal');
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('storage/soal'), $file_name);

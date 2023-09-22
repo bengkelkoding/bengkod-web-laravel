@@ -16,7 +16,7 @@
                         @csrf
                         <!-- Judul -->
                         <div class="mb-3">
-                            <x-input-label for="judul" :value="__('Judul')" />
+                            <x-input-label class="inline" for="judul" :value="__('Judul')" /><span class="text-red-500">*</span>
                             <x-text-input id="judul" class="block mt-1 w-full" type="text" name="judul"
                                 :value="old('judul') ?? $assignment->judul" required autofocus autocomplete="judul" />
                             <x-input-error :messages="$errors->get('judul')" class="mt-2" />
@@ -57,13 +57,13 @@
 
                         <!-- Waktu Mulai -->
                         <div class="mb-3">
-                            <x-input-label for="waktu_mulai" :value="__('Waktu Mulai')" />
+                            <x-input-label class="inline" for="waktu_mulai" :value="__('Waktu Mulai')" /><span class="text-red-500">*</span>
                             <div class="relative mb-3 mt-3" data-te-date-timepicker-init data-te-input-wrapper-init data-te-disable-past="true">
                                 <input type="text"
                                     class=" bg-gray-50 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                     id="waktu_mulai" name="waktu_mulai" value="{{ old('waktu_mulai') ?? $waktu_mulai }}"/>
                                 <label for="form1"
-                                    class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Select
+                                    class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.5rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.5rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Select
                                     a time</label>
                             </div>
                             <x-input-error :messages="$errors->get('waktu_mulai')" class="mt-2" />
@@ -71,16 +71,16 @@
 
                         <!-- Deadline -->
                         <div class="mb-3">
-                            <x-input-label for="waktu_mulai" :value="__('Waktu Mulai')" />
+                            <x-input-label class="inline" for="waktu_mulai" :value="__('Deadline')" /><span class="text-red-500">*</span>
                             <div class="relative mb-3 mt-3" data-te-date-timepicker-init data-te-input-wrapper-init data-te-disable-past="true">
                                 <input type="text"
                                     class=" bg-gray-50 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                     id="form1" name="deadline" value="{{ old('deadline') ?? $deadline }}" />
                                 <label for="form1"
-                                    class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Select
+                                    class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.5rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.5rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Select
                                     a time</label>
                             </div>
-                            <x-input-error :messages="$errors->get('waktu_mulai')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('deadline')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

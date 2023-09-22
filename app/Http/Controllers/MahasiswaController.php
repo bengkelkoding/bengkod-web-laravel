@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
 use App\Models\Kursus;
 use App\Models\ContactAssistant;
 use App\Models\User;
@@ -22,11 +23,13 @@ class MahasiswaController extends Controller
         $tugas = $user->tugas;
         $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
         $member_count = $kursuses->sum('users_count');
+        $assignments = Assignment::where('id_kursus', $user->id_kursus)->get();
+        
         // $contactAssistants = User::with('assistant')->find(auth()->user()->id)->assistant;
         
         $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
 
-        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa','asistant'));
+        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa','asistant','assignments'));
     }
 
     /**
@@ -118,6 +121,12 @@ class MahasiswaController extends Controller
     function showKontakAsisten()
     {
         return view('mahasiswa.kontakAsisten');
+    }
+
+    function showDetailTugas($id) {
+        $assignment = Assignment::find($id);
+        $tugas = auth()->user()->tugas;
+        return view('mahasiswa.detailTugas', compact('assignment', 'tugas'));
     }
 
     public function updateKursus(Request $request)
