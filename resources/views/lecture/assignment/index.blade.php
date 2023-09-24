@@ -59,9 +59,9 @@
                                 $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id');
                                 $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
                             @endphp
-                            <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
+                            <tr class="">
                                <td>{{ $num }}</td>
-                               <td>{{ $assign->judul }}</td>
+                               <td><a href="{{ route('lecture.assignment.show', $assign->id) }}">{{ $assign->judul }}</a></td>
                                <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
                                <td>{{ $mulai->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
                                <td>{{ $deadline->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
@@ -78,7 +78,7 @@
                                         <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
+                                            <!-- <li><a class="dropdown-item" href="{{-- route('lecture.assignment.show', $assign->id) --}}"><i class="ti ti-eye"></i>Detail</a> </li> -->
                                             <li><a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
                                             <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
                                                 @method('delete')
