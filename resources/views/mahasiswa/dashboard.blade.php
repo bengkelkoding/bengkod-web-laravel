@@ -97,8 +97,122 @@
 
         </div>
 
+        {{-- penugasan  --}}
         <div class="box-border h-auto p-3 border mt-12 flex flex-col justify-center rounded max-lg:w-full">
-            <div class="flex items-center">
+            <p class="text-[25px] font-black mb-2">Penugasan</p>
+
+            <div class="overflow-auto rounded-lg shadow hidden md:block">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">No.</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">Details</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Status</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Date</th>
+                            <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Nilai</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                1
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <a href="#" class="font-bold text-blue-500 hover:underline">Web Development</a>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">100</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                2
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <a href="#" class="font-bold text-blue-500 hover:underline">Mobile Development</a>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                3
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <a href="#" class="font-bold text-blue-500 hover:underline">Game Development</a>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Mobile View --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+                <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div>1</div>
+                        <div class="text-gray-500">10/10/2021</div>
+                        <div>
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <a href="#" class="text-blue-500 font-bold hover:underline">Web Development</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">100</div>
+                </div>
+
+                <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div>2</div>
+                        <div class="text-gray-500">10/10/2021</div>
+                        <div>
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <a href="#" class="text-blue-500 font-bold hover:underline">Mobile Development</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">-</div>
+                </div>
+
+                <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div>
+                            <a href="#" class="text-blue-500 font-bold hover:underline">3</a>
+                        </div>
+                        <div class="text-gray-500">10/10/2021</div>
+                        <div>
+                            <span
+                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <a href="#" class="text-blue-500 font-bold hover:underline">Game Development</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">80</div>
+                </div>
+            </div>
+            {{-- <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 </svg>
@@ -140,9 +254,10 @@
                 @empty
                     <p>Belum ada tugas sementara ini.</p>
                 @endforelse
-            </ol>
+            </ol> --}}
         </div>
 
+        {{-- submit proyek akhir --}}
         <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
             @if($tugas === null || $tugas->status === 0)
