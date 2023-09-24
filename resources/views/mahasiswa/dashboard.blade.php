@@ -114,10 +114,14 @@
                     <tbody class="divide-y divide-gray-100">
                         @php
                             $no = 1;
-                            $waktu_mulai = '-';
-                            $deadline = '-';
                         @endphp
                         @forelse($assignments as $as)
+                        @php
+                            $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
+                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                            $deadline = \Carbon\Carbon::parse($as->deadline)
+                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                        @endphp
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {{ $no }}
@@ -130,12 +134,6 @@
                                     @if($tugas->where('id_assignment', $as->id)->first() !== null)
                                         @php
                                             $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
-                                            if ($tugas_mhs !== null) {
-                                                $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
-                                                                ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
-                                                $deadline = \Carbon\Carbon::parse($as->deadline)
-                                                                ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
-                                            }
                                         @endphp
                                         @if($tugas_mhs->file_tugas === null)
                                         <span
