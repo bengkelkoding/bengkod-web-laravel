@@ -15,7 +15,7 @@
                                 <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
                                 <a href="{{route('lecture.assignment.create')}}"
                                     class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
-                            </div>
+                            </div>••••••••••••••••••
                         </div>
                         <div class="col">
                             <form class="flex items-center">
@@ -59,7 +59,7 @@
                                 $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id');
                                 $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
                             @endphp
-                            <tr>
+                            <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
                                <td>{{ $num }}</td>
                                <td>{{ $assign->judul }}</td>
                                <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
@@ -78,7 +78,7 @@
                                         <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li>
+                                            <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
                                             <li><a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
                                             <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
                                                 @method('delete')
@@ -104,4 +104,19 @@
             </div>
         </div>
     </div>
+    <script>
+        // Get all elements with the class "clickable-row"
+        const rows = document.querySelectorAll(".clickable");
+
+        // Add a click event listener to each "clickable-row"
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+            // Get the URL from the "data-href" attribute
+            const url = row.getAttribute("data-href");
+            
+            // Redirect to the URL when the row is clicked
+            window.location.href = url;
+            });
+        });
+    </script>
 </x-admin>
