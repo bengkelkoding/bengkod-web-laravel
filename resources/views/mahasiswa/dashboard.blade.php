@@ -20,8 +20,8 @@
                 <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12 mt-4">
                     <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
                     <div class="box-border p-2 border rounded-md">
-                        
-                        
+
+
                         <div class="overflow-x-auto">
                                 <table class="w-full text-xs text-left">
                                     <thead class="text-xs text-gray-50">
@@ -45,17 +45,17 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            
+
                         </div>
                     </div>
                 </div>
                 @empty
-    
+
                 @endforelse
             </div>
         </div>
-    
-    
+
+
     <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center">
         @if($user->course)
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
@@ -106,7 +106,37 @@
             </div>
             <ol class="list-decimal my-3 ml-7 text-base">
                 @forelse ($assignments as $sa)
-                    <li><a href="{{ route('detail-tugas', $sa->id) }}">{{ $sa->judul }}</a></li>
+                    <li>
+                        <a href="{{ route('detail-tugas', $sa->id) }}">{{ $sa->judul }}</a>
+                        <ul>
+                            @isset($tugas)
+                                @php
+                                    $tugas_mhs = $tugas->where('id_assignment', $sa->id)->first();
+                                @endphp
+                                <li>
+                                    @if($tugas_mhs->file_tugas === null)
+                                    Tugas belum dikumpulkan
+                                    @elseif($tugas_mhs->status === 0)
+                                    Tugas belum dikumpulkan
+                                    @elseif($tugas_mhs->status === 1)
+                                    Tugas sudah dikumpulkan
+                                    @endif
+                                </li>
+                                <li>
+                                    @if($tugas_mhs->nilai_akhir === null)
+                                    Belum dinilai
+                                    @else
+                                    Nilai : {{ $tugas_mhs->nilai_akhir }}
+                                    @endif
+                                </li>
+                                <li>{{ \Carbon\Carbon::parse($sa->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</li>
+                            @else
+                            <li>Belum Mengumpulkan</li>
+                            <li>Tugas belum dinilai</li>
+                            <li>{{ \Carbon\Carbon::parse($sa->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</li>
+                            @endisset
+                        </ul>
+                    </li>
                 @empty
                     <p>Belum ada tugas sementara ini.</p>
                 @endforelse
@@ -237,7 +267,7 @@
     </script>
 </x-app-layout>
 
-        
+
         {{-- @forelse ($asistant as $as)
             {{$as->name}}
         @empty

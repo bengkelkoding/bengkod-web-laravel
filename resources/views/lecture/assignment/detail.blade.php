@@ -39,6 +39,11 @@
                             </form>
                         </div>
                     </div>
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong>
+                    </div>
+                    @endif
                     <div class="table-responsive">
                         <table class="table table-striped table-hover max-md:min-w-[250vw]">
                             <thead>
@@ -48,6 +53,7 @@
                                     <th>Status</th>
                                     <th>File Tugas</th>
                                     <th>Nilai</th>
+                                    <th>Nilai Tersimpan</th>
                                     <th>Tanggal Submit</th>
                                 </tr>
                             </thead>
@@ -115,6 +121,17 @@
                                                 <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
                                                     {{ __('Belum ada tugas') }}
                                                 </div>
+                                            @endisset
+                                        </td>
+                                        <td>
+                                            @isset($m->tugas)
+                                                @isset($m->tugas->nilai_akhir)
+                                                {{ $m->tugas->nilai_akhir }}
+                                                @else
+                                                {{ __('-') }}
+                                                @endisset
+                                            @else
+                                                {{ __('-') }}
                                             @endisset
                                         </td>
                                         <td>

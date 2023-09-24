@@ -24,7 +24,7 @@
 
                         <!-- Judul -->
                         <div class="mb-3">
-                            <x-input-label for="deskripsi" :value="__('Deskripsi')" />
+                            <x-input-label class="inline" for="deskripsi" :value="__('Deskripsi')" /><span class="text-red-500">*</span>
                             <textarea name="deskripsi" id="deskripsi"
                                 class="block mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 cols="20" rows="8" required autofocus autocomplete="deskripsi">{{ old('deskripsi') ?? $assignment->deskripsi }}</textarea>

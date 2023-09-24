@@ -89,7 +89,7 @@ class StudentController extends Controller
                 'nilai_akhir' => $request->nilai
             ]);
 
-            return response()->redirectToRoute('lecture.student.index');
+            return response()->redirectToRoute('lecture.assignment.show', $tugas->id_assignment)->with('success', 'Nilai berhasil diupdate');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

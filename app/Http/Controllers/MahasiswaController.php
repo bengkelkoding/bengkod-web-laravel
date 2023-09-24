@@ -23,10 +23,13 @@ class MahasiswaController extends Controller
         $tugas = $user->tugas;
         $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
         $member_count = $kursuses->sum('users_count');
-        $assignments = Assignment::where('id_kursus', $user->id_kursus)->get();
-        
+        $assignments = Assignment::where('id_kursus', $user->id_kursus)->with(['kursus.users.tugas' => function ($q) {
+            $q->where('id_mahasiswa', auth()->user()->id);
+        }])->get();
+
+
         // $contactAssistants = User::with('assistant')->find(auth()->user()->id)->assistant;
-        
+
         $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
 
         return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa','asistant','assignments'));
