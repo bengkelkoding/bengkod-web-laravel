@@ -62,7 +62,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menambahkan tugas');
+            return redirect()->route('lecture.assiTugas Pertama	gnment.index')->with('success', 'Berhasil menambahkan tugas');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -77,7 +77,7 @@ class AssignmentController extends Controller
     public function show(Assignment $assignment, Request $request)
     {
         $search = $request->search ?? '';
-        $mahasiswa = User::where('id_kursus', auth()->user()->id_kursus)
+        $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
             ->where('name', 'like', "%$search%")
             ->with('tugas')
             ->paginate(10);
