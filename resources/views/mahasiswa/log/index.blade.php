@@ -4,18 +4,16 @@
     </x-slot>
 
     <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-        <div class="grid lg:grid-cols-12 gap-4 md:grid-rows ">
-            <div class="box-content xl:col-span-7 md:col-span-12 h-auto mb-[40px] mx-24 max-md:mx-12">
+        <div class="grid lg:grid-cols-12 gap-4 max-lg:flex max-lg:justify-center max-lg:flex-col">
+            <div class="col-span-6 max-md:col-span-12 h-auto mb-[40px] max-lg:mb-3 mx-24 max-md:mx-2">
                 <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
                 <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
                 <p class="text-white">~ Imam Syafi’i</p>
             </div>
             @forelse ($asistant as $as)
-            <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12 mt-4">
+            <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
                 <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
                 <div class="box-border p-2 border rounded-md">
-                    
-                    
                     <div class="overflow-x-auto">
                             <table class="w-full text-xs text-left">
                                 <thead class="text-xs text-gray-50">
@@ -57,7 +55,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ url('/mahasiswa') }}" class="text-[17px] font-medium transition ease-in-out duration-150 hover:text-gray-700">< Kembali</a>
-                            <div class="flex max-md:flex-col">
+                            <div class="flex max-md:flex-col justify-between w-full">
                                 <div class="mb-3">
                                     <p class="fw-semibold mb-2">
                                         <span class="card-title mr-4">
@@ -103,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped min-w-[200vw]" >
+                                <table class="table table-striped max-w-[100vw]" >
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>

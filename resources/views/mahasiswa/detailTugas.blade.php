@@ -9,7 +9,7 @@
         <div class="p-2 mt-7 box-border h-auto w-auto shadow-lg flex flex-col rounded-md overflow-hidden">
             <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 ">{{ $assignment->judul }}</h1>
             <p>Deskripsi :</p>
-            <p class="text-justify md-pl-0 mb-2">{{ $assignment->deskripsi }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, impedit? Alias, blanditiis accusamus ea expedita cumque inventore illo quidem, culpa dicta officiis ipsa quasi neque atque error reiciendis nostrum excepturi. Autem dicta porro neque libero molestiae. Ipsa, aut asperiores! Alias provident qui non consequuntur, corrupti fugit error quo, quibusdam porro ipsam sunt. Exercitationem quam est earum accusamus. Itaque maiores molestiae ipsam consequuntur alias doloribus repellat soluta velit facere voluptatum ex maxime, accusantium expedita amet pariatur exercitationem, odit laborum asperiores! Pariatur, nobis. Voluptatum quidem eum et illum quo, sequi tempora ex eaque dolor, harum sapiente esse, incidunt ipsa maiores fugit beatae!</p>
+            <p class="text-justify md-pl-0 mb-2">{{ $assignment->deskripsi }}</p>
                 <table class="">
                     @if (isset($assignment->file_soal))
                     <tr>
@@ -34,7 +34,7 @@
                 @if($tugas === null || $tugas->status === 0)
                 <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
                     <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
-                    <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File</h4>
+                    <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File <br> Maksimal 10MB</h4>
                 </div>
                 @else
                 <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
