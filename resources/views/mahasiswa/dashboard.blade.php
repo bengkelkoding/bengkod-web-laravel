@@ -189,7 +189,64 @@
 
             {{-- Mobile View --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+                @php
+                    $no = 1;
+                @endphp
+                @forelse($assignments as $as)
+                @php
+                    $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                    $deadline = \Carbon\Carbon::parse($as->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                @endphp
+
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div>{{ $no }}</div>
+                        <div class="text-gray-500">{{ $waktu_mulai }}</div>
+                        <div>
+                            @isset($tugas)
+                                @php
+                                    $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
+                                @endphp
+                                @if($tugas_mhs === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                @elseif($tugas_mhs->file_tugas === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($tugas_mhs->status === 0)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($tugas_mhs->status === 1)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                @endif
+                            @else
+                                <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                            @endisset
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <a href="{{ route('detail-tugas', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->judul }}</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">
+                        @isset($tugas)
+                            @if($tugas_mhs === null)
+                                Belum Upload
+                            @elseif($tugas_mhs->nilai_akhir === null)
+                                Belum dinilai
+                            @else
+                                {{ $tugas_mhs->nilai_akhir }}
+                            @endif
+                        @else
+                            Belum Upload
+                        @endisset
+                    </div>
+                </div>
+
+            @php
+                $no++;
+            @endphp
+        @empty
+            <div class="bg-white p-4 rounded-lg shadow text-center">Belum ada tugas</div>
+        @endforelse
+    </div>
+                {{-- <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <div class="flex items-center space-x-2 text-sm">
                         <div>1</div>
                         <div class="text-gray-500">10/10/2021</div>
@@ -238,7 +295,7 @@
                     </div>
                     <div class="text-sm font-medium text-black">80</div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- submit proyek akhir --}}
