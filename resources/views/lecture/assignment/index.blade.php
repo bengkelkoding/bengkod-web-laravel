@@ -15,7 +15,7 @@
                                 <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
                                 <a href="{{route('lecture.assignment.create')}}"
                                     class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
-                            </div>••••••••••••••••••
+                            </div>
                         </div>
                         <div class="col">
                             <form class="flex items-center">
@@ -113,7 +113,7 @@
             row.addEventListener("click", function() {
             // Get the URL from the "data-href" attribute
             const url = row.getAttribute("data-href");
-            
+
             // Redirect to the URL when the row is clicked
             window.location.href = url;
             });

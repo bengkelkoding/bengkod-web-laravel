@@ -112,34 +112,46 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
+                        @php
+                            $no = 1;
+                        @endphp
                         @forelse($assignments as $as)
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                1
+                                {{ $no }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 <a href="{{ route('detail-tugas', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->judul }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @isset($tugas)
+                                @if($tugas->where('id_assignment', $as->id)->first() !== null)
                                     @php
                                         $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
-                                        $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
-                                                        ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
-                                        $deadline = \Carbon\Carbon::parse($as->deadline)
-                                                        ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                        if ($tugas_mhs !== null) {
+                                            $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
+                                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                            $deadline = \Carbon\Carbon::parse($as->deadline)
+                                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                        }
                                     @endphp
                                     @if($tugas_mhs->file_tugas === null)
                                     <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
                                     @elseif($tugas_mhs->status === 0)
                                     <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
                                     @elseif($tugas_mhs->status === 1)
                                     <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
                                     @endif
-                                @endisset
+                                @else
+                                @php
+                                    $waktu_mulai = '-';
+                                    $deadline = '-';
+                                @endphp
+                                <span
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                @endif
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {{ $waktu_mulai }}
                             </td>
@@ -147,15 +159,20 @@
                                 {{ $deadline }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @isset($tugas)
+                                @if($tugas->where('id_assignment', $as->id)->first() !== null)
                                     @if($tugas_mhs->nilai_akhir === null)
                                     Belum dinilai
                                     @else
                                     {{ $tugas_mhs->nilai_akhir }}
                                     @endif
-                                @endisset
+                                @else
+                                Belum upload
+                                @endif
                             </td>
                         </tr>
+                        @php
+                            $no++;
+                        @endphp
                         @empty
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap text-center" colspan="6">Belum ada tugas</td>

@@ -62,7 +62,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assiTugas Pertama	gnment.index')->with('success', 'Berhasil menambahkan tugas');
+            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menambahkan tugas');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
