@@ -78,7 +78,9 @@ class AssignmentController extends Controller
         $search = $request->search ?? '';
         $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
             ->where('name', 'like', "%$search%")
-            ->with('tugas')
+            ->with(['tugas' => function ($q) use ($assignment) {
+                $q->where('id_assignment', $assignment->id);
+            }])
             ->paginate(10);
 
         return view('lecture.assignment.detail', compact('assignment', 'mahasiswa'));

@@ -137,7 +137,7 @@
                                         <td>
                                             @isset($m->tugas)
                                             {{ \Carbon\Carbon::parse($m->tugas->created_at)->locale('id')
-                                                                ->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y') }}
+                                                                ->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
                                             @else
                                             {{ __('-') }}
                                             @endisset
