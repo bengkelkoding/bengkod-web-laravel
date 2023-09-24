@@ -199,8 +199,8 @@
                 @endphp
 
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <p>{{ $no }}</p>
                     <div class="flex items-center space-x-2 text-sm">
-                        <div>{{ $no }}</div>
                         <div class="text-gray-500">{{ $waktu_mulai }}</div>
                         <div>
                             @isset($tugas)
