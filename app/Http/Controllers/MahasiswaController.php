@@ -128,7 +128,10 @@ class MahasiswaController extends Controller
 
     function showDetailTugas($id) {
         $assignment = Assignment::find($id);
-        $tugas = auth()->user()->tugas->where('id_assignment', $id)->first();
+        $tugas = null;
+        if (auth()->user()->tugas !== null) {
+            $tugas = auth()->user()->tugas->where('id_assignment', $id)->first();
+        }
         return view('mahasiswa.detailTugas', compact('assignment', 'tugas'));
     }
 

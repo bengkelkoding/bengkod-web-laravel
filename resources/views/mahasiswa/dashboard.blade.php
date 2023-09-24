@@ -114,6 +114,8 @@
                     <tbody class="divide-y divide-gray-100">
                         @php
                             $no = 1;
+                            $waktu_mulai = '-';
+                            $deadline = '-';
                         @endphp
                         @forelse($assignments as $as)
                         <tr class="bg-white">
@@ -124,34 +126,35 @@
                                 <a href="{{ route('detail-tugas', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->judul }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @if($tugas->where('id_assignment', $as->id)->first() !== null)
-                                    @php
-                                        $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
-                                        if ($tugas_mhs !== null) {
-                                            $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
-                                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
-                                            $deadline = \Carbon\Carbon::parse($as->deadline)
-                                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
-                                        }
-                                    @endphp
-                                    @if($tugas_mhs->file_tugas === null)
+                                @isset($tugas)
+                                    @if($tugas->where('id_assignment', $as->id)->first() !== null)
+                                        @php
+                                            $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
+                                            if ($tugas_mhs !== null) {
+                                                $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
+                                                                ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                                $deadline = \Carbon\Carbon::parse($as->deadline)
+                                                                ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                            }
+                                        @endphp
+                                        @if($tugas_mhs->file_tugas === null)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        @elseif($tugas_mhs->status === 0)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        @elseif($tugas_mhs->status === 1)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                        @endif
+                                    @else
                                     <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                    @elseif($tugas_mhs->status === 0)
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                    @elseif($tugas_mhs->status === 1)
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
                                     @endif
                                 @else
-                                @php
-                                    $waktu_mulai = '-';
-                                    $deadline = '-';
-                                @endphp
-                                <span
+                                    <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
-                                @endif
+                                @endisset
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {{ $waktu_mulai }}
                             </td>
@@ -159,15 +162,19 @@
                                 {{ $deadline }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @if($tugas->where('id_assignment', $as->id)->first() !== null)
-                                    @if($tugas_mhs->nilai_akhir === null)
-                                    Belum dinilai
+                                @isset($tugas)
+                                    @if($tugas->where('id_assignment', $as->id)->first() !== null)
+                                        @if($tugas_mhs->nilai_akhir === null)
+                                        Belum dinilai
+                                        @else
+                                        {{ $tugas_mhs->nilai_akhir }}
+                                        @endif
                                     @else
-                                    {{ $tugas_mhs->nilai_akhir }}
+                                    Belum upload
                                     @endif
                                 @else
                                 Belum upload
-                                @endif
+                                @endisset
                             </td>
                         </tr>
                         @php

@@ -17,9 +17,8 @@ class AssignmentController extends Controller
     public function index(Request $request)
     {
         $search = $request->search ?? '';
-        $assignments = Assignment::where('id_kursus', auth()->user()->kursus_id)
+        $assignments = Assignment::where('id_kursus', auth()->user()->id_kursus)
             ->where('judul', 'LIKE', "%$search%")
-            ->orWhere('deskripsi', 'LIKE', "%$search%")
             ->with('kursus')
             ->paginate(10);
 
