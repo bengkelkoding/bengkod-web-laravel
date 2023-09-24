@@ -10,18 +10,16 @@
         @endforelse --}}
 
         <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-            <div class="grid lg:grid-cols-12 gap-4 md:grid-rows ">
-                <div class="box-content xl:col-span-7 md:col-span-12 h-auto mb-[40px] mx-24 max-md:mx-12">
+            <div class="grid lg:grid-cols-12 gap-4 max-lg:flex max-lg:justify-center max-lg:flex-col">
+                <div class="col-span-6 max-md:col-span-12 h-auto mb-[40px] max-lg:mb-3 mx-24 max-md:mx-2">
                     <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, {{ auth()->user()->name }}!</h1>
                     <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
                     <p class="text-white">~ Imam Syafi’i</p>
                 </div>
                 @forelse ($asistant as $as)
-                <div class=" xl:col-span-5 xs:col-span-12 mx-24 max-md:mx-12 mt-4">
+                <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
                     <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
                     <div class="box-border p-2 border rounded-md">
-                        
-                        
                         <div class="overflow-x-auto">
                                 <table class="w-full text-xs text-left">
                                     <thead class="text-xs text-gray-50">
@@ -118,7 +116,7 @@
             @if($tugas === null || $tugas->status === 0)
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
                 <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
-                <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File</h4>
+                <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File <br> Maksimal 10MB</h4>
             </div>
             @else
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
