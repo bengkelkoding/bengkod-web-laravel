@@ -108,54 +108,61 @@
                             <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">No.</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Details</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Status</th>
-                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Date</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Waktu Dibuka</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Deadline</th>
                             <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Nilai</th>
                         </tr>
                     </thead>
-
                     <tbody class="divide-y divide-gray-100">
+                        @forelse($assignments as $as)
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 1
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <a href="#" class="font-bold text-blue-500 hover:underline">Web Development</a>
+                                <a href="{{ route('detail-tugas', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->judul }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <span
-                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                @isset($tugas)
+                                    @php
+                                        $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
+                                        $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
+                                                        ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                        $deadline = \Carbon\Carbon::parse($as->deadline)
+                                                        ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                    @endphp
+                                    @if($tugas_mhs->file_tugas === null)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                    @elseif($tugas_mhs->status === 0)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                    @elseif($tugas_mhs->status === 1)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                    @endif
+                                @endisset
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $waktu_mulai }}
                             </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">100</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $deadline }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                @isset($tugas)
+                                    @if($tugas_mhs->nilai_akhir === null)
+                                    Belum dinilai
+                                    @else
+                                    {{ $tugas_mhs->nilai_akhir }}
+                                    @endif
+                                @endisset
+                            </td>
                         </tr>
-                        <tr class="bg-gray-50">
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                2
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <a href="#" class="font-bold text-blue-500 hover:underline">Mobile Development</a>
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <span
-                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-                        </tr>
+                        @empty
                         <tr class="bg-white">
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                3
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <a href="#" class="font-bold text-blue-500 hover:underline">Game Development</a>
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <span
-                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">80</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap text-center" colspan="6">Belum ada tugas</td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -212,49 +219,6 @@
                     <div class="text-sm font-medium text-black">80</div>
                 </div>
             </div>
-            {{-- <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-                <p class="text-[25px] font-black">Penugasan</p>
-            </div>
-            <ol class="list-decimal my-3 ml-7 text-base">
-                @forelse ($assignments as $sa)
-                    <li>
-                        <a href="{{ route('detail-tugas', $sa->id) }}">{{ $sa->judul }}</a>
-                        <ul>
-                            @isset($tugas)
-                                @php
-                                    $tugas_mhs = $tugas->where('id_assignment', $sa->id)->first();
-                                @endphp
-                                <li>
-                                    @if($tugas_mhs->file_tugas === null)
-                                    Tugas belum dikumpulkan
-                                    @elseif($tugas_mhs->status === 0)
-                                    Tugas belum dikumpulkan
-                                    @elseif($tugas_mhs->status === 1)
-                                    Tugas sudah dikumpulkan
-                                    @endif
-                                </li>
-                                <li>
-                                    @if($tugas_mhs->nilai_akhir === null)
-                                    Belum dinilai
-                                    @else
-                                    Nilai : {{ $tugas_mhs->nilai_akhir }}
-                                    @endif
-                                </li>
-                                <li>{{ \Carbon\Carbon::parse($sa->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</li>
-                            @else
-                            <li>Belum Mengumpulkan</li>
-                            <li>Tugas belum dinilai</li>
-                            <li>{{ \Carbon\Carbon::parse($sa->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</li>
-                            @endisset
-                        </ul>
-                    </li>
-                @empty
-                    <p>Belum ada tugas sementara ini.</p>
-                @endforelse
-            </ol> --}}
         </div>
 
         {{-- submit proyek akhir --}}
