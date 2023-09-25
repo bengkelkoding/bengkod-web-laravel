@@ -73,11 +73,11 @@
                                     @endif
                                </td>
                                <td>
-                                    <div class="dropdown">
+                                    <!-- <div class="dropdown">
                                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="ti ti-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
+                                        </button> -->
+                                        <ul>
                                             <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
                                             <li><a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
                                             <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
@@ -86,7 +86,7 @@
                                                 <li><button type="submit" class="dropdown-item"><i class="ti ti-trash"></i> Hapus</button></li>
                                             </form>
                                         </ul>
-                                    </div>
+                                    <!-- </div> -->
                                </td>
                             </tr>
                             @php

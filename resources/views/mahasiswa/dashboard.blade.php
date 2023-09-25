@@ -54,7 +54,7 @@
         </div>
 
 
-    <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center">
+    <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center mb-5">
         @if($user->course)
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="box-border p-1 border mt-12 rounded-md">
@@ -189,7 +189,64 @@
 
             {{-- Mobile View --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+                @php
+                    $no = 1;
+                @endphp
+                @forelse($assignments as $as)
+                @php
+                    $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                    $deadline = \Carbon\Carbon::parse($as->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                @endphp
+
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <p>{{ $no }}</p>
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div class="text-gray-500">{{ $waktu_mulai }}</div>
+                        <div>
+                            @isset($tugas)
+                                @php
+                                    $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
+                                @endphp
+                                @if($tugas_mhs === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                @elseif($tugas_mhs->file_tugas === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($tugas_mhs->status === 0)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($tugas_mhs->status === 1)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                @endif
+                            @else
+                                <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                            @endisset
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <a href="{{ route('detail-tugas', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->judul }}</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">
+                        @isset($tugas)
+                            @if($tugas_mhs === null)
+                                Belum Upload
+                            @elseif($tugas_mhs->nilai_akhir === null)
+                                Belum dinilai
+                            @else
+                                {{ $tugas_mhs->nilai_akhir }}
+                            @endif
+                        @else
+                            Belum Upload
+                        @endisset
+                    </div>
+                </div>
+
+            @php
+                $no++;
+            @endphp
+        @empty
+            <div class="bg-white p-4 rounded-lg shadow text-center">Belum ada tugas</div>
+        @endforelse
+    </div>
+                {{-- <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <div class="flex items-center space-x-2 text-sm">
                         <div>1</div>
                         <div class="text-gray-500">10/10/2021</div>
@@ -238,11 +295,11 @@
                     </div>
                     <div class="text-sm font-medium text-black">80</div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- submit proyek akhir --}}
-        <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
+        {{-- <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
             @if($tugas === null || $tugas->status === 0)
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
@@ -293,7 +350,7 @@
                 <input id="realSubmit" type="submit" class="hidden">
             </form>
 
-        </div>
+        </div> --}}
         @else
         <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[600px] h-[400px] rounded border-2 bg-gray-300/50 my-5 flex justify-center items-center flex-col">
             <h1 class="text-black font-bold text-[24px] mb-3">Anda belum mendaftar ke kursus manapun.</h1>
@@ -301,69 +358,6 @@
         </div>
         @endif
     </div>
-
-    <script>
-        function yakin() {
-            const tombollSubmit = document.getElementById('realSubmit')
-            const yakin = window.confirm("Apakah Kamu Yakin? File Yang Telah Disubmit Tidak Bisa Dibatalkan!");
-            if (yakin) {
-                tombollSubmit.click()
-            } else {
-                console.log("gagal")
-            }
-        }
-
-        const dropArea = document.getElementById('upload-icon');
-        const fileContainer = document.getElementById('tugas');
-        var buttonSubmit = document.getElementById('summit');
-
-        dropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropArea.classList.add('bg-green-400');
-        });
-
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('bg-green-400');
-        });
-
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropArea.classList.remove('bg-green-400');
-
-            fileContainer.files = e.dataTransfer.files;
-            uploadIcon()
-        });
-
-        function openInputFile() {
-            let input = document.getElementById('tugas');
-            input.click();
-        }
-
-        function uploadIcon() {
-            let input = document.getElementById('tugas');
-            let icon = document.getElementById('upload-icon');
-            let currentSaved = document.getElementById('current_saved');
-
-            if(currentSaved === null) {
-                currentSaved = document.createElement('a');
-                currentSaved.setAttribute('id', 'current_saved');
-                currentSaved.setAttribute('class', 'text-black-500 mt-4 ml-1 text-xs');
-                icon.after(currentSaved);
-                currentSaved.innerHTML = input.files[0].name;
-            } else {
-                currentSaved.innerHTML = input.files[0].name;
-            }
-
-            if (input.value !== '') {
-                buttonSubmit.classList.add('hidden')
-                currentSaved.removeAttribute('href');
-                currentSaved.innerHTML = input.files[0].name;
-            } else {
-                icon.innerHTML = '<img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert"><h4>Seret File atau Klik Disini Untuk Upload File</h4>';
-                currentSaved.innerHTML = '';
-            }
-        }
-    </script>
 </x-app-layout>
 
 
