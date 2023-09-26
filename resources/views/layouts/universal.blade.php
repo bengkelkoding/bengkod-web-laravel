@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bengkel Koding</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="{{ asset('css/custom-scrollbar.css') }}" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/admin/images/logos/LogoUdinus.png')}}" />
 </head>
 <body class="overflow-x-hidden">

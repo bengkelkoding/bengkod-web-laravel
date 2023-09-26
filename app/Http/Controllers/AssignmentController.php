@@ -162,4 +162,12 @@ class AssignmentController extends Controller
             Log::error($e->getMessage());
         }
     }
+
+    public function forceSubmit(Request $request, $id) {
+        try {
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }

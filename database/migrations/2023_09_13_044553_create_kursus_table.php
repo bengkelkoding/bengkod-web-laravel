@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('jam')->nullable();
             $table->string('url');
             $table->text('description')->nullable();
+            $table->string('tools')->nullable();
             $table->timestamps();
         });
     }

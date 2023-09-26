@@ -47,11 +47,12 @@
         </div>
 
         <div class="box-border ml-3 w-[30%] pb-10 pt-4 px-8 max-md:w-full max-md:ml-0">
-            <h1 class="text-[28px] font-medium text-center mb-2 ml-2 mt-3">Tools</h1>
+            <h1 class="text-[28px] font-medium text-center mb-2 ml-2 mt-3">Bab Yang Akan Dipelajari</h1>
             <ol class="list-disc ml-8">
-                <li >VS Code</li>
-                <li >Browser</li>
-                <li >Web Server</li>
+                @foreach($tools as $tool)
+                    <li>{{$tool}}</li>
+                @endforeach
+
             </ol>
         </div>
     </div>

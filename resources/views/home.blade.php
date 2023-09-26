@@ -24,27 +24,27 @@
     <div class="w-[100%] my-30 flex flex-col justify-center items-center relative">
         <div class="w-[490px] h-[30px] rounded-b-xl bg-blue-500/10 absolute z-[-10] top-[30px] max-md:w-[100%] max-md:h-[58px]"></div>
         <h1 class="text-4xl font-medium text-center max-md:text-[38px]" id="kursus">Kursus di Bengkel Koding</h1>
-        <div class="max-w-[70%] flex my-[5em] items-center mx-auto lg:overflow-y-scroll max-xl:overflow-y-scroll max-2lx:overflow-x-scroll scrollbar-hide">
+        <div class="max-w-[70%] flex my-[5em] items-center overflow-x-scroll snap-mandatory snap-x">
             @foreach ($kursuses as $kursus)
-            <a href="/kursus/{{ $kursus->id }}">
-            <div class="m-[8px] border-2 rounded-md hover:drop-shadow-md bg-white min-w-[250px] flex flex-col justify-center transition ease-in-out duration-150">
-                <div class="m-4 py-1">
-                    <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover"/>
-                    <p class="text-[20px] font-semibold mt-1">{{ $kursus->judul }}</p>
-                    <p class="font-medium leading-1 text-gray-500 text-[14px] mt-2">
-                        <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                        {{ $kursus->users_count }} mahasiswa terdaftar
-                    </p>
-                    <p class="font-medium leading-1 text-gray-500 text-[14px]">
-                        <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
-                        {{ $kursus->hari }}
-                    </p>
-                    <p class="font-medium leading-1 text-gray-500 text-[14px]">
-                        <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
-                        {{ $kursus->jam }}
-                    </p>
+            <a href="/kursus/{{ $kursus->id }}" class="snap-center">
+                <div class="m-[8px] border-2 rounded-md hover:drop-shadow-md bg-white min-w-[250px] flex flex-col justify-center transition ease-in-out duration-150">
+                    <div class="m-4 py-1">
+                        <img src="{{ $kursus->image }}" alt="" class="w-full h-auto rounded-md object-cover"/>
+                        <p class="text-[20px] font-semibold mt-1">{{ $kursus->judul }}</p>
+                        <p class="font-medium leading-1 text-gray-500 text-[14px] mt-2">
+                            <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                            {{ $kursus->users_count }} mahasiswa terdaftar
+                        </p>
+                        <p class="font-medium leading-1 text-gray-500 text-[14px]">
+                            <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                            {{ $kursus->hari }}
+                        </p>
+                        <p class="font-medium leading-1 text-gray-500 text-[14px]">
+                            <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                            {{ $kursus->jam }}
+                        </p>
+                    </div>
                 </div>
-            </div>
             </a>
             @endforeach
         </div>
