@@ -46,12 +46,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                            $num = 1;
-                            @endphp
-                            @forelse($students as $student)
+                            @forelse($students as $key => $student)
                             <tr>
-                                <th scope="row">{{$num++}}</th>
+                                <th scope="row">{{$students->firstItem() + $key}}</th>
                                 <td>
                                 @isset($student->course->judul)
                                     {{$student->course->judul}}
@@ -66,19 +63,29 @@
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->email}}</td>
                                 <td>
-                                    <a href="{{route('admin.student.edit', $student->id)}}">Edit</a>
-                                    <form method="POST" action="{{ route('admin.student.destroy', $student->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">Delete</button>
-                                    </form>
+                                    <div class="flex inline">
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{route('admin.student.edit', $student->id)}}"><i class="ti ti-edit"></i> Edit</a>
+                                        </span>
+                                        <form method="POST" action="{{ route('admin.student.destroy', $student->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                                <button class="uppercase" type="submit"><i class="ti ti-trash"></i> Delete</button>
+                                            </span>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Data Kosong</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
+                {{ $students->  links() }}
             </div>
           </div>
         </div>

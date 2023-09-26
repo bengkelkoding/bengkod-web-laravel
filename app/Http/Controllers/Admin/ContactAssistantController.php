@@ -24,8 +24,9 @@ class ContactAssistantController extends Controller
         ->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
                   ->orWhere('phone_number', 'LIKE', "%{$search}%");
-        })->get();
-        return view('admin/contactAssistant/index', compact('contactAssistant'));
+        })->paginate(10);
+
+        return view('admin.contactAssistant.index', compact('contactAssistant'));
     }
 
     /**
@@ -35,7 +36,7 @@ class ContactAssistantController extends Controller
      */
     public function create()
     {
-        return view('admin/contactAssistant/create', ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
+        return view('admin.contactAssistant.create', ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
     }
 
     /**
@@ -84,7 +85,7 @@ class ContactAssistantController extends Controller
      */
     public function edit(ContactAssistant $contactAssistant)
     {
-        return view('admin/contactAssistant/edit', compact('contactAssistant'), ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
+        return view('admin.contactAssistant.edit', compact('contactAssistant'), ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
     }
 
     /**

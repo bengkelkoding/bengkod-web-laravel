@@ -40,65 +40,71 @@
                         <strong>{{ session('success') }}</strong>
                     </div>
                     @endif
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Judul</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Waktu Mulai</th>
-                                <th scope="col">Deadline</th>
-                                <th scope="col">File Soal</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $num = 1 ; @endphp
-                            @forelse ($assignments as $assign)
-                            @php
-                                $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id');
-                                $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
-                            @endphp
-                            <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
-                               <td>{{ $num }}</td>
-                               <td>{{ $assign->judul }}</td>
-                               <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
-                               <td>{{ $mulai->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
-                               <td>{{ $deadline->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
-                               <td>
-                                    @empty($assign->file_soal)
-                                    <span class="badge bg-danger">Belum ada file</span>
-                                    @else
-                                    <a href="{{ asset('storage/soal/'.$assign->file_soal) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
-                                    @endif
-                               </td>
-                               <td>
-                                    <!-- <div class="dropdown">
-                                        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical"></i>
-                                        </button> -->
-                                        <ul>
-                                            <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
-                                            <li><a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a></li>
-                                            <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
-                                                @method('delete')
-                                                @csrf
-                                                <li><button type="submit" class="dropdown-item"><i class="ti ti-trash"></i> Hapus</button></li>
-                                            </form>
-                                        </ul>
-                                    <!-- </div> -->
-                               </td>
-                            </tr>
-                            @php
-                                $num++;
-                            @endphp
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center">Data Kosong</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Judul</th>
+                                    <th scope="col">Deskripsi</th>
+                                    <th scope="col">Waktu Mulai</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">File Soal</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($assignments as $key => $assign)
+                                @php
+                                    $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id');
+                                    $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
+                                @endphp
+                                <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
+                                   <td>{{ $assignments->firstItem() + $key}}</td>
+                                   <td>{{ $assign->judul }}</td>
+                                   <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
+                                   <td>{{ $mulai->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
+                                   <td>{{ $deadline->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
+                                   <td>
+                                        @empty($assign->file_soal)
+                                        <span class="badge bg-danger">Belum ada file</span>
+                                        @else
+                                        <a href="{{ asset('storage/soal/'.$assign->file_soal) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
+                                        @endif
+                                   </td>
+                                   <td>
+                                        <!-- <div class="dropdown">
+                                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="ti ti-dots-vertical"></i>
+                                            </button> -->
+                                            <ul class="flex inline">
+                                                <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
+                                                <li class="mr-2">
+                                                    <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-1">
+                                                        <a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a>
+                                                    </span>
+                                                </li>
+                                                <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <li>
+                                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                                            <button type="submit" class="dropdown-item uppercase"><i class="ti ti-trash"></i> Hapus</button>
+                                                        </span>
+                                                    </li>
+                                                </form>
+                                            </ul>
+                                        <!-- </div> -->
+                                   </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center" colspan="7">Data Kosong</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                     {{ $assignments->links() }}
                 </div>
             </div>

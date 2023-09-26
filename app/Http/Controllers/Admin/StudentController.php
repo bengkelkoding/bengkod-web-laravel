@@ -25,7 +25,8 @@ class StudentController extends Controller
                   ->orWhere('kode', 'LIKE', "%{$search}%")
                   ->orWhere('email', 'LIKE', "%{$search}%");
         })
-        ->get();
+        ->paginate(10);
+        
         return view('admin.student.index', compact('students'));
     }
 

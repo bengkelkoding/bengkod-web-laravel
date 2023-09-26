@@ -49,6 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
                                     <th>Status</th>
                                     <th>File Tugas</th>
@@ -58,10 +59,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $no = 1; @endphp
-                                @forelse ($mahasiswa as $m)
+                                @forelse ($mahasiswa as $key => $m)
                                     <tr>
-                                        <td>{{ $no }}</td>
+                                        <td>{{ $mahasiswa->firstItem() + $key }}</td>
+                                        <td>{{ $m->kode }}</td>
                                         <td>{{ $m->name }}</td>
                                         <td>
                                             @if (!isset($m->tugas))
@@ -151,15 +152,15 @@
                                             @endisset
                                         </td>
                                     </tr>
-                                    @php $no++ @endphp
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Data Kosong</td>
+                                        <td colspan="7" class="text-center">Data Kosong</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
+                    {{ $mahasiswa->links() }}
                 </div>
             </div>
         </div>
