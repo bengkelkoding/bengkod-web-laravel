@@ -8,7 +8,6 @@ use App\Models\Tugas;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\AssignmentRequest;
 
 class AssignmentController extends Controller
