@@ -90,6 +90,7 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
         Route::resource('assignment', AssignmentController::class);
+        Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
     });
     // Route::get('/dosen', function(){
     //     return 'ini halaman dosen';

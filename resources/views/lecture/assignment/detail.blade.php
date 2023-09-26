@@ -76,13 +76,20 @@
                                         </td>
                                         <td>
                                             @isset($m->tugas)
-                                                @if ($m->tugas->status === 0)
+                                                @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
+                                                    <form action="{{ route('force-submit', $m->tugas->id) }}" method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="ti ti-download"></i> Force Submit</button>
+                                                    </form>
+                                                @elseif ($m->tugas->status === 0)
                                                     <button class="btn btn-primary" disabled><i class="ti ti-download"></i>
                                                         Download</button>
                                                 @else
                                                     <a class="btn btn-primary"
                                                         href="{{ url('storage/tugas/' . $m->tugas->file_tugas) }}"><i
-                                                            class="ti ti-download"></i> Download</a></li>
+                                                            class="ti ti-download"></i> Download</a>
                                                 @endif
                                             @else
                                                 <div class="alert alert-danger py-2 px-3 mb-0" role="alert">

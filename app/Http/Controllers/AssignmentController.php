@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Requests\AssignmentRequest;
+use Illuminate\Support\Facades\Redis;
 
 class AssignmentController extends Controller
 {
@@ -152,6 +153,14 @@ class AssignmentController extends Controller
             return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menghapus tugas');
         } catch (Exception $e) {
             Log::error($e->getMessage());
+        }
+    }
+
+    public function forceSubmit(Request $request, $id) {
+        try {
+            
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }
