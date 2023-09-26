@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Assignment;
-use Illuminate\Http\Request;
 use App\Http\Requests\AssignmentRequest;
+use App\Models\Assignment;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
 {
@@ -18,7 +18,12 @@ class AssignmentController extends Controller
     {
         $search = $request->search ?? '';
         $assignments = Assignment::where('id_kursus', auth()->user()->id_kursus)
-            ->where('judul', 'LIKE', "%$search%")
+            ->where(function ($query) use ($search) {
+                $query->where('judul', 'LIKE', "%{$search}%")
+                    ->orWhere('deskripsi', 'LIKE', "%{$search}%")
+                    ->orWhere('waktu_mulai', 'LIKE', "%{$search}%")
+                    ->orWhere('deadline', 'LIKE', "%{$search}%");
+            })
             ->with('kursus')
             ->paginate(10);
 
@@ -77,7 +82,10 @@ class AssignmentController extends Controller
     {
         $search = $request->search ?? '';
         $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
-            ->where('name', 'like', "%$search%")
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('kode', 'LIKE', "%{$search}%");
+            })
             ->with(['tugas' => function ($q) use ($assignment) {
                 $q->where('id_assignment', $assignment->id);
             }])

@@ -20,11 +20,12 @@ class LectureController extends Controller
     {
         $search = $request->search ? $request->search : "";
         $lectures = User::role('dosen')->with('course')
-        ->where(function ($query) use ($search) {
-            $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('kode', 'LIKE', "%{$search}%")
-                  ->orWhere('email', 'LIKE', "%{$search}%");
-        })->get();
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('kode', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            })
+            ->paginate(10);
         return view('admin.lecture.index', compact('lectures'));
     }
 
@@ -60,8 +61,8 @@ class LectureController extends Controller
             ];
             $user = User::create($data);
             $user->assignRole('dosen');
+            
             return response()->redirectToRoute('admin.lecture.index');
-
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

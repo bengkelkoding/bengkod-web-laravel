@@ -46,12 +46,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                     $num = 1;
-                    @endphp
-                    @forelse($lectures as $lecture)
+                    @forelse($lectures as $key => $lecture)
                     <tr>
-                        <th scope="row">{{$num++}}</th> 
+                        <th scope="row">{{$lectures->firstItem() + $key}}</th>
                         <td>
                         @isset($lecture->course->judul)
                             {{$lecture->course->judul}}
@@ -61,19 +58,30 @@
                         <td>{{$lecture->name}}</td>
                         <td>{{$lecture->email}}</td>
                         <td>
-                            <a href="{{route('admin.lecture.edit', $lecture->id)}}">Edit</a>
-                            <form method="POST" action="{{ route('admin.lecture.destroy', $lecture->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">Delete</button>
-                            </form>
+                            <div class="flex inline">
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                    <a href="{{route('admin.lecture.edit', $lecture->id)}}"><i class="ti ti-edit"></i> Edit</a>
+                                </span>
+
+                                <form method="POST" action="{{ route('admin.lecture.destroy', $lecture->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                        <button class="uppercase" type="submit"><i class="ti ti-trash"></i> Delete</button>
+                                    </span>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty
+                    <tr>
+                        <td class="text-center" colspan="6">Data Kosong</td>
+                    </tr>
                     @endforelse
                 </tbody>
                 </table>
             </div>
+            {{ $lectures->links() }}
             </div>
           </div>
         </div>

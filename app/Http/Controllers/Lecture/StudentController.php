@@ -22,10 +22,14 @@ class StudentController extends Controller
         $user = Auth::user();
         $search = $request->search ? $request->search : "";
         $students = User::role('mahasiswa')
-                        ->where('name', 'LIKE', "%{$search}%")
-                        ->where('id_kursus', $user->id_kursus)
-                        ->with('course', 'tugas')
-                        ->paginate(10);
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('kode', 'LIKE', "%{$search}%");
+            })
+            ->where('id_kursus', $user->id_kursus)
+            ->with('course', 'tugas')
+            ->paginate(10);
+
         return view('lecture.student.index', compact('students'));
     }
 

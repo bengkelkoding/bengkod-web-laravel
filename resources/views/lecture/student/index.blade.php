@@ -48,12 +48,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                            $num = 1;
-                            @endphp
-                            @forelse($students as $student)
+                            @forelse($students as $key => $student)
                             <tr>
-                                <th scope="row">{{$num++}}</th>
+                                <th scope="row">{{$students->firstItem() + $key}}</th>
                                 <td>{{$student->kode}}</td>
                                 <td>{{$student->name}}</td>
                                 {{-- menghapus kolom kursus yang diikuti --}}
@@ -125,6 +122,9 @@
                                 </td>
                             </tr>
                             @empty
+                            <tr>
+                                <td class="text-center" colspan="7">Data Kosong</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
