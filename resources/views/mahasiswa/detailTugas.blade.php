@@ -27,7 +27,7 @@
                             <td class="pr-3">:</td>
                             <td class="min-w-[500px]">
                                 {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
-                                ({{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                             </td>
                         </tr>
                         <tr>
@@ -35,19 +35,23 @@
                             <td class="pr-3">:</td>
                             <td class="min-w-[500px]">
                                 {{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
-                                ({{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                ({{ \Carbon\Carbon::parse($assignment->deadline, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                             </td>
                         </tr>
                     </table>
                     <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
                         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
-                        @if ($assignment->waktu_mulai < now() && $assignment->deadline < now())
-                            <p>Tugas sudah ditutup</p>
-                        @elseif($assignment->waktu_mulai > now() && $assignment->deadline > now())
-                            <p>Tugas belum dibuka</p>
-                        @elseif($assignment->waktu_mulai < now() && $assignment->deadline > now())
+                        @if ($assignment->waktu_mulai < now('Asia/Jakarta') && $assignment->deadline < now('Asia/Jakarta'))
+                            <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
+                                Maaf tugas sudah ditutup!
+                            </div>
+                        @elseif($assignment->waktu_mulai > now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
+                            <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
+                                Maaf tugas belum dibuka!
+                            </div>
+                        @elseif($assignment->waktu_mulai < now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
                             @if ($tugas === null || $tugas->status === 0)
-                                <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer"
+                                <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer"
                                     id="upload-icon" onclick="openInputFile()">
                                     <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px"
                                         height="58px" class="cursor-pointer invert">
@@ -56,7 +60,7 @@
                                 </div>
                             @else
                                 <div
-                                    class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
+                                    class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
                                     <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px"
                                         height="58px" class="invert">
                                     <h4 class="mx-5 mt-4 text-center">Semoga Mendapatkan Hasil Terbaik!</h4>
