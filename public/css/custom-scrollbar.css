@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    width: 5px; /* Adjust the width as needed */
+    height: 5px;
+}
+
+/* Define the styles for the scrollbar thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+    background-color: #a1a9b2; /* Set the color of the thumb */
+    border-radius: 10px; /* Add border-radius for a rounded thumb */
+    width: 2px;
+}
+
+/* Define the styles for the scrollbar track (background) when hovered */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #72797e; /* Change the color on hover */
+}
+
