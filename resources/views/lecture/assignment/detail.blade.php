@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="container-fluid">
-        <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i>
+        <a href="{{ url('lecture/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i>
             Back</a>
         <div class="container">
             <div class="card">
@@ -101,6 +101,7 @@
                                         </td>
                                         <td>
                                             @isset($m->tugas)
+                                                @dd($m->tugas->id)
                                                 @if ($m->tugas->status === 0)
                                                     <form
                                                         action="{{ route('lecture.student.update', $m->tugas->id) }}"
@@ -127,9 +128,13 @@
                                                     </form>
                                                 @endif
                                             @else
-                                                <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
-                                                    {{ __('Belum ada tugas') }}
-                                                </div>
+                                                @if ($assignment->deadline < now('Asia/Jakarta'))
+                                                    masuk sini dong
+                                                @else
+                                                    <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
+                                                        {{ __('Belum ada tugas') }}
+                                                    </div>
+                                                @endif
                                             @endisset
                                         </td>
                                         <td>

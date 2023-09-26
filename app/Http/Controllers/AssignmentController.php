@@ -6,7 +6,6 @@ use Exception;
 use App\Models\User;
 use App\Models\Tugas;
 use App\Models\Assignment;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AssignmentRequest;

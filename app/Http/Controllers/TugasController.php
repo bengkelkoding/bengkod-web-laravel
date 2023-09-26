@@ -40,7 +40,7 @@ class TugasController extends Controller
     {
         try {
             // Rename tugas file to be unique
-            // dd($request->id_assignment);
+            // dd(auth()->user()->id);
             $existing_doc = Tugas::where('id_mahasiswa', auth()->user()->id)->first();
             // dd($existing_doc->file_tugas);
             if (isset($existing_doc->file_tugas)) {

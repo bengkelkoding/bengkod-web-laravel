@@ -77,10 +77,10 @@
                                             <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ti ti-dots-vertical"></i>
                                             </button> -->
-                                            <ul class="flex inline">
-                                                <!-- <li><a class="dropdown-item" href="{{ route('lecture.assignment.show', $assign->id) }}"><i class="ti ti-eye"></i>Detail</a> </li> -->
+                                            <ul class="flex">
+                                                <!-- <li><a class="dropdown-item" href="{{-- route('lecture.assignment.show', $assign->id) --}}"><i class="ti ti-eye"></i>Detail</a> </li> -->
                                                 <li class="mr-2">
-                                                    <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-1">
+                                                    <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 last:mr-0 mr-1">
                                                         <a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a>
                                                     </span>
                                                 </li>
@@ -88,7 +88,7 @@
                                                     @method('delete')
                                                     @csrf
                                                     <li>
-                                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 last:mr-0 mr-1">
                                                             <button type="submit" class="dropdown-item uppercase"><i class="ti ti-trash"></i> Hapus</button>
                                                         </span>
                                                     </li>
