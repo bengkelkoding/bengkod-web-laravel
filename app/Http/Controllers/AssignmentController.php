@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
+use App\Models\Tugas;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
-use App\Http\Requests\AssignmentRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Requests\AssignmentRequest;
 
 class AssignmentController extends Controller
 {
@@ -158,9 +161,11 @@ class AssignmentController extends Controller
 
     public function forceSubmit(Request $request, $id) {
         try {
-            
-        } catch (\Throwable $th) {
-            //throw $th;
+            $tugas = Tugas::findorfail($id);
+            $tugas->update($request->all());
+            return redirect()->back()->with('success', 'Force Submit Succesfully');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
         }
     }
 }

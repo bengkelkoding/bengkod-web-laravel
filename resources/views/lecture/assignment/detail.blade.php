@@ -77,10 +77,11 @@
                                         <td>
                                             @isset($m->tugas)
                                                 @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
-                                                    <form action="{{ route('force-submit', $m->tugas->id) }}" method="POST">
+                                                    <form action="{{ route('lecture.force-submit', $m->tugas->id) }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-primary">
+                                                        <input type="hidden" name="status" value="1">
+                                                        <button type="submit" class="btn btn-primary bg-blue-400">
                                                             <i class="ti ti-download"></i> Force Submit</button>
                                                     </form>
                                                 @elseif ($m->tugas->status === 0)
