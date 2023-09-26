@@ -57,7 +57,8 @@ class KursusController extends Controller
     public function show($id)
     {
         $kursus = Kursus::withCount('users')->find($id);
-        return view('kursus.detail', compact('kursus'));
+        $tools = explode(',', $kursus->tools);
+        return view('kursus.detail', compact('kursus', 'tools'));
     }
 
     /**
