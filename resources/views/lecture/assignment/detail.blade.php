@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="container-fluid">
-        <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i>
+        <a href="{{ url('lecture/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i>
             Back</a>
         <div class="container">
             <div class="card">
@@ -97,10 +97,11 @@
                                         <td>
                                             @isset($m->tugas)
                                                 @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
-                                                    <form action="{{ route('force-submit', $m->tugas->id) }}" method="POST">
+                                                    <form action="{{ route('lecture.force-submit', $m->tugas->id) }}" method="POST">
                                                         @method('PUT')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-primary">
+                                                        <input type="hidden" name="status" value="1">
+                                                        <button type="submit" class="btn btn-primary bg-blue-400">
                                                             <i class="ti ti-download"></i> Force Submit</button>
                                                     </form>
                                                 @elseif ($m->tugas->status === 0)
@@ -125,7 +126,8 @@
                                                         method="POST" class="flex">
                                                         <input type="number" name="nilai" id="nilai"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}">
+                                                            value="{{ (int) $m->tugas->nilai_akhir }}"
+                                                            disabled>
                                                         <button
                                                             class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
                                                             disabled><i class="ti ti-device-floppy"></i> Simpan</button>
@@ -145,9 +147,22 @@
                                                     </form>
                                                 @endif
                                             @else
-                                                <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
-                                                    {{ __('Belum ada tugas') }}
-                                                </div>
+                                                @if ($assignment->deadline < now('Asia/Jakarta'))
+                                                    <form
+                                                        action="{{ route('lecture.autoZero', $assignment->id) }}"
+                                                        method="POST" class="flex">
+                                                        @csrf
+                                                        <input type="hidden" name="nilai_akhir" id="nilai_akhir"
+                                                            value="0">
+                                                        <button type="submit"
+                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
+                                                                class="ti ti-device-floppy"></i>Auto 0</button>
+                                                    </form>
+                                                @else
+                                                    <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
+                                                        {{ __('Belum ada tugas') }}
+                                                    </div>
+                                                @endif
                                             @endisset
                                         </td>
                                         <td>

@@ -112,4 +112,23 @@ class StudentController extends Controller
     {
         //
     }
+
+    public function autoZero(Request $request, $id) {
+        try {
+            $id_mhs = auth()->user();
+            Tugas::create([
+                'id_mahasiswa' => $id_mhs->id,
+                'id_kursus' => $id_mhs->id_kursus,
+                'id_assignment' => $id,
+                'file_tugas' => '-',
+                'nilai_akhir'=> '0',
+                'status' => '1',
+            ]);
+            return redirect()->back()->with('success', 'Berhasil Melakukan Aksi');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
 }
