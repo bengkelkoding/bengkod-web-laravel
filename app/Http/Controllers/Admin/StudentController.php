@@ -18,15 +18,16 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search ? $request->search : "";
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
         $students = User::role('mahasiswa')->with('course')
         ->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
                   ->orWhere('kode', 'LIKE', "%{$search}%")
                   ->orWhere('email', 'LIKE', "%{$search}%");
         })
-        ->paginate(10);
-        
+        ->paginate($per_page);
+
         return view('admin.student.index', compact('students'));
     }
 
@@ -60,10 +61,11 @@ class StudentController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make('password'),
             ];
+
             $user = User::create($data);
             $user->assignRole('mahasiswa');
-            return response()->redirectToRoute('admin.student.index');
 
+            return response()->redirectToRoute('admin.student.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -92,7 +94,7 @@ class StudentController extends Controller
     {
         $student = User::find($id);
         $courses = Kursus::all();
-        // dd($student->id);
+
         return view('admin.student.edit', compact('student', 'courses'));
     }
 

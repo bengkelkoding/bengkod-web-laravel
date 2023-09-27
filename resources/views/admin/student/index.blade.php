@@ -9,12 +9,25 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
+                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa</span><a href="{{route('admin.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
                 <div class="flex max-md:flex-col">
                     <div class="col">
-                        <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa</span><a href="{{route('admin.student.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
+                        <form>
+                            <div class="flex inline">
+                                <label>
+                                    Show
+                                    <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
+                                        <option value="10" {{ request()->per_page == 10 ? 'selected' : '' }}>10</option>
+                                        <option value="25" {{ request()->per_page == 25 ? 'selected' : '' }}>25</option>
+                                        <option value="50" {{ request()->per_page == 50 ? 'selected' : '' }}>50</option>
+                                        <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100</option>
+                                    </select>
+                                    entries
+                                </label>
+                            </div>
+                        </form>
                     </div>
                     <div class="col">
-
                         <form class="flex items-center">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
@@ -85,7 +98,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $students->  links() }}
+                {{ $students->withQueryString()->links() }}
             </div>
           </div>
         </div>
