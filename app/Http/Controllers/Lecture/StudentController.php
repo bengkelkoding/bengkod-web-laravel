@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Lecture;
 
+use Exception;
 use App\Models\User;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Requests\NilaiRequest;
 use App\Http\Controllers\Controller;
-use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -115,15 +116,24 @@ class StudentController extends Controller
 
     public function autoZero(Request $request, $id) {
         try {
-            $id_mhs = auth()->user();
-            Tugas::create([
-                'id_mahasiswa' => $id_mhs->id,
-                'id_kursus' => $id_mhs->id_kursus,
+            $mahasiswa = User::find($request->id_mhs);
+
+            $validator = Validator::make($request->all(), [
+                'id_mhs' => 'required',
+                'id_kursus' => 'required',
+            ]);
+            $validator->validate();
+
+            Tugas::updateOrCreate([
+                'id_mahasiswa' => $request->id_mhs,
+                'id_kursus' => $request->id_kursus,
                 'id_assignment' => $id,
+            ], [
                 'file_tugas' => '-',
                 'nilai_akhir'=> '0',
                 'status' => '1',
             ]);
+
             return redirect()->back()->with('success', 'Berhasil Melakukan Aksi');
         } catch (Exception $e) {
             return response()->json([

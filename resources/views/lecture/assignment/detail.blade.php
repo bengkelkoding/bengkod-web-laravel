@@ -6,7 +6,8 @@
     </x-slot>
 
     <div class="container-fluid">
-        <a href="{{ url('lecture/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i>
+        <a href="{{ url('lecture/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i
+                class="ti ti-arrow-left"></i>
             Back</a>
         <div class="container">
             <div class="card">
@@ -27,7 +28,8 @@
                                             </option>
                                             <option value="50" {{ request()->per_page == 50 ? 'selected' : '' }}>50
                                             </option>
-                                            <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100
+                                            <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>
+                                                100
                                             </option>
                                         </select>
                                         entries
@@ -59,9 +61,9 @@
                         </div>
                     </div>
                     @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ session('success') }}</strong>
-                    </div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                        </div>
                     @endif
                     <div class="table-responsive">
                         <table class="table table-striped table-hover max-md:min-w-[250vw]">
@@ -97,7 +99,8 @@
                                         <td>
                                             @isset($m->tugas)
                                                 @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
-                                                    <form action="{{ route('lecture.force-submit', $m->tugas->id) }}" method="POST">
+                                                    <form action="{{ route('lecture.force-submit', $m->tugas->id) }}"
+                                                        method="POST">
                                                         @method('PUT')
                                                         @csrf
                                                         <input type="hidden" name="status" value="1">
@@ -121,20 +124,17 @@
                                         <td>
                                             @isset($m->tugas)
                                                 @if ($m->tugas->status === 0)
-                                                    <form
-                                                        action="{{ route('lecture.student.update', $m->tugas->id) }}"
+                                                    <form action="{{ route('lecture.student.update', $m->tugas->id) }}"
                                                         method="POST" class="flex">
                                                         <input type="number" name="nilai" id="nilai"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}"
-                                                            disabled>
+                                                            value="{{ (int) $m->tugas->nilai_akhir }}" disabled>
                                                         <button
                                                             class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
                                                             disabled><i class="ti ti-device-floppy"></i> Simpan</button>
                                                     </form>
                                                 @else
-                                                    <form
-                                                        action="{{ route('lecture.student.update', $m->tugas->id) }}"
+                                                    <form action="{{ route('lecture.student.update', $m->tugas->id) }}"
                                                         method="POST" class="flex">
                                                         @csrf
                                                         @method('PATCH')
@@ -148,10 +148,12 @@
                                                 @endif
                                             @else
                                                 @if ($assignment->deadline < now('Asia/Jakarta'))
-                                                    <form
-                                                        action="{{ route('lecture.autoZero', $assignment->id) }}"
+                                                    <form action="{{ route('lecture.autoZero', $assignment->id) }}"
                                                         method="POST" class="flex">
                                                         @csrf
+                                                        <input type="hidden" name="id_mhs" value="{{ $m->id }}">
+                                                        <input type="hidden" name="id_kursus"
+                                                            value="{{ $assignment->id_kursus }}">
                                                         <input type="hidden" name="nilai_akhir" id="nilai_akhir"
                                                             value="0">
                                                         <button type="submit"
@@ -168,9 +170,9 @@
                                         <td>
                                             @isset($m->tugas)
                                                 @isset($m->tugas->nilai_akhir)
-                                                {{ $m->tugas->nilai_akhir }}
+                                                    {{ $m->tugas->nilai_akhir }}
                                                 @else
-                                                {{ __('-') }}
+                                                    {{ __('-') }}
                                                 @endisset
                                             @else
                                                 {{ __('-') }}
@@ -178,10 +180,9 @@
                                         </td>
                                         <td>
                                             @isset($m->tugas)
-                                            {{ \Carbon\Carbon::parse($m->tugas->created_at)->locale('id')
-                                                                ->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
+                                                {{ \Carbon\Carbon::parse($m->tugas->created_at)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
                                             @else
-                                            {{ __('-') }}
+                                                {{ __('-') }}
                                             @endisset
                                         </td>
                                     </tr>

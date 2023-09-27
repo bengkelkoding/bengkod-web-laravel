@@ -118,7 +118,7 @@ if ($hour >= 5 && $hour < 12) {
                         }
                         $rata_rata = $totalNilai / count($tugasMahasiswa);
                         @endphp
-                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ $rata_rata }}</h1>
+                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ number_format((float)$rata_rata, 2, '.', '') }}</h1>
                     @endif
                 </div>
             </div>
