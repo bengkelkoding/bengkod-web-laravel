@@ -19,12 +19,13 @@ class ContactAssistantController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search ? $request->search : "";
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
         $contactAssistant = ContactAssistant::with('course')->with('student')
-        ->where(function ($query) use ($search) {
-            $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('phone_number', 'LIKE', "%{$search}%");
-        })->paginate(10);
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('phone_number', 'LIKE', "%{$search}%");
+            })->paginate($per_page);
 
         return view('admin.contactAssistant.index', compact('contactAssistant'));
     }
@@ -48,7 +49,6 @@ class ContactAssistantController extends Controller
     public function store(PostRequest $request)
     {
         try {
-
             $data = [
                 'id_kursus' => $request->course,
                 'id_mahasiswa' => $request->student,

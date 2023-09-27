@@ -9,13 +9,27 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
+                    <div class="flex">
+                        <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
+                        <a href="{{route('lecture.assignment.create')}}"
+                            class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
+                    </div>
                     <div class="row">
                         <div class="col">
-                            <div class="flex">
-                                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
-                                <a href="{{route('lecture.assignment.create')}}"
-                                    class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
-                            </div>
+                            <form>
+                                <div class="flex inline">
+                                    <label>
+                                        Show
+                                        <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
+                                            <option value="10" {{ request()->per_page == 10 ? 'selected' : '' }}>10</option>
+                                            <option value="25" {{ request()->per_page == 25 ? 'selected' : '' }}>25</option>
+                                            <option value="50" {{ request()->per_page == 50 ? 'selected' : '' }}>50</option>
+                                            <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100</option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </form>
                         </div>
                         <div class="col">
                             <form class="flex items-center">
@@ -105,7 +119,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $assignments->links() }}
+                    {{ $assignments->withQueryString()->links() }}
                 </div>
             </div>
         </div>

@@ -12,9 +12,28 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
+                                {{ $assignment->judul }} </span></p>
                         <div class="col">
-                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
-                                    {{ $assignment->judul }} </span></p>
+                            <form>
+                                <div class="flex inline">
+                                    <label>
+                                        Show
+                                        <select class="rounded-md" name="per_page" id="per_page"
+                                            onchange="this.form.submit()">
+                                            <option value="10" {{ request()->per_page == 10 ? 'selected' : '' }}>10
+                                            </option>
+                                            <option value="25" {{ request()->per_page == 25 ? 'selected' : '' }}>25
+                                            </option>
+                                            <option value="50" {{ request()->per_page == 50 ? 'selected' : '' }}>50
+                                            </option>
+                                            <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100
+                                            </option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </form>
                         </div>
                         <div class="col">
                             <form class="flex items-center">
@@ -159,7 +178,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $mahasiswa->links() }}
+                    {{ $mahasiswa->withQueryString()->links() }}
                 </div>
             </div>
         </div>

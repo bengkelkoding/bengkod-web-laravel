@@ -17,6 +17,7 @@ class AssignmentController extends Controller
     public function index(Request $request)
     {
         $search = $request->search ?? '';
+        $per_page = $request->per_page ?? 10;
         $assignments = Assignment::where('id_kursus', auth()->user()->id_kursus)
             ->where(function ($query) use ($search) {
                 $query->where('judul', 'LIKE', "%{$search}%")
@@ -25,7 +26,7 @@ class AssignmentController extends Controller
                     ->orWhere('deadline', 'LIKE', "%{$search}%");
             })
             ->with('kursus')
-            ->paginate(10);
+            ->paginate($per_page);
 
         return view('lecture.assignment.index', compact('assignments'));
     }
@@ -81,6 +82,7 @@ class AssignmentController extends Controller
     public function show(Assignment $assignment, Request $request)
     {
         $search = $request->search ?? '';
+        $per_page = $request->per_page ?? 10;
         $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
@@ -89,7 +91,7 @@ class AssignmentController extends Controller
             ->with(['tugas' => function ($q) use ($assignment) {
                 $q->where('id_assignment', $assignment->id);
             }])
-            ->paginate(10);
+            ->paginate($per_page);
 
         return view('lecture.assignment.detail', compact('assignment', 'mahasiswa'));
     }

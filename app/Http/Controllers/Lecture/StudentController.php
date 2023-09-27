@@ -20,7 +20,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $search = $request->search ? $request->search : "";
+        $per_page = $request->per_page ?? 10;
+        $search = $request->search ?? "";
         $students = User::role('mahasiswa')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
@@ -28,7 +29,7 @@ class StudentController extends Controller
             })
             ->where('id_kursus', $user->id_kursus)
             ->with('course', 'tugas')
-            ->paginate(10);
+            ->paginate($per_page);
 
         return view('lecture.student.index', compact('students'));
     }
