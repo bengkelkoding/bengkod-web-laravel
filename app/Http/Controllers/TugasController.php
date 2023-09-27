@@ -36,12 +36,14 @@ class TugasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TugasRequest $request)
+    public function store(TugasRequest $request, $id)
     {
         try {
             // Rename tugas file to be unique
             // dd(auth()->user()->id);
-            $existing_doc = Tugas::where('id_mahasiswa', auth()->user()->id)->first();
+            $existing_doc = Tugas::where('id_mahasiswa', auth()->user()->id)
+                ->where('id_assignment', $id)
+                ->first();
             // dd($existing_doc->file_tugas);
             if (isset($existing_doc->file_tugas)) {
                 unlink(public_path('storage/tugas/' . $existing_doc->file_tugas));

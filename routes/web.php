@@ -86,6 +86,7 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
     Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [DosenController::class, 'index'])->name('index');
         Route::resource('student', StudentController::class);
+        Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
@@ -105,7 +106,7 @@ Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
     Route::get('daftar-nilai', [MahasiswaController::class, 'showDaftarNilai']);
     Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
-    Route::post('simpan-tugas', [TugasController::class, 'store'])->name('simpan-tugas');
+    Route::post('simpan-tugas/{id}', [TugasController::class, 'store'])->name('simpan-tugas');
     Route::post('submit-tugas', [TugasController::class, 'submitTugas'])->name('submit-tugas');
     Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
     Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');

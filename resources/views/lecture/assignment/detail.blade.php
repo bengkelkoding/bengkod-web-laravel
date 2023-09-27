@@ -101,14 +101,14 @@
                                         </td>
                                         <td>
                                             @isset($m->tugas)
-                                                @dd($m->tugas->id)
                                                 @if ($m->tugas->status === 0)
                                                     <form
                                                         action="{{ route('lecture.student.update', $m->tugas->id) }}"
                                                         method="POST" class="flex">
                                                         <input type="number" name="nilai" id="nilai"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}">
+                                                            value="{{ (int) $m->tugas->nilai_akhir }}"
+                                                            disabled>
                                                         <button
                                                             class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
                                                             disabled><i class="ti ti-device-floppy"></i> Simpan</button>
@@ -129,7 +129,16 @@
                                                 @endif
                                             @else
                                                 @if ($assignment->deadline < now('Asia/Jakarta'))
-                                                    masuk sini dong
+                                                    <form
+                                                        action="{{ route('lecture.autoZero', $assignment->id) }}"
+                                                        method="POST" class="flex">
+                                                        @csrf
+                                                        <input type="hidden" name="nilai_akhir" id="nilai_akhir"
+                                                            value="0">
+                                                        <button type="submit"
+                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
+                                                                class="ti ti-device-floppy"></i>Auto 0</button>
+                                                    </form>
                                                 @else
                                                     <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
                                                         {{ __('Belum ada tugas') }}

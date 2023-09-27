@@ -40,6 +40,7 @@
                         </tr>
                     </table>
                     <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
+                        {{-- @dd($assignment->id) --}}
                         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
                         @if ($assignment->waktu_mulai < now('Asia/Jakarta') && $assignment->deadline < now('Asia/Jakarta'))
                             <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
@@ -66,7 +67,7 @@
                                     <h4 class="mx-5 mt-4 text-center">Semoga Mendapatkan Hasil Terbaik!</h4>
                                 </div>
                             @endif
-                            <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('simpan-tugas', $assignment->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id_assignment" class="hidden"
                                     value="{{ $assignment->id }}">

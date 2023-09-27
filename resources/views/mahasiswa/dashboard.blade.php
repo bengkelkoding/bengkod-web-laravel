@@ -113,10 +113,10 @@ if ($hour >= 5 && $hour < 12) {
                     @else
                         @php
                         $totalNilai = 0;
-                        for ($i = 0; $i < count($tugasMahasiswa); $i++){
-                            $totalNilai += intval($tugasMahasiswa[$i]->nilai_akhir);
+                        foreach ($tugasMahasiswa as $key => $value) {
+                            $totalNilai += $value->nilai_akhir;
                         }
-                        $rata_rata = $totalNilai / count($tugasMahasiswa)
+                        $rata_rata = $totalNilai / count($tugasMahasiswa);
                         @endphp
                         <h1 class="text-[#00C136] text-[40px] font-bold">{{ $rata_rata }}</h1>
                     @endif
