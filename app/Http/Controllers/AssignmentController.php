@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use ZipArchive;
 use App\Models\User;
 use App\Models\Tugas;
 use App\Models\Assignment;
@@ -170,11 +171,44 @@ class AssignmentController extends Controller
         }
     }
 
-    public function forceSubmit(Request $request, $id) {
+    public function forceSubmit(Request $request, $id)
+    {
         try {
             $tugas = Tugas::findorfail($id);
             $tugas->update($request->all());
             return redirect()->back()->with('success', 'Force Submit Succesfully');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
+    }
+
+    public function downloadTugas($id)
+    {
+        try {
+            $tugas = Tugas::where('id_assignment', $id)->whereNot('file_tugas', '-')->get();
+            $files = [];
+
+            foreach($tugas as $t) {
+                $files[$t->id] = public_path('storage/tugas/' . $t->file_tugas);
+            }
+
+            $zip = new ZipArchive();
+            $assignment = Assignment::where('id', $id)->with('kursus')->first();
+            $zipFileName = 'Penugasan_'. $assignment->judul. '_' .$assignment->kursus->judul .'.zip';
+            $zipFile = public_path('storage/file_zip_tugas/'. $zipFileName);
+
+            // dd($zip->open($zipFile, ZipArchive::CREATE));
+            if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+                // dd($zip);
+                foreach ($files as $key => $value) {
+                    // dd($value);
+                    $relativeName = basename($value);
+                    $zip->addFile($value, $relativeName);
+                }
+                $zip->close();
+            }
+
+            return response()->download(public_path('storage/file_zip_tugas/'. $zipFileName));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

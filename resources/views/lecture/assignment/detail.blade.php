@@ -13,8 +13,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
-                                {{ $assignment->judul }} </span></p>
+                        <div class="col">
+                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
+                                    {{ $assignment->judul }} </span></p>
+                        </div>
+                        <div class="col">
+                            <div class="flex justify-end">
+                                <a href="{{ route('lecture.download-tugas', $assignment->id) }}" class="btn btn-primary bg-blue-500">Download Semua Tugas</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <form>
                                 <div class="flex">
