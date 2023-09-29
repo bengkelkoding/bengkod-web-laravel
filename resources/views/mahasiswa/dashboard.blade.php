@@ -102,24 +102,11 @@ if ($hour >= 5 && $hour < 12) {
             <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
-                    {{-- @dd(empty($tugasMahasiswa[0])) --}}
-                    {{-- @forelse($tugasMahasiswa as $tugas)
+                    @forelse($tugasMahasiswa as $tugas)
                         <h1 class="text-[#00C136] text-[40px] font-bold">{{ $tugas->nilai_akhir }}</h1>
-                        @empty
+                    @empty
                         <h1 class="text-[#c10000] text-[40px] font-bold">-</h1>
-                        @endforelse --}}
-                    @if (empty($tugasMahasiswa[0]))
-                        <h1 class="text-[#c10000] text-[40px] font-bold">-</h1>
-                    @else
-                        @php
-                        $totalNilai = 0;
-                        foreach ($tugasMahasiswa as $key => $value) {
-                            $totalNilai += $value->nilai_akhir;
-                        }
-                        $rata_rata = $totalNilai / count($tugasMahasiswa);
-                        @endphp
-                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ number_format((float)$rata_rata, 2, '.', '') }}</h1>
-                    @endif
+                    @endforelse
                 </div>
             </div>
 
