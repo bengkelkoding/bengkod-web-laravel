@@ -8,11 +8,71 @@
             class="text-xl font-medium px-2 transition ease-in-out duration-150 text-gray-500 hover:text-gray-700">
             < Kembali</a>
                 <h3 class="text-black font-bold text-2xl max-md:w-auto max-md:ml-0 mt-7">Detail Penugasan</h3>
-                <div class="p-2 mt-7 box-border h-auto w-auto shadow-lg flex flex-col rounded-md overflow-hidden">
-                    <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 ">{{ $assignment->judul }}</h1>
-                    <p>Deskripsi :</p>
-                    <pre class="text-justify md-pl-0 mb-2 font-sans">{{ $deskripsi }}</pre> {{-- ================= --}}
-                    <table class="">
+                <div class="p-2 mt-7 box-border h-auto w-full shadow-lg flex flex-col rounded-md overflow-hidden">
+                    <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 text-center">{{ $assignment->judul }}</h1>
+                    {{-- <p>Deskripsi :</p>
+                    <pre class="text-justify md-pl-0 mb-2 font-sans">{{ $deskripsi }}</pre> --}}
+
+                    <div class="overflow-auto rounded-lg shadow hidden md:block mb-5">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                                <tr>
+                                    <th class="p-3 text-sm font-semibold tracking-wide text-left w-50">Deskripsi</th>
+                                    <th class="p-3 text-sm font-semibold tracking-wide text-left w-40">File Soal</th>
+                                    <th class="p-3 text-sm font-semibold tracking-wide text-left">Waktu Dibuka</th>
+                                    <th class="p-3 text-sm font-semibold tracking-wide text-left">Deadline</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @if (isset($assignment->file_soal))
+                                <tr>
+                                    <td><pre class="ml-3">{{ $deskripsi }}</pre></td>
+                                    <td><a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->file_soal }}</a></td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->deadline, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                    </td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="text-gray-500">
+                                <div class="mb-2">
+                                    <h1>Deskripsi : </h1>
+                                    <pre>{{ $deskripsi }}</pre>
+                                </div>
+                                <div class="flex mb-2">
+                                    <h1 class="text-gray-500 mr-2 pt-1">File Soal : </h1>
+                                    <a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->file_soal }}</a>
+                                </div>
+                                <div class="flex flex-col mb-2">
+                                    <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
+                                    <p>
+                                        {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                    </p>
+                                </div>
+                                <div class="flex flex-col mb-2">
+                                    <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
+                                    <p>
+                                        {{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->deadline, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+
+                    {{-- <div>
+                    <table class="border max-w-full">
                         @if (isset($assignment->file_soal))
                             <tr>
                                 <td class="">File Soal</td>
@@ -25,7 +85,7 @@
                         <tr>
                             <td class="">Waktu Dibuka</td>
                             <td class="pr-3">:</td>
-                            <td class="min-w-[500px]">
+                            <td class="min-w-full">
                                 {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
                                 ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                             </td>
@@ -33,12 +93,14 @@
                         <tr>
                             <td class="">Waktu Ditutup</td>
                             <td class="pr-3">:</td>
-                            <td class="min-w-[500px]">
+                            <td class="min-w-full">
                                 {{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
                                 ({{ \Carbon\Carbon::parse($assignment->deadline, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                             </td>
                         </tr>
                     </table>
+                    </div> --}}
+
                     <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
                         {{-- @dd($assignment->id) --}}
                         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
