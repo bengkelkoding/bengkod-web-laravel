@@ -128,11 +128,14 @@ class MahasiswaController extends Controller
 
     function showDetailTugas($id) {
         $assignment = Assignment::find($id);
+        $deskripsi = str_replace('<br />', "\n", $assignment->deskripsi);
+        // $deskripsi = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $deskripsi);   
+        // dd($deskripsi);
         $tugas = null;
         if (auth()->user()->tugas !== null) {
             $tugas = auth()->user()->tugas->where('id_assignment', $id)->first();
         }
-        return view('mahasiswa.detailTugas', compact('assignment', 'tugas'));
+        return view('mahasiswa.detailTugas', compact('assignment', 'tugas', 'deskripsi'));
     }
 
     public function updateKursus(Request $request)

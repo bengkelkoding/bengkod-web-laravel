@@ -11,7 +11,7 @@
                 <div class="p-2 mt-7 box-border h-auto w-auto shadow-lg flex flex-col rounded-md overflow-hidden">
                     <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 ">{{ $assignment->judul }}</h1>
                     <p>Deskripsi :</p>
-                    <p class="text-justify md-pl-0 mb-2">{{ $assignment->deskripsi }}</p>
+                    <pre class="text-justify md-pl-0 mb-2 font-sans">{{ $deskripsi }}</pre> {{-- ================= --}}
                     <table class="">
                         @if (isset($assignment->file_soal))
                             <tr>

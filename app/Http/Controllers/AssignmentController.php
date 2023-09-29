@@ -61,10 +61,12 @@ class AssignmentController extends Controller
                 $file_name = null;
             }
 
+            $formatted_deskripsi = nl2br($request->deskripsi);
+
             $assignment = Assignment::create([
                 'id_kursus' => auth()->user()->id_kursus,
                 'judul' => $request->judul,
-                'deskripsi' => $request->deskripsi,
+                'deskripsi' => $formatted_deskripsi,
                 'file_soal' => $file_name,
                 'waktu_mulai' => $request->waktu_mulai,
                 'deadline' => $request->deadline,

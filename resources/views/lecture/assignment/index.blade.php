@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col">
                             <form>
-                                <div class="flex inline">
+                                <div class="flex">
                                     <label>
                                         Show
                                         <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show my-5" role="alert">
                         <strong>{{ session('success') }}</strong>
                     </div>
                     @endif

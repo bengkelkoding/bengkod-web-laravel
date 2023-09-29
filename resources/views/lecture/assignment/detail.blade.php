@@ -17,7 +17,7 @@
                                 {{ $assignment->judul }} </span></p>
                         <div class="col">
                             <form>
-                                <div class="flex inline">
+                                <div class="flex">
                                     <label>
                                         Show
                                         <select class="rounded-md" name="per_page" id="per_page"
