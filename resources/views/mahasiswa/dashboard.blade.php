@@ -108,11 +108,11 @@ if ($hour >= 5 && $hour < 12) {
                     @empty
                         @php $nilai += 0; @endphp
                     @endforelse
-                    @isset($tugasMahasiswa)
+                    @if(!$tugasMahasiswa->isEmpty())
                     <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($nilai) / $tugasMahasiswa->count()) }}</h1>
                     @else
                     <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
-                    @endisset
+                    @endif
                 </div>
             </div>
 
