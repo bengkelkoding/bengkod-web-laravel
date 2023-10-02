@@ -19,4 +19,9 @@ class Log extends Model
     {
         return $this->belongsTo(User::class, 'id_mahasiswa');
     }
+
+    public function kursus()
+    {
+        return $this->belongsTo(Kursus::class, 'id_kursus');
+    }
 }

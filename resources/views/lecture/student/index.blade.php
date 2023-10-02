@@ -147,10 +147,10 @@
         </div>
     </div>
 {{-- route() nya nanti dirubah --}}
-    <form action="{{ route('submit-tugas') }}" method="POST" >
-        @csrf
-        <input id="realSubmit" type="submit" class="hidden">
-    </form>
+{{--    <form action="{{ route('submit-tugas') }}" method="POST" >--}}
+{{--        @csrf--}}
+{{--        <input id="realSubmit" type="submit" class="hidden">--}}
+{{--    </form>--}}
 
     <script>
         function forceSubmit() {

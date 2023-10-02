@@ -35,4 +35,9 @@ class Kursus extends Model
     {
         return $this->hasMany(Assignment::class, 'id_kursus');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'id_kursus');
+    }
 }
