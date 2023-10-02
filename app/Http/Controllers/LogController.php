@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kursus;
+use App\Models\User;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Log;
@@ -67,9 +69,12 @@ class LogController extends Controller
      */
     public function store(LogRequest $request)
     {
+        $user = auth()->user();
         try {
+
             Log::create([
-                'id_mahasiswa' => auth()->user()->id,
+                'id_mahasiswa' => $user->id,
+                'id_kursus' => $user->id_kursus,
                 'pesan' => $request->pesan,
                 'status' => 0
             ]);

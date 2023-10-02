@@ -11,6 +11,7 @@ class Log extends Model
 
     protected $fillable = [
         'id_mahasiswa',
+        'id_kursus',
         'pesan',
         'status',
     ];
