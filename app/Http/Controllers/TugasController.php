@@ -114,10 +114,10 @@ class TugasController extends Controller
         //
     }
 
-    public function submitTugas(Request $request)
+    public function submitTugas(Request $request, $id)
     {
         try {
-            $tugas = Tugas::where('id_mahasiswa', auth()->user()->id)->firstOrFail();
+            $tugas = Tugas::where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $id)->firstOrFail();
             $validator = Validator::make($request->all(), [
                 'check_value' => 'required|in:1|numeric',
             ]);

@@ -102,11 +102,17 @@ if ($hour >= 5 && $hour < 12) {
             <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
+                    @php $nilai = 0; @endphp
                     @forelse($tugasMahasiswa as $tugas)
-                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ $tugas->nilai_akhir }}</h1>
+                        @php $nilai += $tugas->nilai_akhir; @endphp
                     @empty
-                        <h1 class="text-[#c10000] text-[40px] font-bold">-</h1>
+                        @php $nilai += 0; @endphp
                     @endforelse
+                    @isset($tugasMahasiswa)
+                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($nilai) / $tugasMahasiswa->count()) }}</h1>
+                    @else
+                    <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
+                    @endisset
                 </div>
             </div>
 
@@ -147,11 +153,15 @@ if ($hour >= 5 && $hour < 12) {
                                 <a href="{{ route('detail-tugas', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->judul }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @isset($tugas)
-                                    @if($tugas->where('id_assignment', $as->id)->first() !== null)
-                                        @php
-                                            $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
-                                        @endphp
+                                @php
+                                    $user_tugas = $as->kursus->users->where('id', auth()->user()->id)->first();
+                                @endphp
+                                {{-- @dd($user_tugas->tugas->where('id_assignment', $as->id)->first()) --}}
+                                @isset($user_tugas->tugas)
+                                    @php
+                                        $tugas_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    @endphp
+                                    @if($tugas_mhs !== null)
                                         @if($tugas_mhs->file_tugas === null)
                                         <span
                                             class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
@@ -177,8 +187,8 @@ if ($hour >= 5 && $hour < 12) {
                                 {{ $deadline }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @isset($tugas)
-                                    @if($tugas->where('id_assignment', $as->id)->first() !== null)
+                                @isset($user_tugas->tugas)
+                                    @if($tugas_mhs !== null)
                                         @if($tugas_mhs->nilai_akhir === null)
                                         Belum dinilai
                                         @else
@@ -220,9 +230,12 @@ if ($hour >= 5 && $hour < 12) {
                     <div class="flex items-center space-x-2 text-sm">
                         <div class="text-gray-500">{{ $waktu_mulai }}</div>
                         <div>
-                            @isset($tugas)
+                            @php
+                                $user_tugas = $as->kursus->users->where('id', auth()->user()->id)->first();
+                            @endphp
+                            @isset($user_tugas->tugas)
                                 @php
-                                    $tugas_mhs = $tugas->where('id_assignment', $as->id)->first();
+                                    $tugas_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                 @endphp
                                 @if($tugas_mhs === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
@@ -242,7 +255,7 @@ if ($hour >= 5 && $hour < 12) {
                         <a href="{{ route('detail-tugas', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->judul }}</a>
                     </div>
                     <div class="text-sm font-medium text-black">
-                        @isset($tugas)
+                        @isset($user_tugas->tugas)
                             @if($tugas_mhs === null)
                                 Belum Upload
                             @elseif($tugas_mhs->nilai_akhir === null)

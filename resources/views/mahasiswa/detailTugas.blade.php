@@ -24,10 +24,13 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                @if (isset($assignment->file_soal))
                                 <tr>
                                     <td><pre class="ml-3">{{ $deskripsi }}</pre></td>
+                                    @if (isset($assignment->file_soal))
                                     <td><a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->file_soal }}</a></td>
+                                    @else
+                                    <td><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">Belum ada file soal</span></td>
+                                    @endif
                                     <td>
                                         {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
                                         ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
@@ -37,7 +40,6 @@
                                         ({{ \Carbon\Carbon::parse($assignment->deadline, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                                     </td>
                                 </tr>
-                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -69,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
 
                     {{-- <div>
                     <table class="border max-w-full">
@@ -174,7 +176,7 @@
                                 </div>
                             @endisset
 
-                            <form action="{{ route('submit-tugas') }}" method="POST">
+                            <form action="{{ route('submit-tugas', $assignment->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
                                 <input id="realSubmit" type="submit" class="hidden">

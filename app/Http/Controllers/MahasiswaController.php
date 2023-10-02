@@ -26,8 +26,6 @@ class MahasiswaController extends Controller
         $assignments = Assignment::where('id_kursus', $user->id_kursus)->with(['kursus.users.tugas' => function ($q) {
             $q->where('id_mahasiswa', auth()->user()->id);
         }])->get();
-
-
         // $contactAssistants = User::with('assistant')->find(auth()->user()->id)->assistant;
 
         $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
@@ -129,11 +127,11 @@ class MahasiswaController extends Controller
     function showDetailTugas($id) {
         $assignment = Assignment::find($id);
         $deskripsi = str_replace('<br />', "\n", $assignment->deskripsi);
-        // $deskripsi = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $deskripsi);   
+        // $deskripsi = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $deskripsi);
         // dd($deskripsi);
         $tugas = null;
         if (auth()->user()->tugas !== null) {
-            $tugas = auth()->user()->tugas->where('id_assignment', $id)->first();
+            $tugas = auth()->user()->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $id)->first();
         }
         return view('mahasiswa.detailTugas', compact('assignment', 'tugas', 'deskripsi'));
     }
