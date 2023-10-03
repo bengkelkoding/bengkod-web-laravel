@@ -55,6 +55,7 @@
                         <table class="table table-striped max-md:min-w-[250vw]">
                             <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">NIM</th>
                                 <th scope="col">Mahasiswa</th>
                                 <th scope="col">Kursus</th>
@@ -66,9 +67,10 @@
                             <tbody>
                             @forelse($logs as $key => $log)
                                 <tr>
+                                    <th scope="col">{{ $logs->firstItem() + $key }}</th>
                                     <td>{{ $log->mahasiswa->kode }}</td>
                                     <td>{{ $log->mahasiswa->name }}</td>
-                                    <td>{{ $log->kursus->judul }}</td>
+                                    <td>{{ $log->mahasiswa->course->judul }}</td>
                                     <td>{{ $log->pesan }}</td>
                                     <td>{{ $log->created_at }}</td>
                                     <td>
@@ -81,13 +83,13 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="6">Data Kosong</td>
+                                    <td class="text-center" colspan="7">Data Kosong</td>
                                 </tr>
                             @endforelse
                             </tbody>
                         </table>
                     </div>
-{{--                    {{ $logs->withQueryString()->links() }}--}}
+                   {{ $logs->withQueryString()->links() }}
                 </div>
             </div>
         </div>
