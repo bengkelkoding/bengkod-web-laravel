@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kursus;
-use App\Models\User;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Log;
+use App\Models\User;
+use App\Models\Kursus;
 use Illuminate\Http\Request;
-use App\Http\Requests\LogRequest;
 use App\Models\ContactAssistant;
+use App\Http\Requests\LogRequest;
+use Illuminate\Support\Facades\Log as LaravelLog;
 
 class LogController extends Controller
 {
@@ -53,7 +54,9 @@ class LogController extends Controller
             $allow_access = true;
         } else {
             $date = Carbon::parse($data->created_at->format('Y-m-d'));
-            if ($date->diffInDays($now) < 0) {
+            if ($date->diffInDays($now) > 0) {
+                $allow_access = true;
+            } else {
                 $allow_access = false;
             }
         }
@@ -69,18 +72,19 @@ class LogController extends Controller
      */
     public function store(LogRequest $request)
     {
-        $user = auth()->user();
         try {
+            $user = auth()->user();
+            // dd($request->pesan);
 
             Log::create([
                 'id_mahasiswa' => $user->id,
-                'id_kursus' => $user->id_kursus,
                 'pesan' => $request->pesan,
                 'status' => 0
             ]);
 
             return redirect()->route('logs.index')->with('success', 'Log berhasil ditambahkan');
         } catch (Exception $e) {
+            LaravelLog::error($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -130,6 +134,7 @@ class LogController extends Controller
 
             return redirect()->route('logs.index')->with('success', 'Log berhasil diubah');
         } catch (Exception $e) {
+            LaravelLog::error($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

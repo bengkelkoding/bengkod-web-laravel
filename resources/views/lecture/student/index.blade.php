@@ -68,18 +68,18 @@
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 @if($student->nilaiTugas->whereNotNull('nilai_akhir') !== null)
-                                @php
-                                    foreach ($student->nilaiTugas as $key => $tugas) {
-                                        if ($tugas->nilai_akhir !== null) {
-                                            $nilai_akhir += $tugas->nilai_akhir;
+                                    @php
+                                        foreach ($student->nilaiTugas as $key => $tugas) {
+                                            if ($tugas->nilai_akhir !== null) {
+                                                $nilai_akhir += $tugas->nilai_akhir;
+                                            }
                                         }
-                                    }
 
-                                    $jumlah = $student->nilaiTugas->whereNotNull('nilai_akhir')->count();
-                                    if ($jumlah !== 0) {
-                                        $nilai_akhir = round($nilai_akhir / $jumlah);
-                                    }
-                                @endphp
+                                        $jumlah = $student->nilaiTugas->whereNotNull('nilai_akhir')->count();
+                                        if ($jumlah !== 0) {
+                                            $nilai_akhir = round($nilai_akhir / $jumlah);
+                                        }
+                                    @endphp
                                     @if ($nilai_akhir == 0)
                                     <td class="success">Belum ada nilai</td>
                                     @elseif ($nilai_akhir > 0)

@@ -37,7 +37,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        
+
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             @endforelse
         </div>
     </div>
-    
+
 
     <div class="mx-52 max-md:mx-0 max-md:block flex flex-col max-lg:justify-center max-lg:items-center  max-md:overflow-x-scroll">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
@@ -62,7 +62,7 @@
                                             Tabel Log Kegiatan Mahasiswa
                                         </span>
                                         @if ($allow_insert == 0)
-                                        <p class="btn btn-outline-dark rounded-pill">
+                                        <p class="btn btn-outline-dark rounded-pill disabled">
                                             <i class="ti ti-plus"></i>
                                             Tidak dapat input log</p>
                                         @else
