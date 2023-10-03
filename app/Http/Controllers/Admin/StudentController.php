@@ -20,7 +20,10 @@ class StudentController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $students = User::role('mahasiswa')->with('course')
+        $students = User::role('mahasiswa')
+        ->with(['nilaiTugas' => function ($q) {
+            $q->whereNotNull('nilai_akhir');
+        }])
         ->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
                   ->orWhere('kode', 'LIKE', "%{$search}%")
