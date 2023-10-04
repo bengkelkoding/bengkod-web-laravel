@@ -75,7 +75,7 @@
                                         @if ($log->status == 0)
                                             <span
                                                 class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-red-200 uppercase last:mr-0 mr-2">
-                                                <form action="{{ route('lecture.log.update', $log->id) }}" method="post">
+                                                <form action="{{ route('lecture.log.update', $log->id) }}" method="post" onsubmit="return confirm('Yakin untuk verifikasi {{$log->mahasiswa->name}} ?')">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit"><i class="ti ti-x"></i> Verifikasi</button>

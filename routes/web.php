@@ -140,5 +140,4 @@ Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulCo
 // import csv
 Route::get('/import', [UserImportController::class, 'showForm']);
 Route::post('/import', [UserImportController::class, 'import']);
-Route::resource('/contoh', \App\Http\Controllers\Contoh::class);
 require __DIR__ . '/auth.php';
