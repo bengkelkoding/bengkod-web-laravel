@@ -82,10 +82,9 @@ class LogController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // dd($request->nilai);
             $log = Log::find($id);
             $log->update([
-                'status' => 1,
+                'status' => $request->status,
             ]);
             return response()->redirectToRoute('lecture.log.index');
         } catch (Exception $e) {

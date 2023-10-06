@@ -63,14 +63,26 @@
                             <tr>
                                 <th scope="row">{{$students->firstItem() + $key}}</th>
                                 <td>
-                                @isset($student->course->judul)
-                                    {{$student->course->judul}}
-                                @endisset
+                                    @isset($student->course->judul)
+                                        {{$student->course->judul}}
+                                    @endisset
+
+                                    @empty($student->course->judul)
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
+                                                Belum Terdaftar
+                                            </span>
+                                    @endempty
                                 </td>
                                 <td>
-                                @isset($student->assistant->name)
-                                    {{$student->assistant->name}}
-                                @endisset
+                                    @isset($student->assistant->name)
+                                        {{$student->assistant->name}}
+                                    @endisset
+
+                                    @empty($student->assistant->name)
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
+                                                Belum Ada
+                                            </span>
+                                    @endempty
                                 </td>
                                 <td>{{$student->kode}}</td>
                                 <td>{{$student->name}}</td>
