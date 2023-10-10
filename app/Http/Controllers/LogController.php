@@ -78,6 +78,7 @@ class LogController extends Controller
 
             Log::create([
                 'id_mahasiswa' => $user->id,
+                'id_kursus' => $user->id_kursus,
                 'pesan' => $request->pesan,
                 'status' => 0
             ]);

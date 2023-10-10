@@ -61,6 +61,7 @@
                                 <th scope="col">Kursus</th>
                                 <th scope="col">Log Pesan</th>
                                 <th scope="col">Tanggal</th>
+                                <th scope="col">Aksi</th>
                                 <th scope="col">Status</th>
                             </tr>
                             </thead>
@@ -74,21 +75,30 @@
                                     <td>{{ $log->pesan }}</td>
                                     <td>{{ $log->created_at }}</td>
                                     <td>
-                                        @if ($log->status == 0)
-                                            <span
-                                                class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-red-200 uppercase last:mr-0 mr-2">
-                                                <form action="{{ route('lecture.log.update', $log->id) }}" method="post" onsubmit="return confirm('Yakin untuk verifikasi {{$log->mahasiswa->name}} ?')">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit"><i class="ti ti-x"></i> Verifikasi</button>
-                                                </form>
-                                            </span>
-                                        @else
-                                            <span
-                                                class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-green-200 uppercase last:mr-0 mr-2" >
+                                        <form action="{{ route('lecture.log.update', $log->id) }}" method="post" onsubmit="return confirm('Yakin untuk verifikasi {{$log->mahasiswa->name}} ?')">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <select id="small" name="status" class="mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option value="0">Reset</option>
+                                                <option value="1">Verifikasi</option>
+                                                <option value="2">Tolak</option>
+                                            </select>
+
+                                            <button type="submit"> Save</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2" >
+                                            @if($log->status == 0)
+                                                Belum diverifikasi
+                                            @elseif($log->status == 1)
                                                 Terverifikasi
-                                            </span>
-                                        @endif
+                                            @else
+                                                Ditolak
+                                            @endif
+                                        </span>
                                     </td>
                                 </tr>
                             @empty
