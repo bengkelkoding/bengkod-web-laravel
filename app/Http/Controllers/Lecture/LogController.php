@@ -20,9 +20,9 @@ class LogController extends Controller
         $user = auth()->user();
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $logs = Log::with('mahasiswa')
-            ->with('kursus')
-            ->where('id_kursus', $user->id_kursus)
+        $logs = Log::with(['mahasiswa.course' => function ($query) use ($user) {
+                $query->where('id', $user->id_kursus);
+            }])
             ->orderByDesc('created_at')
             ->paginate($per_page);
 

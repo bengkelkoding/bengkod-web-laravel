@@ -70,7 +70,7 @@
                                     <th scope="col">{{ $logs->firstItem() + $key }}</th>
                                     <td>{{ $log->mahasiswa->kode }}</td>
                                     <td>{{ $log->mahasiswa->name }}</td>
-                                    <td>{{ $log->mahasiswa->course->judul }}</td>
+                                    <td>{{ isset($log->mahasiswa->course) ? $log->mahasiswa->course->judul : '-'}}</td>
                                     <td>{{ $log->pesan }}</td>
                                     <td>{{ $log->created_at }}</td>
                                     <td>

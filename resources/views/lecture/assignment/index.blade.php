@@ -74,7 +74,7 @@
                                     $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
                                 @endphp
                                 <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
-                                   <td>{{ $assignments->firstItem() + $key}}</td>
+                                   <th scope="row">{{ $assignments->firstItem() + $key}}</th>
                                    <td>{{ $assign->judul }}</td>
                                    <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
                                    <td>{{ $mulai->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
