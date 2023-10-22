@@ -40,12 +40,30 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="id_kursus">
-                        <option selected disabled>{{$student->id_kursus}}</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->id}} - {{$course->judul}}</option>
+                            @if ($course->id == $student->id_kursus)
+                                <option selected disabled value="{{$course->id}}">{{$course->judul}}</option>
+                            @else
+                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
+                </div>
+
+                <!-- Select Option Assistant -->
+                <div class="mb-3">
+                    <x-input-label for="course" :value="__('Nama Asistensi')" />
+                    <select class="form-select" name="id_asisten">
+                        @foreach($assistants as $assistant)
+                            @if ($assistant->id == $student->id_asisten)
+                                <option selected disabled value="{{$assistant->id}}">{{$assistant->name}}</option>
+                            @else
+                                <option value="{{$assistant->id}}">{{$assistant->name}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('assistant')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">

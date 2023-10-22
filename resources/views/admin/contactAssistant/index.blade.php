@@ -71,7 +71,11 @@
                                         <th scope="row">{{ $contactAssistant->firstItem() + $key }}</th>
                                         <td>{{ $ca->name }}</td>
                                         <td>{{ $ca->phone_number }}</td>
-                                        <td>{{ $ca->course->judul }}</td>
+                                        <td>
+                                            @if(isset($ca->course->judul))
+                                                {{ $ca->course->judul }}
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-outline-dark dropdown-toggle" type="button"

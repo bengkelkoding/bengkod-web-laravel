@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactAssistant;
 use App\Models\Kursus;
 use App\Models\User;
 use Exception;
@@ -20,7 +21,7 @@ class StudentController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $students = User::role('mahasiswa')
+        $students = User::role('mahasiswa')->with('assistant')
         ->with(['nilaiTugas' => function ($q) {
             $q->whereNotNull('nilai_akhir');
         }])
@@ -41,7 +42,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create', ['courses' => Kursus::all()]);
+        return view('admin.student.create', ['courses' => Kursus::all(), 'assistants' => ContactAssistant::all()]);
     }
 
     /**
@@ -56,9 +57,13 @@ class StudentController extends Controller
             if ($request->course == "Pilih Kursus") {
                 $request->course = null;
             }
+            if ($request->assistant == "Pilih Asistensi") {
+                $request->assistant = null;
+            }
 
             $data = [
                 'id_kursus' => $request->course,
+                'id_asisten' => $request->assistant,
                 'kode' => $request->nim,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -97,8 +102,9 @@ class StudentController extends Controller
     {
         $student = User::find($id);
         $courses = Kursus::all();
+        $assistants = ContactAssistant::all();
 
-        return view('admin.student.edit', compact('student', 'courses'));
+        return view('admin.student.edit', compact('student', 'courses', 'assistants'));
     }
 
     /**

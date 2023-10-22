@@ -27,28 +27,16 @@
                     <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                 </div>
 
-                <!-- Select Option  -->
+                <!-- Select Option Course -->
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="course">
                         <option selected>Pilih Kursus</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->id}} - {{$course->judul}}</option>
+                            <option value="{{$course->id}}">{{$course->judul}}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
-                </div>
-
-                <!-- Select Option Student -->
-                <div class="mb-3">
-                    <x-input-label for="course" :value="__('Nama Mahasiswa')" />
-                    <select class="form-select" name="student">
-                        <option selected>Pilih Mahasiswa</option>
-                        @foreach($students as $student)
-                        <option value="{{$student->id}}">{{$student->name}}</option>
-                        @endforeach
-                    </select>
-                    <x-input-error :messages="$errors->get('student')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">

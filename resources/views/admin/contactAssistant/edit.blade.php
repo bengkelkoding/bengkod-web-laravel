@@ -32,24 +32,15 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="course">
-                        <option>Pilih Kursus</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}" @if($course->id==$contactAssistant->id_kursus) selected @endif>{{$course->judul}}</option>
+                            @if ($course->id == $contactAssistant->id_kursus)
+                                <option selected disabled value="{{$course->id}}">{{$course->judul}}</option>
+                            @else
+                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
-                </div>
-
-                <!-- Select Option Student -->
-                <div class="mb-3">
-                    <x-input-label for="student" :value="__('Nama Mahasiswa')" />
-                    <select class="form-select" name="student">
-                        <option>Pilih Mahasiswa</option>
-                        @foreach($students as $student)
-                        <option value="{{$student->id}}" @if($student->id==$contactAssistant->id_mahasiswa) selected @endif>{{$student->name}}</option>
-                        @endforeach
-                    </select>
-                    <x-input-error :messages="$errors->get('student')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
