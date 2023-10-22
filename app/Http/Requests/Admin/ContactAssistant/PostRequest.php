@@ -27,7 +27,6 @@ class PostRequest extends FormRequest
             'phone_number' => 'required|string',
             'name' => 'required|string',
             'course' => 'required|int',
-            'student' => 'required|int',
         ];
     }
 }

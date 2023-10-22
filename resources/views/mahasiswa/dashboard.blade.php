@@ -33,7 +33,7 @@ if ($hour >= 5 && $hour < 12) {
                     <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
                     <p class="text-white">~ Imam Syafi’i</p>
                 </div>
-                @forelse ($asistant as $as)
+                @forelse ($assistant as $as)
                 <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
                     <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
                     <div class="box-border p-2 border rounded-md">
@@ -52,10 +52,10 @@ if ($hour >= 5 && $hour < 12) {
                                     <tbody>
                                         <tr class="text-gray-100">
                                             <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                                {{$as->name}}
+                                                {{$as->assistant->name}}
                                             </th>
                                             <td class="px-3 py-3">
-                                                {{$as->phone_number}}
+                                                {{$as->assistant->phone_number}}
                                             </td>
                                         </tr>
                                     </tbody>

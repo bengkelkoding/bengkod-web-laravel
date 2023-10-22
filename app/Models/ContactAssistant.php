@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ContactAssistant extends Model
 {
@@ -16,8 +17,13 @@ class ContactAssistant extends Model
         return $this->belongsTo(Kursus::class, 'id_kursus');
     }
 
-    public function student()
+//    public function student()
+//    {
+//        return $this->belongsTo(User::class, 'id_mahasiswa');
+//    }
+
+    public function student(): HasMany
     {
-        return $this->belongsTo(User::class, 'id_mahasiswa');
+        return $this->hasMany(User::class, 'id_asisten', 'id');
     }
 }

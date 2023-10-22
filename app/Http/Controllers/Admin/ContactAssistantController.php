@@ -21,8 +21,7 @@ class ContactAssistantController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $contactAssistant = ContactAssistant::with('course')->with('student')
-            ->where(function ($query) use ($search) {
+        $contactAssistant = ContactAssistant::where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('phone_number', 'LIKE', "%{$search}%");
             })->paginate($per_page);
@@ -49,12 +48,15 @@ class ContactAssistantController extends Controller
     public function store(PostRequest $request)
     {
         try {
+
+            if ($request->course == "Pilih Kursus") {
+                $request->course = null;
+            }
+
             $data = [
                 'id_kursus' => $request->course,
-                'id_mahasiswa' => $request->student,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
-
             ];
             ContactAssistant::create($data);
             return response()->redirectToRoute('admin.contact-assistant.index');
@@ -85,7 +87,8 @@ class ContactAssistantController extends Controller
      */
     public function edit(ContactAssistant $contactAssistant)
     {
-        return view('admin.contactAssistant.edit', compact('contactAssistant'), ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
+        return view('admin.contactAssistant.edit', compact('contactAssistant'),
+            ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
     }
 
     /**
@@ -100,7 +103,6 @@ class ContactAssistantController extends Controller
         try{
             $data = [
                 'id_kursus' => $request->course,
-                'id_mahasiswa' => $request->student,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
 

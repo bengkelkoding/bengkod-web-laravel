@@ -18,19 +18,27 @@ class MahasiswaController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $kursus_member = Kursus::where('id', $user->id)->with('users')->get();
+
         $tugasMahasiswa = $user->nilaiTugas->whereNotNull('nilai_akhir');
         $tugas = $user->tugas;
+
+        # to display student course
         $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
         $member_count = $kursuses->sum('users_count');
+
+        # to display student assignment by course
         $assignments = Assignment::where('id_kursus', $user->id_kursus)->with(['kursus.users.tugas' => function ($q) {
             $q->where('id_mahasiswa', auth()->user()->id);
         }])->get();
-        // $contactAssistants = User::with('assistant')->find(auth()->user()->id)->assistant;
 
-        $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
+        # for student contact assistant
+        $assistant = User::with('assistant')
+            ->where('id', $user->id)->get();
 
-        return view('mahasiswa.dashboard', compact('user', 'member_count', 'tugas', 'tugasMahasiswa','asistant','assignments'));
+        $var_names = [
+            'user', 'member_count', 'tugas', 'tugasMahasiswa', 'assistant', 'assignments'
+        ];
+        return view('mahasiswa.dashboard', compact($var_names));
     }
 
     /**

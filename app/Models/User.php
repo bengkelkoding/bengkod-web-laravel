@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'id_kursus'
+        'id_kursus',
+        'id_asisten',
     ];
 
     /**
@@ -55,10 +57,16 @@ class User extends Authenticatable
         return $this->hasOne(Tugas::class, 'id_mahasiswa');
     }
 
-    public function assistant()
+//    public function assistant()
+//    {
+//        return $this->hasOne(ContactAssistant::class, 'id','id_asisten');
+//    }
+
+    public function assistant(): BelongsTo
     {
-        return $this->hasOne(ContactAssistant::class, 'id','id_asisten');
+        return $this->belongsTo(ContactAssistant::class, 'id_asisten', 'id');
     }
+
 
     public function nilaiTugas()
     {
