@@ -35,10 +35,13 @@
 
                         {{$find = false}}
                         @foreach($courses as $course)
-                            @if ($contactAssistant->id_kursus == null && $find == false)
-                                <option selected value=""></option>
+
+                            @if ($contactAssistant->id_kursus == null && !$find)
+                                <option selected value="">Pilih Kursus</option>
                                 {{$find == true}}
-                            @elseif($course->id == $contactAssistant->id_kursus)
+                            @endif
+
+                            @if ($course->id == $contactAssistant->id_kursus)
                                 <option selected value="{{$course->id}}">{{$course->judul}}</option>
                             @else
                                 <option value="{{$course->id}}">{{$course->judul}}</option>

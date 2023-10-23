@@ -10,7 +10,7 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i> Back</a>
           <div class="card">
             <div class="card-body">
-            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tambah Mahasiswa</span></p>
+            <p class="fw-semibold mb-4"><span class="card-title mr-4">Edit Mahasiswa</span></p>
             <form method="POST" action="{{ route('admin.student.update', $student->id) }}">
                 @csrf
                 @method('PATCH')
@@ -42,17 +42,20 @@
                     <select class="form-select" name="id_kursus">
                         {{$findCourse = false}}
                         @foreach($courses as $course)
-                            @if ($student->id_kursus == null && $findCourse = false)
-                                <option selected value="">{{$course->judul}}</option>
+
+                            @if ($student->id_kursus == null && !$findCourse)
+                                <option selected value="">Pilih Kursus</option>
                                 {{$findCourse = true}}
-                            @elseif ($course->id == $student->id_kursus)
+                            @endif
+
+                            @if ($course->id == $student->id_kursus)
                                 <option selected value="{{$course->id}}">{{$course->judul}}</option>
                             @else
                                 <option value="{{$course->id}}">{{$course->judul}}</option>
                             @endif
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('course')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('id_kursus')" class="mt-2" />
                 </div>
 
                 <!-- Select Option Assistant -->
@@ -61,10 +64,13 @@
                     <select class="form-select" name="id_asisten">
                         {{$findAssistant = false}}
                         @foreach($assistants as $assistant)
-                            @if($student->id_kursus == null && $findAssistant == false)
+
+                            @if($student->id_kursus == null && !$findAssistant)
                                 <option selected value="">Pilih Asisten</option>
                                 {{$findAssistant = true}}
-                            @elseif($assistant->id == $student->id_asisten)
+                            @endif
+
+                            @if ($assistant->id == $student->id_asisten)
                                 <option selected value="{{$assistant->id}}">{{$assistant->name}}</option>
                             @else
                                 <option value="{{$assistant->id}}">{{$assistant->name}}</option>

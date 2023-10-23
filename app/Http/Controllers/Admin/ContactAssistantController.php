@@ -48,11 +48,6 @@ class ContactAssistantController extends Controller
     public function store(Request $request)
     {
         try {
-
-            if ($request->id_kursus == "Pilih Kursus") {
-                $request->id_kursus = null;
-            }
-
             $data = [
                 'id_kursus' => $request->id_kursus,
                 'name' => $request->name,

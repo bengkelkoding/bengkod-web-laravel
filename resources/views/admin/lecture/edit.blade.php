@@ -40,12 +40,16 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="id_kursus">
+
                         {{$find = false}}
                         @foreach($courses as $course)
-                            @if($lecture->id_kursus == null && $find == false)
+
+                            @if ($lecture->id_kursus == null && !$find)
                                 <option selected value="">Pilih Kursus</option>
                                 {{$find = true}}
-                            @elseif($course->id == $lecture->id_kursus)
+                            @endif
+
+                            @if ($course->id == $lecture->id_kursus)
                                 <option selected value="{{$course->id}}">{{$course->judul}}</option>
                             @else
                                 <option value="{{$course->id}}">{{$course->judul}}</option>

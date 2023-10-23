@@ -51,7 +51,7 @@
                 <div class="mb-3">
                     <x-input-label for="assistant" :value="__('Nama Asisten')" />
                     <select class="form-select" name="assistant">
-                        <option selected>Pilih Asistensi</option>
+                        <option selected value="">Pilih Asistensi</option>
                         @foreach($assistants as $assistant)
                         <option value="{{$assistant->id}}">{{$assistant->name}}</option>
                         @endforeach

@@ -49,10 +49,6 @@ class LectureController extends Controller
     public function store(Request $request)
     {
         try {
-            if ($request->course == "Pilih Kursus") {
-                $request->course = null;
-            }
-
             $data = [
                 'id_kursus' => $request->course,
                 'kode' => $request->kode,

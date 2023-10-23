@@ -54,13 +54,6 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         try {
-            if ($request->course == "Pilih Kursus") {
-                $request->course = null;
-            }
-            if ($request->assistant == "Pilih Asistensi") {
-                $request->assistant = null;
-            }
-
             $data = [
                 'id_kursus' => $request->course,
                 'id_asisten' => $request->assistant,
