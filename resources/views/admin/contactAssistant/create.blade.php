@@ -29,14 +29,14 @@
 
                 <!-- Select Option Course -->
                 <div class="mb-3">
-                    <x-input-label for="course" :value="__('Nama Kursus')" />
-                    <select class="form-select" name="course">
-                        <option selected>Pilih Kursus</option>
+                    <x-input-label for="id_kursus" :value="__('Nama Kursus')" />
+                    <select class="form-select" name="id_kursus">
+                        <option selected value="">Pilih Kursus</option>
                         @foreach($courses as $course)
                             <option value="{{$course->id}}">{{$course->judul}}</option>
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('course')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('id_kursus')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">

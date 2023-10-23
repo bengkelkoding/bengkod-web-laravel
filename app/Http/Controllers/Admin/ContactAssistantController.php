@@ -45,16 +45,16 @@ class ContactAssistantController extends Controller
      * @param  \Illuminate\Http\PostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
         try {
 
-            if ($request->course == "Pilih Kursus") {
-                $request->course = null;
+            if ($request->id_kursus == "Pilih Kursus") {
+                $request->id_kursus = null;
             }
 
             $data = [
-                'id_kursus' => $request->course,
+                'id_kursus' => $request->id_kursus,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
             ];
@@ -98,18 +98,17 @@ class ContactAssistantController extends Controller
      * @param  \App\Models\Admin\ContactAssistant  $contactAssistant
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, ContactAssistant $contactAssistant)
+    public function update(Request $request, ContactAssistant $contactAssistant)
     {
         try{
             $data = [
-                'id_kursus' => $request->course,
+                'id_kursus' => $request->id_kursus,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
-
             ];
             $contactAssistant->update($data);
             return response()->redirectToRoute('admin.contact-assistant.index');
-        }catch (Exception $e){
+        } catch (Exception $e){
             return response()->json([
                 'message' => $e->getMessage(),
             ]);

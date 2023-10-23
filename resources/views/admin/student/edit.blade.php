@@ -40,9 +40,13 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="id_kursus">
+                        {{$findCourse = false}}
                         @foreach($courses as $course)
-                            @if ($course->id == $student->id_kursus)
-                                <option selected disabled value="{{$course->id}}">{{$course->judul}}</option>
+                            @if ($student->id_kursus == null && $findCourse = false)
+                                <option selected value="">{{$course->judul}}</option>
+                                {{$findCourse = true}}
+                            @elseif ($course->id == $student->id_kursus)
+                                <option selected value="{{$course->id}}">{{$course->judul}}</option>
                             @else
                                 <option value="{{$course->id}}">{{$course->judul}}</option>
                             @endif
@@ -55,9 +59,13 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Asistensi')" />
                     <select class="form-select" name="id_asisten">
+                        {{$findAssistant = false}}
                         @foreach($assistants as $assistant)
-                            @if ($assistant->id == $student->id_asisten)
-                                <option selected disabled value="{{$assistant->id}}">{{$assistant->name}}</option>
+                            @if($student->id_kursus == null && $findAssistant == false)
+                                <option selected value="">Pilih Asisten</option>
+                                {{$findAssistant = true}}
+                            @elseif($assistant->id == $student->id_asisten)
+                                <option selected value="{{$assistant->id}}">{{$assistant->name}}</option>
                             @else
                                 <option value="{{$assistant->id}}">{{$assistant->name}}</option>
                             @endif

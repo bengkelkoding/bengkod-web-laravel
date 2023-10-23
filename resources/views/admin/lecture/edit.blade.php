@@ -10,7 +10,7 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i> Back</a>
           <div class="card">
             <div class="card-body">
-            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tambah Mahasiswa</span></p>
+            <p class="fw-semibold mb-4"><span class="card-title mr-4">Edit Dosen</span></p>
             <form method="POST" action="{{ route('admin.lecture.update', $lecture->id) }}">
                 @csrf
                 @method('PATCH')
@@ -24,7 +24,7 @@
 
                 <!-- Nama -->
                 <div class="mb-3">
-                    <x-input-label for="name" :value="__('Nama Mahasiswa')" />
+                    <x-input-label for="name" :value="__('Nama Dosen')" />
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$lecture->name" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -40,9 +40,16 @@
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="id_kursus">
-                        <option selected disabled>{{$lecture->id_kursus}}</option>
+                        {{$find = false}}
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->id}} - {{$course->judul}}</option>
+                            @if($lecture->id_kursus == null && $find == false)
+                                <option selected value="">Pilih Kursus</option>
+                                {{$find = true}}
+                            @elseif($course->id == $lecture->id_kursus)
+                                <option selected value="{{$course->id}}">{{$course->judul}}</option>
+                            @else
+                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
@@ -51,7 +58,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <x-primary-button class="ml-4">
-                        {{ __('Edit Mahasiswa') }}
+                        {{ __('Edit Dosen') }}
                     </x-primary-button>
                 </div>
             </form>
