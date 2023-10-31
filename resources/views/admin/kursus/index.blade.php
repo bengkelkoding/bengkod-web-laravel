@@ -1,77 +1,78 @@
-<x-app-layout>
+<x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard Admin') }}
         </h2>
     </x-slot>
 
-    <div class="container-fluid">
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kursus  </span><button type="button" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</button></p>
-
-                </div>
-                <div class="col">
-
-                    <form class="flex items-center">
-                        <label for="simple-search" class="sr-only">Search</label>
-                        <div class="relative w-full">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <i class="ti ti-certificate"></i>
-                            </div>
-                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" required>
-                        </div>
-                        <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                            <span class="sr-only">Search</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-
-              <table class="table table-striped">
-                <thead>
-                    <tr>
-                    <th scope="col">No</th>
-                    <th scope="col" style="width:15%">Thumbnail</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Hari</th>
-                    <th scope="col">Jam</th>
-                    <th scope="col">Penulis</th>
-                    <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td><img src="https://plus.unsplash.com/premium_photo-1675063044882-522a7d281b2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2788&q=80" class="rounded mx-auto d-block" alt="..."></td>
-                    <td>Junior Web Developer</td>
-                    <td>Senin</td>
-                    <td>09:00</td>
-                    <td>Bengkel Koding</td>
-                    <td>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="ti ti-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url('assets/admin/kursus/show') }}"><i class="ti ti-eye"></i> Detail</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="ti ti-edit"></i> Edit</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="ti ti-trash"></i> Hapus</a></li>
-                        </ul>
-                    </div>
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-          </div>
-        </div>
+    <div class="mx-5 text-black text-2xl font-medium">
+        Kursus Yang Tersedia
     </div>
-</x-app-layout>
+
+    <div class="mx-5 flex flex-wrap justify-evenly">
+        <div class="box-border p-1 border mt-5 rounded-md ">
+            <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md pr-3 max-md:pr-0 max-md:pb-3">
+                <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                    <img src="{{ asset('assets/img/img1.png') }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">Web Developer</h1>
+                    </div>
+                    <x-tombol-universal href="{{-- env('APP_URL_QUARTO').$user->course->url --}}" target="_blank" class="px-6 h-auto max-md:mr-0 max-md:mb-0 ">Lihat Kursus</x-tombol-universal>
+                </div>
+            </div>
+        </div>
+        <div class="box-border p-1 border mt-5 rounded-md ">
+            <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md pr-3 max-md:pr-0 max-md:pb-3">
+                <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                    <img src="{{ asset('assets/img/img2.png') }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">Mobile Developer</h1>
+                    </div>
+                    <x-tombol-universal href="{{-- env('APP_URL_QUARTO').$user->course->url --}}" target="_blank" class="px-6 h-auto max-md:mr-0 max-md:mb-0 ">Lihat Kursus</x-tombol-universal>
+                </div>
+            </div>
+        </div>
+        <div class="box-border p-1 border mt-5 rounded-md ">
+            <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md pr-3 max-md:pr-0 max-md:pb-3">
+                <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                    <img src="{{ asset('assets/img/img3.png') }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">Data Science</h1>
+                    </div>
+                    <x-tombol-universal href="{{-- env('APP_URL_QUARTO').$user->course->url --}}" target="_blank" class="px-6 h-auto max-md:mr-0 max-md:mb-0 ">Lihat Kursus</x-tombol-universal>
+                </div>
+            </div>
+        </div>
+        <div class="box-border p-1 border mt-5 rounded-md ">
+            <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md pr-3 max-md:pr-0 max-md:pb-3">
+                <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                    <img src="{{ asset('assets/img/img4.png') }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">Game Developer</h1>
+                    </div>
+                    <x-tombol-universal href="{{-- env('APP_URL_QUARTO').$user->course->url --}}" target="_blank" class="px-6 h-auto max-md:mr-0 max-md:mb-0 ">Lihat Kursus</x-tombol-universal>
+                </div>
+            </div>
+        </div>
+        <div class="box-border p-1 border mt-5 rounded-md ">
+            <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md pr-3 max-md:pr-0 max-md:pb-3">
+                <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                    <img src="{{ asset('assets/img/img5.png') }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">Computer Vision</h1>
+                    </div>
+                    <x-tombol-universal href="{{-- env('APP_URL_QUARTO').$user->course->url --}}" target="_blank" class="px-6 h-auto max-md:mr-0 max-md:mb-0 ">Lihat Kursus</x-tombol-universal>
+                </div>
+            </div>
+        </div>
+</x-admin>
