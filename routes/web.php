@@ -19,6 +19,7 @@ use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Admin\ContactAssistantController;
+use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -75,7 +76,8 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
         Route::get('course', [KursusController::class, 'admin']);
-
+        Route::resource('assignment', AssignmentAdminController::class);
+        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
     });
 });
 // End Admin Space Routing
