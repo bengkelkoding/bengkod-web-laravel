@@ -17,12 +17,13 @@
                 </p>
                 <div>
                 @auth
-                    @if (!is_null(auth()->user()->id_kursus))
-                        @if (auth()->user()->id_kursus == $kursus->id)
+                <!-- <p>{{}}</p> -->
+                    @if (!is_null(auth()->user()->id_kursus) || auth()->user()->name == "admin")
+                        @if (auth()->user()->id_kursus == $kursus->id || auth()->user()->name == "admin")
                             <x-tombol-universal href="{{ env('APP_URL_QUARTO').$kursus->url }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Belajar Sekarang</x-tombol-universal>
                         @else
                             <div class="alert alert-warning my-5 ml-3 max-md:ml-0 bg-[#ff0000] p-2 rounded-md bg-opacity-50">
-                                Anda sudah terdaftar pada kursus lain!
+                                Anda sudah terdaftar pada kursus lain! 
                             </div>
                         @endif
                     @else
@@ -52,7 +53,6 @@
                 @foreach($tools as $tool)
                     <li>{{$tool}}</li>
                 @endforeach
-
             </ol>
         </div>
     </div>
