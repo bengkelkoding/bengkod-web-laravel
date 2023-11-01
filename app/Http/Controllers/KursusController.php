@@ -113,4 +113,8 @@ class KursusController extends Controller
             ]);
         }
     }
+    public function admin()
+    {
+        return view('admin.course.index', ['kursuses' => Kursus::all()]);
+    }
 }
