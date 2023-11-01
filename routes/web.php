@@ -71,7 +71,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::resource('contact-assistant', ContactAssistantController::class);
         // Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
         // Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
-
+        Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
         Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
