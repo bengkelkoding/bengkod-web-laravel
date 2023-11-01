@@ -20,12 +20,6 @@ if ($hour >= 5 && $hour < 12) {
         Bengkel Koding
     </x-slot>
 
-    {{-- @forelse ($asistant as $as)
-            {{$as->name}}
-        @empty
-            kosong
-        @endforelse --}}
-
         <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
             <div class="grid lg:grid-cols-12 gap-4 max-lg:flex max-lg:justify-center max-lg:flex-col">
                 <div class="col-span-6 max-md:col-span-12 h-auto mb-[40px] max-lg:mb-3 mx-24 max-md:mx-2">
@@ -33,39 +27,40 @@ if ($hour >= 5 && $hour < 12) {
                     <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
                     <p class="text-white">~ Imam Syafi’i</p>
                 </div>
-                @forelse ($assistant as $as)
+                @forelse ($assistant as $ass)
+                @if($ass->assistant != null)
                 <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
                     <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
                     <div class="box-border p-2 border rounded-md">
                         <div class="overflow-x-auto">
-                                <table class="w-full text-xs text-left">
-                                    <thead class="text-xs text-gray-50">
-                                        <tr class="border-b">
-                                            <th scope="col" class="px-6 py-3">
-                                                Nama
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                No. Telp
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="text-gray-100">
-                                            <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                                {{$as->assistant->name}}
-                                            </th>
-                                            <td class="px-3 py-3">
-                                                {{$as->assistant->phone_number}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                            <table class="w-full text-xs text-left">
+                                <thead class="text-xs text-gray-50">
+                                    <tr class="border-b">
+                                        <th scope="col" class="px-6 py-3">
+                                            Nama
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            No. Telp
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-gray-100">
+                                        <th scope="row" class="px-3 py-3 whitespace-nowrap ">
+                                            {{$ass->assistant->name}}
+                                        </th>
+                                        <td class="px-3 py-3">
+                                            {{$ass->assistant->phone_number}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+                @endif
                 @empty
-
+                <div></div>
                 @endforelse
             </div>
         </div>
