@@ -121,7 +121,7 @@
                                                         Download</button>
                                                 @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ url('storage/tugas/' . $m->tugas->file_tugas) }}"><i
+                                                        href="{{ asset('storage/tugas/' . $m->tugas->file_tugas) }}"><i
                                                             class="ti ti-download"></i> Download</a>
                                                 @endif
                                             @else
@@ -197,7 +197,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Data Kosong</td>
+                                        <td colspan="8" class="text-center">Data Kosong</td>
                                     </tr>
                                 @endforelse
                             </tbody>

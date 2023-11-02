@@ -83,7 +83,7 @@
         <script src="{{asset('assets/admin/libs/simplebar/dist/simplebar.js')}}"></script>
         <script src="{{asset('assets/admin/js/dashboard.js')}}"></script>
         <script src="{{asset('node_modules/tw-elements/dist/js/tw-elements.umd.min.js')}}"></script>
-        <!-- @vite(['node_modules/tw-elements/dist/js/tw-elements.umd.min.js'])
-        {{ $scripts ?? '' }} -->
+        @vite(['node_modules/tw-elements/dist/js/tw-elements.umd.min.js'])
+        {{ $scripts ?? '' }}
     </body>
 </html>
