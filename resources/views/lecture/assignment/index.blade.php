@@ -70,15 +70,15 @@
                             <tbody>
                                 @forelse ($assignments as $key => $assign)
                                 @php
-                                    $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id');
-                                    $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id');
+                                    $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                    $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                 @endphp
                                 <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
                                    <th scope="row">{{ $assignments->firstItem() + $key}}</th>
                                    <td>{{ $assign->judul }}</td>
                                    <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
-                                   <td>{{ $mulai->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
-                                   <td>{{ $deadline->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:m') }}</td>
+                                   <td>{{ $mulai }}</td>
+                                   <td>{{ $deadline }}</td>
                                    <td>
                                         @empty($assign->file_soal)
                                         <span class="badge bg-danger">Belum ada file</span>
