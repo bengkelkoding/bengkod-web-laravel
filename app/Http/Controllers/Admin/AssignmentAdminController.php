@@ -89,7 +89,7 @@ class AssignmentAdminController extends Controller
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
-        $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
+        $mahasiswa = User::role('mahasiswa')->where('id_kursus', $assignment->id_kursus)
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('kode', 'LIKE', "%{$search}%");
