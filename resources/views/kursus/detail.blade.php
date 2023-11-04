@@ -31,10 +31,12 @@
                             @csrf
                             <input type="hidden" name="kursus_id" value="{{ $kursus->id }}">
                             <x-tombol-universal type="submit" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Daftar Kursus</x-tombol-universal>
+                            <x-tombol-universal href="{{ env('APP_URL_O_QUARTO').$kursus->url_overview }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Overview Kursus</x-tombol-universal>
                         </form>
                     @endif
                 @else
                     <x-tombol-universal href="{{ url('login') }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Daftar Kursus</x-tombol-universal>
+                    <x-tombol-universal href="{{ env('APP_URL_O_QUARTO').$kursus->url_overview }}" class="px-6 h-auto mr-6 max-md:mr-0 mb-5">Overview Kursus</x-tombol-universal>
                 @endauth
                 </div>
             </div>
