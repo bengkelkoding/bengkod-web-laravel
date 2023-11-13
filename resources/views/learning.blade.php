@@ -8,7 +8,7 @@ $link = array('https://google.com','https://wikipedia.com')
 @endphp
 
 <x-universal-layout>
-    <div class="max-w-[70%] flex flex-wrap justify-center my-[5em] items-center mx-auto">
+    <div class="max-w-[70%] flex flex-wrap  justify-center my-[5em] items-center mx-auto">
         @php
         for($i=0;$i < sizeof($jam);$i++){
         @endphp
