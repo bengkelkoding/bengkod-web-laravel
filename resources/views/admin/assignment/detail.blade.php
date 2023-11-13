@@ -83,7 +83,6 @@
                                     <th>Nama Mahasiswa</th>
                                     <th>Status</th>
                                     <th>File Tugas</th>
-                                    <th>Nilai</th>
                                     <th>Nilai Tersimpan</th>
                                     <th>Tanggal Submit</th>
                                 </tr>
@@ -120,60 +119,20 @@
                                                     <button class="btn btn-primary" disabled><i class="ti ti-download"></i>
                                                         Download</button>
                                                 @else
+                                                    @if ($m->tugas->file_tugas == '-')
+                                                    <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
+                                                        {{ __('Tidak ada file tugas') }}
+                                                    </div>
+                                                    @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ url('storage/tugas/' . $m->tugas->file_tugas) }}"><i
+                                                        href="{{ asset('storage/tugas/' . $m->tugas->file_tugas) }}"><i
                                                             class="ti ti-download"></i> Download</a>
+                                                    @endif
                                                 @endif
                                             @else
                                                 <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
                                                     {{ __('Belum ada file tugas') }}
                                                 </div>
-                                            @endisset
-                                        </td>
-                                        <td>
-                                            @isset($m->tugas)
-                                                @if ($m->tugas->status === 0)
-                                                    <form action="{{ route('admin.student.update', $m->tugas->id) }}"
-                                                        method="POST" class="flex">
-                                                        <input type="number" name="nilai" id="nilai"
-                                                            class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}" disabled>
-                                                        <button
-                                                            class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
-                                                            disabled><i class="ti ti-device-floppy"></i> Simpan</button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('admin.student.update', $m->tugas->id) }}"
-                                                        method="POST" class="flex">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <input type="number" name="nilai" id="nilai"
-                                                            class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}">
-                                                        <button type="submit"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
-                                                                class="ti ti-device-floppy"></i> Simpan</button>
-                                                    </form>
-                                                @endif
-                                            @else
-                                                @if ($assignment->deadline < now('Asia/Jakarta'))
-                                                    <form action="{{ route('admin.autoZero', $assignment->id) }}"
-                                                        method="POST" class="flex">
-                                                        @csrf
-                                                        <input type="hidden" name="id_mhs" value="{{ $m->id }}">
-                                                        <input type="hidden" name="id_kursus"
-                                                            value="{{ $assignment->id_kursus }}">
-                                                        <input type="hidden" name="nilai_akhir" id="nilai_akhir"
-                                                            value="0">
-                                                        <button type="submit"
-                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
-                                                                class="ti ti-device-floppy"></i>Auto 0</button>
-                                                    </form>
-                                                @else
-                                                    <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
-                                                        {{ __('Belum ada tugas') }}
-                                                    </div>
-                                                @endif
                                             @endisset
                                         </td>
                                         <td>

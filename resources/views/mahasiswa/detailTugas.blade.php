@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="flex mb-2">
                                     <h1 class="text-gray-500 mr-2 pt-1">File Soal : </h1>
-                                    <a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->file_soal }}</a>
+                                    <a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->file_soal }}</a>
                                 </div>
                                 <div class="flex flex-col mb-2">
                                     <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
