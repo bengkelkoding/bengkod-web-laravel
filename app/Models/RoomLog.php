@@ -9,7 +9,7 @@ class RoomLog extends Model
     protected $table = "room_logs";
     protected $primaryKey = "id";
     protected $keyType = "int";
-    public $timestamps = true;
+    public $timestamps = false;
     public $incrementing = true;
 
     protected $fillable = [
