@@ -34,6 +34,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+Route::get('/view/history', function () {
+    return view('/mahasiswa/history');
+});
+
 
 Route::get('/', function () {
     $kursuses = Kursus::withCount('users')->get();
