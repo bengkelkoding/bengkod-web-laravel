@@ -10,40 +10,6 @@
                 <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
                 <p class="text-white">~ Imam Syafi’i</p>
             </div>
-            {{-- @forelse ($asistant as $as)
-            <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
-                <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
-                <div class="box-border p-2 border rounded-md">
-                    <div class="overflow-x-auto">
-                            <table class="w-full text-xs text-left">
-                                <thead class="text-xs text-gray-50">
-                                    <tr class="border-b">
-                                        <th scope="col" class="px-6 py-3">
-                                            Nama
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            No. Telp
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-gray-100">
-                                        <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                            {{$as->name}}
-                                        </th>
-                                        <td class="px-3 py-3">
-                                            {{$as->phone_number}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                    </div>
-                </div>
-            </div>
-            @empty
-
-            @endforelse --}}
         </div>
     </div>
 
@@ -99,12 +65,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($roomLogs as $roomLog)
                                         <tr class="">
-                                            <td>A</td>
-                                            <td><p class="bg-green-500 w-[80px] rounded h-auto text-center text-white text-[16px]">Check In</p></td>
-                                            <td>Free</td>
-                                            <td>2023-11-24</td>
+                                            <td>
+                                                @if($roomLog->session == 'A')
+                                                    Pagi
+                                                @elseif($roomLog->session == 'B')
+                                                    Siang
+                                                @elseif($roomLog->session == 'C')
+                                                    Pagi & Siang
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <p class="{{ ($roomLog->status == 'check-in') ? 'bg-green-500' : 'bg-red-500'}} w-[80px] rounded h-auto text-center text-white text-[16px]">
+                                                    {{ $roomLog->status }}
+                                                </p>
+                                            </td>
+                                            <td>{{ $roomLog->access_status }}</td>
+                                            <td>{{ $roomLog->accessed }}</td>
                                         </tr>
+                                    @endforeach
+
                                         {{-- @php
                                         $no = 1;
                                         @endphp

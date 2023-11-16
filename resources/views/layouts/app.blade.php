@@ -35,7 +35,7 @@
                             </ul>
                             @endif
                             <ul class="text-xl font-medium text-white mr-5">
-                                <li><a href="" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">History</a></li>
+                                <li><a href="{{url('history') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">History</a></li>
                             </ul>
                             <ul class="text-xl font-medium text-white mr-5">
                                 <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Home</a></li>

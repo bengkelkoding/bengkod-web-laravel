@@ -111,6 +111,7 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
 Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('logs', LogController::class);
+    Route::get('/history', [\App\Http\Controllers\RoomLogController::class, 'index']);
     Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);
     Route::get('diselesaikan', [MahasiswaController::class, 'showMateriDiselesaikan']);
     Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
@@ -121,9 +122,6 @@ Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
     Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
 
-    // Route::get('/mahasiswa', function(){
-    //     return 'ini halaman mhs via role';
-    // });
 });
 
 // Route for kursus / module learning in admin?
