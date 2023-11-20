@@ -120,7 +120,6 @@
                                     </tbody> --}}
                                 </table>
                             </div>
-                            {{-- {{ $logs->links() }} --}}
                         </div>
                     </div>
                 </div>

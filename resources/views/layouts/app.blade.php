@@ -29,13 +29,8 @@
                     <nav class="w-[90%] max-md:w-[100%] px-4 flex max-md:flex-col justify-between items-center text-center">
                         <p class="text-xl max-md:text-2xl font-semibold text-white cursor-default max-lg:mb-1">Bengkel Koding</p>
                         <div class="flex justify-between items-center ">
-                            @if (isset(auth()->user()->course))
                             <ul class="text-xl font-medium text-white mr-5">
-                                <li><a href=" {{route('logs.index') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Logs</a></li>
-                            </ul>
-                            @endif
-                            <ul class="text-xl font-medium text-white mr-5">
-                                <li><a href="{{url('history') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">History</a></li>
+                                <li><a href="{{url('history') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Logs</a></li>
                             </ul>
                             <ul class="text-xl font-medium text-white mr-5">
                                 <li><a href=" {{url('/') }}" class="hover:text-white hover:border-b-2 pb-1 px-3 transition ease-in-out duration-150">Home</a></li>
