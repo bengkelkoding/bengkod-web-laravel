@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -20,12 +19,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'kode',
+        'code',
         'name',
         'email',
         'password',
-        'id_kursus',
-        'id_asisten',
+        'id_course',
+        'id_assistant',
     ];
 
     /**
@@ -49,12 +48,12 @@ class User extends Authenticatable
 
     public function course()
     {
-        return $this->belongsTo(Kursus::class, 'id_kursus');
+        return $this->belongsTo(Course::class, 'id_course');
     }
 
-    public function tugas()
+    public function task()
     {
-        return $this->hasOne(Tugas::class, 'id_mahasiswa');
+        return $this->hasOne(Task::class, 'id_student');
     }
 
 //    public function assistant()
@@ -64,17 +63,16 @@ class User extends Authenticatable
 
     public function assistant(): BelongsTo
     {
-        return $this->belongsTo(ContactAssistant::class, 'id_asisten', 'id');
+        return $this->belongsTo(ContactAssistant::class, 'id_assistant', 'id');
     }
 
-
-    public function nilaiTugas()
+    public function taskScore()
     {
-        return $this->hasMany(Tugas::class, 'id_mahasiswa');
+        return $this->hasMany(Task::class, 'id_student');
     }
 
     public function logs()
     {
-        return $this->hasMany(Log::class, 'id_mahasiswa');
+        return $this->hasMany(Log::class, 'id_student');
     }
 }

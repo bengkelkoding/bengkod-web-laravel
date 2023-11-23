@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +30,9 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user()->roles()->pluck('name')->first();
 
-        if($user === 'mahasiswa'){
-            return redirect()->route('mahasiswa.index');
-        }else if($user === 'dosen'){
+        if($user === 'student'){
+            return redirect()->route('student.index');
+        }else if($user === 'lecture'){
             return redirect()->route('lecture.index');
         }else if($user === 'admin'){
             return redirect()->route('admin.dashboard');

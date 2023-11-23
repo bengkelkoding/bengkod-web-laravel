@@ -1,28 +1,21 @@
 <?php
 
-use App\Models\Kursus;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\ModulController;
-use App\Http\Controllers\TugasController;
-use App\Http\Controllers\KursusController;
-use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\studentControllerStudentControllerntroller;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
-use App\Http\Controllers\Admin\SampleController;
 use App\Http\Controllers\Lecture\AssignController;
-use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Admin\AssignmentAdminController;
+use App\Http\Controllers\Admin\LectureController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+use App\Models\Course;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,21 +39,21 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
-    Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
-    Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
+    Route::get('/register-dosen', [RegisteredLectureController::class, 'create'])->name('register-dosen');;
+    Route::post('/register-dosen', [RegisteredLectureController::class, 'store']);
 
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::name('admin.')->prefix('admin')->group(function () {
-        Route::get('/', [DosenController::class, 'index']);
+        Route::get('/', [LectureController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
         // Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
-        Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
+        Route::resource('student', App\Http\Controllers\Admin\StudentControllerntroller::class);
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
-        Route::get('course', [KursusController::class, 'admin']);
+        Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
     });
@@ -69,14 +62,14 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
 // Lecture Space Routing
 Route::group(['middleware' => ['role:dosen', 'auth']], function () {
-    Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
-    Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
-    Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
-    Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
+    Route::get('daftar-kelola', [LectureController::class, 'showDaftarDanKelolastudent']);
+    Route::get('daftar-materi', [LectureController::class, 'showDaftarMateri']);
+    Route::get('log-aktivitas', [LectureController::class, 'showLogAktivitas']);
+    Route::get('kontak-asisten', [LectureController::class, 'showKontakAsisten']);
     Route::name('lecture.')->prefix('lecture')->group(function () {
-        Route::get('/', [DosenController::class, 'index'])->name('index');
-        Route::resource('student', StudentController::class);
-        Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
+        Route::get('/', [LectureController::class, 'index'])->name('index');
+        Route::resource('student', StudentControllerntroller::class);
+        Route::post('auto-zero/{id}', [StudentControllerntroller::class, 'autoZero'])->name('autoZero');
         Route::resource('assign', AssignController::class);
         Route::resource('assignincomplete', AssignInCompleteController::class);
         Route::resource('assigncomplete', AssignCompleteController::class);
@@ -89,31 +82,31 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
 // End Lecture Space Routing
 
 // Student Space Routing
-Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
-    Route::resource('mahasiswa', MahasiswaController::class);
+Route::group(['middleware' => ['role:student', 'auth']], function () {
+    Route::resource('student', StudentController::class);
     Route::resource('logs', LogController::class);
     Route::get('/history', [\App\Http\Controllers\RoomLogController::class, 'index']);
-    Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);
-    Route::get('diselesaikan', [MahasiswaController::class, 'showMateriDiselesaikan']);
-    Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
-    Route::get('daftar-nilai', [MahasiswaController::class, 'showDaftarNilai']);
-    Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
-    Route::post('simpan-tugas/{id}', [TugasController::class, 'store'])->name('simpan-tugas');
-    Route::post('submit-tugas/{id}', [TugasController::class, 'submitTugas'])->name('submit-tugas');
-    Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
-    Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
+    Route::get('dipelajari', [StudentController::class, 'showMateriDipelajari']);
+    Route::get('diselesaikan', [StudentController::class, 'showMateriDiselesaikan']);
+    Route::get('kumpulkan', [StudentController::class, 'showKumpulkanTugas']);
+    Route::get('daftar-nilai', [StudentController::class, 'showDaftarNilai']);
+    Route::get('kontak', [StudentController::class, 'showKontakAsisten']);
+    Route::post('simpan-tugas/{id}', [taskController::class, 'store'])->name('simpan-tugas');
+    Route::post('submit-tugas/{id}', [taskController::class, 'submitTugas'])->name('submit-tugas');
+    Route::get('detail-tugas/{id}', [StudentController::class, 'showDetailTugas'])->name('detail-tugas');
+    Route::post('/update-kursus', [StudentController::class, 'updateKursus'])->name('update.kursus');
 });
 // End Student Space Routing
 
 // Public Routing
 // View Root (Home Page)
 Route::get('/', function () {
-    $kursuses = Kursus::withCount('users')->get();
-    return view('home', compact('kursuses'));
+    $courses = Course::withCount('users')->get();
+    return view('home', compact('courses'));
 });
 // View Log History
 Route::get('/view/history', function () {
-    return view('/mahasiswa/history');
+    return view('/student/history');
 });
 // import csv
 Route::get('/import', [UserImportController::class, 'showForm']);
@@ -130,7 +123,7 @@ require __DIR__ . '/auth.php';
 // })->name('activate-token');
 
 // // Route for kursus / module learning in admin?
-// Route::resource('kursus', KursusController::class)->except('edit');
+// Route::resource('kursus', CourseController::class)->except('edit');
 // Route::resource('section', SectionController::class);
 // Route::resource('artikel', ArtikelController::class);
 
