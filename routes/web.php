@@ -34,30 +34,13 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-Route::get('/view/history', function () {
-    return view('/mahasiswa/history');
-});
 
-
-Route::get('/', function () {
-    $kursuses = Kursus::withCount('users')->get();
-    return view('home', compact('kursuses'));
-});
-
-Route::get('/learning', function () {
-    return view('learning');
-})->name('learning');
-
-Route::get('/activate-token', function () {
-    return view('activate-token');
-})->name('activate-token');
-
+//  Profile Authentication
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 // Admin Space Routing
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
@@ -73,9 +56,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        // Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
-        // Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
-        Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
+        // Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
         Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
@@ -86,6 +67,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 });
 // End Admin Space Routing
 
+// Lecture Space Routing
 Route::group(['middleware' => ['role:dosen', 'auth']], function () {
     Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
@@ -103,11 +85,10 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
         Route::resource('log', \App\Http\Controllers\Lecture\LogController::class);
     });
-    // Route::get('/dosen', function(){
-    //     return 'ini halaman dosen';
-    // });
 });
+// End Lecture Space Routing
 
+// Student Space Routing
 Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('logs', LogController::class);
@@ -121,28 +102,45 @@ Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
     Route::post('submit-tugas/{id}', [TugasController::class, 'submitTugas'])->name('submit-tugas');
     Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
     Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
-
 });
+// End Student Space Routing
 
-// Route for kursus / module learning in admin?
-Route::resource('kursus', KursusController::class)->except('edit');
-Route::resource('section', SectionController::class);
-Route::resource('artikel', ArtikelController::class);
+// Public Routing
+// View Root (Home Page)
+Route::get('/', function () {
+    $kursuses = Kursus::withCount('users')->get();
+    return view('home', compact('kursuses'));
+});
+// View Log History
+Route::get('/view/history', function () {
+    return view('/mahasiswa/history');
+});
+// import csv
+Route::get('/import', [UserImportController::class, 'showForm']);
+Route::post('/import', [UserImportController::class, 'import']);
 
+require __DIR__ . '/auth.php';
 
+// Route::get('/learning', function () {
+//     return view('learning');
+// })->name('learning');
 
-// debuging data kursus
-Route::get('/modul', [ModulController::class, 'index']);
-Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
-Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulController::class, 'showArtikel'])->name('modul.artikel');
+// Route::get('/activate-token', function () {
+//     return view('activate-token');
+// })->name('activate-token');
+
+// // Route for kursus / module learning in admin?
+// Route::resource('kursus', KursusController::class)->except('edit');
+// Route::resource('section', SectionController::class);
+// Route::resource('artikel', ArtikelController::class);
+
+// // debuging data kursus
+// Route::get('/modul', [ModulController::class, 'index']);
+// Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
+// Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulController::class, 'showArtikel'])->name('modul.artikel');
 
 // Route::group(['middleware' => ['permission:edit modul|delete modul']], function () {
 //     Route::get('/permission', function(){
 //         return 'ini halaman ian via permission';
 //     });
 // });
-
-// import csv
-Route::get('/import', [UserImportController::class, 'showForm']);
-Route::post('/import', [UserImportController::class, 'import']);
-require __DIR__ . '/auth.php';
