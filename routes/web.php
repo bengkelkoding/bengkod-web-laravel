@@ -13,7 +13,6 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
-use App\Http\Controllers\Admin\SampleController;
 use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -22,7 +21,6 @@ use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +32,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-Route::get('/view/history', function () {
-    return view('/mahasiswa/history');
-});
-
-
 Route::get('/', function () {
     $kursuses = Kursus::withCount('users')->get();
     return view('home', compact('kursuses'));
@@ -58,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // Admin Space Routing
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
@@ -66,19 +58,18 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
     Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
 
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [DosenController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        // Route::get('student', [App\Http\Controllers\Admin\StudentController::class, 'index']);
-        // Route::get('lecture', [App\Http\Controllers\Admin\LectureController::class, 'index']);
         Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
         Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
+        Route::resource('room-log', \App\Http\Controllers\Admin\RoomLogController::class);
+
         Route::get('course', [KursusController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
@@ -91,6 +82,7 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
     Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
+
     Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [DosenController::class, 'index'])->name('index');
         Route::resource('student', StudentController::class);
@@ -102,10 +94,8 @@ Route::group(['middleware' => ['role:dosen', 'auth']], function () {
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
         Route::resource('log', \App\Http\Controllers\Lecture\LogController::class);
+        Route::resource('room-log', \App\Http\Controllers\Lecture\RoomLogController::class);
     });
-    // Route::get('/dosen', function(){
-    //     return 'ini halaman dosen';
-    // });
 });
 
 Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -77,4 +78,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log::class, 'id_mahasiswa');
     }
+
+    public function roomLogs(): HasMany
+    {
+        return $this->hasMany(RoomLog::class, 'nim', 'kode');
+    }
+
+
 }
