@@ -18,7 +18,7 @@ export default {
                 sans: ['FigtrePope', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                "primary-color": "#005AFF",
+                "primary-color": "#114D91",
                 "secondary-color": "var(--secondary-color)"
               },
         
