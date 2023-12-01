@@ -5,6 +5,7 @@ $gambar = [
     'https://mahasiswa.dinus.ac.id/images/foto/A/A11/2021/A11.2021.13544.jpg',
     'https://mahasiswa.dinus.ac.id/images/foto/A/A11/2021/A11.2021.13370.jpg',
     'https://mahasiswa.dinus.ac.id/images/foto/A/A11/2021/A11.2021.13717.jpg',
+    'https://mahasiswa.dinus.ac.id/images/foto/A/A11/2021/A11.2021.13708.jpg',
     // tambahkan gambar lainnya sesuai kebutuhan
 ];
 ?>
@@ -71,7 +72,7 @@ $gambar = [
             <div class="whyUS mx-auto w-full md:w-[90%] p-4 h-auto my-20">
                 <h1 class="text-2xl font-bold md:text-3xl text-center mb-5">Mengapa Kami?</h1>
                 <div class="flex justify-center flex-wrap gap-4 lg:justify-around ">
-                    <div class="boxExplain1 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none hover:border transition ease-in-out duration-250">
+                    <div class="boxExplain1 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none border transition ease-in-out duration-250">
                         {{-- icon --}}
                         <div class="iconBox bg-yellow-200 p-3  rounded-lg flex items-center justify-center">
                             <span class="material-symbols-outlined">
@@ -83,7 +84,7 @@ $gambar = [
                             <p class="text-sm">Dapatkan pengalaman langsung dengan proyek-proyek koding yang relevan untuk meningkatkan keterampilanmu.</p>
                         </div>
                     </div>
-                    <div class="boxExplain2 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none hover:border transition ease-in-out duration-250">
+                    <div class="boxExplain2 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none border transition ease-in-out duration-250">
                         {{-- icon --}}
                         <div class="iconBox bg-green-200 p-3  rounded-lg flex items-center justify-center">
                             <span class="material-symbols-outlined">
@@ -95,7 +96,7 @@ $gambar = [
                             <p class="text-sm">Bergabunglah dalam kelas langsung yang interaktif untuk belajar dari instruktur terbaik.</p>
                         </div>
                     </div>
-                    <div class="boxExplain3 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none hover:border transition ease-in-out duration-250">
+                    <div class="boxExplain3 w-80 2xl:w-96 p-4 flex items-center gap-4 justify-center rounded-md shadow-xl hover:shadow-none border transition ease-in-out duration-250">
                         {{-- icon --}}
                         <div class="iconBox bg-orange-200 p-3  rounded-lg flex items-center justify-center">
                             <span class="material-symbols-outlined">
@@ -157,7 +158,7 @@ $gambar = [
             </div> -->
             <!-- <h1 class="text-4xl font-medium text-center max-md:text-[38px]" id="kursus">Kursus di Bengkel Koding</h1> -->
             <h1 class="mx-auto text-2xl font-bold md:text-3xl">Kursus di Bengkel Koding</h1>
-            <div class="max-w-[82%] flex my-5 items-center overflow-x-scroll snap-mandatory snap-x py-5">
+            <div class="max-w-[82%] flex my-5 items-center overflow-x-scroll snap-mandatory snap-x pb-5">
                 @foreach ($kursuses as $kursus)
                     <div class="snap-center">
                         <div class="m-[8px] border-2 rounded-md hover:shadow-xl bg-white min-w-[250px] flex flex-col justify-center transition ease-in-out duration-250">
@@ -181,7 +182,7 @@ $gambar = [
                                     {{ $kursus->jam }}
                                 </p>
                                 <div
-                                    class="btnUi text-white bg-primary-color w-full text-center p-2 rounded-md mt-4 hover:bg-white hover:border hover:border-primary-color hover:text-primary-color">
+                                    class="btnUi text-white bg-primary-color w-full text-center p-2 rounded-md mt-4 hover:bg-white border border-primary-color hover:text-primary-color">
                                     <a href="/kursus/{{ $kursus->id }}">
                                         <button>Belajar Sekarang</button>
                                     </a>
