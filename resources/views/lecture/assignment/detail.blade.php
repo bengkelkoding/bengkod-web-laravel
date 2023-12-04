@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col">
                             <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
-                                    {{ $assignment->judul }} </span></p>
+                                    {{ $assignment->title }} </span></p>
                         </div>
                         <div class="col">
                             <div class="flex justify-end">
@@ -89,26 +89,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($mahasiswa as $key => $m)
+                                @forelse ($student as $key => $m)
                                     <tr>
-                                        <td>{{ $mahasiswa->firstItem() + $key }}</td>
-                                        <td>{{ $m->kode }}</td>
+                                        <td>{{ $student->firstItem() + $key }}</td>
+                                        <td>{{ $m->code }}</td>
                                         <td>{{ $m->name }}</td>
                                         <td>
-                                            @if (!isset($m->tugas))
+                                            @if (!isset($m->task))
                                                 {{ __('Belum input tugas') }}
                                             @else
-                                                @if ($m->tugas->status === 0)
+                                                @if ($m->task->status === 0)
                                                     {{ __('Tugas belum disubmit') }}
-                                                @elseif ($m->tugas->status === 1)
+                                                @elseif ($m->task->status === 1)
                                                     {{ __('Tugas telah disubmit') }}
                                                 @endif
                                             @endif
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
-                                                    <form action="{{ route('lecture.force-submit', $m->tugas->id) }}"
+                                            @isset($m->task)
+                                                @if ($assignment->deadline < now('Asia/Jakarta') && $m->task->status === 0)
+                                                    <form action="{{ route('lecture.force-submit', $m->task->id) }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
@@ -116,12 +116,12 @@
                                                         <button type="submit" class="btn btn-primary bg-blue-400">
                                                             <i class="ti ti-download"></i> Force Submit</button>
                                                     </form>
-                                                @elseif ($m->tugas->status === 0)
+                                                @elseif ($m->task->status === 0)
                                                     <button class="btn btn-primary" disabled><i class="ti ti-download"></i>
                                                         Download</button>
                                                 @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ asset('storage/tugas/' . $m->tugas->file_tugas) }}"><i
+                                                        href="{{ asset('storage/tugas/' . $m->task->file_tugas) }}"><i
                                                             class="ti ti-download"></i> Download</a>
                                                 @endif
                                             @else
@@ -131,25 +131,25 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                @if ($m->tugas->status === 0)
-                                                    <form action="{{ route('lecture.student.update', $m->tugas->id) }}"
+                                            @isset($m->task)
+                                                @if ($m->task->status === 0)
+                                                    <form action="{{ route('lecture.student.update', $m->task->id) }}"
                                                         method="POST" class="flex">
                                                         <input type="number" name="nilai" id="nilai"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}" disabled>
+                                                            value="{{ (int) $m->task->final_score }}" disabled>
                                                         <button
                                                             class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
                                                             disabled><i class="ti ti-device-floppy"></i> Simpan</button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('lecture.student.update', $m->tugas->id) }}"
+                                                    <form action="{{ route('lecture.student.update', $m->task->id) }}"
                                                         method="POST" class="flex">
                                                         @csrf
                                                         @method('PATCH')
                                                         <input type="number" name="nilai" id="nilai"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
-                                                            value="{{ (int) $m->tugas->nilai_akhir }}">
+                                                            value="{{ (int) $m->task->final_score }}">
                                                         <button type="submit"
                                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
                                                                 class="ti ti-device-floppy"></i> Simpan</button>
@@ -163,7 +163,7 @@
                                                         <input type="hidden" name="id_mhs" value="{{ $m->id }}">
                                                         <input type="hidden" name="id_kursus"
                                                             value="{{ $assignment->id_kursus }}">
-                                                        <input type="hidden" name="nilai_akhir" id="nilai_akhir"
+                                                        <input type="hidden" name="final_score" id="final_score"
                                                             value="0">
                                                         <button type="submit"
                                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
@@ -177,9 +177,9 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                @isset($m->tugas->nilai_akhir)
-                                                    {{ $m->tugas->nilai_akhir }}
+                                            @isset($m->task)
+                                                @isset($m->task->final_score)
+                                                    {{ $m->task->final_score }}
                                                 @else
                                                     {{ __('-') }}
                                                 @endisset
@@ -188,8 +188,8 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                {{ \Carbon\Carbon::parse($m->tugas->created_at)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
+                                            @isset($m->task)
+                                                {{ \Carbon\Carbon::parse($m->task->created_at)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
                                             @else
                                                 {{ __('-') }}
                                             @endisset
@@ -203,7 +203,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $mahasiswa->withQueryString()->links() }}
+                    {{ $student->withQueryString()->links() }}
                 </div>
             </div>
         </div>

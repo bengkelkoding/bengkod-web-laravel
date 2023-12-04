@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LectureController extends Controller
 {
@@ -15,6 +19,20 @@ class LectureController extends Controller
     {
         return view('lecture.dashboard');
     }
+    
+    public function indexAdmin(Request $request)
+    {
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
+        $lectures = User::role('lecture')->with('course')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('code', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            })
+            ->paginate($per_page);
+        return view('admin.lecture.index', compact('lectures'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +41,7 @@ class LectureController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.lecture.create', ['courses' => Course::all()]);
     }
 
     /**
@@ -34,7 +52,23 @@ class LectureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = [
+                'id_course' => $request->course,
+                'code' => $request->code,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make('password'),
+            ];
+            $user = User::create($data);
+            $user->assignRole('lecture');
+
+            return response()->redirectToRoute('admin.lecture.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -56,7 +90,10 @@ class LectureController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lecture = User::find($id);
+        $courses = Course::all();
+        // dd($lecture->id);
+        return view('admin.lecture.edit', compact('lecture', 'courses'));
     }
 
     /**
@@ -68,7 +105,17 @@ class LectureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            User::updateOrCreate(
+                ['id' => $id],
+                $request->all(),
+            );
+            return response()->redirectToRoute('admin.lecture.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -79,26 +126,13 @@ class LectureController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function showDaftarDanKelolaMahasiswa()
-    {
-        return view('lecture.daftarDanKelolaMahasiswa');
-    }
-
-    public function showDaftarMateri()
-    {
-        return view('lecture.daftarMateri');
-    }
-
-    public function showLogAktivitas()
-    {
-        return view('lecture.logAktivitas');
-    }
-
-    public function showKontakAsisten()
-    {
-        return view('lecture.kontakAsisten');
+        try {
+            User::find($id)->delete();
+            return response()->redirectToRoute('admin.lecture.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }

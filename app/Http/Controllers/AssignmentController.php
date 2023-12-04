@@ -26,7 +26,7 @@ class AssignmentController extends Controller
             ->where(function ($query) use ($search) {
                 $query->where('title', 'LIKE', "%{$search}%")
                     ->orWhere('description', 'LIKE', "%{$search}%")
-                    ->orWhere('time_start', 'LIKE', "%{$search}%")
+                    ->orWhere('start_time', 'LIKE', "%{$search}%")
                     ->orWhere('deadline', 'LIKE', "%{$search}%");
             })
             ->with('course')
@@ -69,7 +69,7 @@ class AssignmentController extends Controller
                 'title' => $request->title,
                 'description' => $formatted_description,
                 'question_file' => $question_file,
-                'time_start' => $request->time_start,
+                'start_time' => $request->start_time,
                 'deadline' => $request->deadline,
             ]);
 
@@ -110,10 +110,10 @@ class AssignmentController extends Controller
      */
     public function edit(Assignment $assignment)
     {
-        $time_start = date('d/m/Y, g:i A', strtotime($assignment->time_start));
+        $start_time = date('d/m/Y, g:i A', strtotime($assignment->start_time));
         $deadline = date('d/m/Y, g:i A', strtotime($assignment->deadline));
 
-        return view('lecture.assignment.edit', compact('assignment', 'time_start', 'deadline'));
+        return view('lecture.assignment.edit', compact('assignment', 'start_time', 'deadline'));
     }
 
     /**
@@ -141,7 +141,7 @@ class AssignmentController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'question_file' => $question_file,
-                'time_start' => $request->time_start,
+                'start_time' => $request->start_time,
                 'deadline' => $request->deadline,
             ]);
 

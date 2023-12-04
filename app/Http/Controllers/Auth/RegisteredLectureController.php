@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class RegisteredDosenController extends Controller
+class RegisteredLectureController extends Controller
 {
     /**
      * Show the form for creating a new resource.

@@ -75,16 +75,16 @@ if ($hour >= 5 && $hour < 12) {
                     <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
                         <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
                         <div class="h-auto pl-5 max-md:pl-2">
-                            <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->judul }}</h1>
+                            <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->title }}</h1>
                             <p class="text-[#828282] text-[12p2x]">
                                 <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
                                 {{ $member_count }} Mahasiswa Terdaftar</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
-                                {{ $user->course->hari }}</p>
+                                {{ $user->course->day }}</p>
                             <p class="text-[#828282] text-[12px]">
                                 <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
-                                {{ $user->course->jam }}
+                                {{ $user->course->hour }}
                             </p>
                         </div>
                     </div>
@@ -97,14 +97,14 @@ if ($hour >= 5 && $hour < 12) {
             <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
-                    @php $nilai = 0; @endphp
+                    @php $value = 0; @endphp
                     @forelse($studentTask as $task)
-                        @php $nilai += $task->nilai_akhir; @endphp
+                        @php $value += $task->final_score; @endphp
                     @empty
-                        @php $nilai += 0; @endphp
+                        @php $value += 0; @endphp
                     @endforelse
                     @if(!$studentTask->isEmpty())
-                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($nilai) / $studentTask->count()) }}</h1>
+                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($value) / $studentTask->count()) }}</h1>
                     @else
                     <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
                     @endif
@@ -135,7 +135,7 @@ if ($hour >= 5 && $hour < 12) {
                         @endphp
                         @forelse($assignments as $as)
                         @php
-                            $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)
+                            $start_time = \Carbon\Carbon::parse($as->start_time)
                                             ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                             $deadline = \Carbon\Carbon::parse($as->deadline)
                                             ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
@@ -145,19 +145,18 @@ if ($hour >= 5 && $hour < 12) {
                                 {{ $no }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <a href="{{ route('detail-tugas', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->judul }}</a>
+                                <a href="{{ route('task-detail', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->title }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 @php
-                                    $user_tugas = $as->kursus->users->where('id', auth()->user()->id)->first();
+                                    $user_task = $as->course->users->where('id', auth()->user()->id)->first();
                                 @endphp
-                                {{-- @dd($user_tugas->tugas->where('id_assignment', $as->id)->first()) --}}
-                                @isset($user_tugas->tugas)
+                                @isset($user_task->task)
                                     @php
-                                        $task_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                        $task_mhs = $user_task->task->where('id_student', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                     @endphp
                                     @if($task_mhs !== null)
-                                        @if($task_mhs->file_tugas === null)
+                                        @if($task_mhs->task_file === null)
                                         <span
                                             class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
                                         @elseif($task_mhs->status === 0)
@@ -176,18 +175,18 @@ if ($hour >= 5 && $hour < 12) {
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
                                 @endisset
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                {{ $waktu_mulai }}
+                                {{ $start_time }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {{ $deadline }}
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                @isset($user_tugas->tugas)
+                                @isset($user_task->task)
                                     @if($task_mhs !== null)
-                                        @if($task_mhs->nilai_akhir === null)
+                                        @if($task_mhs->final_score=== null)
                                         Belum dinilai
                                         @else
-                                        {{ $task_mhs->nilai_akhir }}
+                                        {{ $task_mhs->final_score}}
                                         @endif
                                     @else
                                     Belum upload
@@ -216,25 +215,25 @@ if ($hour >= 5 && $hour < 12) {
                 @endphp
                 @forelse($assignments as $as)
                 @php
-                    $waktu_mulai = \Carbon\Carbon::parse($as->waktu_mulai)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                    $start_time = \Carbon\Carbon::parse($as->start_time)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                     $deadline = \Carbon\Carbon::parse($as->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                 @endphp
 
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <p>{{ $no }}</p>
                     <div class="flex items-center space-x-2 text-sm">
-                        <div class="text-gray-500">{{ $waktu_mulai }}</div>
+                        <div class="text-gray-500">{{ $start_time }}</div>
                         <div>
                             @php
-                                $user_tugas = $as->kursus->users->where('id', auth()->user()->id)->first();
+                                $user_task = $as->course->users->where('id', auth()->user()->id)->first();
                             @endphp
-                            @isset($user_tugas->tugas)
+                            @isset($user_task->task)
                                 @php
-                                    $task_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    $task_mhs = $user_task->task->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                 @endphp
                                 @if($task_mhs === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
-                                @elseif($task_mhs->file_tugas === null)
+                                @elseif($task_mhs->task_file === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
                                 @elseif($task_mhs->status === 0)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
@@ -247,16 +246,16 @@ if ($hour >= 5 && $hour < 12) {
                         </div>
                     </div>
                     <div class="text-sm text-gray-700">
-                        <a href="{{ route('detail-tugas', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->judul }}</a>
+                        <a href="{{ route('task-detail', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->title }}</a>
                     </div>
                     <div class="text-sm font-medium text-black">
-                        @isset($user_tugas->tugas)
+                        @isset($user_task->task)
                             @if($task_mhs === null)
                                 Belum Upload
-                            @elseif($task_mhs->nilai_akhir === null)
+                            @elseif($task_mhs->final_score === null)
                                 Belum dinilai
                             @else
-                                {{ $task_mhs->nilai_akhir }}
+                                {{ $task_mhs->final_score }}
                             @endif
                         @else
                             Belum Upload
@@ -339,11 +338,11 @@ if ($hour >= 5 && $hour < 12) {
             @endif
             <form action="{{ route('simpan-tugas') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
+                <input type="file" name="task_file" id="tugas" onchange="uploadIcon()" class="hidden">
 
                 @isset($task)
                 <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                    <a id="current_saved" href="{{ url('storage/tugas/' . $task->file_tugas) }}" class="">{{ $task->file_tugas }}</a>
+                    <a id="current_saved" href="{{ url('storage/tugas/' . $task->task_file) }}" class="">{{ $task->task_file }}</a>
                 </div>
                 @endisset
 

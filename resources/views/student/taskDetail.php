@@ -4,14 +4,14 @@
     </x-slot>
 
     <div class="box-border flex flex-col justify-center p-8 m-5 ">
-        <a href="{{ url('mahasiswa') }}"
+        <a href="{{ url('student') }}"
             class="text-xl font-medium px-2 transition ease-in-out duration-150 text-gray-500 hover:text-gray-700">
             < Kembali</a>
                 <h3 class="text-black font-bold text-2xl max-md:w-auto max-md:ml-0 mt-7">Detail Penugasan</h3>
                 <div class="p-2 mt-7 box-border h-auto w-full shadow-lg flex flex-col rounded-md overflow-hidden">
                     <h1 class="text-black font-bold text-xl max-md:my-2 mb-4 text-center">{{ $assignment->judul }}</h1>
                     {{-- <p>Deskripsi :</p>
-                    <pre class="text-justify md-pl-0 mb-2 font-sans">{{ $deskripsi }}</pre> --}}
+                    <pre class="text-justify md-pl-0 mb-2 font-sans">{{ $description }}</pre> --}}
 
                     <div class="overflow-auto rounded-lg shadow hidden md:block mb-5">
                         <table class="w-full">
@@ -25,15 +25,15 @@
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                                 <tr>
-                                    <td><pre class="ml-3">{{ $deskripsi }}</pre></td>
-                                    @if (isset($assignment->file_soal))
-                                    <td><a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->file_soal }}</a></td>
+                                    <td><pre class="ml-3">{{ $description }}</pre></td>
+                                    @if (isset($assignment->task_file))
+                                    <td><a href="{{ url('storage/soal/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->task_file }}</a></td>
                                     @else
                                     <td><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">Belum ada file soal</span></td>
                                     @endif
                                     <td>
-                                        {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
-                                        ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                        {{ \Carbon\Carbon::parse($assignment->start_time)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->start_time, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                                     </td>
                                     <td>
                                         {{ \Carbon\Carbon::parse($assignment->deadline)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
@@ -49,17 +49,17 @@
                             <div class="text-gray-500">
                                 <div class="mb-2">
                                     <h1>Deskripsi : </h1>
-                                    <pre>{{ $deskripsi }}</pre>
+                                    <pre>{{ $description }}</pre>
                                 </div>
                                 <div class="flex mb-2">
                                     <h1 class="text-gray-500 mr-2 pt-1">File Soal : </h1>
-                                    <a href="{{ url('storage/soal/' . $assignment->file_soal) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->file_soal }}</a>
+                                    <a href="{{ url('storage/soal/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->task_file }}</a>
                                 </div>
                                 <div class="flex flex-col mb-2">
                                     <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
                                     <p>
-                                        {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
-                                        ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                        {{ \Carbon\Carbon::parse($assignment->start_time)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                        ({{ \Carbon\Carbon::parse($assignment->start_time, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                                     </p>
                                 </div>
                                 <div class="flex flex-col mb-2">
@@ -75,12 +75,12 @@
 
                     {{-- <div>
                     <table class="border max-w-full">
-                        @if (isset($assignment->file_soal))
+                        @if (isset($assignment->task_file))
                             <tr>
                                 <td class="">File Soal</td>
                                 <td class="pr-3">:</td>
                                 <td class="min-w-auto"><a
-                                        href="{{ url('storage/soal/' . $assignment->file_soal) }}">{{ $assignment->file_soal }}</a>
+                                        href="{{ url('storage/task/' . $assignment->task_file) }}">{{ $assignment->task_file }}</a>
                                 </td>
                             </tr>
                         @endif
@@ -88,8 +88,8 @@
                             <td class="">Waktu Dibuka</td>
                             <td class="pr-3">:</td>
                             <td class="min-w-full">
-                                {{ \Carbon\Carbon::parse($assignment->waktu_mulai)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
-                                ({{ \Carbon\Carbon::parse($assignment->waktu_mulai, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
+                                {{ \Carbon\Carbon::parse($assignment->start_time)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, H:i') }}
+                                ({{ \Carbon\Carbon::parse($assignment->start_time, 'Asia/Jakarta')->setTimezone('Asia/Jakarta')->locale('id')->settings(['formatFunction' => 'translatedFormat'])->diffForHumans() }})
                             </td>
                         </tr>
                         <tr>
@@ -106,15 +106,15 @@
                     <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
                         {{-- @dd($assignment->id) --}}
                         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
-                        @if ($assignment->waktu_mulai < now('Asia/Jakarta') && $assignment->deadline < now('Asia/Jakarta'))
+                        @if ($assignment->start_time < now('Asia/Jakarta') && $assignment->deadline < now('Asia/Jakarta'))
                             <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
                                 Maaf tugas sudah ditutup!
                             </div>
-                        @elseif($assignment->waktu_mulai > now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
+                        @elseif($assignment->start_time > now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
                             <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
                                 Maaf tugas belum dibuka!
                             </div>
-                        @elseif($assignment->waktu_mulai < now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
+                        @elseif($assignment->start_time < now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
                             @if ($tugas === null || $tugas->status === 0)
                                 <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer"
                                     id="upload-icon" onclick="openInputFile()">
@@ -243,7 +243,7 @@
                 currentSaved.innerHTML = input.files[0].name;
             } else {
                 icon.innerHTML =
-                    '<img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert"><h4>Seret File atau Klik Disini Untuk Upload File</h4>';
+                    `<img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert"><h4>Seret File atau Klik Disini Untuk Upload File</h4>`;
                 currentSaved.innerHTML = '';
             }
         }

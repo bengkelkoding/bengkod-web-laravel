@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 
-class taskController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.

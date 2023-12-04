@@ -9,11 +9,13 @@ use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Admin\AssignmentAdminController;
-use App\Http\Controllers\Admin\LectureController;
+use App\Http\Controllers\Auth\RegisteredLectureController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LectureController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TaskController;
 use App\Models\Course;
 
 /*
@@ -48,8 +50,8 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [LectureController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        Route::resource('student', App\Http\Controllers\Admin\StudentControllerntroller::class);
-        Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
+        Route::resource('student', App\Http\Controllers\StudentController::class);
+        Route::resource('lecture', App\Http\Controllers\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
         Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
@@ -59,18 +61,18 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 // End Admin Space Routing
 
 // Lecture Space Routing
-Route::group(['middleware' => ['role:dosen', 'auth']], function () {
+Route::group(['middleware' => ['role:lecture', 'auth']], function () {
     Route::get('daftar-kelola', [LectureController::class, 'showDaftarDanKelolastudent']);
     Route::get('daftar-materi', [LectureController::class, 'showDaftarMateri']);
     Route::get('log-aktivitas', [LectureController::class, 'showLogAktivitas']);
     Route::get('kontak-asisten', [LectureController::class, 'showKontakAsisten']);
     Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [LectureController::class, 'index'])->name('index');
-        Route::resource('student', StudentControllerntroller::class);
-        Route::post('auto-zero/{id}', [StudentControllerntroller::class, 'autoZero'])->name('autoZero');
-        Route::resource('assign', AssignController::class);
-        Route::resource('assignincomplete', AssignInCompleteController::class);
-        Route::resource('assigncomplete', AssignCompleteController::class);
+        Route::resource('student', StudentController::class);
+        Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
+        // Route::resource('assign', AssignController::class);
+        // Route::resource('assignincomplete', AssignInCompleteController::class);
+        // Route::resource('assigncomplete', AssignCompleteController::class);
         Route::resource('assignment', AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
@@ -89,9 +91,9 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
     Route::get('kumpulkan', [StudentController::class, 'showKumpulkanTugas']);
     Route::get('daftar-nilai', [StudentController::class, 'showDaftarNilai']);
     Route::get('kontak', [StudentController::class, 'showKontakAsisten']);
-    Route::post('simpan-tugas/{id}', [taskController::class, 'store'])->name('simpan-tugas');
-    Route::post('submit-tugas/{id}', [taskController::class, 'submitTugas'])->name('submit-tugas');
-    Route::get('detail-tugas/{id}', [StudentController::class, 'showDetailTugas'])->name('detail-tugas');
+    Route::post('simpan-tugas/{id}', [TaskController::class, 'store'])->name('simpan-tugas');
+    Route::post('submit-tugas/{id}', [TaskController::class, 'submitTugas'])->name('submit-tugas');
+    Route::get('task-detail/{id}', [StudentController::class, 'showTaskDetail'])->name('task-detail');
     Route::post('/update-kursus', [StudentController::class, 'updateKursus'])->name('update.kursus');
 });
 // End Student Space Routing

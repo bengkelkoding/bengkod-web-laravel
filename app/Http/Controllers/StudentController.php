@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\ContactAssistant;
 use App\Models\Course;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -41,13 +44,54 @@ class StudentController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexAdmin(Request $request)
+    {
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
+        $students = User::role('student')->with('assistant')
+        ->with(['taskScore' => function ($q) {
+            $q->whereNotNull('final_score');
+        }])
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('code', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+        })
+        ->paginate($per_page);
+
+        return view('admin.student.index', compact('students'));
+    }
+
+    public function indexLecture(Request $request)
+    {
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
+        $students = User::role('student')->with('assistant')
+        ->with(['taskScore' => function ($q) {
+            $q->whereNotNull('final_score');
+        }])
+        ->where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('code', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+        })
+        ->paginate($per_page);
+
+        return view('lecture.student.index', compact('students'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.student.create', ['courses' => Course::all(), 'assistants' => ContactAssistant::all()]);
     }
 
     /**
@@ -58,7 +102,25 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = [
+                'id_course' => $request->course,
+                'id_asisten' => $request->assistant,
+                'code' => $request->nim,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make('password'),
+            ];
+
+            $user = User::create($data);
+            $user->assignRole('student');
+
+            return response()->redirectToRoute('admin.student.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -80,7 +142,11 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = User::find($id);
+        $courses = Course::all();
+        $assistants = ContactAssistant::all();
+
+        return view('admin.student.edit', compact('student', 'courses', 'assistants'));
     }
 
     /**
@@ -92,7 +158,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            User::updateOrCreate(
+                ['id' => $id],
+                $request->all(),
+            );
+            return response()->redirectToRoute('admin.student.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -103,9 +179,15 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            User::find($id)->delete();
+            return response()->redirectToRoute('admin.student.index');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
-
     function showMateriDipelajari()
     {
         return view('student.materiDipelajari');
@@ -131,16 +213,16 @@ class StudentController extends Controller
         return view('student.kontakAsisten');
     }
 
-    function showDetailtask($id) {
+    function showTaskDetail($id) {
         $assignment = Assignment::find($id);
-        $deskripsi = str_replace('<br />', "\n", $assignment->deskripsi);
-        // $deskripsi = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $deskripsi);
-        // dd($deskripsi);
+        $description = str_replace('<br />', "\n", $assignment->description);
+        // $description = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $description);
+        // dd($description);
         $task = null;
         if (auth()->user()->task !== null) {
             $task = auth()->user()->task->where('id_student', auth()->user()->id)->where('id_assignment', $id)->first();
         }
-        return view('student.detailtask', compact('assignment', 'task', 'deskripsi'));
+        return view('student.taskDetail', compact('assignment', 'task', 'description'));
     }
 
     public function updatecourse(Request $request)
