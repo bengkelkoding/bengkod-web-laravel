@@ -24,7 +24,7 @@ class LogRequest extends FormRequest
     public function rules()
     {
         return [
-            'pesan' => 'required|string',
+            'message' => 'required|string',
         ];
     }
 }

@@ -22,9 +22,9 @@ class LogController extends Controller
     public function index(Request $request)
     {
         $search = $request->search ?? '';
-        $data = Log::where('id_mahasiswa', auth()->user()->id);
+        $data = Log::where('id_student', auth()->user()->id);
 
-        $logs = $data->where('pesan', 'like', "%$search%")
+        $logs = $data->where('message', 'like', "%$search%")
             ->paginate(10);
 
         if ($logs->isEmpty()) {
@@ -34,9 +34,9 @@ class LogController extends Controller
         }
 
         $user = auth()->user();
-        $asistant = ContactAssistant::where('id_mahasiswa', $user->id)->get();
+        $asistant = ContactAssistant::where('id_student', $user->id)->get();
 
-        return view('mahasiswa.log.index', compact('logs', 'allow_insert', 'asistant'));
+        return view('student.log.index', compact('logs', 'allow_insert', 'asistant'));
     }
 
     /**
@@ -46,7 +46,7 @@ class LogController extends Controller
      */
     public function create()
     {
-        $data = Log::where('id_mahasiswa', auth()->user()->id);
+        $data = Log::where('id_student', auth()->user()->id);
         $data = $data->latest()->first();
         $allow_access = false;
         $now = Carbon::parse(now()->format('Y-m-d'));
@@ -61,7 +61,7 @@ class LogController extends Controller
             }
         }
 
-        return view('mahasiswa.log.create', compact('allow_access'));
+        return view('student.log.create', compact('allow_access'));
     }
 
     /**
@@ -74,11 +74,11 @@ class LogController extends Controller
     {
         try {
             $user = auth()->user();
-            // dd($request->pesan);
+            // dd($request->message);
 
             Log::create([
-                'id_mahasiswa' => $user->id,
-                'pesan' => $request->pesan,
+                'id_student' => $user->id,
+                'message' => $request->message,
                 'status' => 0
             ]);
 
@@ -115,7 +115,7 @@ class LogController extends Controller
             $allow_access = false;
         }
 
-        return view('mahasiswa.log.edit', compact('log', 'allow_access'));
+        return view('student.log.edit', compact('log', 'allow_access'));
     }
 
     /**
@@ -129,7 +129,7 @@ class LogController extends Controller
     {
         try {
             $log->update([
-                'pesan' => $request->pesan,
+                'message' => $request->message,
             ]);
 
             return redirect()->route('logs.index')->with('success', 'Log berhasil diubah');

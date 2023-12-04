@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NilaiRequest extends FormRequest
+class CourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class NilaiRequest extends FormRequest
     public function rules()
     {
         return [
-            'nilai' => 'required|numeric|min:0|max:100'
+            'title' => 'nullable|string',
+            'author' => 'nullable|string',
+            'day' => 'nullable|string',
+            'hour' => 'nullable|string',
         ];
     }
 }

@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\studentControllerStudentControllerntroller;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\Lecture\AssignController;
@@ -49,7 +48,6 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [LectureController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        // Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
         Route::resource('student', App\Http\Controllers\Admin\StudentControllerntroller::class);
         Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
@@ -104,6 +102,8 @@ Route::get('/', function () {
     $courses = Course::withCount('users')->get();
     return view('home', compact('courses'));
 });
+// Get Detail Course
+Route::get('/course/{id}', [CourseController::class, 'show'])->name('course-detail');
 // View Log History
 Route::get('/view/history', function () {
     return view('/student/history');

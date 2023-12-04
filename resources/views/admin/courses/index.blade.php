@@ -4,7 +4,6 @@
             {{ __('Dashboard Admin') }}
         </h2>
     </x-slot>
-
     <div class="container-fluid">
         <div class="container-fluid">
           <div class="card">
@@ -22,12 +21,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($courses as $key => $course)
+                            @forelse($kursuses as $key => $kursus)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$course->title}}</td>
-                                <td>{{$course->author}}</td>
-                                <td><a class="bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-[14px] hover:bg-cyan-500 focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" href="{{ env('APP_URL_QUARTO').$course->url }}" class="px-6 h-auto" target="_blank">Kursus</a></td>
+                                <td>{{$kursus->judul}}</td>
+                                <td>{{$kursus->author}}</td>
+                                <td><a class="bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-[14px] hover:bg-cyan-500 focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" href="{{ env('APP_URL_QUARTO').$kursus->url }}" class="px-6 h-auto" target="_blank">Kursus</a></td>
                             </tr>
                             @empty
                             <tr>

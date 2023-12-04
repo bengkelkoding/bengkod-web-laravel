@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Kursus;
 use Illuminate\Http\Request;
-use App\Http\Requests\KursusRequest;
+use App\Http\Requests\courseRequest;
+use App\Models\Course;
 
-class KursusController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class KursusController extends Controller
      */
     public function index()
     {
-        return view('kursus.index', ['kursuses' => Kursus::all()]);
+        return view('course.index', ['coursees' => Course::all()]);
     }
 
     /**
@@ -26,7 +26,7 @@ class KursusController extends Controller
      */
     public function create()
     {
-        return view('admin.kursus.tambah');
+        return view('admin.course.tambah');
     }
 
     /**
@@ -35,11 +35,11 @@ class KursusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(KursusRequest $request)
+    public function store(courseRequest $request)
     {
         try {
-            Kursus::create($request->all());
-            return response()->redirectToRoute('kursus.index');
+            Course::create($request->all());
+            return response()->redirectToRoute('course.index');
 
         } catch (Exception $e) {
             return response()->json([
@@ -56,9 +56,9 @@ class KursusController extends Controller
      */
     public function show($id)
     {
-        $kursus = Kursus::withCount('users')->find($id);
-        $tools = explode(',', $kursus->tools);
-        return view('kursus.detail', compact('kursus', 'tools'));
+        $course = Course::withCount('users')->find($id);
+        $tools = explode(',', $course->tools);
+        return view('course.detail', compact('course', 'tools'));
     }
 
     /**
@@ -69,9 +69,9 @@ class KursusController extends Controller
      */
     public function edit($id)
     {
-        $kursus = Kursus::find($id);
-        // dd($kursus->id);
-        return view('admin.kursus.edit', compact('kursus'));
+        $course = Course::find($id);
+        // dd($course->id);
+        return view('admin.course.edit', compact('course'));
     }
 
     /**
@@ -84,11 +84,11 @@ class KursusController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Kursus::updateOrCreate(
+            Course::updateOrCreate(
                 ['id' => $id],
                 $request->all(),
             );
-            return response()->redirectToRoute('kursus.index');
+            return response()->redirectToRoute('course.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -105,8 +105,8 @@ class KursusController extends Controller
     public function destroy($id)
     {
         try {
-            Kursus::find($id)->delete();
-            return response()->redirectToRoute('kursus.index');
+            Course::find($id)->delete();
+            return response()->redirectToRoute('course.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -115,6 +115,6 @@ class KursusController extends Controller
     }
     public function admin()
     {
-        return view('admin.course.index', ['kursuses' => Kursus::all()]);
+        return view('admin.course.index', ['courses' => Course::all()]);
     }
 }

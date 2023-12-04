@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tugas', function (Blueprint $table) {
-            $table->string('nilai_akhir')->nullable()->change();
-            $table->boolean('status')->default(0)->after('nilai_akhir');
+        Schema::create('task', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_student');
+            $table->unsignedBigInteger('id_course');
+            $table->string('task_file');
+            $table->string('final_score');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tugas', function (Blueprint $table) {
-            $table->string('nilai_akhir')->nullable(false)->change();
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('task');
     }
 };

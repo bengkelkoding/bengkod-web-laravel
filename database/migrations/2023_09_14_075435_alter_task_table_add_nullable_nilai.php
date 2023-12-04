@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tugas', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_mahasiswa');
-            $table->unsignedBigInteger('id_kursus');
-            $table->string('file_tugas');
-            $table->string('nilai_akhir');
-            $table->timestamps();
+        Schema::table('task', function (Blueprint $table) {
+            $table->string('final_score')->nullable()->change();
+            $table->boolean('status')->default(0)->after('final_score');
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tugas');
+        Schema::table('task', function (Blueprint $table) {
+            $table->string('final_score')->nullable(false)->change();
+            $table->dropColumn('status');
+        });
     }
 };

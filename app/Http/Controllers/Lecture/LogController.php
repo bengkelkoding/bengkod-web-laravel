@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Lecture;
 
 use App\Http\Controllers\Controller;
 use App\Models\Log;
-use App\Models\Tugas;
-use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -20,8 +19,8 @@ class LogController extends Controller
         $user = auth()->user();
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $logs = Log::with(['mahasiswa.course' => function ($query) use ($user) {
-                $query->where('id', $user->id_kursus);
+        $logs = Log::with(['student.course' => function ($query) use ($user) {
+                $query->where('id', $user->id_course);
             }])
             ->orderByDesc('created_at')
             ->paginate($per_page);

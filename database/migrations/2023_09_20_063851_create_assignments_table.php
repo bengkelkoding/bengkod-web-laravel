@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_kursus');
-            $table->string('judul');
-            $table->string('deskripsi');
-            $table->string('file_soal')->nullable();
-            $table->timestamp('waktu_mulai')->nullable();
+            $table->foreignId('id_course');
+            $table->string('title');
+            $table->string('description');
+            $table->string('task_file')->nullable();
+            $table->timestamp('start_time')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_kursus')
+            $table->foreign('id_course')
                 ->references('id')
-                ->on('kursus')
+                ->on('course')
                 ->onDelete('cascade');
         });
     }

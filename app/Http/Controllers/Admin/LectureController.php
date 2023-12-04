@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kursus;
+use App\Models\Course;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,10 +20,10 @@ class LectureController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $lectures = User::role('dosen')->with('course')
+        $lectures = User::role('lecture')->with('course')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('kode', 'LIKE', "%{$search}%")
+                    ->orWhere('code', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%");
             })
             ->paginate($per_page);
@@ -37,7 +37,7 @@ class LectureController extends Controller
      */
     public function create()
     {
-        return view('admin.lecture.create', ['courses' => Kursus::all()]);
+        return view('admin.lecture.create', ['courses' => Course::all()]);
     }
 
     /**
@@ -50,14 +50,14 @@ class LectureController extends Controller
     {
         try {
             $data = [
-                'id_kursus' => $request->course,
-                'kode' => $request->kode,
+                'id_course' => $request->course,
+                'code' => $request->code,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make('password'),
             ];
             $user = User::create($data);
-            $user->assignRole('dosen');
+            $user->assignRole('lecture');
 
             return response()->redirectToRoute('admin.lecture.index');
         } catch (Exception $e) {
@@ -87,7 +87,7 @@ class LectureController extends Controller
     public function edit($id)
     {
         $lecture = User::find($id);
-        $courses = Kursus::all();
+        $courses = Course::all();
         // dd($lecture->id);
         return view('admin.lecture.edit', compact('lecture', 'courses'));
     }

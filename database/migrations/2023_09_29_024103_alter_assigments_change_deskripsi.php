@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->text('deskripsi')->change();
+            $table->text('description')->change();
         }); 
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->string('deskripsi')->change();
+            $table->string('description')->change();
         });  //
     }
 };

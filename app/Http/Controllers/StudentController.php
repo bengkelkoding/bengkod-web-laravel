@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
-use App\Models\Kursus;
-use App\Models\ContactAssistant;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,16 +18,16 @@ class MahasiswaController extends Controller
     {
         $user = auth()->user();
 
-        $tugasMahasiswa = $user->nilaiTugas->whereNotNull('nilai_akhir');
-        $tugas = $user->tugas;
+        $studentTask = $user->taskScore->whereNotNull('final_score');
+        $task = $user->task;
 
         # to display student course
-        $kursuses = Kursus::where('id', $user->id_kursus)->withCount('users')->get();
-        $member_count = $kursuses->sum('users_count');
+        $coursees = Course::where('id', $user->id_course)->withCount('users')->get();
+        $member_count = $coursees->sum('users_count');
 
         # to display student assignment by course
-        $assignments = Assignment::where('id_kursus', $user->id_kursus)->with(['kursus.users.tugas' => function ($q) {
-            $q->where('id_mahasiswa', auth()->user()->id);
+        $assignments = Assignment::where('id_course', $user->id_course)->with(['course.users.task' => function ($q) {
+            $q->where('id_student', auth()->user()->id);
         }])->get();
 
         # for student contact assistant
@@ -36,9 +35,9 @@ class MahasiswaController extends Controller
             ->where('id', $user->id)->get();
 
         $var_names = [
-            'user', 'member_count', 'tugas', 'tugasMahasiswa', 'assistant', 'assignments'
+            'user', 'member_count', 'task', 'studentTask', 'assistant', 'assignments'
         ];
-        return view('mahasiswa.dashboard', compact($var_names));
+        return view('student.dashboard', compact($var_names));
     }
 
     /**
@@ -109,57 +108,57 @@ class MahasiswaController extends Controller
 
     function showMateriDipelajari()
     {
-        return view('mahasiswa.materiDipelajari');
+        return view('student.materiDipelajari');
     }
 
     function showMateriDiselesaikan()
     {
-        return view('mahasiswa.materiDiselesaikan');
+        return view('student.materiDiselesaikan');
     }
 
-    function showKumpulkanTugas()
+    function showKumpulkantask()
     {
-        return view('mahasiswa.kumpulkanTugas');
+        return view('student.kumpulkantask');
     }
 
     function showDaftarNilai()
     {
-        return view('mahasiswa.daftarNilai');
+        return view('student.daftarNilai');
     }
 
     function showKontakAsisten()
     {
-        return view('mahasiswa.kontakAsisten');
+        return view('student.kontakAsisten');
     }
 
-    function showDetailTugas($id) {
+    function showDetailtask($id) {
         $assignment = Assignment::find($id);
         $deskripsi = str_replace('<br />', "\n", $assignment->deskripsi);
         // $deskripsi = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $deskripsi);
         // dd($deskripsi);
-        $tugas = null;
-        if (auth()->user()->tugas !== null) {
-            $tugas = auth()->user()->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $id)->first();
+        $task = null;
+        if (auth()->user()->task !== null) {
+            $task = auth()->user()->task->where('id_student', auth()->user()->id)->where('id_assignment', $id)->first();
         }
-        return view('mahasiswa.detailTugas', compact('assignment', 'tugas', 'deskripsi'));
+        return view('student.detailtask', compact('assignment', 'task', 'deskripsi'));
     }
 
-    public function updateKursus(Request $request)
+    public function updatecourse(Request $request)
     {
         // Mendapatkan user yang terautentikasi
         $user = auth()->user();
 
         // Validasi data yang dikirimkan
         $request->validate([
-            'kursus_id' => 'required|numeric', // Anda dapat menambahkan validasi sesuai kebutuhan
+            'course_id' => 'required|numeric', // Anda dapat menambahkan validasi sesuai kebutuhan
         ]);
 
         User::updateOrCreate(
             ['id' => auth()->id()], // Kriteria pencarian, misalnya berdasarkan ID pengguna yang terautentikasi
-            ['id_kursus' => $request->kursus_id]
+            ['id_course' => $request->course_id]
         );
 
-        return redirect()->back()->with('success', 'Anda sudah terdaftar pada kursus ini.');
+        return redirect()->back()->with('success', 'Anda sudah terdaftar pada course ini.');
     }
 
 }

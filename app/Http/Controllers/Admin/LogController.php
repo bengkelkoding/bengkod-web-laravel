@@ -17,8 +17,8 @@ class LogController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $logs = Log::with('mahasiswa.course')
-            ->where('pesan', 'LIKE', "%{$search}%")
+        $logs = Log::with('student.course')
+            ->where('message', 'LIKE', "%{$search}%")
             ->orderByDesc('created_at')
             ->paginate($per_page);
 

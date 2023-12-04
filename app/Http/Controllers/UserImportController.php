@@ -40,7 +40,7 @@ class UserImportController extends Controller
             if ($key === 0) continue; // Skip header row
             
             $user = User::create([
-                'kode' => $row[1],
+                'code' => $row[1],
                 'name' => $row[0],
                 'email' => $row[2],
                 'password' => bcrypt($row[3]),

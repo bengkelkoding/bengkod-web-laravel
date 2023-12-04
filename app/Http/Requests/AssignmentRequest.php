@@ -25,18 +25,18 @@ class AssignmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'judul' => 'required|string',
-            'deskripsi' => 'string',
-            'file_soal' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10000',
-            'waktu_mulai' => 'required|date_format:Y-m-d H:i:s',
-            'deadline' => 'required|date_format:Y-m-d H:i:s|after:waktu_mulai',
+            'title' => 'required|string',
+            'description' => 'string',
+            'task_file' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10000',
+            'start_time' => 'required|date_format:Y-m-d H:i:s',
+            'deadline' => 'required|date_format:Y-m-d H:i:s|after:start_time',
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            'waktu_mulai' => Carbon::createFromFormat('d/m/Y, g:i A', $this->request->get('waktu_mulai'))->toDateTimeString(),
+            'start_time' => Carbon::createFromFormat('d/m/Y, g:i A', $this->request->get('start_time'))->toDateTimeString(),
             'deadline' => Carbon::createFromFormat('d/m/Y, g:i A', $this->request->get('deadline'))->toDateTimeString(),
         ]);
     }

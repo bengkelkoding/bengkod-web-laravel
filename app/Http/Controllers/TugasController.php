@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tugas;
+use App\Http\Requests\TaskRequest;
+use App\Models\task;
 use Illuminate\Http\Request;
-use App\Http\Requests\TugasRequest;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 
-class TugasController extends Controller
+class taskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,32 +36,32 @@ class TugasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TugasRequest $request, $id)
+    public function store(TaskRequest $request, $id)
     {
         try {
-            // Rename tugas file to be unique
+            // Rename task file to be unique
             // dd(auth()->user()->id);
-            $existing_doc = Tugas::where('id_mahasiswa', auth()->user()->id)
+            $existing_doc = Task::where('id_student', auth()->user()->id)
                 ->where('id_assignment', $id)
                 ->first();
-            // dd($existing_doc->file_tugas);
-            if (isset($existing_doc->file_tugas)) {
-                unlink(public_path('storage/tugas/' . $existing_doc->file_tugas));
+            // dd($existing_doc->task_file);
+            if (isset($existing_doc->task_file)) {
+                unlink(public_path('storage/task/' . $existing_doc->task_file));
             }
 
-            $tugas = $request->file('file_tugas');
-            $tugasName = time() . '_' . $tugas->getClientOriginalName();
-            $tugas->move(public_path('storage/tugas'), $tugasName);
-            $id_mhs = auth()->user();
-            Tugas::updateOrCreate([
-                'id_mahasiswa' => $id_mhs->id,
-                'id_kursus' => $id_mhs->id_kursus,
+            $task = $request->file('task_file');
+            $taskName = time() . '_' . $task->getClientOriginalName();
+            $task->move(public_path('storage/task'), $taskName);
+            $id_student = auth()->user();
+            Task::updateOrCreate([
+                'id_student' => $id_student->id,
+                'id_course' => $id_student->id_course,
                 'id_assignment' => $request->id_assignment,
             ], [
-                'file_tugas' => $tugasName,
+                'task_file' => $taskName,
             ]);
 
-            return redirect()->back()->with('success', 'Tugas berhasil diupload');
+            return redirect()->back()->with('success', 'task berhasil diupload');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -114,20 +114,20 @@ class TugasController extends Controller
         //
     }
 
-    public function submitTugas(Request $request, $id)
+    public function submittask(Request $request, $id)
     {
         try {
-            $tugas = Tugas::where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $id)->firstOrFail();
+            $task = Task::where('id_student', auth()->user()->id)->where('id_assignment', $id)->firstOrFail();
             $validator = Validator::make($request->all(), [
                 'check_value' => 'required|in:1|numeric',
             ]);
             $validator->validate();
 
-            $result = $tugas->update([
+            $result = $task->update([
                 'status' => $request->check_value,
             ]);
 
-            return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan');
+            return redirect()->back()->with('success', 'task berhasil dikumpulkan');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

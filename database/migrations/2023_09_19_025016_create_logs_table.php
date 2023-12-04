@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa');
-            $table->string('pesan');
+            $table->foreignId('id_student');
+            $table->string('message');
             $table->boolean('status')->default(false);
             $table->timestamps();
 
-            $table->foreign('id_mahasiswa')
+            $table->foreign('id_student')
                 ->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
         });

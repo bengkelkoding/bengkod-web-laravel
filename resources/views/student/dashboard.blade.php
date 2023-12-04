@@ -98,13 +98,13 @@ if ($hour >= 5 && $hour < 12) {
                 <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                 <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
                     @php $nilai = 0; @endphp
-                    @forelse($tugasMahasiswa as $tugas)
-                        @php $nilai += $tugas->nilai_akhir; @endphp
+                    @forelse($studentTask as $task)
+                        @php $nilai += $task->nilai_akhir; @endphp
                     @empty
                         @php $nilai += 0; @endphp
                     @endforelse
-                    @if(!$tugasMahasiswa->isEmpty())
-                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($nilai) / $tugasMahasiswa->count()) }}</h1>
+                    @if(!$studentTask->isEmpty())
+                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($nilai) / $studentTask->count()) }}</h1>
                     @else
                     <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
                     @endif
@@ -154,16 +154,16 @@ if ($hour >= 5 && $hour < 12) {
                                 {{-- @dd($user_tugas->tugas->where('id_assignment', $as->id)->first()) --}}
                                 @isset($user_tugas->tugas)
                                     @php
-                                        $tugas_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                        $task_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                     @endphp
-                                    @if($tugas_mhs !== null)
-                                        @if($tugas_mhs->file_tugas === null)
+                                    @if($task_mhs !== null)
+                                        @if($task_mhs->file_tugas === null)
                                         <span
                                             class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                        @elseif($tugas_mhs->status === 0)
+                                        @elseif($task_mhs->status === 0)
                                         <span
                                             class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                        @elseif($tugas_mhs->status === 1)
+                                        @elseif($task_mhs->status === 1)
                                         <span
                                             class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
                                         @endif
@@ -183,11 +183,11 @@ if ($hour >= 5 && $hour < 12) {
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 @isset($user_tugas->tugas)
-                                    @if($tugas_mhs !== null)
-                                        @if($tugas_mhs->nilai_akhir === null)
+                                    @if($task_mhs !== null)
+                                        @if($task_mhs->nilai_akhir === null)
                                         Belum dinilai
                                         @else
-                                        {{ $tugas_mhs->nilai_akhir }}
+                                        {{ $task_mhs->nilai_akhir }}
                                         @endif
                                     @else
                                     Belum upload
@@ -230,15 +230,15 @@ if ($hour >= 5 && $hour < 12) {
                             @endphp
                             @isset($user_tugas->tugas)
                                 @php
-                                    $tugas_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    $task_mhs = $user_tugas->tugas->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                 @endphp
-                                @if($tugas_mhs === null)
+                                @if($task_mhs === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
-                                @elseif($tugas_mhs->file_tugas === null)
+                                @elseif($task_mhs->file_tugas === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                @elseif($tugas_mhs->status === 0)
+                                @elseif($task_mhs->status === 0)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
-                                @elseif($tugas_mhs->status === 1)
+                                @elseif($task_mhs->status === 1)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
                                 @endif
                             @else
@@ -251,12 +251,12 @@ if ($hour >= 5 && $hour < 12) {
                     </div>
                     <div class="text-sm font-medium text-black">
                         @isset($user_tugas->tugas)
-                            @if($tugas_mhs === null)
+                            @if($task_mhs === null)
                                 Belum Upload
-                            @elseif($tugas_mhs->nilai_akhir === null)
+                            @elseif($task_mhs->nilai_akhir === null)
                                 Belum dinilai
                             @else
-                                {{ $tugas_mhs->nilai_akhir }}
+                                {{ $task_mhs->nilai_akhir }}
                             @endif
                         @else
                             Belum Upload
@@ -326,7 +326,7 @@ if ($hour >= 5 && $hour < 12) {
         {{-- submit proyek akhir --}}
         {{-- <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
             <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Projek Akhir</h3>
-            @if($tugas === null || $tugas->status === 0)
+            @if($task === null || $task->status === 0)
             <div class="h-[30vh] border ml-1 p-2 mb-[-20px] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
                 <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="cursor-pointer invert">
                 <h4 class="mx-5 mt-4 text-center">Seret File atau Klik Disini Untuk Upload File <br> Maksimal 10MB</h4>
@@ -341,9 +341,9 @@ if ($hour >= 5 && $hour < 12) {
                 @csrf
                 <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()" class="hidden">
 
-                @isset($tugas)
+                @isset($task)
                 <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                    <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}" class="">{{ $tugas->file_tugas }}</a>
+                    <a id="current_saved" href="{{ url('storage/tugas/' . $task->file_tugas) }}" class="">{{ $task->file_tugas }}</a>
                 </div>
                 @endisset
 
@@ -353,9 +353,9 @@ if ($hour >= 5 && $hour < 12) {
                     </div>
                 @endif
                 <div class="w-100% h-auto flex justify-center items-center">
-                    @if($tugas === null)
+                    @if($task === null)
                     <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Upload File</span></button>
-                    @elseif($tugas->status === 0)
+                    @elseif($task->status === 0)
                     <button type="submit" class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span class="text-[14px]">Update File</span></button>
                     @else
                     <button class="w-[116px] h-auto mt-5 bg-gray-500 py-1 rounded-md text-white flex justify-center items-center text-xl font cursor-not-allowed" disabled><span class="text-[14px]">File Telah Tersimpan</span></button>
@@ -363,15 +363,15 @@ if ($hour >= 5 && $hour < 12) {
                 </div>
             </form>
 
-            @isset($tugas)
+            @isset($task)
             <div class=" w-100% h-auto flex justify-center items-center mb-3">
-                <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
+                <button id="summit" onclick="yakin()" class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $task->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}" {{ $task->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit File</span></button>
             </div>
             @endisset
 
             <form action="{{ route('submit-tugas') }}" method="POST" >
                 @csrf
-                <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
+                <input type="hidden" name="check_value" value="{{ $task === null ? '0' : '1' }}">
                 <input id="realSubmit" type="submit" class="hidden">
             </form>
 
@@ -384,10 +384,3 @@ if ($hour >= 5 && $hour < 12) {
         @endif
     </div>
 </x-app-layout>
-
-
-        {{-- @forelse ($asistant as $as)
-            {{$as->name}}
-        @empty
-            kosong
-        @endforelse --}}

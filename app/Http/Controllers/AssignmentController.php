@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use ZipArchive;
 use App\Models\User;
-use App\Models\Tugas;
+use App\Models\task;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,14 +22,14 @@ class AssignmentController extends Controller
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
-        $assignments = Assignment::where('id_kursus', auth()->user()->id_kursus)
+        $assignments = Assignment::where('id_course', auth()->user()->id_course)
             ->where(function ($query) use ($search) {
-                $query->where('judul', 'LIKE', "%{$search}%")
-                    ->orWhere('deskripsi', 'LIKE', "%{$search}%")
-                    ->orWhere('waktu_mulai', 'LIKE', "%{$search}%")
+                $query->where('title', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%")
+                    ->orWhere('time_start', 'LIKE', "%{$search}%")
                     ->orWhere('deadline', 'LIKE', "%{$search}%");
             })
-            ->with('kursus')
+            ->with('course')
             ->paginate($per_page);
 
         return view('lecture.assignment.index', compact('assignments'));
@@ -54,26 +54,26 @@ class AssignmentController extends Controller
     public function store(AssignmentRequest $request)
     {
         try {
-            if ($request->hasFile('file_soal')) {
-                $file = $request->file('file_soal');
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('storage/soal'), $file_name);
+            if ($request->hasFile('question_file')) {
+                $file = $request->file('question_file');
+                $question_file = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/question'), $question_file);
             } else {
-                $file_name = null;
+                $question_file = null;
             }
 
-            $formatted_deskripsi = nl2br($request->deskripsi);
+            $formatted_description = nl2br($request->description);
 
             $assignment = Assignment::create([
-                'id_kursus' => auth()->user()->id_kursus,
-                'judul' => $request->judul,
-                'deskripsi' => $formatted_deskripsi,
-                'file_soal' => $file_name,
-                'waktu_mulai' => $request->waktu_mulai,
+                'id_course' => auth()->user()->id_course,
+                'title' => $request->title,
+                'description' => $formatted_description,
+                'question_file' => $question_file,
+                'time_start' => $request->time_start,
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menambahkan tugas');
+            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menambahkan task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -89,17 +89,17 @@ class AssignmentController extends Controller
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
-        $mahasiswa = User::role('mahasiswa')->where('id_kursus', auth()->user()->id_kursus)
+        $student = User::role('student')->where('id_course', auth()->user()->id_course)
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('kode', 'LIKE', "%{$search}%");
+                    ->orWhere('code', 'LIKE', "%{$search}%");
             })
-            ->with(['tugas' => function ($q) use ($assignment) {
+            ->with(['task' => function ($q) use ($assignment) {
                 $q->where('id_assignment', $assignment->id);
             }])
             ->paginate($per_page);
 
-        return view('lecture.assignment.detail', compact('assignment', 'mahasiswa'));
+        return view('lecture.assignment.detail', compact('assignment', 'student'));
     }
 
     /**
@@ -110,10 +110,10 @@ class AssignmentController extends Controller
      */
     public function edit(Assignment $assignment)
     {
-        $waktu_mulai = date('d/m/Y, g:i A', strtotime($assignment->waktu_mulai));
+        $time_start = date('d/m/Y, g:i A', strtotime($assignment->time_start));
         $deadline = date('d/m/Y, g:i A', strtotime($assignment->deadline));
 
-        return view('lecture.assignment.edit', compact('assignment', 'waktu_mulai', 'deadline'));
+        return view('lecture.assignment.edit', compact('assignment', 'time_start', 'deadline'));
     }
 
     /**
@@ -126,26 +126,26 @@ class AssignmentController extends Controller
     public function update(AssignmentRequest $request, Assignment $assignment)
     {
         try {
-            if ($request->hasFile('file_soal')) {
-                if (isset($assignment->file_soal)) {
-                    unlink(public_path('storage/soal/' . $assignment->file_soal));
+            if ($request->hasFile('question_file')) {
+                if (isset($assignment->question_file)) {
+                    unlink(public_path('storage/soal/' . $assignment->question_file));
                 }
-                $file = $request->file('file_soal');
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('storage/soal'), $file_name);
+                $file = $request->file('question_file');
+                $question_file = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/soal'), $question_file);
             } else {
-                $file_name = $assignment->file_soal;
+                $question_file = $assignment->question_file;
             }
 
             $assignment->update([
-                'judul' => $request->judul,
-                'deskripsi' => $request->deskripsi,
-                'file_soal' => $file_name,
-                'waktu_mulai' => $request->waktu_mulai,
+                'title' => $request->title,
+                'description' => $request->description,
+                'question_file' => $question_file,
+                'time_start' => $request->time_start,
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil mengubah tugas');
+            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil mengubah task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -160,12 +160,12 @@ class AssignmentController extends Controller
     public function destroy(Assignment $assignment)
     {
         try {
-            if ($assignment->file_soal) {
-                unlink(public_path('storage/soal/' . $assignment->file_soal));
+            if ($assignment->question_file) {
+                unlink(public_path('storage/question/' . $assignment->question_file));
             }
 
             $assignment->delete();
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menghapus tugas');
+            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menghapus task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -174,28 +174,28 @@ class AssignmentController extends Controller
     public function forceSubmit(Request $request, $id)
     {
         try {
-            $tugas = Tugas::findorfail($id);
-            $tugas->update($request->all());
+            $task = Task::findorfail($id);
+            $task->update($request->all());
             return redirect()->back()->with('success', 'Force Submit Succesfully');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
     }
 
-    public function downloadTugas($id)
+    public function downloadtask($id)
     {
         try {
-            $tugas = Tugas::where('id_assignment', $id)->whereNot('file_tugas', '-')->get();
+            $task = Task::where('id_assignment', $id)->whereNot('task_file', '-')->get();
             $files = [];
 
-            foreach($tugas as $t) {
-                $files[$t->id] = public_path('storage/tugas/' . $t->file_tugas);
+            foreach($task as $t) {
+                $files[$t->id] = public_path('storage/task/' . $t->task_file);
             }
 
             $zip = new ZipArchive();
-            $assignment = Assignment::where('id', $id)->with('kursus')->first();
-            $zipFileName = 'Penugasan_'. $assignment->judul. '_' .$assignment->kursus->judul .'.zip';
-            $zipFile = public_path('storage/file_zip_tugas/'. $zipFileName);
+            $assignment = Assignment::where('id', $id)->with('course')->first();
+            $zipFileName = 'Penugasan_'. $assignment->title. '_' .$assignment->course->title .'.zip';
+            $zipFile = public_path('storage/file_zip_task/'. $zipFileName);
 
             // dd($zip->open($zipFile, ZipArchive::CREATE));
             if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
@@ -208,7 +208,7 @@ class AssignmentController extends Controller
                 $zip->close();
             }
 
-            return response()->download(public_path('storage/file_zip_tugas/'. $zipFileName));
+            return response()->download(public_path('storage/file_zip_task/'. $zipFileName));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

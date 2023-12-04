@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactAssistant;
-use App\Models\Kursus;
+use App\Models\Course;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,13 +21,13 @@ class StudentController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $students = User::role('mahasiswa')->with('assistant')
-        ->with(['nilaiTugas' => function ($q) {
-            $q->whereNotNull('nilai_akhir');
+        $students = User::role('student')->with('assistant')
+        ->with(['taskScore' => function ($q) {
+            $q->whereNotNull('final_score');
         }])
         ->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('kode', 'LIKE', "%{$search}%")
+                  ->orWhere('code', 'LIKE', "%{$search}%")
                   ->orWhere('email', 'LIKE', "%{$search}%");
         })
         ->paginate($per_page);
@@ -42,7 +42,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create', ['courses' => Kursus::all(), 'assistants' => ContactAssistant::all()]);
+        return view('admin.student.create', ['courses' => Course::all(), 'assistants' => ContactAssistant::all()]);
     }
 
     /**
@@ -55,16 +55,16 @@ class StudentController extends Controller
     {
         try {
             $data = [
-                'id_kursus' => $request->course,
+                'id_course' => $request->course,
                 'id_asisten' => $request->assistant,
-                'kode' => $request->nim,
+                'code' => $request->nim,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make('password'),
             ];
 
             $user = User::create($data);
-            $user->assignRole('mahasiswa');
+            $user->assignRole('student');
 
             return response()->redirectToRoute('admin.student.index');
         } catch (Exception $e) {
@@ -94,7 +94,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = User::find($id);
-        $courses = Kursus::all();
+        $courses = Course::all();
         $assistants = ContactAssistant::all();
 
         return view('admin.student.edit', compact('student', 'courses', 'assistants'));

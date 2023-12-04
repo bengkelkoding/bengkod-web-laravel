@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Lecture;
 
 use Exception;
 use App\Models\User;
-use App\Models\Tugas;
 use Illuminate\Http\Request;
-use App\Http\Requests\NilaiRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ScoreRequest;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,13 +23,13 @@ class StudentController extends Controller
         $user = Auth::user();
         $per_page = $request->per_page ?? 10;
         $search = $request->search ?? "";
-        $students = User::role('mahasiswa')
+        $students = User::role('student')
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('kode', 'LIKE', "%{$search}%");
+                    ->orWhere('code', 'LIKE', "%{$search}%");
             })
-            ->where('id_kursus', $user->id_kursus)
-            ->with('course', 'tugas')
+            ->where('id_course', $user->id_course)
+            ->with('course', 'task')
             ->paginate($per_page);
 
         return view('lecture.student.index', compact('students'));
@@ -85,17 +85,17 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(NilaiRequest $request, $id)
+    public function update(ScoreRequest $request, $id)
     {
         try {
             // dd($request->nilai);
-            $tugas = Tugas::find($id);
-            // dd($tugas);
-            $tugas->update([
-                'nilai_akhir' => $request->nilai
+            $task = Task::find($id);
+            // dd($task);
+            $task->update([
+                'final_score' => $request->nilai
             ]);
 
-            return response()->redirectToRoute('lecture.assignment.show', $tugas->id_assignment)->with('success', 'Nilai berhasil diupdate');
+            return response()->redirectToRoute('lecture.assignment.show', $task->id_assignment)->with('success', 'Nilai berhasil diupdate');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -116,21 +116,21 @@ class StudentController extends Controller
 
     public function autoZero(Request $request, $id) {
         try {
-            $mahasiswa = User::find($request->id_mhs);
+            $student = User::find($request->id_student);
 
             $validator = Validator::make($request->all(), [
-                'id_mhs' => 'required',
-                'id_kursus' => 'required',
+                'id_student' => 'required',
+                'id_course' => 'required',
             ]);
             $validator->validate();
 
-            Tugas::updateOrCreate([
-                'id_mahasiswa' => $request->id_mhs,
-                'id_kursus' => $request->id_kursus,
+            Task::updateOrCreate([
+                'id_student' => $request->id_student,
+                'id_course' => $request->id_course,
                 'id_assignment' => $id,
             ], [
-                'file_tugas' => '-',
-                'nilai_akhir'=> '0',
+                'task_file' => '-',
+                'final_score'=> '0',
                 'status' => '1',
             ]);
 

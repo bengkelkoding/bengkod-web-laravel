@@ -5,39 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kursus extends Model
+class Course extends Model
 {
     use HasFactory;
 
-    protected $table = 'kursus';
+    protected $table = 'course';
 
     protected $fillable = [
-        'image', 'judul', 'author', 'hari', 'jam', 'url', 'url_overview', 'description',
+        'image', 'title', 'author', 'day', 'hour', 'url', 'url_overview', 'description',
     ];
 
     // Definisikan relasi dengan tabel Section
     public function sections()
     {
-        return $this->hasMany(Section::class, 'id_kursus');
+        return $this->hasMany(Section::class, 'id_course');
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'id_kursus');
+        return $this->hasMany(User::class, 'id_course');
     }
 
     public function tugas()
     {
-        return $this->hasMany(Tugas::class, 'id_kursus');
+        return $this->hasMany(Tugas::class, 'id_course');
     }
 
     public function assignments()
     {
-        return $this->hasMany(Assignment::class, 'id_kursus');
+        return $this->hasMany(Assignment::class, 'id_course');
     }
 
     public function logs()
     {
-        return $this->hasMany(Log::class, 'id_kursus');
+        return $this->hasMany(Log::class, 'id_course');
     }
 }
