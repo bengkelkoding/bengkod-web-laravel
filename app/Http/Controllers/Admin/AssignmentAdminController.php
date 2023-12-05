@@ -95,7 +95,7 @@ class AssignmentAdminController extends Controller
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('code', 'LIKE', "%{$search}%");
             })
-            ->with(['tugas' => function ($q) use ($assignment) {
+            ->with(['task' => function ($q) use ($assignment) {
                 $q->where('id_assignment', $assignment->id);
             }])
             ->paginate($per_page);

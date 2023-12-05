@@ -50,9 +50,9 @@
                             @endif
 
                             @if ($course->id == $lecture->id_course)
-                                <option selected value="{{$course->id}}">{{$course->judul}}</option>
+                                <option selected value="{{$course->id}}">{{$course->title}}</option>
                             @else
-                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                                <option value="{{$course->id}}">{{$course->title}}</option>
                             @endif
                         @endforeach
                     </select>

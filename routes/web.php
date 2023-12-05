@@ -71,6 +71,7 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
     Route::name('lecture.')->prefix('lecture')->group(function () {
         Route::get('/', [LectureController::class, 'index'])->name('index');
         Route::resource('student', StudentController::class);
+        Route::get('lecture', [StudentController::class, 'indexLecture'])->name('lecture-student-index');
         Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
         // Route::resource('assign', AssignController::class);
         // Route::resource('assignincomplete', AssignInCompleteController::class);

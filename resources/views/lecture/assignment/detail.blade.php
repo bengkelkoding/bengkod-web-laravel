@@ -160,9 +160,9 @@
                                                     <form action="{{ route('lecture.autoZero', $assignment->id) }}"
                                                         method="POST" class="flex">
                                                         @csrf
-                                                        <input type="hidden" name="id_mhs" value="{{ $m->id }}">
-                                                        <input type="hidden" name="id_kursus"
-                                                            value="{{ $assignment->id_kursus }}">
+                                                        <input type="hidden" name="id_student" value="{{ $m->id }}">
+                                                        <input type="hidden" name="id_course"
+                                                            value="{{ $assignment->id_course }}">
                                                         <input type="hidden" name="final_score" id="final_score"
                                                             value="0">
                                                         <button type="submit"

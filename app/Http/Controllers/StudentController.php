@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use App\Models\ContactAssistant;
 use App\Models\Course;
+use App\Models\Task;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -242,5 +244,32 @@ class StudentController extends Controller
 
         return redirect()->back()->with('success', 'Anda sudah terdaftar pada course ini.');
     }
+    
+    public function autoZero(Request $request, $id) {
+        try {
+            $student = User::find($request->id_student);
 
+            $validator = Validator::make($request->all(), [
+                'id_student' => 'required',
+                'id_course' => 'required',
+            ]);
+            $validator->validate();
+
+            Task::updateOrCreate([
+                'id_student' => $request->id_student,
+                'id_course' => $request->id_course,
+                'id_assignment' => $id,
+            ], [
+                'task_file' => '-',
+                'final_score'=> '0',
+                'status' => '1',
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil Melakukan Aksi');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
 }

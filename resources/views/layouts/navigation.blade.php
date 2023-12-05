@@ -92,7 +92,7 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               <span class="hide-menu">Organize</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('lecture/student') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('lecture.lecture-student-index') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
