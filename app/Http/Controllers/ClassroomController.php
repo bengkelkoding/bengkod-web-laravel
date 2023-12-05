@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClassroomRequest;
 use App\Models\Classroom;
+use App\Models\Course;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ClassroomController extends Controller
 {
@@ -21,13 +24,13 @@ class ClassroomController extends Controller
 
     public function indexAdmin()
     {
-        $classroom = Classroom::all();
+        $classroom = Classroom::with('course')->with('lecture')->get();
         return view('admin.classroom.index', compact('classroom'));
     }
 
     public function create()
     {
-        return view('admin.classroom.add');
+        return view('admin.classroom.create', ['courses' => Course::all(), 'lectures' => User::role('lecture')->get()]);
     }
 
     /**
@@ -55,7 +58,7 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): View
     {
         $classroom = Classroom::withCount('users')->find($id);
         return view('classroom.detail', compact('classroom'));
@@ -67,11 +70,11 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
         $classroom = Classroom::find($id);
-        // dd($course->id);
-        return view('admin.classroom.edit', compact('course'));
+        return view('admin.classroom.edit', compact('classroom'),
+            ['courses' => Course::all(), 'lectures' => User::role('lecture')->get()]);
     }
 
     /**

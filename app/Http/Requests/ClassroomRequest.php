@@ -13,7 +13,7 @@ class ClassroomRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,8 @@ class ClassroomRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_course' => 'numeric',
+            'id_lecture' => 'numeric',
             'name' => 'string',
             'description' => 'string',
             'day' => 'string',
