@@ -26,9 +26,9 @@ class Course extends Model
         return $this->hasMany(User::class, 'id_course');
     }
 
-    public function tugas()
+    public function task()
     {
-        return $this->hasMany(Tugas::class, 'id_course');
+        return $this->hasMany(Task::class, 'id_course');
     }
 
     public function assignments()

@@ -4,29 +4,35 @@
             {{ __('Dashboard Admin') }}
         </h2>
     </x-slot>
+
+
     <div class="container-fluid">
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kursus</span></p>
+                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kelas</span></p>
                 
                 <div class="table-responsive">
                     <table class="table table-striped max-md:min-w-[250vw]">
                         <thead>
                             <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Nama Kursus</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Lihat Kursus</th>
+                            <th scope="col">Nama Kelas</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Hari</th>
+                            <th scope="col">Jam</th>
+                            <th scope="col">Kuota</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($kursuses as $key => $kursus)
+                            @forelse($classroom as $key => $class)
                             <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$kursus->judul}}</td>
-                                <td>{{$kursus->author}}</td>
-                                <td><a class="bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-[14px] hover:bg-cyan-500 focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" href="{{ env('APP_URL_QUARTO').$kursus->url }}" class="px-6 h-auto" target="_blank">Kursus</a></td>
+                                <td>{{$class->name}}</td>
+                                <td>{{$class->description}}</td>
+                                <td>{{$class->day}}</td>
+                                <td>{{$class->time}}</td>
+                                <td>{{$class->quota}}</td>
                             </tr>
                             @empty
                             <tr>

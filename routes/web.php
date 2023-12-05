@@ -10,12 +10,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
 use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
+use App\Models\Classroom;
 use App\Models\Course;
 
 /*
@@ -58,6 +60,8 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
+        Route::resource('classroom', ClassroomController::class);
+        Route::get('classroom', [ClassroomController::class, 'indexAdmin'])->name('admin-classroom');
     });
 });
 // End Admin Space Routing
