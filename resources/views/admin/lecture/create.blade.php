@@ -16,9 +16,9 @@
 
                 <!-- NIM -->
                 <div class="mb-3">
-                    <x-input-label for="kode" :value="__('NPP')" />
-                    <x-text-input id="kode" class="block mt-1 w-full" type="text" name="kode" :value="old('kode')" required autofocus autocomplete="kode" />
-                    <x-input-error :messages="$errors->get('kode')" class="mt-2" />
+                    <x-input-label for="code" :value="__('NPP')" />
+                    <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus autocomplete="code" />
+                    <x-input-error :messages="$errors->get('code')" class="mt-2" />
                 </div>
 
                 <!-- Nama -->

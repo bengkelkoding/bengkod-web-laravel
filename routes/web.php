@@ -50,8 +50,10 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [LectureController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        Route::resource('student', App\Http\Controllers\StudentController::class);
-        Route::resource('lecture', App\Http\Controllers\LectureController::class);
+        Route::resource('student', StudentController::class);
+        Route::get('student', [StudentController::class, 'indexAdmin'])->name('admin-student-index');
+        Route::resource('lecture', LectureController::class);
+        Route::get('lecture', [LectureController::class, 'indexAdmin'])->name('admin-lecture-index');
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
         Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);

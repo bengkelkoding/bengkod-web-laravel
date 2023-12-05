@@ -115,7 +115,7 @@ class StudentController extends Controller
             $user = User::create($data);
             $user->assignRole('student');
 
-            return response()->redirectToRoute('admin.student.index');
+            return response()->redirectToRoute('admin.admin-student-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -163,7 +163,7 @@ class StudentController extends Controller
                 ['id' => $id],
                 $request->all(),
             );
-            return response()->redirectToRoute('admin.student.index');
+            return response()->redirectToRoute('admin.admin-student-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -181,7 +181,7 @@ class StudentController extends Controller
     {
         try {
             User::find($id)->delete();
-            return response()->redirectToRoute('admin.student.index');
+            return response()->redirectToRoute('admin.admin-student-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

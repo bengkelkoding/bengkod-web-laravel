@@ -63,7 +63,7 @@ class LectureController extends Controller
             $user = User::create($data);
             $user->assignRole('lecture');
 
-            return response()->redirectToRoute('admin.lecture.index');
+            return response()->redirectToRoute('admin.admin-lecture-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -110,7 +110,7 @@ class LectureController extends Controller
                 ['id' => $id],
                 $request->all(),
             );
-            return response()->redirectToRoute('admin.lecture.index');
+            return response()->redirectToRoute('admin.admin-lecture-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -128,7 +128,7 @@ class LectureController extends Controller
     {
         try {
             User::find($id)->delete();
-            return response()->redirectToRoute('admin.lecture.index');
+            return response()->redirectToRoute('admin.admin-lecture-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
