@@ -41,7 +41,7 @@
                     <select class="form-select" name="course">
                         <option selected value="">Pilih Kursus</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->judul}}</option>
+                        <option value="{{$course->id}}">{{$course->title}}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
