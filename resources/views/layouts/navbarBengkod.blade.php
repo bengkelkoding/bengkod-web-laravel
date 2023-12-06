@@ -6,7 +6,7 @@
     class="sticky top-0 right-0 left-0 py-4 z-10 bg-primary-color flex items-center justify-center max-md:py-4 px-0 lg:px-6 2xl:px-0">
     <div class="container h-[25px] text-white flex items-center justify-between">
         <a href="{{ url('/') }}" class="flex gap-2 items-center">
-            <img src="assets\img\logo-bengkod.png" alt="BK" class="w-[26px]">
+            <img src="{{ asset('assets\img\logo-bengkod.png') }}" alt="BK" class="w-[26px]">
             <p href="{{ url('/') }}" class="ml-1 text-xl font-medium max-md:mb-1">Bengkel Koding</p>
         </a>
         @if (true)
