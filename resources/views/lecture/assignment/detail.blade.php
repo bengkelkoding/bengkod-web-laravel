@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="container-fluid">
-        <a href="{{ url('lecture/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i
+        <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i
                 class="ti ti-arrow-left"></i>
             Back</a>
         <div class="container">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col">
                             <div class="flex justify-end">
-                                <a href="{{ route('lecture.download-tugas', $assignment->id) }}" class="btn btn-primary bg-blue-500">Download Semua Tugas</a>
+                                <a href="{{ url('lecture/download-tugas/' . $assignment->id) }}" class="btn btn-primary bg-blue-500">Download Semua Tugas</a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                                                 @endif
                                             @else
                                                 @if ($assignment->deadline < now('Asia/Jakarta'))
-                                                    <form action="{{ route('lecture.autoZero', $assignment->id) }}"
+                                                    <form action=""
                                                         method="POST" class="flex">
                                                         @csrf
                                                         <input type="hidden" name="id_student" value="{{ $m->id }}">

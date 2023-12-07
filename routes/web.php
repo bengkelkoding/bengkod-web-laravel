@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
-use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\Lecture\AssignCompleteController;
@@ -77,13 +76,24 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         Route::resource('student', StudentController::class);
         Route::get('lecture', [StudentController::class, 'indexLecture'])->name('lecture-student-index');
         Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
+
         // Route::resource('assign', AssignController::class);
         // Route::resource('assignincomplete', AssignInCompleteController::class);
         // Route::resource('assigncomplete', AssignCompleteController::class);
-        Route::resource('assignment', AssignmentController::class);
+
+        Route::resource('assignment', \App\Http\Controllers\AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
-        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
+        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');
         Route::resource('log', \App\Http\Controllers\Lecture\LogController::class);
+        Route::get('classroom', [ClassroomController::class, 'indexLecture'])->name('lecture-classroom');
+        Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
+        Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
+        Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
+        Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2']);
+
+
+
+
     });
 });
 // End Lecture Space Routing

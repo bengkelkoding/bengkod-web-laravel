@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\View\View;
 use ZipArchive;
 use App\Models\User;
 use App\Models\task;
@@ -18,11 +19,11 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $idClassroom)
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
-        $assignments = Assignment::where('id_course', auth()->user()->id_course)
+        $assignments = Assignment::where('id_classroom', $idClassroom)
             ->where(function ($query) use ($search) {
                 $query->where('title', 'LIKE', "%{$search}%")
                     ->orWhere('description', 'LIKE', "%{$search}%")
@@ -32,7 +33,7 @@ class AssignmentController extends Controller
             ->with('course')
             ->paginate($per_page);
 
-        return view('lecture.assignment.index', compact('assignments'));
+        return view('lecture.assignment.index', compact('assignments', 'idClassroom'));
     }
 
     /**
@@ -45,11 +46,17 @@ class AssignmentController extends Controller
         return view('lecture.assignment.create');
     }
 
+    public function create2($idClassroom): View
+    {
+        return view('lecture.assignment.create', compact('idClassroom'));
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function store(AssignmentRequest $request)
     {
@@ -66,6 +73,7 @@ class AssignmentController extends Controller
 
             $assignment = Assignment::create([
                 'id_course' => auth()->user()->id_course,
+                'id_classroom' => $request->id_classroom,
                 'title' => $request->title,
                 'description' => $formatted_description,
                 'question_file' => $question_file,
@@ -73,7 +81,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menambahkan task');
+            return redirect('lecture/classroom/' . $request->id_classroom . '/assignment');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -98,6 +106,25 @@ class AssignmentController extends Controller
                 $q->where('id_assignment', $assignment->id);
             }])
             ->paginate($per_page);
+
+        return view('lecture.assignment.detail', compact('assignment', 'student'));
+    }
+
+    public function show2($idClassroom , $idAssignment, Request $request)
+    {
+        $search = $request->search ?? '';
+        $per_page = $request->per_page ?? 10;
+        $student = User::role('student')->where('id_classroom', $idClassroom)
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('code', 'LIKE', "%{$search}%");
+            })
+            ->with(['task' => function ($q) use ($idAssignment) {
+                $q->where('id_assignment', $idAssignment);
+            }])
+            ->paginate($per_page);
+
+            $assignment = Assignment::where('id', $idAssignment)->first();
 
         return view('lecture.assignment.detail', compact('assignment', 'student'));
     }
@@ -145,7 +172,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil mengubah task');
+            return redirect('lecture/classroom/' . $assignment->id_classroom . '/assignment')->with('success', 'Berhasil mengubah task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
@@ -165,7 +192,7 @@ class AssignmentController extends Controller
             }
 
             $assignment->delete();
-            return redirect()->route('lecture.assignment.index')->with('success', 'Berhasil menghapus task');
+            return redirect()->back()->with('success', 'Berhasil menghapus task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

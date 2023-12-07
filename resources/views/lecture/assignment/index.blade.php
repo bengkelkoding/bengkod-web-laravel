@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="flex">
                         <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
-                        <a href="{{route('lecture.assignment.create')}}"
+                        <a href="{{url('lecture/classroom/' . $idClassroom . '/assignment/store')}}"
                             class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
                     </div>
                     <div class="row">
@@ -73,7 +73,7 @@
                                     $start = \Carbon\Carbon::parse($assign->start_time)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                     $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                 @endphp
-                                <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
+                                <tr class="clickable cursor-pointer" data-href="{{ url('lecture/classroom/' . $idClassroom . '/assignment/' . $assign->id) }}">
                                    <th scope="row">{{ $assignments->firstItem() + $key}}</th>
                                    <td>{{ $assign->title }}</td>
                                    <td>{{ Str::limit($assign->description, 15, '...') }}</td>

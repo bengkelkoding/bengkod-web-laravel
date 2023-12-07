@@ -11,6 +11,7 @@ class Assignment extends Model
 
     protected $fillable = [
         'id_course',
+        'id_classroom',
         'title',
         'description',
         'task_file',

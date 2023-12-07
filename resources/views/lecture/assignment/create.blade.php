@@ -13,6 +13,13 @@
                     <h1 class="fw-semibold mb-4 text-l">Tambah Penugasan</h1>
                     <form method="POST" action="{{ route('lecture.assignment.store') }}" enctype="multipart/form-data">
                         @csrf
+{{--                        <div class="mb-3">--}}
+{{--                            <x-input-label class="inline" for="title" :value="__('Id Kelas')" /><span class="text-red-500">*</span>--}}
+{{--                            <x-text-input id="title" class="block mt-1 w-full" name="id_classroom" value="{{ $idClassroom }}" required disabled/>--}}
+{{--                        </div>--}}
+
+                        <input type="hidden" value="{{ $idClassroom }}" name="id_classroom">
+
                         <!-- title -->
                         <div class="mb-3">
                             <x-input-label class="inline" for="title" :value="__('Judul')" /><span class="text-red-500">*</span>
