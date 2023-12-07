@@ -16,103 +16,270 @@ if ($hour >= 5 && $hour < 12) {
 @endphp
 
 <x-app-layout>
-    <x-slot name="header">
-        Bengkel Koding
-    </x-slot>
-
-        <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-            <div class="grid lg:grid-cols-12 gap-4 max-lg:flex max-lg:justify-center max-lg:flex-col">
-                <div class="col-span-6 max-md:col-span-12 h-auto mb-[40px] max-lg:mb-3 mx-24 max-md:mx-2">
-                    <h1 class="text-white font-bold text-[32px] mt-7">Selamat {{ $selamat }}, {{ auth()->user()->name }}!</h1>
-                    <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
-                    <p class="text-white">~ Imam Syafi’i</p>
-                </div>
-                @forelse ($assistant as $ass)
-                @if($ass->assistant != null)
-                <div class="col-span-6 xs:col-span-6 mx-24 max-md:mx-2 max-md:max-w-[100%] xl:mt-4">
-                    <h3 class="text-white font-bold mx-2 my-2 text-md max-md:w-full text-center max-md:ml-0">Kontak Asisten</h3>
-                    <div class="box-border p-2 border rounded-md">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-xs text-left">
-                                <thead class="text-xs text-gray-50">
-                                    <tr class="border-b">
-                                        <th scope="col" class="px-6 py-3">
-                                            Nama
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            No. Telp
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-gray-100">
-                                        <th scope="row" class="px-3 py-3 whitespace-nowrap ">
-                                            {{$ass->assistant->name}}
-                                        </th>
-                                        <td class="px-3 py-3">
-                                            {{$ass->assistant->phone_number}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+    <div class="box-content container mx-auto rounded-lg my-10 p-4 bg-gradient-to-l from-blue-500 to-cyan-500 mb-2">
+        <div class="text-center text-white py-20">
+            <h1 class="text-4xl text-white font-semibold">Selamat {{ $selamat }}, {{ auth()->user()->name }}!</h1>
+            <p class="mt-3 text-lg">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
+            <p class="text-lg">~ Imam Syafi’i ~</p>
+        </div>
+    </div>
+    <div class="container mx-auto flex gap-4 mt-5">
+        <div class="bg-white rounded-md p-4 w-max">
+            @if($user->course)
+            <div class="w-max">
+                <h3 class="text-black font-semibold text-lg mb-2 text-center">Kursus Anda</h3>
+                <div class="border p-3 flex items-center rounded-md hover:shadow-md transition duration-150 ease-in-out gap-4">
+                    <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                    <div class="h-auto max-md:pl-2">
+                        <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->title }}</h1>
+                        <p class="text-[#828282] text-sm">
+                            <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                            {{ $member_count }} Mahasiswa Terdaftar</p>
+                        <p class="text-[#828282] text-sm">
+                            <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                            {{ $user->course->day }}</p>
+                        <p class="text-[#828282] text-sm">
+                            <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                            {{ $user->course->hour }}
+                        </p>
                     </div>
+                    <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" target="_blank" class="px-6 mb-4">Belajar Sekarang</x-tombol-universal>
                 </div>
-                @endif
+            </div>
+            @else
+            <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[600px] h-[400px] rounded border-2 bg-gray-300/50 my-5 flex justify-center items-center flex-col">
+                <h1 class="text-black font-bold text-[24px] mb-3">Anda belum mendaftar ke kursus manapun.</h1>
+                <button class="text-black font-bold text-[20px] w-[130px] h-[40px] bg-[#114D91] rounded hover:bg-cyan-500" ><a href="{{url('/#kursus') }}" class="text-[16px] text-white">Pilih Kursus</a></button>
+            </div>
+            @endif
+        </div>
+        <div class="bg-white rounded-md h-max p-4 w-full">
+            <h3 class="text-black font-bold mb-2 text-lg text-center">Daftar Nilai Anda</h3>
+            <li>
+                <ul>One</ul>
+            </li>
+        </div>
+        <div class="bg-white rounded-md h-max flex flex-col justify-center items-center p-4">
+            <h3 class="text-black font-bold mb-2 text-lg">Nilai Akhir</h3>
+            <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
+                @php $value = 0; @endphp
+                @forelse($studentTask as $task)
+                    @php $value += $task->final_score; @endphp
                 @empty
-                <div></div>
+                    @php $value += 0; @endphp
                 @endforelse
+                @if(!$studentTask->isEmpty())
+                <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($value) / $studentTask->count()) }}</h1>
+                @else
+                <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
+                @endif
             </div>
         </div>
+    </div>
+    <div class="container mx-auto mt-5">
+        {{-- penugasan  --}}
+        <div class="bg-white rounded-md text-center p-4">
+            <p class="text-black font-bold mb-2 text-lg">Penugasan</p>
+            <div class="overflow-auto rounded-lg border">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">No.</th>
+                            <th class="w-40 p-3 text-sm font-semibold tracking-wide text-left">Details</th>
+                            <th class="w-28 p-3 text-sm font-semibold tracking-wide text-left">Status</th>
+                            <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Waktu Dibuka</th>
+                            <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Deadline</th>
+                            <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @php
+                            $no = 1;
+                        @endphp
+                        @forelse($assignments as $as)
+                        @php
+                            $start_time = \Carbon\Carbon::parse($as->start_time)
+                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                            $deadline = \Carbon\Carbon::parse($as->deadline)
+                                            ->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                        @endphp
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $no }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <a href="{{ route('task-detail', $as->id) }}" class="font-bold text-blue-500 hover:underline">{{ $as->title }}</a>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                @php
+                                    $user_task = $as->course->users->where('id', auth()->user()->id)->first();
+                                @endphp
+                                @isset($user_task->task)
+                                    @php
+                                        $task_mhs = $user_task->task->where('id_student', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    @endphp
+                                    @if($task_mhs !== null)
+                                        @if($task_mhs->task_file === null)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        @elseif($task_mhs->status === 0)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                        @elseif($task_mhs->status === 1)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider ttext-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                        @endif
+                                    @else
+                                    <span
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                    @endif
+                                @else
+                                    <span
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                @endisset
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $start_time }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $deadline }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                @isset($user_task->task)
+                                    @if($task_mhs !== null)
+                                        @if($task_mhs->final_score=== null)
+                                        Belum dinilai
+                                        @else
+                                        {{ $task_mhs->final_score}}
+                                        @endif
+                                    @else
+                                    Belum upload
+                                    @endif
+                                @else
+                                Belum upload
+                                @endisset
+                            </td>
+                        </tr>
+                        @php
+                            $no++;
+                        @endphp
+                        @empty
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap text-center" colspan="6">Belum ada tugas</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
+            {{-- Mobile View --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+                @php
+                    $no = 1;
+                @endphp
+                @forelse($assignments as $as)
+                @php
+                    $start_time = \Carbon\Carbon::parse($as->start_time)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                    $deadline = \Carbon\Carbon::parse($as->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                @endphp
 
-    <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center mb-5">
-        @if($user->course)
-        <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
-            <div class="box-border p-1 border mt-12 rounded-md">
-                <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
-                <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
-                    <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
-                        <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
-                        <div class="h-auto pl-5 max-md:pl-2">
-                            <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->title }}</h1>
-                            <p class="text-[#828282] text-[12p2x]">
-                                <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
-                                {{ $member_count }} Mahasiswa Terdaftar</p>
-                            <p class="text-[#828282] text-[12px]">
-                                <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
-                                {{ $user->course->day }}</p>
-                            <p class="text-[#828282] text-[12px]">
-                                <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
-                                {{ $user->course->hour }}
-                            </p>
+                <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+                    <p>{{ $no }}</p>
+                    <div class="flex items-center space-x-2 text-sm">
+                        <div class="text-gray-500">{{ $start_time }}</div>
+                        <div>
+                            @php
+                                $user_task = $as->course->users->where('id', auth()->user()->id)->first();
+                            @endphp
+                            @isset($user_task->task)
+                                @php
+                                    $task_mhs = $user_task->task->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                @endphp
+                                @if($task_mhs === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                                @elseif($task_mhs->task_file === null)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($task_mhs->status === 0)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">Belum Submit</span>
+                                @elseif($task_mhs->status === 1)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Submit</span>
+                                @endif
+                            @else
+                                <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
+                            @endisset
                         </div>
                     </div>
-                    <div>
-                        <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" target="_blank" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
+                    <div class="text-sm text-gray-700">
+                        <a href="{{ route('task-detail', $as->id) }}" class="text-blue-500 font-bold hover:underline">{{ $as->title }}</a>
+                    </div>
+                    <div class="text-sm font-medium text-black">
+                        @isset($user_task->task)
+                            @if($task_mhs === null)
+                                Belum Upload
+                            @elseif($task_mhs->final_score === null)
+                                Belum dinilai
+                            @else
+                                {{ $task_mhs->final_score }}
+                            @endif
+                        @else
+                            Belum Upload
+                        @endisset
+                    </div>
+                </div>
+
+            @php
+                $no++;
+            @endphp
+        @empty
+            <div class="bg-white p-4 rounded-lg shadow text-center">Belum ada tugas</div>
+        @endforelse
+    </div>
+    </div>
+    </div>
+<!-- <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center mb-5">
+@if($user->course)
+            <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
+                <div class="box-border p-1 border mt-12 rounded-md">
+                    <h3 class="text-black font-bold ml-4 my-2 text-[14px] max-md:w-full max-md:text-center max-md:ml-0">Kursus Anda</h3>
+                    <div class="box-border h-auto shadow-lg flex justify-between items-center max-lg:justify-center flex-wrap m-3 rounded-md">
+                        <div class="mr-5 p-2 flex flex-wrap max-md:justify-center max-md:mr-0 max-md:p-0">
+                            <img src="{{ asset($user->course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
+                            <div class="h-auto pl-5 max-md:pl-2">
+                                <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $user->course->title }}</h1>
+                                <p class="text-[#828282] text-[12p2x]">
+                                    <img src="assets\admin\icons\users-solid.png" alt="" class="inline mr-2">
+                                    {{ $member_count }} Mahasiswa Terdaftar</p>
+                                <p class="text-[#828282] text-[12px]">
+                                    <img src="assets\admin\icons\calendar-days-solid.png" alt="" class="inline mr-2">
+                                    {{ $user->course->day }}</p>
+                                <p class="text-[#828282] text-[12px]">
+                                    <img src="assets\admin\icons\clock-solid.png" alt="" class="inline mr-2">
+                                    {{ $user->course->hour }}
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <x-tombol-universal href="{{ env('APP_URL_QUARTO').$user->course->url }}" target="_blank" class="px-6 h-auto mr-6 max-md:mr-0 mb-5 max-md:mb-0 ">Belajar Sekarang</x-tombol-universal>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
+                    <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
+                    <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
+                        @php $value = 0; @endphp
+                        @forelse($studentTask as $task)
+                            @php $value += $task->final_score; @endphp
+                        @empty
+                            @php $value += 0; @endphp
+                        @endforelse
+                        @if(!$studentTask->isEmpty())
+                        <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($value) / $studentTask->count()) }}</h1>
+                        @else
+                        <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
+                        @endif
                     </div>
                 </div>
             </div>
-
-            <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
-                <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
-                <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
-                    @php $value = 0; @endphp
-                    @forelse($studentTask as $task)
-                        @php $value += $task->final_score; @endphp
-                    @empty
-                        @php $value += 0; @endphp
-                    @endforelse
-                    @if(!$studentTask->isEmpty())
-                    <h1 class="text-[#00C136] text-[40px] font-bold">{{ round(($value) / $studentTask->count()) }}</h1>
-                    @else
-                    <h1 class="text-[#00C136] text-[40px] font-bold">-</h1>
-                    @endif
-                </div>
-            </div>
-
-        </div>
-
         {{-- penugasan  --}}
         <div class="box-border h-auto p-3 border mt-12 flex flex-col justify-center rounded max-lg:w-full">
             <p class="text-[25px] font-black mb-2">Penugasan</p>
@@ -381,5 +548,5 @@ if ($hour >= 5 && $hour < 12) {
             <button class="text-black font-bold text-[20px] w-[130px] h-[40px] bg-[#114D91] rounded hover:bg-cyan-500" ><a href="{{url('/#kursus') }}" class="text-[16px] text-white">Pilih Kursus</a></button>
         </div>
         @endif
-    </div>
+    </div> -->
 </x-app-layout>
