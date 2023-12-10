@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests\courseRequest;
+use App\Models\Classroom;
 use App\Models\Course;
 
 class CourseController extends Controller
@@ -56,9 +57,10 @@ class CourseController extends Controller
      */
     public function show($id)
     {
+        $classrooms = Classroom::where('id_course', $id)->get();
         $course = Course::withCount('users')->find($id);
         $tools = explode(',', $course->tools);
-        return view('course.detail', compact('course', 'tools'));
+        return view('course.detail', compact('course', 'tools', 'classrooms'));
     }
 
     /**

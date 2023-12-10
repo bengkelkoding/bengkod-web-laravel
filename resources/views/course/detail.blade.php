@@ -35,15 +35,15 @@
                             onsubmit="return confirm('Apakah Anda yakin ingin mendaftar ke kursus ini?')">
                             @csrf
                             <input type="hidden" name="kursus_id" value="{{ $course->id }}">
-                            <x-tombol-universal type="submit"
-                                class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal>
+                            <!-- <x-tombol-universal type="submit"
+                                class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal> -->
                             <x-tombol-universal href="{{ env('APP_URL_O_QUARTO') . $course->url_overview }}"
                                 class="text-white font-semibold py-2 px-10 rounded-md w-full ">Overview Kursus</x-tombol-universal>
                         </form>
                     @endif
                 @else
-                    <x-tombol-universal href="{{ url('login') }}"
-                        class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal>
+                    <!-- <x-tombol-universal href="{{ url('login') }}"
+                        class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal> -->
                     <x-tombol-universal href="{{ env('APP_URL_O_QUARTO') . $course->url_overview }}"
                         class="text-white font-semibold py-2 px-10 rounded-md w-full ">Overview Kursus</x-tombol-universal>
                 @endauth
@@ -68,7 +68,65 @@
         <div class="col-span-2">
             <div class="">
                 <h1 class="text-xl font-medium text-center mb-3 ml-2 mt-3">Daftar Kelas</h1>
-                <div>This is Class</div>
+                @auth
+                    @if( !is_null(auth()->user()->id_classroom) )
+                    <div class="bg-success/10 text-success p-4 text-center rounded-md">
+                        <p>Anda sudah terdaftar dalam kelas</p>
+                    </div>
+                    @else
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-100">
+                                <tr class="">
+                                    <th class="px-2 py-2">No</th>
+                                    <th class="px-4 py-2">Nama Kelas</th>
+                                    <th class="px-4 py-2">Deskripsi</th>
+                                    <th class="px-4 py-2">Hari</th>
+                                    <th class="px-4 py-2">Jam</th>
+                                    <th class="px-4 py-2">Sisa Kuota</th>
+                                    <th class="px-4 py-2">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($classrooms as $key => $class)
+                                <tr class="border">
+                                    <td class="px-2 py-2">{{$key+1}}</td>
+                                    <td class="px-4 py-2">{{$class->name}}</td>
+                                    <td class="px-4 py-2">{{$class->description}}</td>
+                                    <td class="px-4 py-2">{{$class->day}}</td>
+                                    <td class="px-4 py-2">{{$class->time}}</td>
+                                    <td class="px-4 py-2">{{$class->quota}}</td>
+                                    @if($class->quota !== 0) 
+                                    <td class="px-4 py-2">
+                                        <form action="{{ route('update.classroom') }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin mendaftar ke kelas ini?')">
+                                            @csrf
+                                            <input type="hidden" id="id_course" name="id_course" value="{{ $class->id_course }}">
+                                            <input type="hidden" id="id_classroom" name="id_classroom" value="{{ $class->id }}">
+                                            <x-tombol-universal type="submit"
+                                                class="text-white px-2 rounded-md w-full mt-0">Gabung</x-tombol-universal>
+                                        </form>
+                                    </td>
+                                    @else 
+                                    <td class="px-4 py-2">
+                                        <p class="bg-danger/10 text-danger rounded-sm px-2 w-max">Kuota Habis</p>
+                                    </td>
+                                    @endif
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="8" class="text-center p-2 bg-danger/10 text-danger">Tidak Ada Kelas</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    @endif
+                @else
+                <div class="bg-danger/10 text-danger p-4 text-center rounded-md">
+                    <p>Anda belum masuk ke akun anda!</p>
+                </div>
+                @endauth
             </div>
         </div>
     </div>

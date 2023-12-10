@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\Classroom;
 use App\Models\ContactAssistant;
 use App\Models\Course;
 use App\Models\Task;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -227,22 +229,49 @@ class StudentController extends Controller
         return view('student.taskDetail', compact('assignment', 'task', 'description'));
     }
 
-    public function updatecourse(Request $request)
+    // public function updateCourse(Request $request)
+    // {
+    //     // Mendapatkan user yang terautentikasi
+    //     $user = auth()->user();
+
+    //     // Validasi data yang dikirimkan
+    //     $request->validate([
+    //         'id_course' => 'required|numeric', // Anda dapat menambahkan validasi sesuai kebutuhan
+    //     ]);
+
+    //     User::updateOrCreate(
+    //         ['id' => auth()->id()], // Kriteria pencarian, misalnya berdasarkan ID pengguna yang terautentikasi
+    //         ['id_course' => $request->id_course]
+    //     );
+
+    //     return redirect()->back()->with('success', 'Anda sudah terdaftar pada kursus ini.');
+    // }
+
+    public function updateClassroom(Request $request)
     {
-        // Mendapatkan user yang terautentikasi
-        $user = auth()->user();
-
         // Validasi data yang dikirimkan
-        $request->validate([
-            'course_id' => 'required|numeric', // Anda dapat menambahkan validasi sesuai kebutuhan
+        $validator = Validator::make($request->all(), [
+            'id_course' => 'required|numeric',
+            'id_classroom' => 'required|numeric',
         ]);
+        $validator->validate();
 
+        // Update or create the user record
         User::updateOrCreate(
-            ['id' => auth()->id()], // Kriteria pencarian, misalnya berdasarkan ID pengguna yang terautentikasi
-            ['id_course' => $request->course_id]
+            ['id' => auth()->id()],
+            [
+                'id_course' => $request->id_course,
+                'id_classroom' => $request->id_classroom,
+            ]
         );
 
-        return redirect()->back()->with('success', 'Anda sudah terdaftar pada course ini.');
+        // Update or create the classroom record and decrement the quota
+        Classroom::updateOrCreate(
+            ['id' => $request->id_classroom],
+            ['quota' => DB::raw('quota - 1')]
+        );
+
+        return redirect()->back()->with('success', 'Anda sudah terdaftar pada kelas ini.');
     }
     
     public function autoZero(Request $request, $id) {

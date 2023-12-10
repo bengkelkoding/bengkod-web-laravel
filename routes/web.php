@@ -1,22 +1,19 @@
 <?php
 
+use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\AssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserImportController;
-use App\Http\Controllers\Lecture\AssignController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\Lecture\AssignCompleteController;
-use App\Http\Controllers\Lecture\AssignInCompleteController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
-use App\Models\Classroom;
 use App\Models\Course;
 
 /*
@@ -90,10 +87,6 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
         Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
         Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2']);
-
-
-
-
     });
 });
 // End Lecture Space Routing
@@ -111,7 +104,8 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
     Route::post('simpan-tugas/{id}', [TaskController::class, 'store'])->name('simpan-tugas');
     Route::post('submit-tugas/{id}', [TaskController::class, 'submitTugas'])->name('submit-tugas');
     Route::get('task-detail/{id}', [StudentController::class, 'showTaskDetail'])->name('task-detail');
-    Route::post('/update-kursus', [StudentController::class, 'updateKursus'])->name('update.kursus');
+    Route::post('/update-course', [StudentController::class, 'updateCourse'])->name('update.kursus');
+    Route::post('/update-classroom', [StudentController::class, 'updateClassroom'])->name('update.classroom');
 });
 // End Student Space Routing
 

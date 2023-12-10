@@ -34,7 +34,7 @@ class ClassroomController extends Controller
         return view('lecture.classroom.index', compact('classroom'));
     }
 
-    public function showStudent($idClassroom): View
+    public function showStudent($idClassroom, Request $request): View
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
