@@ -135,7 +135,7 @@
                                                 @if ($m->task->status === 0)
                                                     <form action="{{ route('lecture.student.update', $m->task->id) }}"
                                                         method="POST" class="flex">
-                                                        <input type="number" name="nilai" id="nilai"
+                                                        <input type="number" name="final_score" id="final_score"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
                                                             value="{{ (int) $m->task->final_score }}" disabled>
                                                         <button
@@ -147,7 +147,7 @@
                                                         method="POST" class="flex">
                                                         @csrf
                                                         @method('PATCH')
-                                                        <input type="number" name="nilai" id="nilai"
+                                                        <input type="number" name="final_score" id="final_score"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
                                                             value="{{ (int) $m->task->final_score }}">
                                                         <button type="submit"

@@ -86,7 +86,7 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
         Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
         Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
-        Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2']);
+        Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
     });
 });
 // End Lecture Space Routing

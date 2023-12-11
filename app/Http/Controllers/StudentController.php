@@ -163,11 +163,11 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            User::updateOrCreate(
+            Task::updateOrCreate(
                 ['id' => $id],
-                $request->all(),
+                $request->all()
             );
-            return response()->redirectToRoute('admin.admin-student-index');
+            return redirect()->back();
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -273,7 +273,7 @@ class StudentController extends Controller
 
         return redirect()->back()->with('success', 'Anda sudah terdaftar pada kelas ini.');
     }
-    
+
     public function autoZero(Request $request, $id) {
         try {
             $student = User::find($request->id_student);
