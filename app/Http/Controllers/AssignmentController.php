@@ -114,7 +114,11 @@ class AssignmentController extends Controller
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
-        $student = User::role('student')->where('id_classroom', $idClassroom)
+
+        $student = User::role('student')
+            ->whereHas('classManagements.classroom', function ($query) use ($idClassroom) {
+                $query->where('id', $idClassroom);
+            })
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('code', 'LIKE', "%{$search}%");
@@ -124,7 +128,8 @@ class AssignmentController extends Controller
             }])
             ->paginate($per_page);
 
-            $assignment = Assignment::where('id', $idAssignment)->first();
+
+        $assignment = Assignment::where('id', $idAssignment)->first();
 
         return view('lecture.assignment.detail', compact('assignment', 'student'));
     }

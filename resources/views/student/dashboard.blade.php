@@ -192,7 +192,7 @@ if ($hour >= 5 && $hour < 12) {
                             @endphp
                             @isset($user_task->task)
                                 @php
-                                    $task_mhs = $user_task->task->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    $task_mhs = $user_task->task->where('id_student', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                 @endphp
                                 @if($task_mhs === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>
@@ -262,7 +262,7 @@ if ($hour >= 5 && $hour < 12) {
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="border-box w-[150px] h-[141px] border mt-10 flex flex-col justify-center items-center rounded">
                     <h3 class="text-black font-bold mb-2 text-[14px]">Nilai Akhir</h3>
                     <div class="border-box w-[125px] h-[86px] bg-[#00C1361A] flex justify-center items-center rounded">
@@ -396,7 +396,7 @@ if ($hour >= 5 && $hour < 12) {
                             @endphp
                             @isset($user_task->task)
                                 @php
-                                    $task_mhs = $user_task->task->where('id_mahasiswa', auth()->user()->id)->where('id_assignment', $as->id)->first();
+                                    $task_mhs = $user_task->task->where('id_student', auth()->user()->id)->where('id_assignment', $as->id)->first();
                                 @endphp
                                 @if($task_mhs === null)
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">Belum Upload</span>

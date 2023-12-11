@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClassroomRequest;
+use App\Models\ClassManagement;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\User;
@@ -38,15 +39,34 @@ class ClassroomController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $students = User::role('student')->where('id_classroom', $idClassroom)
-            ->with(['taskScore' => function ($q) {
-                $q->whereNotNull('final_score');
-            }])
+
+//        $students = User::role('student')->where('id_classroom', $idClassroom)
+//            ->with(['taskScore' => function ($q) {
+//                $q->whereNotNull('final_score');
+//            }])
+//            ->where(function ($query) use ($search) {
+//                $query->where('name', 'LIKE', "%{$search}%")
+//                    ->orWhere('code', 'LIKE', "%{$search}%")
+//                    ->orWhere('email', 'LIKE', "%{$search}%");
+//            })
+//            ->paginate($per_page);
+
+//        $students = ClassManagement::whereHas('classroom', function ($query) use ($idClassroom) {
+//            $query->where('id', $idClassroom);
+//        })->with('student')->paginate($per_page);
+
+        $students = User::role('student')
+            ->whereHas('classManagements.classroom', function ($query) use ($idClassroom) {
+                $query->where('id', $idClassroom);
+            })
             ->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('code', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%");
             })
+            ->with(['taskScore' => function ($q) {
+                $q->whereNotNull('final_score');
+            }])
             ->paginate($per_page);
 
         $classroom = Classroom::find($idClassroom)->first();

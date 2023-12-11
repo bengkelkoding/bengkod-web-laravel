@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Classroom::class, 'id_lecture');
     }
+
+    public function classManagements(): HasMany
+    {
+        return $this->hasMany(ClassManagement::class, 'id_student');
+    }
 }
