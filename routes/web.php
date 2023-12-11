@@ -102,7 +102,7 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
     Route::get('daftar-nilai', [StudentController::class, 'showDaftarNilai']);
     Route::get('kontak', [StudentController::class, 'showKontakAsisten']);
     Route::post('simpan-tugas/{id}', [TaskController::class, 'store'])->name('simpan-tugas');
-    Route::post('submit-tugas/{id}', [TaskController::class, 'submitTugas'])->name('submit-tugas');
+    Route::post('submit-tugas/{id}', [TaskController::class, 'submitTask'])->name('submit-tugas');
     Route::get('task-detail/{id}', [StudentController::class, 'showTaskDetail'])->name('task-detail');
     Route::post('/update-course', [StudentController::class, 'updateCourse'])->name('update.kursus');
     Route::post('/update-classroom', [StudentController::class, 'updateClassroom'])->name('update.classroom');

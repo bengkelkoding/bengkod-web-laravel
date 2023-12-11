@@ -114,7 +114,7 @@ class TaskController extends Controller
         //
     }
 
-    public function submittask(Request $request, $id)
+    public function submitTask(Request $request, $id)
     {
         try {
             $task = Task::where('id_student', auth()->user()->id)->where('id_assignment', $id)->firstOrFail();

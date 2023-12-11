@@ -12,6 +12,6 @@ class RoomLogController extends Controller
         $roomLogs = RoomLog::where('nim', auth()->user()->code)
             ->orderBy('accessed', 'desc')
             ->get();
-        return view('mahasiswa.history', compact('roomLogs'));
+        return view('student.history', compact('roomLogs'));
     }
 }

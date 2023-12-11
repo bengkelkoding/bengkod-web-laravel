@@ -115,7 +115,7 @@
                                 Maaf tugas belum dibuka!
                             </div>
                         @elseif($assignment->start_time < now('Asia/Jakarta') && $assignment->deadline > now('Asia/Jakarta'))
-                            @if ($tugas === null || $tugas->status === 0)
+                            @if ($task === null || $task->status === 0)
                                 <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer"
                                     id="upload-icon" onclick="openInputFile()">
                                     <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px"
@@ -135,13 +135,13 @@
                                 @csrf
                                 <input type="hidden" name="id_assignment" class="hidden"
                                     value="{{ $assignment->id }}">
-                                <input type="file" name="file_tugas" id="tugas" onchange="uploadIcon()"
+                                <input type="file" name="task_file" id="tugas" onchange="uploadIcon()"
                                     class="hidden">
 
-                                @isset($tugas)
+                                @isset($task)
                                     <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                                        <a id="current_saved" href="{{ url('storage/tugas/' . $tugas->file_tugas) }}"
-                                            class="">{{ $tugas->file_tugas }}</a>
+                                        <a id="current_saved" href="{{ url('storage/task/' . $task->task_file) }}"
+                                            class="">{{ $task->task_file }}</a>
                                     </div>
                                 @endisset
 
@@ -151,11 +151,11 @@
                                     </div>
                                 @endif
                                 <div class="w-100% h-auto flex justify-center items-center">
-                                    @if ($tugas === null)
+                                    @if ($task === null)
                                         <button type="submit"
                                             class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span
                                                 class="text-[14px]">Upload File</span></button>
-                                    @elseif($tugas->status === 0)
+                                    @elseif($task->status === 0)
                                         <button type="submit"
                                             class="w-[116px] h-auto mt-5 bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-xl font hover:bg-cyan-500"><span
                                                 class="text-[14px]">Update File</span></button>
@@ -167,18 +167,18 @@
                                 </div>
                             </form>
 
-                            @isset($tugas)
+                            @isset($task)
                                 <div class=" w-100% h-auto flex justify-center items-center mb-3">
                                     <button id="summit" onclick="yakin()"
-                                        class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $tugas->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}"
-                                        {{ $tugas->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit
+                                        class="w-[116px] h-auto bg-gray-500 mt-2 py-1 rounded-md text-white flex justify-center items-center text-xl font {{ $task->status === 1 ? 'cursor-not-allowed' : 'hover:bg-cyan-500' }}"
+                                        {{ $task->status === 1 ? 'disabled' : '' }}><span class="text-[14px]">Submit
                                             File</span></button>
                                 </div>
                             @endisset
 
                             <form action="{{ route('submit-tugas', $assignment->id) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="check_value" value="{{ $tugas === null ? '0' : '1' }}">
+                                <input type="hidden" name="check_value" value="{{ $task === null ? '0' : '1' }}">
                                 <input id="realSubmit" type="submit" class="hidden">
                             </form>
                     </div>

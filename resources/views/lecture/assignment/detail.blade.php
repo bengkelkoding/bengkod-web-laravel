@@ -121,7 +121,7 @@
                                                         Download</button>
                                                 @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ asset('storage/tugas/' . $m->task->file_tugas) }}"><i
+                                                        href="{{ asset('storage/task/' . $m->task->task_file) }}"><i
                                                             class="ti ti-download"></i> Download</a>
                                                 @endif
                                             @else
