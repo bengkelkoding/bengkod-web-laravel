@@ -26,7 +26,7 @@
                             <th scope="col">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-left">
                             @forelse($classroom as $key => $class)
                             <tr>
                                 <td>{{$key+1}}</td>
@@ -37,11 +37,11 @@
                                 <td>{{$class->time}}</td>
                                 <td>{{$class->quota}}</td>
                                 <td>
-                                    <div class="flex">
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2">
+                                    <div class="flex text-center">
+                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2">
                                             <a href="{{ url('lecture/classroom/' . $class->id . '/student') }}"><i class="ti ti-user"></i> Siswa</a>
                                         </span>
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
                                             <a href="{{ url('lecture/classroom/' . $class->id . '/assignment') }}"><i class="ti ti-pencil"></i> Penugasan</a>
                                         </span>
                                     </div>

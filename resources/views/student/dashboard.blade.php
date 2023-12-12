@@ -28,7 +28,7 @@ if ($hour >= 5 && $hour < 12) {
             <div class="bg-white rounded-md h-max p-4 w-full">
                 <p class="text-black font-bold mb-2 text-lg text-center">Kelas Anda</p>
                 @foreach($classrooms as $c)
-                <div class="p-4 mb-3 border rounded-lg flex justify-between shadow-sm hover:shadow-none items-center">
+                <div class="p-4 mb-3 border rounded-lg flex gap-4 justify-between shadow-sm hover:shadow-none items-center">
                     <div>
                         <p class="text-lg font-semibold">{{$c->name}}</p>
                         <p class="text-black/50">{{$c->description}}</p>
