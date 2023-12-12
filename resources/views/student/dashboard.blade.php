@@ -23,7 +23,28 @@ if ($hour >= 5 && $hour < 12) {
             <p class="text-lg">~ Imam Syafi’i ~</p>
         </div>
     </div>
-    <div class="container mx-auto flex gap-4 mt-5">
+    <div class="container mx-auto mt-10 max-w-2xl">
+        @if(count($classrooms) > 0)
+            @foreach($classrooms as $c)
+            <div class="p-4 mb-3 border rounded-lg flex justify-between shadow-sm hover:shadow-none items-center">
+                <div class="">
+                    <p class="text-lg font-semibold">{{$c->name}}</p>
+                    <p class="text-black/50">{{$c->description}}</p>
+                    <div class="flex gap-4 text-black/50 mt-2">
+                        <p>Hari: <span class="text-black">{{$c->day}}</span></p>
+                        <p>Jam: <span class="text-black">{{$c->time}}</span></p>
+                    </div>
+                </div>
+                <button class="border border-primary-color bg-primary-color h-max min-w-max px-4 py-2 rounded-md text-white hover:bg-primary-color/80">Detail Kelas</button>
+            </div>
+            @endforeach
+        @else
+            <div class="bg-warning/10 text-warning p-4 text-center rounded-md">
+                <p>Anda belum masuk kelas!</p>
+            </div>
+        @endif
+    </div>
+    <!-- <div class="container mx-auto flex gap-4 mt-5">
         <div class="bg-white rounded-md p-4 w-max">
             @if($user->course)
             <div class="w-max">
@@ -234,7 +255,7 @@ if ($hour >= 5 && $hour < 12) {
         @endforelse
     </div>
     </div>
-    </div>
+    </div> -->
 <!-- <div class="mx-52 max-md:mx-4 flex flex-col max-lg:justify-center max-lg:items-center mb-5">
 @if($user->course)
             <div class="flex justify-between flex-wrap items-center max-lg:justify-center">

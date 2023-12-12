@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\ClassManagement;
 use App\Models\Classroom;
 use App\Models\ContactAssistant;
 use App\Models\Course;
@@ -41,8 +42,14 @@ class StudentController extends Controller
         $assistant = User::with('assistant')
             ->where('id', $user->id)->get();
 
+        // Retrieve all class management records for the user with associated classrooms
+        $classManagements = ClassManagement::where('id_student', $user->id)->with('classroom')->get();
+
+        // Extract the associated classrooms from the collection
+        $classrooms = $classManagements->pluck('classroom');
+
         $var_names = [
-            'user', 'member_count', 'task', 'studentTask', 'assistant', 'assignments'
+            'user', 'member_count', 'task', 'studentTask', 'assistant', 'assignments', 'classrooms'
         ];
         return view('student.dashboard', compact($var_names));
     }
@@ -192,6 +199,7 @@ class StudentController extends Controller
             ]);
         }
     }
+
     function showMateriDipelajari()
     {
         return view('student.materiDipelajari');
@@ -257,11 +265,10 @@ class StudentController extends Controller
         $validator->validate();
 
         // Update or create the user record
-        User::updateOrCreate(
-            ['id' => auth()->id()],
+        ClassManagement::create(
             [
-                'id_course' => $request->id_course,
                 'id_classroom' => $request->id_classroom,
+                'id_student' => auth()->id(),
             ]
         );
 
@@ -271,7 +278,7 @@ class StudentController extends Controller
             ['quota' => DB::raw('quota - 1')]
         );
 
-        return redirect()->back()->with('success', 'Anda sudah terdaftar pada kelas ini.');
+        return redirect()->back()->with('success', 'Anda sudah terdaftar pada kelas ini!');
     }
 
     public function autoZero(Request $request, $id) {
