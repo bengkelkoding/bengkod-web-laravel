@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests\courseRequest;
+use App\Models\ActivateToken;
 use App\Models\ClassManagement;
 use App\Models\Classroom;
 use App\Models\Course;
@@ -71,7 +72,10 @@ class CourseController extends Controller
         // $joined = ClassManagement::where('id_classroom', $id)->get()
         $course = Course::withCount('users')->find($id);
         $tools = explode(',', $course->tools);
-        return view('course.detail', compact('course', 'tools', 'classrooms', 'classManagements', 'class'));
+
+        $tokens = ActivateToken::all();
+
+        return view('course.detail', compact('course', 'tools', 'classrooms', 'classManagements', 'class', 'tokens'));
     }
 
     /**

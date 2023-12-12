@@ -97,13 +97,12 @@
                                     <td class="px-4 py-2">{{$class->quota}}</td>
                                     @if($class->quota !== 0) 
                                     <td class="px-4 py-2">
-                                        <form action="{{ route('update.classroom') }}" method="POST"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin mendaftar ke kelas ini?')">
+                                        <form action="{{ route('update.classroom') }}" method="POST" id="classroomForm">
                                             @csrf
                                             <input type="hidden" id="id_course" name="id_course" value="{{ $class->id_course }}">
                                             <input type="hidden" id="id_classroom" name="id_classroom" value="{{ $class->id }}">
                                             <x-tombol-universal type="submit"
-                                                class="text-white px-2 rounded-md w-full mt-[-0px]">Gabung</x-tombol-universal>
+                                                class="text-white px-2 rounded-md w-full mt-[-0px]" onclick="confirmSubmit()">Gabung</x-tombol-universal>
                                         </form>
                                     </td>
                                     @else 
@@ -129,4 +128,20 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmSubmit() {
+            // Show a confirmation dialog
+            var userInput = prompt('Apakah Anda yakin ingin mendaftar ke kelas ini? Masukkan "Token Aktivasi" anda untuk masuk ke kelas!');
+
+            // Check user input
+            if (userInput === 'YES') {
+                // If the user confirms, submit the form
+                document.getElementById('classroomForm').submit();
+            } else {
+                // If the user cancels or enters an incorrect value, prevent form submission
+                alert('Pendaftaran dibatalkan!');
+                return false;
+            }
+        }
+    </script>
 </x-universal-layout>
