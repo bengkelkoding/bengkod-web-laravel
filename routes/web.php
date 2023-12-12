@@ -106,6 +106,7 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
     Route::get('task-detail/{id}', [StudentController::class, 'showTaskDetail'])->name('task-detail');
     Route::post('/update-course', [StudentController::class, 'updateCourse'])->name('update.kursus');
     Route::post('/update-classroom', [StudentController::class, 'updateClassroom'])->name('update.classroom');
+    Route::get('student/class/{id}', [StudentController::class, 'detailClass'])->name('student.detail-class');
 });
 // End Student Space Routing
 

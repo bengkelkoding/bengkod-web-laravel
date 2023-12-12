@@ -160,11 +160,11 @@ class AssignmentController extends Controller
         try {
             if ($request->hasFile('question_file')) {
                 if (isset($assignment->question_file)) {
-                    unlink(public_path('storage/soal/' . $assignment->question_file));
+                    unlink(public_path('storage/question/' . $assignment->question_file));
                 }
                 $file = $request->file('question_file');
                 $question_file = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('storage/soal'), $question_file);
+                $file->move(public_path('storage/question'), $question_file);
             } else {
                 $question_file = $assignment->question_file;
             }

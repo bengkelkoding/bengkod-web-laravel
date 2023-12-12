@@ -26,22 +26,6 @@ class StudentController extends Controller
     {
         $user = auth()->user();
 
-        $studentTask = $user->taskScore->whereNotNull('final_score');
-        $task = $user->task;
-
-        # to display student course
-        $coursees = Course::where('id', $user->id_course)->withCount('users')->get();
-        $member_count = $coursees->sum('users_count');
-
-        # to display student assignment by course
-        $assignments = Assignment::where('id_course', $user->id_course)->with(['course.users.task' => function ($q) {
-            $q->where('id_student', auth()->user()->id);
-        }])->get();
-
-        # for student contact assistant
-        $assistant = User::with('assistant')
-            ->where('id', $user->id)->get();
-
         // Retrieve all class management records for the user with associated classrooms
         $classManagements = ClassManagement::where('id_student', $user->id)->with('classroom')->get();
 
@@ -49,9 +33,37 @@ class StudentController extends Controller
         $classrooms = $classManagements->pluck('classroom');
 
         $var_names = [
-            'user', 'member_count', 'task', 'studentTask', 'assistant', 'assignments', 'classrooms'
+            'user', 'classrooms'
         ];
         return view('student.dashboard', compact($var_names));
+    }
+
+    public function detailClass($id)
+    {
+        $user = auth()->user();
+
+        $studentTask = $user->taskScore->whereNotNull('final_score');
+        $task = $user->task;
+
+        // # to display student course
+        // $coursees = Course::where('id', $user->id_course)->withCount('users')->get();
+        // $member_count = $coursees->sum('users_count');
+
+        # to display student assignment by classroom
+        $assignments = Assignment::where('id_classroom', $id)->with(['course.users.task' => function ($q) {
+            $q->where('id_student', auth()->user()->id);
+        }])->get();
+
+
+        $classroom = Classroom::where('id', $id)->first();
+
+        $course = $classroom->course;
+
+        $var_names = [
+            'task', 'studentTask', 'assignments', 'classroom', 'course'
+        ];
+
+        return view('student.classDetail', compact($var_names));
     }
 
     /**
