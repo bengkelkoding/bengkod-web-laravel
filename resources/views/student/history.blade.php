@@ -1,27 +1,42 @@
+@php
+use Carbon\Carbon;
+
+$currentTime = Carbon::now('Asia/Jakarta');
+$hour = $currentTime->hour;
+
+if ($hour >= 5 && $hour < 12) {
+    $selamat = "Pagi";
+} elseif ($hour >= 12 && $hour < 15) {
+    $selamat = "Siang";
+} elseif ($hour >= 15 && $hour < 18) {
+    $selamat = "Sore";
+} else {
+    $selamat = "Malam";
+}
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         Bengkel Koding
     </x-slot>
 
-    <div class="box-content w-100% p-4 bg-gradient-to-l from-cyan-500 to-blue-500 mb-2">
-        <div class="grid lg:grid-cols-12 gap-4 max-lg:flex max-lg:justify-center max-lg:flex-col">
-            <div class="col-span-6 max-md:col-span-12 h-auto mb-[40px] max-lg:mb-3 mx-24 max-md:mx-2">
-                <h1 class="text-white font-bold text-[32px] mt-7">Selamat pagi, Muhammad Roynaldi!</h1>
-                <p class="text-white mt-2 text-[16px]">Jika kamu tidak sanggup menahan lelahnya belajar, <br>Maka bersiaplah menahan perihnya kebodohan.</p>
-                <p class="text-white">~ Imam Syafi’i</p>
-            </div>
+    <div class="box-content container mx-auto rounded-lg my-10 p-4 bg-gradient-to-l from-blue-500 to-cyan-500 mb-2">
+        <div class="text-center text-white py-20">
+            <h1 class="text-4xl text-white font-semibold">Selamat {{ $selamat }}, {{ auth()->user()->name }}!</h1>
+            <p class="mt-3 text-lg">Jika kamu tidak sanggup menahan lelahnya belajar, Maka bersiaplah menahan perihnya kebodohan.</p>
+            <p class="text-lg">~ Imam Syafi’i ~</p>
         </div>
     </div>
 
 
-    <div class="mx-52 max-md:mx-0 max-md:block flex flex-col max-lg:justify-center max-lg:items-center  max-md:overflow-x-scroll">
+    <div class="mx-52 max-md:mx-0 max-md:block flex flex-col max-lg:justify-center max-lg:items-center  max-md:overflow-x-scroll mt-10">
         <div class="flex justify-between flex-wrap items-center max-lg:justify-center">
             <div class="container-fluid">
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
                             <a href="" class="text-[17px] font-medium transition ease-in-out duration-150 hover:text-gray-700">< Kembali</a>
-                            <div class="flex max-md:flex-col justify-between w-full">
+                            <div class="flex max-md:flex-col justify-between w-full mt-2">
                                 <div class="mb-3">
                                     <p class="fw-semibold mb-2">
                                         <span class="card-title mr-4">
