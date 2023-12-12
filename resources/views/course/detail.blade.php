@@ -19,27 +19,26 @@
                     {{ $course->hour }}
                 </p>
                 @auth
-                    <!-- <p>{{}}</p> -->
-                    @if (!is_null(auth()->user()->id_course) || auth()->user()->name == 'admin')
-                        @if (auth()->user()->id_course == $course->id || auth()->user()->name == 'admin')
-                            <x-tombol-universal href="{{ env('APP_URL_QUARTO') . $course->url }}"
-                                class="text-white font-semibold py-2 px-10 rounded-md mb-5 w-full ">Belajar Sekarang</x-tombol-universal>
+                    @if ( count($class) > 0 || auth()->user()->name == 'admin')
+                        <x-tombol-universal href="{{ env('APP_URL_QUARTO') . $course->url }}" class="text-white font-semibold py-2 px-10 rounded-md mb-5 w-full ">Belajar Sekarang</x-tombol-universal>
+                        <!-- @if ( count($class) > 0 || auth()->user()->name == 'admin')
+                            <x-tombol-universal href="{{ env('APP_URL_QUARTO') . $course->url }}" class="text-white font-semibold py-2 px-10 rounded-md mb-5 w-full ">Belajar Sekarang</x-tombol-universal>
                         @else
                             <div
                                 class="alert alert-warning my-5 max-md:ml-0 bg-[#ff0000] p-2 rounded-md bg-opacity-50">
                                 Anda sudah terdaftar pada kursus lain!
                             </div>
-                        @endif
+                        @endif -->
                     @else
-                        <form action="{{ route('update.kursus') }}" method="POST"
+                        <!-- <form action="{{ route('update.kursus') }}" method="POST"
                             onsubmit="return confirm('Apakah Anda yakin ingin mendaftar ke kursus ini?')">
                             @csrf
                             <input type="hidden" name="kursus_id" value="{{ $course->id }}">
-                            <!-- <x-tombol-universal type="submit"
-                                class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal> -->
-                            <x-tombol-universal href="{{ env('APP_URL_O_QUARTO') . $course->url_overview }}"
-                                class="text-white font-semibold py-2 px-10 rounded-md w-full ">Overview Kursus</x-tombol-universal>
-                        </form>
+                            <x-tombol-universal type="submit"
+                                class="text-white font-semibold py-2 px-10 rounded-md w-full ">Daftar Kursus</x-tombol-universal>
+                        </form> -->
+                        <x-tombol-universal href="{{ env('APP_URL_O_QUARTO') . $course->url_overview }}"
+                            class="text-white font-semibold py-2 px-10 rounded-md w-full ">Overview Kursus</x-tombol-universal>
                     @endif
                 @else
                     <!-- <x-tombol-universal href="{{ url('login') }}"
@@ -69,9 +68,9 @@
             <div class="">
                 <h1 class="text-xl font-medium text-center mb-3 ml-2 mt-3">Daftar Kelas</h1>
                 @auth
-                    @if( !is_null(auth()->user()->id_classroom) )
+                    @if( count($class) > 0 )
                     <div class="bg-success/10 text-success p-4 text-center rounded-md">
-                        <p>Anda sudah terdaftar dalam kelas</p>
+                        <p>Anda sudah terdaftar dalam kelas!</p>
                     </div>
                     @else
                     <div class="overflow-x-auto">
@@ -104,7 +103,7 @@
                                             <input type="hidden" id="id_course" name="id_course" value="{{ $class->id_course }}">
                                             <input type="hidden" id="id_classroom" name="id_classroom" value="{{ $class->id }}">
                                             <x-tombol-universal type="submit"
-                                                class="text-white px-2 rounded-md w-full mt-0">Gabung</x-tombol-universal>
+                                                class="text-white px-2 rounded-md w-full mt-[-0px]">Gabung</x-tombol-universal>
                                         </form>
                                     </td>
                                     @else 

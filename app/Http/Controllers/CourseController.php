@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests\courseRequest;
+use App\Models\ClassManagement;
 use App\Models\Classroom;
 use App\Models\Course;
 
@@ -57,10 +58,20 @@ class CourseController extends Controller
      */
     public function show($id)
     {
+        $user = auth()->user();
         $classrooms = Classroom::where('id_course', $id)->get();
+        // Retrieve all class management records for the user with associated classrooms
+        $classManagements = null;
+        $class = null;
+        if($user !== null) {
+            $classManagements = ClassManagement::where('id_student', $user->id)->with('classroom')->get();
+            $class = $classManagements->pluck('classroom')->where('id_course', $id);
+        }
+        // Extract the associated classrooms from the collection
+        // $joined = ClassManagement::where('id_classroom', $id)->get()
         $course = Course::withCount('users')->find($id);
         $tools = explode(',', $course->tools);
-        return view('course.detail', compact('course', 'tools', 'classrooms'));
+        return view('course.detail', compact('course', 'tools', 'classrooms', 'classManagements', 'class'));
     }
 
     /**
