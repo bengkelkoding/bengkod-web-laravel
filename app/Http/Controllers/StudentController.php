@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivateToken;
 use App\Models\Assignment;
 use App\Models\ClassManagement;
 use App\Models\Classroom;
@@ -273,8 +274,14 @@ class StudentController extends Controller
         $validator = Validator::make($request->all(), [
             'id_course' => 'required|numeric',
             'id_classroom' => 'required|numeric',
+            'token' => 'required',
         ]);
         $validator->validate();
+
+         // validate token
+        if(empty(ActivateToken::where('token', $request->token)->first())) {
+            return redirect()->back();
+        }
 
         // Update or create the user record
         ClassManagement::create(
@@ -290,6 +297,11 @@ class StudentController extends Controller
             ['quota' => DB::raw('quota - 1')]
         );
 
+        // delete existing token
+        DB::table('activate_tokens')
+            ->where('token', $request->token)
+            ->delete();
+            
         return redirect()->back()->with('success', 'Anda sudah terdaftar pada kelas ini!');
     }
 

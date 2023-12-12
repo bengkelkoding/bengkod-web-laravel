@@ -101,8 +101,9 @@
                                             @csrf
                                             <input type="hidden" id="id_course" name="id_course" value="{{ $class->id_course }}">
                                             <input type="hidden" id="id_classroom" name="id_classroom" value="{{ $class->id }}">
-                                            <x-tombol-universal type="submit"
-                                                class="text-white px-2 rounded-md w-full mt-[-0px]" onclick="confirmSubmit()">Gabung</x-tombol-universal>
+                                            <input type="hidden" id="token" name="token" value="">
+                                            <button type="button"
+                                                class=" border border-primary-color bg-primary-color px-4 py-1 rounded-md text-white hover:text-primary-color flex justify-center items-center text-[14px] hover:bg-white focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" onclick="confirmSubmit()">Gabung</button>
                                         </form>
                                     </td>
                                     @else 
@@ -134,13 +135,15 @@
             var userInput = prompt('Apakah Anda yakin ingin mendaftar ke kelas ini? Masukkan "Token Aktivasi" anda untuk masuk ke kelas!');
 
             // Check user input
-            if (userInput === 'YES') {
-                // If the user confirms, submit the form
+            if (userInput !== null) {
+                // Set the value of the 'token' input field
+                document.getElementById('token').value = userInput;
+                // If the user enters the correct token, submit the form
                 document.getElementById('classroomForm').submit();
+                alert('Anda berhasil masuk ke kelas!');
             } else {
                 // If the user cancels or enters an incorrect value, prevent form submission
                 alert('Pendaftaran dibatalkan!');
-                return false;
             }
         }
     </script>
