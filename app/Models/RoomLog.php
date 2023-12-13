@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RoomLog extends Model
 {
@@ -19,4 +20,9 @@ class RoomLog extends Model
         'access_status',
         'accessed'
     ];
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'nim', 'kode');
+    }
 }
