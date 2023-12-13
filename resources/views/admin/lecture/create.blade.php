@@ -16,9 +16,9 @@
 
                 <!-- NIM -->
                 <div class="mb-3">
-                    <x-input-label for="kode" :value="__('NPP')" />
-                    <x-text-input id="kode" class="block mt-1 w-full" type="text" name="kode" :value="old('kode')" required autofocus autocomplete="kode" />
-                    <x-input-error :messages="$errors->get('kode')" class="mt-2" />
+                    <x-input-label for="code" :value="__('NPP')" />
+                    <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus autocomplete="code" />
+                    <x-input-error :messages="$errors->get('code')" class="mt-2" />
                 </div>
 
                 <!-- Nama -->
@@ -41,7 +41,7 @@
                     <select class="form-select" name="course">
                         <option selected value="">Pilih Kursus</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->judul}}</option>
+                        <option value="{{$course->id}}">{{$course->title}}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />

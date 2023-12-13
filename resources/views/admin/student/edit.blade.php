@@ -18,7 +18,7 @@
                 <!-- NIM -->
                 <div class="mb-3">
                     <x-input-label for="nim" :value="__('NIM')" />
-                    <x-text-input id="nim" class="block mt-1 w-full" type="text" name="kode" :value="$student->kode" required autofocus autocomplete="nim" />
+                    <x-text-input id="nim" class="block mt-1 w-full" type="text" name="code" :value="$student->code" required autofocus autocomplete="nim" />
                     <x-input-error :messages="$errors->get('nim')" class="mt-2" />
                 </div>
 
@@ -39,23 +39,23 @@
                 <!-- Select Option  -->
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
-                    <select class="form-select" name="id_kursus">
+                    <select class="form-select" name="id_course">
                         {{$findCourse = false}}
                         @foreach($courses as $course)
 
-                            @if ($student->id_kursus == null && !$findCourse)
+                            @if ($student->id_course == null && !$findCourse)
                                 <option selected value="">Pilih Kursus</option>
                                 {{$findCourse = true}}
                             @endif
 
-                            @if ($course->id == $student->id_kursus)
-                                <option selected value="{{$course->id}}">{{$course->judul}}</option>
+                            @if ($course->id == $student->id_course)
+                                <option selected value="{{$course->id}}">{{$course->title}}</option>
                             @else
-                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                                <option value="{{$course->id}}">{{$course->title}}</option>
                             @endif
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('id_kursus')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('id_course')" class="mt-2" />
                 </div>
 
                 <!-- Select Option Assistant -->
@@ -65,7 +65,7 @@
                         {{$findAssistant = false}}
                         @foreach($assistants as $assistant)
 
-                            @if($student->id_kursus == null && !$findAssistant)
+                            @if($student->id_course == null && !$findAssistant)
                                 <option selected value="">Pilih Asisten</option>
                                 {{$findAssistant = true}}
                             @endif

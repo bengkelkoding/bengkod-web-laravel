@@ -91,28 +91,36 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Organize</span>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('lecture/student') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-users"></i>
-                </span>
-                <span class="hide-menu">Daftar & Kelola Mahasiswa</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('lecture.assignment.index') }}" aria-expanded="false">
-                  <span>
-                      <i class="ti ti-users"></i>
-                  </span>
-                  <span class="hide-menu">Kelola Penugasan</span>
-                </a>
-              </li>
+{{--            <li class="sidebar-item">--}}
+{{--              <a class="sidebar-link" href="{{ route('lecture.lecture-student-index') }}" aria-expanded="false">--}}
+{{--                <span>--}}
+{{--                    <i class="ti ti-users"></i>--}}
+{{--                </span>--}}
+{{--                <span class="hide-menu">Daftar & Kelola Mahasiswa</span>--}}
+{{--              </a>--}}
+{{--            </li>--}}
+{{--            <li class="sidebar-item">--}}
+{{--                <a class="sidebar-link" href="{{ route('lecture.assignment.index') }}" aria-expanded="false">--}}
+{{--                  <span>--}}
+{{--                      <i class="ti ti-users"></i>--}}
+{{--                  </span>--}}
+{{--                  <span class="hide-menu">Kelola Penugasan</span>--}}
+{{--                </a>--}}
+{{--              </li>--}}
               <li class="sidebar-item">
                   <a class="sidebar-link" href="{{ route('lecture.log.index') }}" aria-expanded="false">
                   <span>
                       <i class="ti ti-users"></i>
                   </span>
                       <span class="hide-menu">Log Mahasiswa</span>
+                  </a>
+              </li>
+              <li class="sidebar-item">
+                  <a class="sidebar-link" href="{{url('lecture/classroom') }}" aria-expanded="false">
+                  <span>
+                      <i class="ti ti-users"></i>
+                  </span>
+                      <span class="hide-menu">Daftar Kelas</span>
                   </a>
               </li>
               <li class="sidebar-item">
@@ -183,12 +191,12 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
                     <span class="hide-menu">Log Mahasiswa</span>
                 </a>
             </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('admin/room-log') }}" aria-expanded="false">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url('admin/classroom') }}" aria-expanded="false">
               <span>
                   <i class="ti ti-users"></i>
               </span>
-                    <span class="hide-menu">Log Ruangan</span>
+                    <span class="hide-menu">Kelola Kelas</span>
                 </a>
             </li>
             <!-- <li class="sidebar-item">

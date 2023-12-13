@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="flex">
                         <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
-                        <a href="{{route('lecture.assignment.create')}}"
+                        <a href="{{url('lecture/classroom/' . $idClassroom . '/assignment/store')}}"
                             class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
                     </div>
                     <div class="row">
@@ -70,20 +70,20 @@
                             <tbody>
                                 @forelse ($assignments as $key => $assign)
                                 @php
-                                    $mulai = \Carbon\Carbon::parse($assign->waktu_mulai)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
+                                    $start = \Carbon\Carbon::parse($assign->start_time)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                     $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                 @endphp
-                                <tr class="clickable cursor-pointer" data-href="{{ route('lecture.assignment.show', $assign->id) }}">
+                                <tr class="clickable cursor-pointer" data-href="{{ url('lecture/classroom/' . $idClassroom . '/assignment/' . $assign->id) }}">
                                    <th scope="row">{{ $assignments->firstItem() + $key}}</th>
-                                   <td>{{ $assign->judul }}</td>
-                                   <td>{{ Str::limit($assign->deskripsi, 15, '...') }}</td>
-                                   <td>{{ $mulai }}</td>
+                                   <td>{{ $assign->title }}</td>
+                                   <td>{{ Str::limit($assign->description, 15, '...') }}</td>
+                                   <td>{{ $start }}</td>
                                    <td>{{ $deadline }}</td>
                                    <td>
-                                        @empty($assign->file_soal)
+                                        @empty($assign->task_file)
                                         <span class="badge bg-danger">Belum ada file</span>
                                         @else
-                                        <a href="{{ asset('storage/soal/'.$assign->file_soal) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
+                                        <a href="{{ asset('storage/task/'.$assign->task_file) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
                                         @endif
                                    </td>
                                    <td>

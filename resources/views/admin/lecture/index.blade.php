@@ -15,7 +15,7 @@
                     <div class="flex max-md:flex-col">
                         <div class="col">
                             <form>
-                                <div class="flex inline">
+                                <div class="flex">
                                     <label>
                                         Show
                                         <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
@@ -70,17 +70,17 @@
                                     <tr>
                                         <th scope="row">{{ $lectures->firstItem() + $key }}</th>
                                         <td>
-                                            @isset($lecture->course->judul)
-                                                {{ $lecture->course->judul }}
+                                            @isset($lecture->course->title)
+                                                {{ $lecture->course->title }}
                                             @endisset
                                         </td>
-                                        <td>{{ $lecture->kode }}</td>
+                                        <td>{{ $lecture->code }}</td>
                                         <td>{{ $lecture->name }}</td>
                                         <td>{{ $lecture->email }}</td>
                                         <td>
-                                            <div class="flex inline">
+                                            <div class="flex">
                                                 <span
-                                                    class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                                    class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
                                                     <a href="{{ route('admin.lecture.edit', $lecture->id) }}"><i
                                                             class="ti ti-edit"></i> Edit</a>
                                                 </span>
@@ -90,7 +90,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <span
-                                                        class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                                        class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
                                                         <button class="uppercase" type="submit"><i
                                                                 class="ti ti-trash"></i> Delete</button>
                                                     </span>

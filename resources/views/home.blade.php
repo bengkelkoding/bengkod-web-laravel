@@ -159,31 +159,31 @@ $gambar = [
             <!-- <h1 class="text-4xl font-medium text-center max-md:text-[38px]" id="kursus">Kursus di Bengkel Koding</h1> -->
             <h1 class="mx-auto text-2xl font-bold md:text-3xl">Kursus di Bengkel Koding</h1>
             <div class="max-w-[82%] flex my-5 items-center overflow-x-scroll snap-mandatory snap-x pb-5">
-                @foreach ($kursuses as $kursus)
+                @foreach ($courses as $course)
                     <div class="snap-center">
                         <div class="m-[8px] border-2 rounded-md hover:shadow-xl bg-white min-w-[250px] flex flex-col justify-center transition ease-in-out duration-250">
                             <div class="m-4 py-1">
-                                <img src="{{ $kursus->image }}" loading="lazy" alt=""
+                                <img src="{{ $course->image }}" loading="lazy" alt=""
                                     class="w-full h-auto rounded-md object-cover" />
-                                <p class="text-[20px] font-semibold mt-1">{{ $kursus->judul }}</p>
+                                <p class="text-[20px] font-semibold mt-1">{{ $course->title }}</p>
                                 <p class="font-medium leading-1 text-gray-500 text-[14px] mt-2">
                                     <img src="assets\admin\icons\users-solid.png" loading="lazy" alt=""
                                         class="inline mr-2">
-                                    {{ $kursus->users_count }} mahasiswa terdaftar
+                                    {{ $course->users_count }} mahasiswa terdaftar
                                 </p>
                                 <p class="font-medium leading-1 text-gray-500 text-[14px]">
                                     <img src="assets\admin\icons\calendar-days-solid.png" loading="lazy" alt=""
                                         class="inline mr-2">
-                                    {{ $kursus->hari }}
+                                    {{ $course->day }}
                                 </p>
                                 <p class="font-medium leading-1 text-gray-500 text-[14px]">
                                     <img src="assets\admin\icons\clock-solid.png" alt="" loading="lazy"
                                         class="inline mr-2">
-                                    {{ $kursus->jam }}
+                                    {{ $course->hour }}
                                 </p>
                                 <div
                                     class="btnUi text-white bg-primary-color w-full text-center p-2 rounded-md mt-4 hover:bg-white border border-primary-color hover:text-primary-color">
-                                    <a href="/kursus/{{ $kursus->id }}">
+                                    <a href="/course/{{ $course->id }}">
                                         <button>Belajar Sekarang</button>
                                     </a>
                                 </div>

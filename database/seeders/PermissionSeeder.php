@@ -28,10 +28,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'delete modul']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'mahasiswa']);
+        $role1 = Role::create(['name' => 'student']);
         $role1->givePermissionTo('view modul');
 
-        $role2 = Role::create(['name' => 'dosen']);
+        $role2 = Role::create(['name' => 'lecture']);
         $role2->givePermissionTo('view modul');
         $role2->givePermissionTo('create modul');
         $role2->givePermissionTo('edit modul');
@@ -45,8 +45,8 @@ class PermissionSeeder extends Seeder
 
         // create demo users
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '1',
-            'kode' => 'MHS01',
+            'id_course' => '1',
+            'code' => 'MHS01',
             'name' => 'Muhammad Roynaldy',
             'email' => 'roy@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -54,8 +54,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '2',
-            'kode' => 'MHS02',
+            'id_course' => '2',
+            'code' => 'MHS02',
             'name' => 'Samuel Andrey',
             'email' => 'sam@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -63,8 +63,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '3',
-            'kode' => 'MHS03',
+            'id_course' => '3',
+            'code' => 'MHS03',
             'name' => 'Muhammad hafizh Dzaky',
             'email' => 'hafizh@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -72,8 +72,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '4',
-            'kode' => 'MHS04',
+            'id_course' => '4',
+            'code' => 'MHS04',
             'name' => 'Rajendra Nohan',
             'email' => 'rano@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -81,8 +81,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '1',
-            'kode' => 'DSN01',
+            'id_course' => '1',
+            'code' => 'DSN01',
             'name' => 'Arif Saputra',
             'email' => 'arif@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -90,8 +90,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '2',
-            'kode' => 'DSN02',
+            'id_course' => '2',
+            'code' => 'DSN02',
             'name' => 'Sri Winarno',
             'email' => 'sri@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -99,8 +99,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '3',
-            'kode' => 'DSN03',
+            'id_course' => '3',
+            'code' => 'DSN03',
             'name' => 'Adhitya Nugraha',
             'email' => 'adhitya@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -108,8 +108,8 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'id_kursus' => '4',
-            'kode' => 'DSN04',
+            'id_course' => '4',
+            'code' => 'DSN04',
             'name' => 'Ardytha Luthfiarta',
             'email' => 'ardytha@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -117,7 +117,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'kode' => 'ADMN01',
+            'code' => 'ADMN01',
             'name' => 'admin',
             'email' => 'admin@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
@@ -125,7 +125,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role3);
 
         $user = \App\Models\User::factory()->create([
-            'kode' => 'SPRADMN',
+            'code' => 'SPRADMN',
             'name' => 'superadmin',
             'email' => 'superadmin@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),

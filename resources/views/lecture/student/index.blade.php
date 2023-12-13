@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col">
                     <form>
-                        <div class="flex inline">
+                        <div class="flex">
                             <label>
                                 Show
                                 <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
@@ -60,30 +60,30 @@
                         <tbody>
                             @forelse($students as $key => $student)
                             @php
-                                $nilai_akhir = 0;
+                                $final_score = 0;
                             @endphp
                             <tr>
                                 <th scope="row">{{ $students->firstItem() + $key }}</th>
-                                <td>{{ $student->kode }}</td>
+                                <td>{{ $student->code }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
-                                @if($student->nilaiTugas->whereNotNull('nilai_akhir') !== null)
+                                @if($student->taskScore->whereNotNull('final_score') !== null)
                                     @php
-                                        foreach ($student->nilaiTugas as $key => $tugas) {
-                                            if ($tugas->nilai_akhir !== null) {
-                                                $nilai_akhir += $tugas->nilai_akhir;
+                                        foreach ($student->taskScore as $key => $tugas) {
+                                            if ($tugas->final_score !== null) {
+                                                $final_score += $tugas->final_score;
                                             }
                                         }
 
-                                        $jumlah = $student->nilaiTugas->whereNotNull('nilai_akhir')->count();
+                                        $jumlah = $student->taskScore->whereNotNull('final_score')->count();
                                         if ($jumlah !== 0) {
-                                            $nilai_akhir = round($nilai_akhir / $jumlah);
+                                            $final_score = round($final_score / $jumlah);
                                         }
                                     @endphp
-                                    @if ($nilai_akhir == 0)
+                                    @if ($final_score == 0)
                                     <td class="success">Belum ada nilai</td>
-                                    @elseif ($nilai_akhir > 0)
-                                    <td class="success">{{ $nilai_akhir }}</td>
+                                    @elseif ($final_score > 0)
+                                    <td class="success">{{ $final_score }}</td>
                                     @endif
                                 @else
                                     <td>Belum ada tugas yang dikumpulkan</td>

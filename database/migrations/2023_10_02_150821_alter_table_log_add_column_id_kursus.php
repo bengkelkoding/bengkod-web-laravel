@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('logs', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_kursus')->nullable()->after('id_mahasiswa');
+            $table->unsignedBigInteger('id_course')->nullable()->after('id_student');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('logs', function (Blueprint $table) {
-            $table->dropColumn('id_kursus');
+            $table->dropColumn('id_course');
         });
     }
 };

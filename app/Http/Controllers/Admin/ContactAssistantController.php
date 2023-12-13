@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\ContactAssistant;
-use App\Models\Kursus;
-use App\Http\Requests\Admin\ContactAssistant\PostRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
@@ -36,7 +35,7 @@ class ContactAssistantController extends Controller
      */
     public function create()
     {
-        return view('admin.contactAssistant.create', ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
+        return view('admin.contactAssistant.create', ['courses' => Course::all(), 'students' => User::role('student')->get()]);
     }
 
     /**
@@ -49,7 +48,7 @@ class ContactAssistantController extends Controller
     {
         try {
             $data = [
-                'id_kursus' => $request->id_kursus,
+                'id_course' => $request->id_course,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
             ];
@@ -83,7 +82,7 @@ class ContactAssistantController extends Controller
     public function edit(ContactAssistant $contactAssistant)
     {
         return view('admin.contactAssistant.edit', compact('contactAssistant'),
-            ['courses' => Kursus::all(), 'students' => User::role('mahasiswa')->get()]);
+            ['courses' => Course::all(), 'students' => User::role('student')->get()]);
     }
 
     /**
@@ -97,7 +96,7 @@ class ContactAssistantController extends Controller
     {
         try{
             $data = [
-                'id_kursus' => $request->id_kursus,
+                'id_course' => $request->id_course,
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
             ];

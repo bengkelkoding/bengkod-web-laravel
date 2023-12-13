@@ -88,26 +88,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($mahasiswa as $key => $m)
+                                @forelse ($student as $key => $m)
                                     <tr>
-                                        <td>{{ $mahasiswa->firstItem() + $key }}</td>
-                                        <td>{{ $m->kode }}</td>
+                                        <td>{{ $student->firstItem() + $key }}</td>
+                                        <td>{{ $m->code }}</td>
                                         <td>{{ $m->name }}</td>
                                         <td>
-                                            @if (!isset($m->tugas))
+                                            @if (!isset($m->task))
                                                 {{ __('Belum input tugas') }}
                                             @else
-                                                @if ($m->tugas->status === 0)
+                                                @if ($m->task->status === 0)
                                                     {{ __('Tugas belum disubmit') }}
-                                                @elseif ($m->tugas->status === 1)
+                                                @elseif ($m->task->status === 1)
                                                     {{ __('Tugas telah disubmit') }}
                                                 @endif
                                             @endif
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                @if ($assignment->deadline < now('Asia/Jakarta') && $m->tugas->status === 0)
-                                                    <form action="{{ route('admin.force-submit', $m->tugas->id) }}"
+                                            @isset($m->task)
+                                                @if ($assignment->deadline < now('Asia/Jakarta') && $m->task->status === 0)
+                                                    <form action="{{ route('admin.force-submit', $m->task->id) }}"
                                                         method="POST">
                                                         @method('PUT')
                                                         @csrf
@@ -115,17 +115,17 @@
                                                         <button type="submit" class="btn btn-primary bg-blue-400">
                                                             <i class="ti ti-download"></i> Force Submit</button>
                                                     </form>
-                                                @elseif ($m->tugas->status === 0)
+                                                @elseif ($m->task->status === 0)
                                                     <button class="btn btn-primary" disabled><i class="ti ti-download"></i>
                                                         Download</button>
                                                 @else
-                                                    @if ($m->tugas->file_tugas == '-')
+                                                    @if ($m->task->task_file == '-')
                                                     <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
                                                         {{ __('Tidak ada file tugas') }}
                                                     </div>
                                                     @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ asset('storage/tugas/' . $m->tugas->file_tugas) }}"><i
+                                                        href="{{ asset('storage/task/' . $m->task->task_file) }}"><i
                                                             class="ti ti-download"></i> Download</a>
                                                     @endif
                                                 @endif
@@ -136,9 +136,9 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                @isset($m->tugas->nilai_akhir)
-                                                    {{ $m->tugas->nilai_akhir }}
+                                            @isset($m->task)
+                                                @isset($m->task->final_score)
+                                                    {{ $m->task->final_score }}
                                                 @else
                                                     {{ __('-') }}
                                                 @endisset
@@ -147,8 +147,8 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            @isset($m->tugas)
-                                                {{ \Carbon\Carbon::parse($m->tugas->created_at)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
+                                            @isset($m->task)
+                                                {{ \Carbon\Carbon::parse($m->task->created_at)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, d F Y, h:i') }}
                                             @else
                                                 {{ __('-') }}
                                             @endisset
@@ -162,7 +162,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $mahasiswa->withQueryString()->links() }}
+                    {{ $student->withQueryString()->links() }}
                 </div>
             </div>
         </div>

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('contact_assistants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_kursus');
-            $table->unsignedBigInteger('id_mahasiswa');
+            $table->unsignedBigInteger('id_course');
+            $table->unsignedBigInteger('id_student');
             $table->string('name');
             $table->string('phone_number');
             $table->timestamps();

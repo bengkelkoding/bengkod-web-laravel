@@ -10,19 +10,19 @@ class Log extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_mahasiswa',
-        'id_kursus',
-        'pesan',
+        'id_student',
+        'id_course',
+        'message',
         'status',
     ];
 
     public function mahasiswa()
     {
-        return $this->belongsTo(User::class, 'id_mahasiswa');
+        return $this->belongsTo(User::class, 'id_student');
     }
 
-    public function kursus()
+    public function course()
     {
-        return $this->belongsTo(Kursus::class, 'id_kursus');
+        return $this->belongsTo(Course::class, 'id_course');
     }
 }

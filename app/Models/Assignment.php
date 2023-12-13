@@ -10,16 +10,17 @@ class Assignment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_kursus',
-        'judul',
-        'deskripsi',
-        'file_soal',
-        'waktu_mulai',
+        'id_course',
+        'id_classroom',
+        'title',
+        'description',
+        'task_file',
+        'start_time',
         'deadline',
     ];
 
-    public function kursus()
+    public function course()
     {
-        return $this->belongsTo(Kursus::class, 'id_kursus');
+        return $this->belongsTo(Course::class, 'id_course');
     }
 }

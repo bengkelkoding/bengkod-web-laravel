@@ -1,26 +1,20 @@
 <?php
 
-use App\Models\Kursus;
+use App\Http\Controllers\Admin\AssignmentAdminController;
+use App\Http\Controllers\AssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\ModulController;
-use App\Http\Controllers\TugasController;
-use App\Http\Controllers\KursusController;
-use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserImportController;
-use App\Http\Controllers\Lecture\AssignController;
-use App\Http\Controllers\Lecture\StudentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\RegisteredDosenController;
 use App\Http\Controllers\Admin\ContactAssistantController;
-use App\Http\Controllers\Admin\AssignmentAdminController;
-use App\Http\Controllers\Lecture\AssignCompleteController;
-use App\Http\Controllers\Lecture\AssignInCompleteController;
+use App\Http\Controllers\Auth\RegisteredLectureController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LectureController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TaskController;
+use App\Models\Course;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,19 +26,8 @@ use App\Http\Controllers\Lecture\AssignInCompleteController;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-Route::get('/', function () {
-    $kursuses = Kursus::withCount('users')->get();
-    return view('home', compact('kursuses'));
-});
 
-Route::get('/learning', function () {
-    return view('learning');
-})->name('learning');
-
-Route::get('/activate-token', function () {
-    return view('activate-token');
-})->name('activate-token');
-
+//  Profile Authentication
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -55,84 +38,116 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
-    Route::get('/register-dosen', [RegisteredDosenController::class, 'create'])->name('register-dosen');;
-    Route::post('/register-dosen', [RegisteredDosenController::class, 'store']);
+    Route::get('/register-dosen', [RegisteredLectureController::class, 'create'])->name('register-dosen');;
+    Route::post('/register-dosen', [RegisteredLectureController::class, 'store']);
 
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::get('register', [RegisteredUserController::class, 'create'])
+                ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
     Route::name('admin.')->prefix('admin')->group(function () {
-        Route::get('/', [DosenController::class, 'index']);
+        Route::get('/', [LectureController::class, 'index']);
         Route::resource('contact-assistant', ContactAssistantController::class);
-        Route::resource('course', App\Http\Controllers\Admin\CourseController::class);
-        Route::resource('student', App\Http\Controllers\Admin\StudentController::class);
-        Route::resource('lecture', App\Http\Controllers\Admin\LectureController::class);
+        Route::resource('student', StudentController::class);
+        Route::get('student', [StudentController::class, 'indexAdmin'])->name('admin-student-index');
+        Route::resource('lecture', LectureController::class);
+        Route::get('lecture', [LectureController::class, 'indexAdmin'])->name('admin-lecture-index');
         Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
-        Route::resource('room-log', \App\Http\Controllers\Admin\RoomLogController::class);
-
-        Route::get('course', [KursusController::class, 'admin']);
+        Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
+        Route::resource('classroom', ClassroomController::class);
+        Route::get('classroom', [ClassroomController::class, 'indexAdmin'])->name('admin-classroom');
     });
 });
 // End Admin Space Routing
 
-Route::group(['middleware' => ['role:dosen', 'auth']], function () {
-    Route::get('daftar-kelola', [DosenController::class, 'showDaftarDanKelolaMahasiswa']);
-    Route::get('daftar-materi', [DosenController::class, 'showDaftarMateri']);
-    Route::get('log-aktivitas', [DosenController::class, 'showLogAktivitas']);
-    Route::get('kontak-asisten', [DosenController::class, 'showKontakAsisten']);
-
+// Lecture Space Routing
+Route::group(['middleware' => ['role:lecture', 'auth']], function () {
+    Route::get('daftar-kelola', [LectureController::class, 'showDaftarDanKelolastudent']);
+    Route::get('daftar-materi', [LectureController::class, 'showDaftarMateri']);
+    Route::get('log-aktivitas', [LectureController::class, 'showLogAktivitas']);
+    Route::get('kontak-asisten', [LectureController::class, 'showKontakAsisten']);
     Route::name('lecture.')->prefix('lecture')->group(function () {
-        Route::get('/', [DosenController::class, 'index'])->name('index');
+        Route::get('/', [LectureController::class, 'index'])->name('index');
         Route::resource('student', StudentController::class);
+        Route::get('lecture', [StudentController::class, 'indexLecture'])->name('lecture-student-index');
         Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
-        Route::resource('assign', AssignController::class);
-        Route::resource('assignincomplete', AssignInCompleteController::class);
-        Route::resource('assigncomplete', AssignCompleteController::class);
-        Route::resource('assignment', AssignmentController::class);
+
+        // Route::resource('assign', AssignController::class);
+        // Route::resource('assignincomplete', AssignInCompleteController::class);
+        // Route::resource('assigncomplete', AssignCompleteController::class);
+
+        Route::resource('assignment', \App\Http\Controllers\AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
-        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
+        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');
         Route::resource('log', \App\Http\Controllers\Lecture\LogController::class);
-        Route::resource('room-log', \App\Http\Controllers\Lecture\RoomLogController::class);
+        Route::get('classroom', [ClassroomController::class, 'indexLecture'])->name('lecture-classroom');
+        Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
+        Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
+        Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
+        Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
     });
 });
+// End Lecture Space Routing
 
-Route::group(['middleware' => ['role:mahasiswa', 'auth']], function () {
-    Route::resource('mahasiswa', MahasiswaController::class);
+// Student Space Routing
+Route::group(['middleware' => ['role:student', 'auth']], function () {
+    Route::resource('student', StudentController::class);
     Route::resource('logs', LogController::class);
     Route::get('/history', [\App\Http\Controllers\RoomLogController::class, 'index']);
-    Route::get('dipelajari', [MahasiswaController::class, 'showMateriDipelajari']);
-    Route::get('diselesaikan', [MahasiswaController::class, 'showMateriDiselesaikan']);
-    Route::get('kumpulkan', [MahasiswaController::class, 'showKumpulkanTugas']);
-    Route::get('daftar-nilai', [MahasiswaController::class, 'showDaftarNilai']);
-    Route::get('kontak', [MahasiswaController::class, 'showKontakAsisten']);
-    Route::post('simpan-tugas/{id}', [TugasController::class, 'store'])->name('simpan-tugas');
-    Route::post('submit-tugas/{id}', [TugasController::class, 'submitTugas'])->name('submit-tugas');
-    Route::get('detail-tugas/{id}', [MahasiswaController::class, 'showDetailTugas'])->name('detail-tugas');
-    Route::post('/update-kursus', [MahasiswaController::class, 'updateKursus'])->name('update.kursus');
-
+    Route::get('dipelajari', [StudentController::class, 'showMateriDipelajari']);
+    Route::get('diselesaikan', [StudentController::class, 'showMateriDiselesaikan']);
+    Route::get('kumpulkan', [StudentController::class, 'showKumpulkanTugas']);
+    Route::get('daftar-nilai', [StudentController::class, 'showDaftarNilai']);
+    Route::get('kontak', [StudentController::class, 'showKontakAsisten']);
+    Route::post('simpan-tugas/{id}', [TaskController::class, 'store'])->name('simpan-tugas');
+    Route::post('submit-tugas/{id}', [TaskController::class, 'submitTask'])->name('submit-tugas');
+    Route::get('task-detail/{id}', [StudentController::class, 'showTaskDetail'])->name('task-detail');
+    Route::post('/update-course', [StudentController::class, 'updateCourse'])->name('update.kursus');
+    Route::post('/update-classroom', [StudentController::class, 'updateClassroom'])->name('update.classroom');
+    Route::get('student/class/{id}', [StudentController::class, 'detailClass'])->name('student.detail-class');
 });
+// End Student Space Routing
 
-// Route for kursus / module learning in admin?
-Route::resource('kursus', KursusController::class)->except('edit');
-Route::resource('section', SectionController::class);
-Route::resource('artikel', ArtikelController::class);
+// Public Routing
+// View Root (Home Page)
+Route::get('/', function () {
+    $courses = Course::withCount('users')->get();
+    return view('home', compact('courses'));
+});
+// Get Detail Course
+Route::get('/course/{id}', [CourseController::class, 'show'])->name('course-detail');
+// View Log History
+Route::get('/view/history', function () {
+    return view('/student/history');
+});
+// import csv
+Route::get('/import', [UserImportController::class, 'showForm']);
+Route::post('/import', [UserImportController::class, 'import']);
 
+require __DIR__ . '/auth.php';
 
+// Route::get('/learning', function () {
+//     return view('learning');
+// })->name('learning');
 
-// debuging data kursus
-Route::get('/modul', [ModulController::class, 'index']);
-Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
-Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulController::class, 'showArtikel'])->name('modul.artikel');
+// Route::get('/activate-token', function () {
+//     return view('activate-token');
+// })->name('activate-token');
+
+// // Route for kursus / module learning in admin?
+// Route::resource('kursus', CourseController::class)->except('edit');
+// Route::resource('section', SectionController::class);
+// Route::resource('artikel', ArtikelController::class);
+
+// // debuging data kursus
+// Route::get('/modul', [ModulController::class, 'index']);
+// Route::get('/modul/{kursusId}/section/{sectionId}', [ModulController::class, 'showSection']);
+// Route::get('/modul/{kursusId}/section/{sectionId}/artikel/{artikelId}', [ModulController::class, 'showArtikel'])->name('modul.artikel');
 
 // Route::group(['middleware' => ['permission:edit modul|delete modul']], function () {
 //     Route::get('/permission', function(){
 //         return 'ini halaman ian via permission';
 //     });
 // });
-
-// import csv
-Route::get('/import', [UserImportController::class, 'showForm']);
-Route::post('/import', [UserImportController::class, 'import']);
-require __DIR__ . '/auth.php';

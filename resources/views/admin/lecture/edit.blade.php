@@ -18,7 +18,7 @@
                 <!-- NIM -->
                 <div class="mb-3">
                     <x-input-label for="npp" :value="__('NPP')" />
-                    <x-text-input id="npp" class="block mt-1 w-full" type="text" name="kode" :value="$lecture->kode" required autofocus autocomplete="npp" />
+                    <x-text-input id="npp" class="block mt-1 w-full" type="text" name="code" :value="$lecture->code" required autofocus autocomplete="npp" />
                     <x-input-error :messages="$errors->get('npp')" class="mt-2" />
                 </div>
 
@@ -39,20 +39,20 @@
                 <!-- Select Option  -->
                 <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
-                    <select class="form-select" name="id_kursus">
+                    <select class="form-select" name="id_course">
 
                         {{$find = false}}
                         @foreach($courses as $course)
 
-                            @if ($lecture->id_kursus == null && !$find)
+                            @if ($lecture->id_course == null && !$find)
                                 <option selected value="">Pilih Kursus</option>
                                 {{$find = true}}
                             @endif
 
-                            @if ($course->id == $lecture->id_kursus)
-                                <option selected value="{{$course->id}}">{{$course->judul}}</option>
+                            @if ($course->id == $lecture->id_course)
+                                <option selected value="{{$course->id}}">{{$course->title}}</option>
                             @else
-                                <option value="{{$course->id}}">{{$course->judul}}</option>
+                                <option value="{{$course->id}}">{{$course->title}}</option>
                             @endif
                         @endforeach
                     </select>

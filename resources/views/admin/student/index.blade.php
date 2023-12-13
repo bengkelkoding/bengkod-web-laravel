@@ -13,7 +13,7 @@
                 <div class="flex max-md:flex-col">
                     <div class="col">
                         <form>
-                            <div class="flex inline">
+                            <div class="flex">
                                 <label>
                                     Show
                                     <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
@@ -63,12 +63,12 @@
                             <tr>
                                 <th scope="row">{{$students->firstItem() + $key}}</th>
                                 <td>
-                                    @isset($student->course->judul)
-                                        {{$student->course->judul}}
+                                    @isset($student->course->title)
+                                        {{$student->course->title}}
                                     @endisset
 
-                                    @empty($student->course->judul)
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
+                                    @empty($student->course->title)
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
                                                 Belum Terdaftar
                                             </span>
                                     @endempty
@@ -79,23 +79,23 @@
                                     @endisset
 
                                     @empty($student->assistant->name)
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
                                                 Belum Ada
                                             </span>
                                     @endempty
                                 </td>
-                                <td>{{$student->kode}}</td>
+                                <td>{{$student->code}}</td>
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->email}}</td>
                                 <td>
-                                    <div class="flex inline">
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                    <div class="flex">
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
                                             <a href="{{route('admin.student.edit', $student->id)}}"><i class="ti ti-edit"></i> Edit</a>
                                         </span>
                                         <form method="POST" action="{{ route('admin.student.destroy', $student->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
                                                 <button class="uppercase" type="submit"><i class="ti ti-trash"></i> Delete</button>
                                             </span>
                                         </form>
