@@ -83,6 +83,8 @@
         <script src="{{asset('assets/admin/libs/simplebar/dist/simplebar.js')}}"></script>
         <script src="{{asset('assets/admin/js/dashboard.js')}}"></script>
         <script src="{{asset('node_modules/tw-elements/dist/js/tw-elements.umd.min.js')}}"></script>
-        <script src="{{asset('node_modules/tw-elements/dist/js/tw-elements.umd.min.js')}}"></script>
+        @isset($scripts)
+        {{ $scripts }}
+        @endisset
     </body>
 </html>

@@ -55,7 +55,7 @@
                                         <p class="text-xs text-gray-500 dark:text-gray-400">DOC, DOCX, PDF, OR ZIP (MAX
                                             10MB)</p>
                                     </div>
-                                    <input id="dropzone-file" type="file" name="task_file" class="hidden" onchange="masukInput()"/>
+                                    <input id="dropzone-file" type="file" name="question_file" class="hidden" onchange="masukInput()"/>
                                 </label>
                             </div>
                             <p id="namaFile"></p>

@@ -83,7 +83,7 @@
                                         @empty($assign->task_file)
                                         <span class="badge bg-danger">Belum ada file</span>
                                         @else
-                                        <a href="{{ asset('storage/task/'.$assign->task_file) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
+                                        <a href="{{ asset('storage/question/'.$assign->task_file) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
                                         @endif
                                    </td>
                                    <td>

@@ -76,7 +76,7 @@ class AssignmentController extends Controller
                 'id_classroom' => $request->id_classroom,
                 'title' => $request->title,
                 'description' => $formatted_description,
-                'question_file' => $question_file,
+                'task_file' => $question_file,
                 'start_time' => $request->start_time,
                 'deadline' => $request->deadline,
             ]);
@@ -172,7 +172,7 @@ class AssignmentController extends Controller
             $assignment->update([
                 'title' => $request->title,
                 'description' => $request->description,
-                'question_file' => $question_file,
+                'task_file' => $question_file,
                 'start_time' => $request->start_time,
                 'deadline' => $request->deadline,
             ]);

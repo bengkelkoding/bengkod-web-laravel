@@ -27,7 +27,7 @@ class AssignmentRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'string',
-            'task_file' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10000',
+            'question_file' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10000',
             'start_time' => 'required|date_format:Y-m-d H:i:s',
             'deadline' => 'required|date_format:Y-m-d H:i:s|after:start_time',
         ];
