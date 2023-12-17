@@ -79,7 +79,6 @@
                                 <tr class="">
                                     <th class="px-2 py-2">No</th>
                                     <th class="px-4 py-2">Nama Kelas</th>
-                                    <th class="px-4 py-2">Deskripsi</th>
                                     <th class="px-4 py-2">Hari</th>
                                     <th class="px-4 py-2">Jam</th>
                                     <th class="px-4 py-2">Sisa Kuota</th>
@@ -91,22 +90,20 @@
                                 <tr class="border">
                                     <td class="px-2 py-2">{{$key+1}}</td>
                                     <td class="px-4 py-2">{{$class->name}}</td>
-                                    <td class="px-4 py-2">{{$class->description}}</td>
                                     <td class="px-4 py-2">{{$class->day}}</td>
                                     <td class="px-4 py-2">{{$class->time}}</td>
                                     <td class="px-4 py-2">{{$class->quota}}</td>
                                     @if($class->quota !== 0) 
                                     <td class="px-4 py-2">
-                                        <form action="{{ route('update.classroom') }}" method="POST" id="classroomForm">
+                                        <form action="{{ route('update.classroom') }}" method="POST" id="classroomForm_{{ $key }}">
                                             @csrf
                                             <input type="hidden" id="id_course" name="id_course" value="{{ $class->id_course }}">
                                             <input type="hidden" id="id_classroom" name="id_classroom" value="{{ $class->id }}">
-                                            <input type="hidden" id="token" name="token" value="">
-                                            <button type="button"
-                                                class=" border border-primary-color bg-primary-color px-4 py-1 rounded-md text-white hover:text-primary-color flex justify-center items-center text-[14px] hover:bg-white focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" onclick="confirmSubmit()">Gabung</button>
+                                            <input type="hidden" id="token_{{ $key }}" name="token" value="">
+                                            <button type="button" class="border border-primary-color bg-primary-color px-4 py-1 rounded-md text-white hover:text-primary-color flex justify-center items-center text-[14px] hover:bg-white focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" onclick="confirmSubmit({{$key}})">Gabung</button>
                                         </form>
                                     </td>
-                                    @else 
+                                    @else
                                     <td class="px-4 py-2">
                                         <p class="bg-danger/10 text-danger rounded-sm px-2 w-max">Kuota Habis</p>
                                     </td>
@@ -130,21 +127,20 @@
         </div>
     </div>
     <script>
-        function confirmSubmit() {
+        function confirmSubmit(key) {
             // Show a confirmation dialog
             var userInput = prompt('Apakah Anda yakin ingin mendaftar ke kelas ini? Masukkan "Token Aktivasi" anda untuk masuk ke kelas!');
 
             // Check user input
             if (userInput !== null) {
-                // Set the value of the 'token' input field
-                document.getElementById('token').value = userInput;
+                // Set the value of the 'token' input field for the specific form
+                document.getElementById('token_' + key).value = userInput;
                 // If the user enters the correct token, submit the form
-                document.getElementById('classroomForm').submit();
-                alert('Anda berhasil masuk ke kelas!');
+                document.getElementById('classroomForm_' + key).submit();
             } else {
                 // If the user cancels or enters an incorrect value, prevent form submission
                 alert('Pendaftaran dibatalkan!');
             }
-        }
+        }     
     </script>
 </x-universal-layout>

@@ -23,7 +23,7 @@ if ($hour >= 5 && $hour < 12) {
             <p class="text-lg">~ Imam Syafi’i ~</p>
         </div>
     </div>
-    <div class="container mx-auto flex gap-4 mt-5">
+    <div class="container mx-auto flex justify-center gap-4 mt-5">
         <div class="bg-white rounded-md p-4 w-max h-max">
             <div class="w-max">
                 <h3 class="text-black font-semibold text-lg mb-2 text-center">Kursus</h3>
@@ -46,7 +46,7 @@ if ($hour >= 5 && $hour < 12) {
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-md text-center h-max p-4 w-full">
+        <div class="bg-white rounded-md text-center h-max p-4 w-[50%]">
             <p class="text-black font-bold mb-2 text-lg">Penugasan</p>
             <div class="overflow-auto rounded-lg border">
                 <table class="w-full">
