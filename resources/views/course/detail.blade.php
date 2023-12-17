@@ -1,10 +1,10 @@
 <x-universal-layout>
-    <div class="container mx-auto border-box flex max-xl:flex-col items-center bg-blue-50 rounded-3xl h-[400px] my-10">
-        <div class="flex items-center gap-10 mx-auto">
+    <div class="container mx-auto border-box flex max-xl:flex-col items-center bg-blue-50 rounded-3xl lg:h-[400px] my-10 py-10 lg:py-0">
+        <div class="flex flex-col md:flex-row items-center gap-10 mx-auto">
             <img src="{{ asset($course->image) }}" alt="Gambar Kursus" width="200px" height="200px"
                 class="rounded-lg">
             <div class="">
-                <h1 class="text-black font-semibold text-3xl mb-2">{{ $course->title }}</h1>
+                <h1 class="text-black font-semibold text-xl md:text-3xl mb-2">{{ $course->title }}</h1>
                 <p class="text-[#828282] text-base">
                     <img src="{{ asset('assets\admin\icons\users-solid.png') }}" alt="" class="inline mr-2 ">
                     {{ $course->users_count }} Mahasiswa Terdaftar
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="container px-10 grid grid-cols-3 mx-auto gap-10 mb-10">
+    <div class="container md:px-10 grid grid-rows lg:grid-rows-none lg:grid-cols-3 mx-auto md:gap-10 mb-10">
         <div class="">
             <div class="">
                 <h1 class="text-xl font-medium text-center mb-3 ml-2 mt-3">Deskripsi</h1>
