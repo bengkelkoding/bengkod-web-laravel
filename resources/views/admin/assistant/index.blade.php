@@ -9,7 +9,7 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Mahasiswa</span><a href="{{route('admin.assistant.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
+                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Asisten</span><a href="{{route('admin.assistant.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
                 <div class="flex max-md:flex-col">
                     <div class="col">
                         <form>
