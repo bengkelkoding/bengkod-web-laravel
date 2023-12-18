@@ -45,7 +45,7 @@ class UserImportController extends Controller
                 'email' => $row[2],
                 'password' => bcrypt($row[3]),
             ]);
-            $user->assignRole('mahasiswa');
+            $user->assignRole('student');
         }
 
         return redirect('/import')->with('success', 'Data from CSV file has been imported successfully.');
