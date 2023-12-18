@@ -37,7 +37,7 @@
                 </div>
 
                 <!-- Select Option  -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="id_course">
 
@@ -57,7 +57,7 @@
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
-                </div>
+                </div> -->
 
                 <div class="flex items-center justify-end mt-4">
 

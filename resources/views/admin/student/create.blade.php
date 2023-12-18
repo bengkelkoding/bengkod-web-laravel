@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- Select Option Course -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <x-input-label for="course" :value="__('Nama Kursus')" />
                     <select class="form-select" name="course">
                         <option selected value="">Pilih Kursus</option>
@@ -45,10 +45,10 @@
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('course')" class="mt-2" />
-                </div>
+                </div> -->
 
                 <!-- Select Option Asistant -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <x-input-label for="assistant" :value="__('Nama Asisten')" />
                     <select class="form-select" name="assistant">
                         <option selected value="">Pilih Asistensi</option>
@@ -57,7 +57,7 @@
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('assistant')" class="mt-2" />
-                </div>
+                </div> -->
 
                 <div class="flex items-center justify-end mt-4">
 

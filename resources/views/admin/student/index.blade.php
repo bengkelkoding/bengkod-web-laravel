@@ -50,8 +50,8 @@
                         <thead>
                             <tr>
                             <th scope="col">No</th>
-                            <th scope="col">ID Kursus</th>
-                            <th scope="col">Asistensi</th>
+                            <!-- <th scope="col">ID Kursus</th> -->
+                            <!-- <th scope="col">Asistensi</th> -->
                             <th scope="col">NIM</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
@@ -62,7 +62,7 @@
                             @forelse($students as $key => $student)
                             <tr>
                                 <th scope="row">{{$students->firstItem() + $key}}</th>
-                                <td>
+                                <!-- <td>
                                     @isset($student->course->title)
                                         {{$student->course->title}}
                                     @endisset
@@ -83,7 +83,7 @@
                                                 Belum Ada
                                             </span>
                                     @endempty
-                                </td>
+                                </td> -->
                                 <td>{{$student->code}}</td>
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->email}}</td>

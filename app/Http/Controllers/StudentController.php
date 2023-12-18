@@ -115,7 +115,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create', ['courses' => Course::all(), 'assistants' => ContactAssistant::all()]);
+        return view('admin.student.create');
     }
 
     /**
@@ -128,8 +128,8 @@ class StudentController extends Controller
     {
         try {
             $data = [
-                'id_course' => $request->course,
-                'id_asisten' => $request->assistant,
+                // 'id_course' => $request->course,
+                // 'id_asisten' => $request->assistant,
                 'code' => $request->nim,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -167,10 +167,10 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = User::find($id);
-        $courses = Course::all();
-        $assistants = ContactAssistant::all();
+        // $courses = Course::all();
+        // $assistants = ContactAssistant::all();
 
-        return view('admin.student.edit', compact('student', 'courses', 'assistants'));
+        return view('admin.student.edit', compact('student'));
     }
 
     /**
@@ -183,11 +183,11 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Task::updateOrCreate(
+            User::updateOrCreate(
                 ['id' => $id],
                 $request->all()
             );
-            return redirect()->back();
+            return response()->redirectToRoute('admin.admin-student-index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

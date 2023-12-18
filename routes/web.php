@@ -115,7 +115,7 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
 
 // Assistant Space Routing
 Route::group(['middleware' => ['role:assistant', 'auth']], function () {
-    Route::resource('assistant', AssistantController::class);
+    Route::get('assistant', [AssistantController::class, 'index'])->name('assistant.index');
 });
 // End assistant Space Routing
 

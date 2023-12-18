@@ -24,8 +24,7 @@ class LectureController extends Controller
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $lectures = User::role('lecture')->with('course')
-            ->where(function ($query) use ($search) {
+        $lectures = User::role('lecture')->where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('code', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%");

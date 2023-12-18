@@ -58,7 +58,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">ID Kursus</th>
+                                    <!-- <th scope="col">ID Kursus</th> -->
                                     <th scope="col">NPP</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Email</th>
@@ -69,11 +69,11 @@
                                 @forelse($lectures as $key => $lecture)
                                     <tr>
                                         <th scope="row">{{ $lectures->firstItem() + $key }}</th>
-                                        <td>
+                                        <!-- <td>
                                             @isset($lecture->course->title)
                                                 {{ $lecture->course->title }}
                                             @endisset
-                                        </td>
+                                        </td> -->
                                         <td>{{ $lecture->code }}</td>
                                         <td>{{ $lecture->name }}</td>
                                         <td>{{ $lecture->email }}</td>
