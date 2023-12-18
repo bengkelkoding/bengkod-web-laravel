@@ -35,6 +35,30 @@ class ClassroomController extends Controller
         return view('lecture.classroom.index', compact('classroom'));
     }
 
+    public function showStudentAdmin($idClassroom, Request $request): View
+    {
+        $search = $request->search ?? "";
+        $per_page = $request->per_page ?? 10;
+
+        $students = User::role('student')
+            ->whereHas('classManagements.classroom', function ($query) use ($idClassroom) {
+                $query->where('id', $idClassroom);
+            })
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('code', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            })
+            ->with(['taskScore' => function ($q) {
+                $q->whereNotNull('final_score');
+            }])
+            ->paginate($per_page);
+
+        $classroom = Classroom::find($idClassroom)->first();
+
+        return view('admin.classroom.student', compact('students', 'classroom'));
+    }
+
     public function showStudent($idClassroom, Request $request): View
     {
         $search = $request->search ?? "";

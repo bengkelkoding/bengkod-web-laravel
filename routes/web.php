@@ -61,6 +61,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::get('classroom', [ClassroomController::class, 'indexAdmin'])->name('admin-classroom');
         Route::resource('assistant', AssistantController::class);
         Route::get('assistant', [AssistantController::class, 'indexAdmin'])->name('admin-assistant-index');
+        Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudentAdmin']);
     });
 });
 // End Admin Space Routing
