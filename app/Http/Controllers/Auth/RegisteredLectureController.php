@@ -38,7 +38,7 @@ class RegisteredLectureController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('dosen');
+        $user->assignRole('lecture');
 
         return redirect()->route('admin.dashboard');
     }

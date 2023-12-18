@@ -46,12 +46,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('mahasiswa');
+        $user->assignRole('student');
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->route('mahasiswa.index');
+        return redirect()->route('student.index');
     }
 }
