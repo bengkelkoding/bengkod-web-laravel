@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
+use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\CourseController;
@@ -58,6 +59,8 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
         Route::resource('classroom', ClassroomController::class);
         Route::get('classroom', [ClassroomController::class, 'indexAdmin'])->name('admin-classroom');
+        Route::resource('assistant', AssistantController::class);
+        Route::get('assistant', [AssistantController::class, 'indexAdmin'])->name('admin-assistant-index');
     });
 });
 // End Admin Space Routing
@@ -109,6 +112,12 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
     Route::get('student/class/{id}', [StudentController::class, 'detailClass'])->name('student.detail-class');
 });
 // End Student Space Routing
+
+// Assistant Space Routing
+Route::group(['middleware' => ['role:assistant', 'auth']], function () {
+    Route::resource('assistant', AssistantController::class);
+});
+// End assistant Space Routing
 
 // Public Routing
 // View Root (Home Page)

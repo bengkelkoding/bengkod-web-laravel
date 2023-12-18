@@ -21,27 +21,33 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
-        Permission::create(['name' => 'view modul']);
-        Permission::create(['name' => 'create modul']);
-        Permission::create(['name' => 'edit modul']);
-        Permission::create(['name' => 'delete modul']);
+        // // create permissions
+        // Permission::create(['name' => 'view modul']);
+        // Permission::create(['name' => 'create modul']);
+        // Permission::create(['name' => 'edit modul']);
+        // Permission::create(['name' => 'delete modul']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'student']);
-        $role1->givePermissionTo('view modul');
+        // $role1->givePermissionTo('view modul');
 
         $role2 = Role::create(['name' => 'lecture']);
-        $role2->givePermissionTo('view modul');
-        $role2->givePermissionTo('create modul');
-        $role2->givePermissionTo('edit modul');
-        $role2->givePermissionTo('delete modul');
+        // $role2->givePermissionTo('view modul');
+        // $role2->givePermissionTo('create modul');
+        // $role2->givePermissionTo('edit modul');
+        // $role2->givePermissionTo('delete modul');
 
         $role3 = Role::create(['name' => 'admin']);
-        $role3->givePermissionTo(Permission::all());
+        // $role3->givePermissionTo(Permission::all());
 
         $role4 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
+
+        $role5 = Role::create(['name' => 'assistant']);
+        // $role5->givePermissionTo('view modul');
+        // $role5->givePermissionTo('create modul');
+        // $role5->givePermissionTo('edit modul');
+        // $role5->givePermissionTo('delete modul');
 
         // create demo users
         $user = \App\Models\User::factory()->create([
@@ -58,24 +64,6 @@ class PermissionSeeder extends Seeder
             'code' => 'MHS02',
             'name' => 'Samuel Andrey',
             'email' => 'sam@bengkelkoding.id',
-            'password' => Hash::make('bengkelkoding'),
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'id_course' => '3',
-            'code' => 'MHS03',
-            'name' => 'Muhammad hafizh Dzaky',
-            'email' => 'hafizh@bengkelkoding.id',
-            'password' => Hash::make('bengkelkoding'),
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'id_course' => '4',
-            'code' => 'MHS04',
-            'name' => 'Rajendra Nohan',
-            'email' => 'rano@bengkelkoding.id',
             'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role1);
@@ -131,5 +119,21 @@ class PermissionSeeder extends Seeder
             'password' => Hash::make('bengkelkoding'),
         ]);
         $user->assignRole($role4);
+
+        $user = \App\Models\User::factory()->create([
+            'code' => 'MHS03',
+            'name' => 'Muhammad hafizh Dzaky',
+            'email' => 'hafizh@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role5);
+
+        $user = \App\Models\User::factory()->create([
+            'code' => 'MHS04',
+            'name' => 'Rajendra Nohan',
+            'email' => 'rano@bengkelkoding.id',
+            'password' => Hash::make('bengkelkoding'),
+        ]);
+        $user->assignRole($role5);
     }
 }

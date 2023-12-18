@@ -1,9 +1,9 @@
 @php
-$tes = Auth::user()->roles()->pluck('name')->first();
-if($tes == 'dosen') {
-    $tes = 'lecture';
+$role = Auth::user()->roles()->pluck('name')->first();
+if($role == 'lecture') {
+    $role = 'lecture';
 }
-$dashboard = $tes == 'admin' ? '/dashboard' : $tes;
+$dashboard = $role == 'admin' ? '/dashboard' : $role;
 @endphp
 
 <aside class="left-sidebar">
@@ -32,181 +32,110 @@ $dashboard = $tes == 'admin' ? '/dashboard' : $tes;
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
-          @if ($tes == 'mahasiswa')
-          <ul id="sidebarnav">
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Learning</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/dipelajari" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Materi Yang Dipelajari</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/diselesaikan" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Materi Yang Diselesaikan</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="kumpulkan" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Kumpulkan Tugas</span>
-              </a>
-            </li>
-          </ul>
-          <ul id="sidebarnav">
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Task</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="daftar-nilai" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Daftar Nilai</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="kontak" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Kontak Asisten</span>
-              </a>
-            </li>
-          </ul>
-          @elseif($tes == 'lecture')
+          @if($role == 'lecture')
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Organize</span>
             </li>
-{{--            <li class="sidebar-item">--}}
-{{--              <a class="sidebar-link" href="{{ route('lecture.lecture-student-index') }}" aria-expanded="false">--}}
-{{--                <span>--}}
-{{--                    <i class="ti ti-users"></i>--}}
-{{--                </span>--}}
-{{--                <span class="hide-menu">Daftar & Kelola Mahasiswa</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-{{--            <li class="sidebar-item">--}}
-{{--                <a class="sidebar-link" href="{{ route('lecture.assignment.index') }}" aria-expanded="false">--}}
-{{--                  <span>--}}
-{{--                      <i class="ti ti-users"></i>--}}
-{{--                  </span>--}}
-{{--                  <span class="hide-menu">Kelola Penugasan</span>--}}
-{{--                </a>--}}
-{{--              </li>--}}
-              <li class="sidebar-item">
-                  <a class="sidebar-link" href="{{ route('lecture.log.index') }}" aria-expanded="false">
-                  <span>
-                      <i class="ti ti-users"></i>
-                  </span>
-                      <span class="hide-menu">Log Mahasiswa</span>
-                  </a>
-              </li>
-              <li class="sidebar-item">
-                  <a class="sidebar-link" href="{{url('lecture/classroom') }}" aria-expanded="false">
-                  <span>
-                      <i class="ti ti-users"></i>
-                  </span>
-                      <span class="hide-menu">Daftar Kelas</span>
-                  </a>
-              </li>
-              <li class="sidebar-item">
-                  <a class="sidebar-link" href="{{ url('lecture/room-log') }}" aria-expanded="false">
-                  <span>
-                      <i class="ti ti-users"></i>
-                  </span>
-                      <span class="hide-menu">Log Ruangan</span>
-                  </a>
-              </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{url('lecture/classroom') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-package"></i>
+                </span>
+                    <span class="hide-menu">Kelas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url('lecture/room-log') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-receipt"></i>
+                </span>
+                    <span class="hide-menu">Log Ruangan</span>
+                </a>
+            </li>
           </ul>
-          @else
+          @elseif($role == 'admin')
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Organize</span>
+              <span class="hide-menu">User</span>
             </li>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/course') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-users"></i>
-                </span>
-                <span class="hide-menu">Daftar Kursus</span>
-              </a>
-            </li>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/student') }}" aria-expanded="false">
-                <span>
-                    <i class="ti ti-users"></i>
-                </span>
-                <span class="hide-menu">Daftar & Kelola Mahasiswa</span>
-              </a>
-            </li>
-
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ url('admin/lecture') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
-                <span class="hide-menu">Daftar & Kelola Dosen</span>
+                <span class="hide-menu">Dosen</span>
               </a>
             </li>
-
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/assignment') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('admin/student') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
-                <span class="hide-menu">Daftar Tugas</span>
+                <span class="hide-menu">Mahasiswa</span>
               </a>
             </li>
-
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('admin/contact-assistant') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('admin/assistant') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-users"></i>
                 </span>
-                <span class="hide-menu">Kontak Asisten</span>
+                <span class="hide-menu">Asisten</span>
               </a>
             </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Organize</span>
+            </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('admin/log') }}" aria-expanded="false">
-              <span>
-                  <i class="ti ti-users"></i>
-              </span>
-                    <span class="hide-menu">Log Mahasiswa</span>
-                </a>
+              <a class="sidebar-link" href="{{ url('admin/course') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-books"></i>
+                </span>
+                <span class="hide-menu">Kursus</span>
+              </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('admin/classroom') }}" aria-expanded="false">
               <span>
-                  <i class="ti ti-users"></i>
+                  <i class="ti ti-package"></i>
               </span>
-                    <span class="hide-menu">Kelola Kelas</span>
+                    <span class="hide-menu">Kelas</span>
                 </a>
             </li>
-            <!-- <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('admin/course') }}" aria-expanded="false">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url('admin/log') }}" aria-expanded="false">
               <span>
-                  <i class="ti ti-users"></i>
+                  <i class="ti ti-receipt"></i>
               </span>
-                    <span class="hide-menu">Kelola Kursus</span>
+                    <span class="hide-menu">Log Mahasiswa</span>
                 </a>
-            </li> -->
+            </li>
+          </ul>
+          @elseif($role == 'assistant')
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Organize</span>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{url('lecture/classroom') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-package"></i>
+                </span>
+                    <span class="hide-menu">Kelas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url('lecture/room-log') }}" aria-expanded="false">
+                <span>
+                    <i class="ti ti-receipt"></i>
+                </span>
+                    <span class="hide-menu">Log Ruangan</span>
+                </a>
+            </li>
           </ul>
           @endif
         </nav>

@@ -22,6 +22,8 @@
                             $url = 'student';
                         } elseif ($user == 'lecture') {
                             $url = 'lecture';
+                        } elseif ($user == 'assistant') {
+                            $url = 'assistant';
                         } else {
                             $url = 'dashboard';
                         }

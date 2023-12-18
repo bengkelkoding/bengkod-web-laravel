@@ -36,6 +36,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('lecture.index');
         }else if($user === 'admin'){
             return redirect()->route('admin.dashboard');
+        }else if($user === 'assistant'){
+            return redirect()->route('assistant.index');
         }else {
             return redirect()->route('home');
         }
