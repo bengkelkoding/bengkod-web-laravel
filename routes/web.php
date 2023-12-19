@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
+use App\Http\Controllers\ClassInformationController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::resource('assistant', AssistantController::class);
         Route::get('assistant', [AssistantController::class, 'indexAdmin'])->name('admin-assistant-index');
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudentAdmin']);
+        Route::resource('classroom/{idClassroom}/class-information', ClassInformationController::class);
     });
 });
 // End Admin Space Routing

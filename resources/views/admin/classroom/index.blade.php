@@ -24,6 +24,7 @@
                             <th scope="col">Hari</th>
                             <th scope="col">Jam</th>
                             <th scope="col">Kuota</th>
+                            <th scope="col">Kelola</th>
                             <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -43,6 +44,13 @@
                                         <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2">
                                             <a href="{{ url('admin/classroom/' . $class->id . '/student') }}"><i class="ti ti-user"></i> Siswa</a>
                                         </span>
+                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-purple-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{ url('admin/classroom/' . $class->id . '/class-information') }}"><i class="ti ti-link"></i> Informasi</a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex">
                                         <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
                                             <a href="{{route('admin.classroom.edit', $class->id)}}"><i class="ti ti-edit"></i> Edit</a>
                                         </span>
