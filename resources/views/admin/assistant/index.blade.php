@@ -50,8 +50,6 @@
                         <thead>
                             <tr>
                             <th scope="col">No</th>
-                            <!-- <th scope="col">ID Kursus</th> -->
-                            <!-- <th scope="col">Asistensi</th> -->
                             <th scope="col">NIM</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
@@ -62,28 +60,6 @@
                             @forelse($assistants as $key => $assistant)
                             <tr>
                                 <th scope="row">{{$assistants->firstItem() + $key}}</th>
-                                <!-- <td>
-                                    @isset($assistant->course->title)
-                                        {{$assistant->course->title}}
-                                    @endisset
-
-                                    @empty($assistant->course->title)
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
-                                                Belum Terdaftar
-                                            </span>
-                                    @endempty
-                                </td>
-                                <td>
-                                    @isset($assistant->assistant->name)
-                                        {{$assistant->assistant->name}}
-                                    @endisset
-
-                                    @empty($assistant->assistant->name)
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
-                                                Belum Ada
-                                            </span>
-                                    @endempty
-                                </td> -->
                                 <td>{{$assistant->code}}</td>
                                 <td>{{$assistant->name}}</td>
                                 <td>{{$assistant->email}}</td>

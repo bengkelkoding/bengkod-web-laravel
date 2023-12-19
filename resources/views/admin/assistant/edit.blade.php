@@ -10,7 +10,7 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i> Back</a>
           <div class="card">
             <div class="card-body">
-            <p class="fw-semibold mb-4"><span class="card-title mr-4">Edit Mahasiswa</span></p>
+            <p class="fw-semibold mb-4"><span class="card-title mr-4">Edit Asisten</span></p>
             <form method="POST" action="{{ route('admin.assistant.update', $assistant->id) }}">
                 @csrf
                 @method('PATCH')
@@ -39,7 +39,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <x-primary-button class="ml-4">
-                        {{ __('Edit Mahasiswa') }}
+                        {{ __('Edit Asisten') }}
                     </x-primary-button>
                 </div>
             </form>

@@ -10,7 +10,7 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i class="ti ti-arrow-left"></i> Back</a>
           <div class="card">
             <div class="card-body">
-            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tambah Mahasiswa</span></p>
+            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tambah Asisten</span></p>
             <form method="POST" action="{{ route('admin.assistant.store') }}">
                 @csrf
 
@@ -37,7 +37,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <x-primary-button class="ml-4">
-                        {{ __('Tambah Mahasiswa') }}
+                        {{ __('Tambah Asisten') }}
                     </x-primary-button>
                 </div>
             </form>
