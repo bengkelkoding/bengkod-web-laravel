@@ -23,7 +23,7 @@
         <nav class="sticky top-0 right-0 left-0 z-10 bg-white">
             <div class="container mx-auto h-[60px] flex item-center justify-between">
                 <a href="{{ url('/') }}" class="flex gap-2 items-center hover:text-black">
-                    <img src="{{ asset('assets\img\logo-bengkod-main.png') }}" alt="BK" class="w-[26px]">
+                    <img src="{{ asset('assets\img\logo-bengkod-new-nobg.png') }}" alt="BK" class="w-[34px]">
                     <p class="ml-1 text-xl font-medium">Bengkel Koding</p>
                 </a>
                 <div class="flex gap-10 items-center">
@@ -75,7 +75,7 @@
                 <div class="flex gap-2 items-center">
                     <img src="{{ asset('assets\img\Udinus_logo.png') }}" alt="" class="h-10">
                     <div class="h-10 w-0.5 bg-slate-300 rounded-lg"></div>
-                    <img src="{{ asset('assets\img\logo-bengkod-main.png') }}" alt="" class="h-6">
+                    <img src="{{ asset('assets\img\logo-bengkod-new-nobg.png') }}" alt="" class="h-10">
                     <p>Bengkel Koding</p>
                 </div>
                 <!-- </div> -->
