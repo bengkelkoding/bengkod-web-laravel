@@ -22,11 +22,11 @@
         </div>
     </div>
     <p class="text-center mt-10 pb-10">Bengkel Koding © 2023 All rights reserved.</p> -->
-    <div class="container px-0 lg:px-6 2xl:px-0 mx-auto flex justify-between items-center py-4 text-[#828282] flex-col text-center gap-4 md:flex-row">
+    <div class="container px-4 lg:px-6 2xl:px-0 mx-auto flex justify-between items-center py-4 text-[#828282] flex-col text-center gap-4 md:flex-row">
         <div class="flex gap-2 items-center">
             <img src="{{ asset('assets\img\Udinus_logo.png') }}" alt="" class="h-10">
             <div class="h-10 w-0.5 bg-slate-300 rounded-lg"></div>
-            <img src="{{ asset('assets\img\logo-bengkod-main.png') }}" alt="" class="h-6">
+            <img src="{{ asset('assets\img\logo-bengkod-new-nobg.png') }}" alt="" class="h-10">
             <p>Bengkel Koding</p>
         </div>
         <!-- </div> -->
