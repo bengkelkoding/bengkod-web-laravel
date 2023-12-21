@@ -14,6 +14,7 @@ use App\Http\Controllers\ClassInformationController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\RoomLogController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use App\Models\Course;
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
         Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
         Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
+        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
     });
 });
 // End Lecture Space Routing

@@ -23,6 +23,6 @@ class RoomLog extends Model
 
     public function student(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nim', 'kode');
+        return $this->belongsTo(User::class, 'nim', 'code');
     }
 }
