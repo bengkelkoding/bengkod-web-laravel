@@ -20,7 +20,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-slate-100 font-sans antialiased text-black">
-        <nav class="sticky top-0 right-0 left-0 z-10 bg-white">
+        <nav class="sticky top-0 right-0 left-0 z-10 bg-white px-4">
             <div class="container mx-auto h-[60px] flex item-center justify-between">
                 <a href="{{ url('/') }}" class="flex gap-2 items-center hover:text-black">
                     <img src="{{ asset('assets\img\logo-bengkod-new-nobg.png') }}" alt="BK" class="w-[34px]">
@@ -71,7 +71,7 @@
             {{ $slot }}
         </div>
         <footer class="w-full flex flex-col">
-            <div class="container px-0 lg:px-6 2xl:px-0 mx-auto flex justify-between items-center py-3 text-[#828282] flex-col text-center gap-4 md:flex-row">
+            <div class="container px-4 mx-auto flex justify-between items-center py-3 text-[#828282] flex-col text-center gap-4 md:flex-row">
                 <div class="flex gap-2 items-center">
                     <img src="{{ asset('assets\img\Udinus_logo.png') }}" alt="" class="h-10">
                     <div class="h-10 w-0.5 bg-slate-300 rounded-lg"></div>
