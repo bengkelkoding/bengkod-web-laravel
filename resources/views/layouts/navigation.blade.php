@@ -47,7 +47,7 @@ $dashboard = $role == 'admin' ? '/dashboard' : $role;
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('lecture/room-log') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('lecture/log') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-receipt"></i>
                 </span>

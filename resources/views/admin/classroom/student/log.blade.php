@@ -1,7 +1,7 @@
 <x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Dosen') }}
+            {{ __('Dashboard Admin') }}
         </h2>
     </x-slot>
 
@@ -9,8 +9,8 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Mahasiswa {{ $classroom->name . ' ' . $classroom->day . ' ' . $classroom->time}}</span></p>
-                    <div class="row">
+                    <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Log</span></p>
+                    <div class="flex max-md:flex-col">
                         <div class="col">
                             <form>
                                 <div class="flex">
@@ -34,7 +34,7 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <i class="ti ti-certificate"></i>
                                     </div>
-                                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" name="search">
+                                    <input name="search" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" >
                                 </div>
                                 <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -45,58 +45,43 @@
                             </form>
                         </div>
                     </div>
+
                     <div class="table-responsive">
-                        <table class="table table-striped max-md:min-w-[250vw]" >
+                        <table class="table table-striped max-md:min-w-[250vw]">
                             <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">NIM</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Nilai Akhir</th>
+                                <th scope="col">Sesi</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Tanggal</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($students as $key => $student)
-                                @php
-                                    $final_score = 0;
-                                @endphp
-                                <tr>
-                                    <th scope="row">{{ $students->firstItem() + $key }}</th>
-                                    <td>{{ $student->code }}</td>
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->email }}</td>
-                                    @if($student->taskScore->whereNotNull('final_score') !== null)
-                                        @php
-                                            foreach ($student->taskScore as $key => $tugas) {
-                                                if ($tugas->final_score !== null) {
-                                                    $final_score += $tugas->final_score;
-                                                }
-                                            }
-
-                                            $jumlah = $student->taskScore->whereNotNull('final_score')->count();
-                                            if ($jumlah !== 0) {
-                                                $final_score = round($final_score / $jumlah);
-                                            }
-                                        @endphp
-                                        @if ($final_score == 0)
-                                            <td class="success">Belum ada nilai</td>
-                                        @elseif ($final_score > 0)
-                                            <td class="success">{{ $final_score }}</td>
+                            @forelse($roomLogs as $roomLog)
+                                <tr class="">
+                                    <td>
+                                        @if($roomLog->session == 'A')
+                                            Pagi
+                                        @elseif($roomLog->session == 'B')
+                                            Siang
+                                        @elseif($roomLog->session == 'C')
+                                            Pagi & Siang
                                         @endif
-                                    @else
-                                        <td>Belum ada tugas yang dikumpulkan</td>
-                                    @endif
+                                    </td>
+                                    <td>
+                                        <p class="{{ ($roomLog->status == 'check-in') ? 'bg-green-500' : 'bg-red-500'}} w-[80px] rounded h-auto text-center text-white text-[16px]">
+                                            {{ $roomLog->status }}
+                                        </p>
+                                    </td>
+                                    <td>{{ $roomLog->accessed }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="5">Data Kosong</td>
+                                    <td class="text-center" colspan="6">Data Kosong</td>
                                 </tr>
                             @endforelse
                             </tbody>
                         </table>
                     </div>
-                    {{ $students->withQueryString()->links() }}
                 </div>
             </div>
         </div>

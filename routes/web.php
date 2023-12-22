@@ -55,7 +55,6 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::get('student', [StudentController::class, 'indexAdmin'])->name('admin-student-index');
         Route::resource('lecture', LectureController::class);
         Route::get('lecture', [LectureController::class, 'indexAdmin'])->name('admin-lecture-index');
-        Route::resource('log', \App\Http\Controllers\Admin\LogController::class);
         Route::get('course', [CourseController::class, 'admin']);
         Route::resource('assignment', AssignmentAdminController::class);
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
@@ -64,7 +63,9 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::resource('assistant', AssistantController::class);
         Route::get('assistant', [AssistantController::class, 'indexAdmin'])->name('admin-assistant-index');
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudentAdmin']);
+        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
         Route::resource('classroom/{idClassroom}/class-information', ClassInformationController::class);
+        Route::get('log', [RoomLogController::class, 'logAll']);
     });
 });
 // End Admin Space Routing
@@ -88,13 +89,13 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         Route::resource('assignment', \App\Http\Controllers\AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');
-        Route::resource('log', \App\Http\Controllers\Lecture\LogController::class);
         Route::get('classroom', [ClassroomController::class, 'indexLecture'])->name('lecture-classroom');
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
+        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
         Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
         Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
         Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
-        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
+        Route::get('log', [RoomLogController::class, 'logAll']);
     });
 });
 // End Lecture Space Routing

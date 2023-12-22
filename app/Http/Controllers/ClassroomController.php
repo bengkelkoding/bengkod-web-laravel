@@ -56,7 +56,7 @@ class ClassroomController extends Controller
 
         $classroom = Classroom::find($idClassroom)->first();
 
-        return view('admin.classroom.student', compact('students', 'classroom'));
+        return view('admin.classroom.student.index', compact('students', 'classroom'));
     }
 
     public function showStudent($idClassroom, Request $request): View
@@ -80,7 +80,7 @@ class ClassroomController extends Controller
 
         $classroom = Classroom::find($idClassroom)->first();
 
-        return view('lecture.classroom.student', compact('students', 'classroom'));
+        return view('lecture.classroom.student.index', compact('students', 'classroom'));
     }
 
     public function create(): View

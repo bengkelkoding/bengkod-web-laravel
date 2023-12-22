@@ -1,7 +1,7 @@
 <x-admin>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Log Ruangan H6') }}
+            {{ __('Dashboard Dosen') }}
         </h2>
     </x-slot>
 
@@ -13,7 +13,7 @@
                     <div class="flex max-md:flex-col">
                         <div class="col">
                             <form>
-                                <div class="flex inline">
+                                <div class="flex">
                                     <label>
                                         Show
                                         <select class="rounded-md" name="per_page" id="per_page" onchange="this.form.submit()">
@@ -50,23 +50,14 @@
                         <table class="table table-striped max-md:min-w-[250vw]">
                             <thead>
                             <tr>
-                                <th scope="col">NIM</th>
-                                <th scope="col">Nama</th>
                                 <th scope="col">Sesi</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Akses Status</th>
                                 <th scope="col">Tanggal</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse($roomLogs as $roomLog)
                                 <tr class="">
-                                    <td> {{ $roomLog->nim }} </td>
-                                    <td>
-                                        @if(isset($roomLog->student->name))
-                                            {{ $roomLog->student->name }}
-                                        @endif
-                                    </td>
                                     <td>
                                         @if($roomLog->session == 'A')
                                             Pagi
@@ -81,7 +72,6 @@
                                             {{ $roomLog->status }}
                                         </p>
                                     </td>
-                                    <td>{{ $roomLog->access_status }}</td>
                                     <td>{{ $roomLog->accessed }}</td>
                                 </tr>
                             @empty
@@ -92,7 +82,6 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $roomLogs->withQueryString()->links() }}
                 </div>
             </div>
         </div>
