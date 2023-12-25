@@ -3,6 +3,7 @@
         Bengkel Koding
     </x-slot>
 
+
     <div class="box-border flex flex-col justify-center p-8 m-5 ">
         <a href="{{ url('student') }}"
             class="text-xl font-medium px-2 transition ease-in-out duration-150 text-gray-500 hover:text-gray-700">
@@ -27,7 +28,7 @@
                                 <tr>
                                     <td><pre class="ml-3">{{ $description }}</pre></td>
                                     @if (isset($assignment->task_file))
-                                    <td><a href="{{ url('storage/soal/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->task_file }}</a></td>
+                                    <td><a href="{{ url('storage/question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->task_file }}</a></td>
                                     @else
                                     <td><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">Belum ada file soal</span></td>
                                     @endif
@@ -53,7 +54,7 @@
                                 </div>
                                 <div class="flex mb-2">
                                     <h1 class="text-gray-500 mr-2 pt-1">File Soal : </h1>
-                                    <a href="{{ url('storage/soal/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->task_file }}</a>
+                                    <a href="{{ url('storage/question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->task_file }}</a>
                                 </div>
                                 <div class="flex flex-col mb-2">
                                     <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
@@ -104,7 +105,6 @@
                     </div> --}}
 
                     <div class="box-border h-auto p-3 border my-12 mb-15 flex flex-col justify-center rounded">
-                        {{-- @dd($assignment->id) --}}
                         <h3 class="text-black font-bold mb-2 text-[14px] text-center">Submit Tugas</h3>
                         @if ($assignment->start_time < now('Asia/Jakarta') && $assignment->deadline < now('Asia/Jakarta'))
                             <div class="h-[30vh] border p-2 mb-3 flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md">
