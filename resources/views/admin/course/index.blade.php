@@ -9,16 +9,16 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kursus</span></p>
+                <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Kursus</span><a href="{{route('admin.course.create')}}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-plus"></i> Tambah Data</a></p>
                 
                 <div class="table-responsive">
                     <table class="table table-striped max-md:min-w-[250vw]">
                         <thead>
                             <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama Kursus</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Lihat Kursus</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama Kursus</th>
+                                <th scope="col">Penulis</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,26 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$course->title}}</td>
                                 <td>{{$course->author}}</td>
-                                <td><a class="bg-[#114D91] py-1 rounded-md text-white flex justify-center items-center text-[14px] hover:bg-cyan-500 focus:bg-white active:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" href="{{ env('APP_URL_QUARTO').$course->url }}" class="px-6 h-auto" target="_blank">Kursus</a></td>
+                                <td>
+                                    <div class="flex">
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-green-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{ env('APP_URL_QUARTO').$course->url }}"><i class="ti ti-link"></i> Kursus Full</a>
+                                        </span>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{ env('APP_URL_O_QUARTO').$course->url_overview }}"><i class="ti ti-link"></i> Overview Kursus</a>
+                                        </span>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{route('admin.course.edit', $course->id)}}"><i class="ti ti-edit"></i> Edit</a>
+                                        </span>
+                                        <form method="POST" action="{{ route('admin.course.destroy', $course->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-rose-200 uppercase last:mr-0 mr-1">
+                                                <button class="uppercase" type="submit"><i class="ti ti-trash"></i> Delete</button>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                             @empty
                             <tr>

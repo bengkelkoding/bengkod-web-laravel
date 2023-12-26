@@ -13,14 +13,8 @@ class Course extends Model
     protected $table = 'course';
 
     protected $fillable = [
-        'image', 'title', 'author', 'day', 'hour', 'url', 'url_overview', 'description',
+        'image', 'title', 'author', 'day', 'hour', 'url', 'url_overview', 'description', 'tools'
     ];
-
-    // Definisikan relasi dengan tabel Section
-    public function sections()
-    {
-        return $this->hasMany(Section::class, 'id_course');
-    }
 
     public function users()
     {
@@ -35,11 +29,6 @@ class Course extends Model
     public function assignments()
     {
         return $this->hasMany(Assignment::class, 'id_course');
-    }
-
-    public function logs()
-    {
-        return $this->hasMany(Log::class, 'id_course');
     }
 
     public function classrooms(): HasMany

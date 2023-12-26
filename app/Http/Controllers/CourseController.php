@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use App\Http\Requests\courseRequest;
+use App\Http\Requests\CourseRequest;
 use App\Models\ActivateToken;
 use App\Models\ClassManagement;
 use App\Models\Classroom;
@@ -19,7 +19,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('course.index', ['coursees' => Course::all()]);
+        return view('admin.course.index', ['courses' => Course::all()]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('admin.course.tambah');
+        return view('admin.course.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class CourseController extends Controller
     {
         try {
             Course::create($request->all());
-            return response()->redirectToRoute('course.index');
+            return response()->redirectToRoute('admin.course.index');
 
         } catch (Exception $e) {
             return response()->json([
@@ -87,7 +87,6 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        // dd($course->id);
         return view('admin.course.edit', compact('course'));
     }
 
@@ -105,7 +104,7 @@ class CourseController extends Controller
                 ['id' => $id],
                 $request->all(),
             );
-            return response()->redirectToRoute('course.index');
+            return response()->redirectToRoute('admin.course.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -123,15 +122,11 @@ class CourseController extends Controller
     {
         try {
             Course::find($id)->delete();
-            return response()->redirectToRoute('course.index');
+            return response()->redirectToRoute('admin.course.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ]);
         }
-    }
-    public function admin()
-    {
-        return view('admin.course.index', ['courses' => Course::all()]);
     }
 }

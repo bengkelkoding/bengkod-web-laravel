@@ -58,7 +58,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
         Route::resource('assistant', AssistantController::class);
 
         // Manage Course
-        Route::get('course', [CourseController::class, 'admin']);
+        Route::resource('course', CourseController::class);
 
         // Manage Classroom
         Route::resource('classroom', ClassroomController::class);
