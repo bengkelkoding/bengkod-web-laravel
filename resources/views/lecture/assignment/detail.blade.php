@@ -14,8 +14,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
-                                    {{ $assignment->title }} </span></p>
+                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan : {{ $assignment->title }} </span></p>
                         </div>
                         <div class="col">
                             <div class="flex justify-end">
@@ -133,7 +132,7 @@
                                         <td>
                                             @isset($m->task)
                                                 @if ($m->task->status === 0)
-                                                    <form action="{{ route('lecture.student.update', $m->task->id) }}"
+                                                    <form action="{{ route('lecture.task.update', $m->task->id) }}"
                                                         method="POST" class="flex">
                                                         <input type="number" name="final_score" id="final_score"
                                                             class="form-control rounded-md w-20 py-2 px-3 h-9"
@@ -143,7 +142,7 @@
                                                             disabled><i class="ti ti-device-floppy"></i> Simpan</button>
                                                     </form>
                                                 @else
-                                                    <form action="{{ route('lecture.student.update', $m->task->id) }}"
+                                                    <form action="{{ route('lecture.task.update', $m->task->id) }}"
                                                         method="POST" class="flex">
                                                         @csrf
                                                         @method('PATCH')

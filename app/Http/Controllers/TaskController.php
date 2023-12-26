@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
-use App\Models\task;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -100,7 +100,17 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Task::updateOrCreate(
+                ['id' => $id],
+                $request->all()
+            );
+            return redirect()->back()->with('success', 'Berhasil Update Data');
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
