@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AssignmentAdminController;
 use App\Http\Controllers\AssignmentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Admin\ContactAssistantController;
 use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\Auth\RegisteredLectureController;
 use App\Http\Controllers\ClassInformationController;
@@ -39,32 +36,44 @@ Route::middleware('auth')->group(function () {
 
 // Admin Space Routing
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
+    // Admin Dashboard
     Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
 
+    // Lecture Register
     Route::get('/register-dosen', [RegisteredLectureController::class, 'create'])->name('register-dosen');;
     Route::post('/register-dosen', [RegisteredLectureController::class, 'store']);
 
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
-
+    // Student Register
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
+
     Route::name('admin.')->prefix('admin')->group(function () {
-        Route::get('/', [LectureController::class, 'index']);
-        Route::resource('contact-assistant', ContactAssistantController::class);
+        // Manage Student
         Route::resource('student', StudentController::class);
-        Route::get('student', [StudentController::class, 'indexAdmin'])->name('admin-student-index');
+
+        // Manage Lecture
         Route::resource('lecture', LectureController::class);
-        Route::get('lecture', [LectureController::class, 'indexAdmin'])->name('admin-lecture-index');
-        Route::get('course', [CourseController::class, 'admin']);
-        Route::resource('assignment', AssignmentAdminController::class);
-        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
-        Route::resource('classroom', ClassroomController::class);
-        Route::get('classroom', [ClassroomController::class, 'indexAdmin'])->name('admin-classroom');
+
+        // Manage Assistant
         Route::resource('assistant', AssistantController::class);
-        Route::get('assistant', [AssistantController::class, 'indexAdmin'])->name('admin-assistant-index');
+
+        // Manage Course
+        Route::get('course', [CourseController::class, 'admin']);
+
+        // Manage Classroom
+        Route::resource('classroom', ClassroomController::class);
+        // Show Student on Classroom
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudentAdmin']);
+        // Show Log by Student on Classroom
         Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
+
+        // Manage Class Information
         Route::resource('classroom/{idClassroom}/class-information', ClassInformationController::class);
+
+        // Assignment
+        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadTugas'])->name('download-tugas');
+
+        // Show All Log
         Route::get('log', [RoomLogController::class, 'logAll']);
     });
 });
@@ -72,40 +81,45 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
 // Lecture Space Routing
 Route::group(['middleware' => ['role:lecture', 'auth']], function () {
-    Route::get('daftar-kelola', [LectureController::class, 'showDaftarDanKelolastudent']);
-    Route::get('daftar-materi', [LectureController::class, 'showDaftarMateri']);
-    Route::get('log-aktivitas', [LectureController::class, 'showLogAktivitas']);
-    Route::get('kontak-asisten', [LectureController::class, 'showKontakAsisten']);
     Route::name('lecture.')->prefix('lecture')->group(function () {
-        Route::get('/', [LectureController::class, 'index'])->name('index');
+        // Dashboard Lecture
+        Route::get('/', [LectureController::class, 'dashboard'])->name('dashboard');
+
+        // Manage Student
         Route::resource('student', StudentController::class);
+ 
+        // Manage Task
+        Route::resource('task', TaskController::class);
         Route::get('lecture', [StudentController::class, 'indexLecture'])->name('lecture-student-index');
         Route::post('auto-zero/{id}', [StudentController::class, 'autoZero'])->name('autoZero');
 
-        // Route::resource('assign', AssignController::class);
-        // Route::resource('assignincomplete', AssignInCompleteController::class);
-        // Route::resource('assigncomplete', AssignCompleteController::class);
-
-        Route::resource('assignment', \App\Http\Controllers\AssignmentController::class);
+        // Manage Classroom
+        Route::get('classroom', [ClassroomController::class, 'index'])->name('index');
+        // Show Student on Classroom
+        Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
+        // Show Log by Student on Classroom
+        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
+        // Manage Assignemnt by on Classroom
+        // Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
+        // Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
+        // Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
+        // Manage Assignment by on Classroom
+        Route::resource('classroom/{idClassroom}/assignment', AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');
-        Route::get('classroom', [ClassroomController::class, 'indexLecture'])->name('lecture-classroom');
-        Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
-        Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
-        Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
-        Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
-        Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
+
+        // Show All Log
         Route::get('log', [RoomLogController::class, 'logAll']);
-        Route::resource('task', TaskController::class);
     });
 });
 // End Lecture Space Routing
 
 // Student Space Routing
 Route::group(['middleware' => ['role:student', 'auth']], function () {
-    Route::resource('student', StudentController::class);
-    Route::resource('logs', LogController::class);
-    Route::get('/history', [\App\Http\Controllers\RoomLogController::class, 'index']);
+    // Student Dashboard
+    Route::get('student', [StudentController::class, 'dashboard'])->name('student.dashboard');
+
+    Route::get('/history', [RoomLogController::class, 'index']);
     Route::get('dipelajari', [StudentController::class, 'showMateriDipelajari']);
     Route::get('diselesaikan', [StudentController::class, 'showMateriDiselesaikan']);
     Route::get('kumpulkan', [StudentController::class, 'showKumpulkanTugas']);
@@ -122,7 +136,10 @@ Route::group(['middleware' => ['role:student', 'auth']], function () {
 
 // Assistant Space Routing
 Route::group(['middleware' => ['role:assistant', 'auth']], function () {
-    Route::get('assistant', [AssistantController::class, 'index'])->name('assistant.index');
+    route::name('assistant.')->prefix('assistant')->group(function () {
+        // Dashboard Assistant
+        Route::get('/', [AssistantController::class, 'dashboard'])->name('dashboard');
+    });
 });
 // End assistant Space Routing
 

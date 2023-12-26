@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="flex">
                         <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
-                        <a href="{{url('lecture/classroom/' . $idClassroom . '/assignment/store')}}"
+                        <a href="{{url('lecture/classroom/' . $idClassroom . '/assignment/create')}}"
                             class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
                     </div>
                     <div class="row">
@@ -95,10 +95,10 @@
                                                 <!-- <li><a class="dropdown-item" href="{{-- route('lecture.assignment.show', $assign->id) --}}"><i class="ti ti-eye"></i>Detail</a> </li> -->
                                                 <li class="mr-2">
                                                     <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 last:mr-0 mr-1">
-                                                        <a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a>
+                                                        <a class="dropdown-item" href="{{ route('lecture.assignment.edit', ['idClassroom' => $idClassroom, 'assignment' => $assign->id]) }}"><i class="ti ti-edit"></i> Edit</a>
                                                     </span>
                                                 </li>
-                                                <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
+                                                <form action="{{ route('lecture.assignment.destroy', ['idClassroom' => $idClassroom, 'assignment' => $assign->id]) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <li>

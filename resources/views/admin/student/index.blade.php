@@ -50,8 +50,6 @@
                         <thead>
                             <tr>
                             <th scope="col">No</th>
-                            <!-- <th scope="col">ID Kursus</th> -->
-                            <!-- <th scope="col">Asistensi</th> -->
                             <th scope="col">NIM</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
@@ -62,28 +60,6 @@
                             @forelse($students as $key => $student)
                             <tr>
                                 <th scope="row">{{$students->firstItem() + $key}}</th>
-                                <!-- <td>
-                                    @isset($student->course->title)
-                                        {{$student->course->title}}
-                                    @endisset
-
-                                    @empty($student->course->title)
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
-                                                Belum Terdaftar
-                                            </span>
-                                    @endempty
-                                </td>
-                                <td>
-                                    @isset($student->assistant->name)
-                                        {{$student->assistant->name}}
-                                    @endisset
-
-                                    @empty($student->assistant->name)
-                                        <span class="text-xs font-semibold inline-block py-1 px-2 rounded text-rose-600 bg-red-200 uppercase last:mr-0 mr-1">
-                                                Belum Ada
-                                            </span>
-                                    @endempty
-                                </td> -->
                                 <td>{{$student->code}}</td>
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->email}}</td>

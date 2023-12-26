@@ -31,13 +31,13 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user()->roles()->pluck('name')->first();
 
         if($user === 'student'){
-            return redirect()->route('student.index');
+            return redirect()->route('student.dashboard');
         }else if($user === 'lecture'){
-            return redirect()->route('lecture.index');
+            return redirect()->route('lecture.dashboard');
         }else if($user === 'admin'){
             return redirect()->route('admin.dashboard');
         }else if($user === 'assistant'){
-            return redirect()->route('assistant.index');
+            return redirect()->route('assistant.dashboard');
         }else {
             return redirect()->route('home');
         }

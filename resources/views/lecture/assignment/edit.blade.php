@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="fw-semibold mb-4 text-l">Update Penugasan</h1>
-                    <form method="POST" action="{{ route('lecture.assignment.update', $assignment->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('lecture.assignment.update', ['idClassroom' => $classroom, 'assignment' => $assignment->id]) }}" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <!-- title -->

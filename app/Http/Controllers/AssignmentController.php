@@ -6,11 +6,12 @@ use Exception;
 use Illuminate\View\View;
 use ZipArchive;
 use App\Models\User;
-use App\Models\task;
+use App\Models\Task;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AssignmentRequest;
+use App\Models\Classroom;
 
 class AssignmentController extends Controller
 {
@@ -41,16 +42,11 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idClassroom): View
     {
-        return view('lecture.assignment.create');
-    }
-
-    public function create2($idClassroom): View
-    {
+        $classroom = Classroom::find($idClassroom);
         return view('lecture.assignment.create', compact('idClassroom'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -93,24 +89,7 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function show(Assignment $assignment, Request $request)
-    {
-        $search = $request->search ?? '';
-        $per_page = $request->per_page ?? 10;
-        $student = User::role('student')->where('id_course', auth()->user()->id_course)
-            ->where(function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('code', 'LIKE', "%{$search}%");
-            })
-            ->with(['task' => function ($q) use ($assignment) {
-                $q->where('id_assignment', $assignment->id);
-            }])
-            ->paginate($per_page);
-
-        return view('lecture.assignment.detail', compact('assignment', 'student'));
-    }
-
-    public function show2($idClassroom , $idAssignment, Request $request)
+    public function show($idClassroom , $idAssignment, Request $request)
     {
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
@@ -140,12 +119,14 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Assignment $assignment)
+    public function edit($idClassroom, Assignment $assignment)
     {
+        $classroom = Classroom::find($idClassroom);
+
         $start_time = date('d/m/Y, g:i A', strtotime($assignment->start_time));
         $deadline = date('d/m/Y, g:i A', strtotime($assignment->deadline));
 
-        return view('lecture.assignment.edit', compact('assignment', 'start_time', 'deadline'));
+        return view('lecture.assignment.edit', compact('assignment', 'start_time', 'deadline', 'classroom'));
     }
 
     /**
@@ -155,7 +136,7 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function update(AssignmentRequest $request, Assignment $assignment)
+    public function update($idClassroom, AssignmentRequest $request, Assignment $assignment)
     {
         try {
             if ($request->hasFile('question_file')) {
@@ -189,7 +170,7 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assignment $assignment)
+    public function destroy($idClassroom, Assignment $assignment)
     {
         try {
             if ($assignment->question_file) {

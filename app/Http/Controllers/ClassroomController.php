@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ClassroomController extends Controller
@@ -20,19 +21,15 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    public function indexAdmin(): View
-    {
-        $classroom = Classroom::with('course')->with('lecture')->get();
-        return view('admin.classroom.index', compact('classroom'));
-    }
-
-    public function indexLecture(): View
-    {
-        $classroom = Classroom::with('course')->where('id_lecture', auth()->user()->id)->get();
-        return view('lecture.classroom.index', compact('classroom'));
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+        if($userRole == 'admin') {
+            $classroom = Classroom::with('course')->with('lecture')->get();
+            return view('admin.classroom.index', compact('classroom'));
+        } elseif($userRole == 'lecture') {
+            $classroom = Classroom::with('course')->where('id_lecture', auth()->user()->id)->get();
+            return view('lecture.classroom.index', compact('classroom'));
+        }
+        return 0;
     }
 
     public function showStudentAdmin($idClassroom, Request $request): View
@@ -98,8 +95,7 @@ class ClassroomController extends Controller
     {
         try {
             Classroom::create($request->all());
-            return response()->redirectToRoute('admin.admin-classroom');
-
+            return response()->redirectToRoute('admin.classroom.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -146,7 +142,7 @@ class ClassroomController extends Controller
                 ['id' => $id],
                 $request->all(),
             );
-            return response()->redirectToRoute('admin.admin-classroom');
+            return response()->redirectToRoute('admin.classroom.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -164,7 +160,7 @@ class ClassroomController extends Controller
     {
         try {
             Classroom::find($id)->delete();
-            return response()->redirectToRoute('admin.admin-classroom');
+            return redirect()->back()->with('success', 'Berhasil Hapus Kelas');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

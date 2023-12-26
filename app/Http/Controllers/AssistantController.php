@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AssistantController extends Controller
 {
-    public function index()
-    {
-        return view('assistant.dashboard');
-    }
-
-    public function indexAdmin(Request $request)
+    public function index(Request $request)
     {
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
@@ -58,7 +53,7 @@ class AssistantController extends Controller
             $user = User::create($data);
             $user->assignRole('assistant');
 
-            return response()->redirectToRoute('admin.admin-assistant-index');
+            return response()->redirectToRoute('admin.assistant.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -103,7 +98,7 @@ class AssistantController extends Controller
                 ['id' => $id],
                 $request->all()
             );
-            return response()->redirectToRoute('admin.admin-assistant-index');
+            return response()->redirectToRoute('admin.assistant.index');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -121,7 +116,7 @@ class AssistantController extends Controller
     {
         try {
             User::find($id)->delete();
-            return response()->redirectToRoute('admin.admin-assistant-index');
+            return redirect()->back()->with('success', 'Berhasil Hapus Data Asisten');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -129,5 +124,9 @@ class AssistantController extends Controller
         }
     }
 
+    public function dashboard()
+    {
+        return view('assistant.dashboard');
+    }
 }
 
