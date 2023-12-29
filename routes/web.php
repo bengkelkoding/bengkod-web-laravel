@@ -108,7 +108,10 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
         
         // Show Log by Student on Classroom
         Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
-        
+
+        // Manage Class Information
+        Route::resource('classroom/{idClassroom}/class-information', ClassInformationController::class);
+
         // Manage Assignemnt by on Classroom
         Route::resource('classroom/{idClassroom}/assignment', AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');

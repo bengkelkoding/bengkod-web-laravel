@@ -41,8 +41,11 @@
                                         <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-blue-200 uppercase last:mr-0 mr-2">
                                             <a href="{{ url('lecture/classroom/' . $class->id . '/student') }}"><i class="ti ti-user"></i> Siswa</a>
                                         </span>
-                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-yellow-200 uppercase last:mr-0 mr-2">
+                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-orange-200 uppercase last:mr-0 mr-2">
                                             <a href="{{ url('lecture/classroom/' . $class->id . '/assignment') }}"><i class="ti ti-pencil"></i> Penugasan</a>
+                                        </span>
+                                        <span class="text-xs font-semibold py-1 px-2 rounded text-yello-600 bg-purple-200 uppercase last:mr-0 mr-2">
+                                            <a href="{{ url('lecture/classroom/' . $class->id . '/class-information') }}"><i class="ti ti-link"></i> Informasi</a>
                                         </span>
                                     </div>
                                 </td>
