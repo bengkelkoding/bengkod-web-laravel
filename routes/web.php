@@ -62,8 +62,15 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
         // Manage Classroom
         Route::resource('classroom', ClassroomController::class);
+
         // Show Student on Classroom
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudentAdmin']);
+
+        // Manage Assignemnt by on Classroom
+        Route::resource('classroom/{idClassroom}/assignment', AssignmentController::class);
+        Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
+        Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');
+
         // Show Log by Student on Classroom
         Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
 
@@ -95,15 +102,14 @@ Route::group(['middleware' => ['role:lecture', 'auth']], function () {
 
         // Manage Classroom
         Route::get('classroom', [ClassroomController::class, 'index'])->name('index');
+
         // Show Student on Classroom
         Route::get('classroom/{idClassroom}/student', [ClassroomController::class, 'showStudent']);
+        
         // Show Log by Student on Classroom
         Route::get('classroom/{idClassroom}/student/{idStudent}/log', [RoomLogController::class, 'logByClass']);
+        
         // Manage Assignemnt by on Classroom
-        // Route::get('classroom/{idClassroom}/assignment', [AssignmentController::class, 'index']);
-        // Route::get('classroom/{idClassroom}/assignment/store', [AssignmentController::class, 'create2']);
-        // Route::get('classroom/{idClassroom}/assignment/{idAssignment}', [AssignmentController::class, 'show2'])->name('assignment-list');
-        // Manage Assignment by on Classroom
         Route::resource('classroom/{idClassroom}/assignment', AssignmentController::class);
         Route::put('force-submit/{id}', [AssignmentController::class, 'forceSubmit'])->name('force-submit');
         Route::get('download-tugas/{id}', [AssignmentController::class, 'downloadtask'])->name('download-tugas');

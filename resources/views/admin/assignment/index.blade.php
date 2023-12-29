@@ -11,8 +11,8 @@
                 <div class="card-body">
                     <div class="flex">
                         <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Penugasan </span></p>
-                        <!-- <a href="{{route('admin.assignment.create')}}"
-                            class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a> -->
+                        <a href="{{url('admin/classroom/' . $idClassroom . '/assignment/create')}}"
+                            class="btn btn-outline-dark rounded-pill flex-none w-30 h-10"><i class="ti ti-plus"></i>Tambah Data</a>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -59,12 +59,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">title</th>
+                                    <th scope="col">Judul</th>
                                     <th scope="col">Deskripsi</th>
                                     <th scope="col">Waktu Mulai</th>
                                     <th scope="col">Deadline</th>
                                     <th scope="col">File Soal</th>
-                                    <!-- <th scope="col">Aksi</th> -->
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,7 +73,7 @@
                                     $start = \Carbon\Carbon::parse($assign->start_time)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                     $deadline = \Carbon\Carbon::parse($assign->deadline)->locale('id')->isoFormat('dddd, D MMMM Y, HH:mm');
                                 @endphp
-                                <tr class="clickable cursor-pointer" data-href="{{ route('admin.assignment.show', $assign->id) }}">
+                                <tr class="clickable cursor-pointer" data-href="{{ url('admin/classroom/' . $idClassroom . '/assignment/' . $assign->id) }}">
                                    <th scope="row">{{ $assignments->firstItem() + $key}}</th>
                                    <td>{{ $assign->title }}</td>
                                    <td>{{ Str::limit($assign->description, 15, '...') }}</td>
@@ -83,22 +83,17 @@
                                         @empty($assign->task_file)
                                         <span class="badge bg-danger">Belum ada file</span>
                                         @else
-                                        <a href="{{ asset('storage/task/'.$assign->task_file) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
+                                        <a href="{{ asset(env('APP_STORAGE_URL') . 'question/'.$assign->task_file) }}" class="btn btn-outline-dark rounded-pill"><i class="ti ti-download"></i> Download</a>
                                         @endif
                                    </td>
-                                   <!-- <td> -->
-                                        <!-- <div class="dropdown">
-                                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical"></i>
-                                            </button> -->
-                                            <!-- <ul class="flex"> -->
-                                                <!-- <li><a class="dropdown-item" href="{{-- route('lecture.assignment.show', $assign->id) --}}"><i class="ti ti-eye"></i>Detail</a> </li> -->
-                                                <!-- <li class="mr-2">
+                                   <td>
+                                            <ul class="flex">
+                                                <li class="mr-2">
                                                     <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-yello-600 bg-yellow-200 last:mr-0 mr-1">
-                                                        <a class="dropdown-item" href="{{ route('lecture.assignment.edit', $assign->id) }}"><i class="ti ti-edit"></i> Edit</a>
+                                                        <a class="dropdown-item" href="{{ route('admin.assignment.edit', ['idClassroom' => $idClassroom, 'assignment' => $assign->id]) }}"><i class="ti ti-edit"></i> Edit</a>
                                                     </span>
-                                                </li> -->
-                                                <!-- <form action="{{ route('lecture.assignment.destroy', $assign->id) }}" method="POST">
+                                                </li>
+                                                <form action="{{ route('admin.assignment.destroy', ['idClassroom' => $idClassroom, 'assignment' => $assign->id]) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <li>
@@ -106,10 +101,10 @@
                                                             <button type="submit" class="dropdown-item uppercase"><i class="ti ti-trash"></i> Hapus</button>
                                                         </span>
                                                     </li>
-                                                </form> -->
-                                            <!-- </ul> -->
+                                                </form>
+                                            </ul>
                                         <!-- </div> -->
-                                   <!-- </td> -->
+                                   </td>
                                 </tr>
                                 @empty
                                 <tr>

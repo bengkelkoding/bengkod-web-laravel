@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AssignmentRequest;
 use App\Models\Classroom;
+use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller
 {
@@ -22,6 +23,8 @@ class AssignmentController extends Controller
      */
     public function index(Request $request, $idClassroom)
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
         $assignments = Assignment::where('id_classroom', $idClassroom)
@@ -34,7 +37,7 @@ class AssignmentController extends Controller
             ->with('classroom')
             ->paginate($per_page);
 
-        return view('lecture.assignment.index', compact('assignments', 'idClassroom'));
+        return view($userRole . '.assignment.index', compact('assignments', 'idClassroom'));
     }
 
     /**
@@ -44,8 +47,11 @@ class AssignmentController extends Controller
      */
     public function create($idClassroom): View
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         $classroom = Classroom::find($idClassroom);
-        return view('lecture.assignment.create', compact('idClassroom'));
+
+        return view($userRole . '.assignment.create', compact('idClassroom'));
     }
 
     /**
@@ -56,6 +62,8 @@ class AssignmentController extends Controller
      */
     public function store($idClassroom, AssignmentRequest $request)
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         try {
             if ($request->hasFile('question_file')) {
                 $file = $request->file('question_file');
@@ -76,7 +84,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect('lecture/classroom/' . $request->id_classroom . '/assignment');
+            return redirect($userRole . '/classroom/' . $request->id_classroom . '/assignment');
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -92,6 +100,8 @@ class AssignmentController extends Controller
      */
     public function show($idClassroom , $idAssignment, Request $request)
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         $search = $request->search ?? '';
         $per_page = $request->per_page ?? 10;
 
@@ -111,7 +121,7 @@ class AssignmentController extends Controller
 
         $assignment = Assignment::where('id', $idAssignment)->first();
 
-        return view('lecture.assignment.detail', compact('assignment', 'student'));
+        return view($userRole . '.assignment.detail', compact('assignment', 'student'));
     }
 
     /**
@@ -122,12 +132,14 @@ class AssignmentController extends Controller
      */
     public function edit($idClassroom, Assignment $assignment)
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         $classroom = Classroom::find($idClassroom);
 
         $start_time = date('d/m/Y, g:i A', strtotime($assignment->start_time));
         $deadline = date('d/m/Y, g:i A', strtotime($assignment->deadline));
 
-        return view('lecture.assignment.edit', compact('assignment', 'start_time', 'deadline', 'classroom'));
+        return view($userRole . '.assignment.edit', compact('assignment', 'start_time', 'deadline', 'classroom'));
     }
 
     /**
@@ -139,6 +151,8 @@ class AssignmentController extends Controller
      */
     public function update($idClassroom, AssignmentRequest $request, Assignment $assignment)
     {
+        $userRole = Auth::user()->roles()->pluck('name')->first();
+
         try {
             if ($request->hasFile('question_file')) {
                 if (isset($assignment->question_file)) {
@@ -159,7 +173,7 @@ class AssignmentController extends Controller
                 'deadline' => $request->deadline,
             ]);
 
-            return redirect('lecture/classroom/' . $assignment->id_classroom . '/assignment')->with('success', 'Berhasil mengubah task');
+            return redirect($userRole . '/classroom/' . $assignment->id_classroom . '/assignment')->with('success', 'Berhasil mengubah task');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="container-fluid">
-        <a href="{{ url('admin/assignment') }}" class="btn btn-outline-dark rounded-pill mb-4"><i
+        <a href="{{ url()->previous() }}" class="btn btn-outline-dark rounded-pill mb-4"><i
                 class="ti ti-arrow-left"></i>
             Back</a>
         <div class="container">
@@ -14,12 +14,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan :
-                                    {{ $assignment->judul }} </span></p>
+                            <p class="fw-semibold mb-4"><span class="card-title mr-4">Tabel Detail Penugasan : {{ $assignment->title }} </span></p>
                         </div>
                         <div class="col">
                             <div class="flex justify-end">
-                                <a href="{{ route('admin.download-tugas', $assignment->id) }}" class="btn btn-primary bg-blue-500">Download Semua Tugas</a>
+                                <a href="{{ url('admin/download-tugas/' . $assignment->id) }}" class="btn btn-primary bg-blue-500">Download Semua Tugas</a>
                             </div>
                         </div>
                     </div>
@@ -83,6 +82,7 @@
                                     <th>Nama Mahasiswa</th>
                                     <th>Status</th>
                                     <th>File Tugas</th>
+                                    <th>Nilai</th>
                                     <th>Nilai Tersimpan</th>
                                     <th>Tanggal Submit</th>
                                 </tr>
@@ -119,20 +119,60 @@
                                                     <button class="btn btn-primary" disabled><i class="ti ti-download"></i>
                                                         Download</button>
                                                 @else
-                                                    @if ($m->task->task_file == '-')
-                                                    <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
-                                                        {{ __('Tidak ada file tugas') }}
-                                                    </div>
-                                                    @else
                                                     <a class="btn btn-primary"
-                                                        href="{{ asset('storage/task/' . $m->task->task_file) }}"><i
+                                                        href="{{ asset(env('APP_STORAGE_URL') . 'task/' . $m->task->task_file) }}"><i
                                                             class="ti ti-download"></i> Download</a>
-                                                    @endif
                                                 @endif
                                             @else
                                                 <div class="alert alert-danger py-2 px-3 mb-0" role="alert">
                                                     {{ __('Belum ada file tugas') }}
                                                 </div>
+                                            @endisset
+                                        </td>
+                                        <td>
+                                            @isset($m->task)
+                                                @if ($m->task->status === 0)
+                                                    <form action="{{ route('admin.task.update', $m->task->id) }}"
+                                                        method="POST" class="flex">
+                                                        <input type="number" name="final_score" id="final_score"
+                                                            class="form-control rounded-md w-20 py-2 px-3 h-9"
+                                                            value="{{ (int) $m->task->final_score }}" disabled>
+                                                        <button
+                                                            class="btn btn-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 py-2 px-3 ml-1 w-55"
+                                                            disabled><i class="ti ti-device-floppy"></i> Simpan</button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('admin.task.update', $m->task->id) }}"
+                                                        method="POST" class="flex">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="number" name="final_score" id="final_score"
+                                                            class="form-control rounded-md w-20 py-2 px-3 h-9"
+                                                            value="{{ (int) $m->task->final_score }}">
+                                                        <button type="submit"
+                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
+                                                                class="ti ti-device-floppy"></i> Simpan</button>
+                                                    </form>
+                                                @endif
+                                            @else
+                                                @if ($assignment->deadline < now('Asia/Jakarta'))
+                                                    <form action=""
+                                                        method="POST" class="flex">
+                                                        @csrf
+                                                        <input type="hidden" name="id_student" value="{{ $m->id }}">
+                                                        <input type="hidden" name="id_course"
+                                                            value="{{ $assignment->id_course }}">
+                                                        <input type="hidden" name="final_score" id="final_score"
+                                                            value="0">
+                                                        <button type="submit"
+                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 ml-1 w-55"><i
+                                                                class="ti ti-device-floppy"></i>Auto 0</button>
+                                                    </form>
+                                                @else
+                                                    <div class="alert alert-danger py-2 px-3 mb-0 w-60" role="alert">
+                                                        {{ __('Belum ada tugas') }}
+                                                    </div>
+                                                @endif
                                             @endisset
                                         </td>
                                         <td>
@@ -156,7 +196,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Data Kosong</td>
+                                        <td colspan="8" class="text-center">Data Kosong</td>
                                     </tr>
                                 @endforelse
                             </tbody>
