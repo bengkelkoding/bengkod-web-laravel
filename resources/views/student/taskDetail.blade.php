@@ -28,7 +28,7 @@
                                 <tr>
                                     <td><pre class="ml-3">{{ $description }}</pre></td>
                                     @if (isset($assignment->task_file))
-                                    <td><a href="{{ url('storage/question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->task_file }}</a></td>
+                                    <td><a href="{{ url(env('APP_STORAGE_URL') . 'question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">{{ $assignment->task_file }}</a></td>
                                     @else
                                     <td><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50">Belum ada file soal</span></td>
                                     @endif
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="flex mb-2">
                                     <h1 class="text-gray-500 mr-2 pt-1">File Soal : </h1>
-                                    <a href="{{ url('storage/question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->task_file }}</a>
+                                    <a href="{{ url(env('APP_STORAGE_URL') . 'question/' . $assignment->task_file) }}" class="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-200 rounded-lg bg-opacity-50" target="_blank">{{ $assignment->task_file }}</a>
                                 </div>
                                 <div class="flex flex-col mb-2">
                                     <h1 class="text-gray-500 mb-1">Waktu Mulai : </h1>
@@ -81,7 +81,7 @@
                                 <td class="">File Soal</td>
                                 <td class="pr-3">:</td>
                                 <td class="min-w-auto"><a
-                                        href="{{ url('storage/task/' . $assignment->task_file) }}">{{ $assignment->task_file }}</a>
+                                        href="{{ url(env('APP_STORAGE_URL') . 'task/' . $assignment->task_file) }}">{{ $assignment->task_file }}</a>
                                 </td>
                             </tr>
                         @endif
@@ -140,7 +140,7 @@
 
                                 @isset($task)
                                     <div class="text-black-500 mt-4 ml-1 text-xs break-all">
-                                        <a id="current_saved" href="{{ url('storage/task/' . $task->task_file) }}"
+                                        <a id="current_saved" href="{{ url(env('APP_STORAGE_URL') . 'task/' . $task->task_file) }}"
                                             class="">{{ $task->task_file }}</a>
                                     </div>
                                 @endisset
