@@ -31,7 +31,7 @@ class AssignmentController extends Controller
                     ->orWhere('start_time', 'LIKE', "%{$search}%")
                     ->orWhere('deadline', 'LIKE', "%{$search}%");
             })
-            ->with('course')
+            ->with('classroom')
             ->paginate($per_page);
 
         return view('lecture.assignment.index', compact('assignments', 'idClassroom'));
@@ -54,7 +54,7 @@ class AssignmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return
      */
-    public function store(AssignmentRequest $request)
+    public function store($idClassroom, AssignmentRequest $request)
     {
         try {
             if ($request->hasFile('question_file')) {
@@ -68,7 +68,6 @@ class AssignmentController extends Controller
             $formatted_description = nl2br($request->description);
 
             $assignment = Assignment::create([
-                'id_course' => auth()->user()->id_course,
                 'id_classroom' => $request->id_classroom,
                 'title' => $request->title,
                 'description' => $formatted_description,
@@ -79,7 +78,9 @@ class AssignmentController extends Controller
 
             return redirect('lecture/classroom/' . $request->id_classroom . '/assignment');
         } catch (Exception $e) {
-            Log::error($e->getMessage());
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 

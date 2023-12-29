@@ -10,7 +10,6 @@ class Assignment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_course',
         'id_classroom',
         'title',
         'description',
@@ -19,8 +18,18 @@ class Assignment extends Model
         'deadline',
     ];
 
-    public function course()
+    // public function course()
+    // {
+    //     return $this->belongsTo(Course::class, 'id_course');
+    // }
+
+    public function classroom()
     {
-        return $this->belongsTo(Course::class, 'id_course');
+        return $this->belongsTo(Classroom::class, 'id_classroom');
+    }
+
+    public function task()
+    {
+        return $this->hasMany(Task::class, 'id_assignment');
     }
 }

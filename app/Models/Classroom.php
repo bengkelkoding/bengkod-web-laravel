@@ -32,6 +32,13 @@ class Classroom extends Model
         return $this->hasMany(ClassManagement::class, 'id_classroom');
     }
 
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class, 'id_classroom');
+    }
 
-
+    public function classInformation()
+    {
+        return $this->hasMany(ClassInformation::class, 'id_classroom');
+    }
 }

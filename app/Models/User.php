@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -48,34 +47,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class, 'id_course');
-    }
+    // public function course()
+    // {
+    //     return $this->belongsTo(Course::class, 'id_course');
+    // }
 
     public function task()
     {
         return $this->hasOne(Task::class, 'id_student');
     }
 
-//    public function assistant()
-//    {
-//        return $this->hasOne(ContactAssistant::class, 'id','id_asisten');
-//    }
-
-    public function assistant(): BelongsTo
-    {
-        return $this->belongsTo(ContactAssistant::class, 'id_assistant', 'id');
-    }
-
     public function taskScore()
     {
         return $this->hasMany(Task::class, 'id_student');
-    }
-
-    public function logs()
-    {
-        return $this->hasMany(Log::class, 'id_student');
     }
 
     public function classrooms(): HasMany
@@ -92,6 +76,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(RoomLog::class, 'nim', 'kode');
     }
-
-
 }

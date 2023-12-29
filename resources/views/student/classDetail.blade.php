@@ -31,16 +31,6 @@ if ($hour >= 5 && $hour < 12) {
                     <img src="{{ asset($course->image) }}" alt="" width="90px" height="90px" class="rounded max-md:my-3">
                     <div class="h-auto max-md:pl-2">
                         <h1 class="text-black font-bold text-[20px] max-md:my-2">{{ $course->title }}</h1>
-                        <!-- <p class="text-[#828282] text-sm">
-                            <img src="{{ asset('assets\admin\icons\users-solid.png') }}" alt="" class="inline mr-2">
-                            Mahasiswa Terdaftar</p>
-                        <p class="text-[#828282] text-sm">
-                            <img src="{{ asset('assets\admin\icons\calendar-days-solid.png') }}" alt="" class="inline mr-2">
-                            {{ $course->day }}</p>
-                        <p class="text-[#828282] text-sm">
-                            <img src="{{ asset('assets\admin\icons\clock-solid.png') }}" alt="" class="inline mr-2">
-                            {{ $course->hour }}
-                        </p> -->
                         <a href="{{ env('APP_URL_QUARTO').$course->url }}" target="_blank" class="px-6 border border-primary-color bg-primary-color mt-4 py-1 rounded-md text-white hover:text-primary-color flex justify-center items-center text-[14px] hover:bg-primary-color/80 focus:bg-primary-color/80 active:bg-primary-color/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Belajar Sekarang</a>
                     </div>
                 </div>
@@ -80,7 +70,7 @@ if ($hour >= 5 && $hour < 12) {
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 @php
-                                    $user_task = $as->course->users->where('id', auth()->user()->id)->first();
+                                    $user_task = $as->classroom->classManagements->where('id_classroom', $as->id_classroom)->where('id_student', auth()->user()->id)->first()->student->where('id', auth()->user()->id)->first();
                                 @endphp
                                 @isset($user_task->task)
                                     @php
@@ -156,7 +146,7 @@ if ($hour >= 5 && $hour < 12) {
                         <div class="text-gray-500">{{ $start_time }}</div>
                         <div>
                             @php
-                                $user_task = $as->course->users->where('id', auth()->user()->id)->first();
+                                $user_task = $as->classroom->classManagements->where('id_classroom', $as->id_classroom)->where('id_student', auth()->user()->id)->first()->student->where('id', auth()->user()->id)->first();
                             @endphp
                             @isset($user_task->task)
                                 @php

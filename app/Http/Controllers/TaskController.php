@@ -40,11 +40,10 @@ class TaskController extends Controller
     {
         try {
             // Rename task file to be unique
-            // dd(auth()->user()->id);
             $existing_doc = Task::where('id_student', auth()->user()->id)
                 ->where('id_assignment', $id)
                 ->first();
-            // dd($existing_doc->task_file);
+
             if (isset($existing_doc->task_file)) {
                 unlink(public_path('storage/task/' . $existing_doc->task_file));
             }
@@ -55,7 +54,6 @@ class TaskController extends Controller
             $id_student = auth()->user();
             Task::updateOrCreate([
                 'id_student' => $id_student->id,
-                'id_course' => $id_student->id_course,
                 'id_assignment' => $request->id_assignment,
             ], [
                 'task_file' => $taskName,

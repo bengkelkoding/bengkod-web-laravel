@@ -13,7 +13,6 @@ class Task extends Model
 
     protected $fillable = [
         'id_student',
-        'id_course',
         'id_assignment',
         'task_file',
         'final_score',
@@ -25,8 +24,13 @@ class Task extends Model
         return $this->belongsTo(User::class, 'id_student');
     }
 
-    public function course()
+    // public function course()
+    // {
+    //     return $this->belongsTo(Course::class, 'id_course');
+    // }
+
+    public function assignment()
     {
-        return $this->belongsTo(Course::class, 'id_course');
+        return $this->belongsTo(Assignment::class, 'id_assigment');
     }
 }

@@ -173,12 +173,10 @@ class StudentController extends Controller
         // # to display student course
         // $coursees = Course::where('id', $user->id_course)->withCount('users')->get();
         // $member_count = $coursees->sum('users_count');
-
         # to display student assignment by classroom
-        $assignments = Assignment::where('id_classroom', $id)->with(['course.users.task' => function ($q) {
+        $assignments = Assignment::where('id_classroom', $id)->with(['task' => function ($q) {
             $q->where('id_student', auth()->user()->id);
         }])->get();
-
 
         $classroom = Classroom::where('id', $id)->first();
 
