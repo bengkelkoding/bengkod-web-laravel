@@ -27,10 +27,7 @@ class StudentController extends Controller
         $userRole = Auth::user()->roles()->pluck('name')->first();
         $search = $request->search ?? "";
         $per_page = $request->per_page ?? 10;
-        $students = User::role('student')->with('assistant')
-        ->with(['taskScore' => function ($q) {
-            $q->whereNotNull('final_score');
-        }])
+        $students = User::role('student')
         ->where(function ($query) use ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
                   ->orWhere('code', 'LIKE', "%{$search}%")
@@ -244,13 +241,11 @@ class StudentController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'id_student' => 'required',
-                'id_course' => 'required',
             ]);
             $validator->validate();
 
             Task::updateOrCreate([
                 'id_student' => $request->id_student,
-                'id_course' => $request->id_course,
                 'id_assignment' => $id,
             ], [
                 'task_file' => '-',
