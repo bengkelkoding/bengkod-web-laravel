@@ -37,7 +37,10 @@ Route::middleware('auth')->group(function () {
 // Admin Space Routing
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
     // Admin Dashboard
-    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
+    Route::get('/dashboard', [UserImportController::class,'dashboardReport'])->name('admin.dashboard');
+
+    // Admin CSV Import
+    Route::get('/import-csv', [UserImportController::class,'showForm'])->name('admin.importCsv');
 
     // Lecture Register
     Route::get('/register-dosen', [RegisteredLectureController::class, 'create'])->name('register-dosen');;
@@ -82,6 +85,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
         // Show All Log
         Route::get('log', [RoomLogController::class, 'logAll']);
+        
     });
 });
 // End Admin Space Routing

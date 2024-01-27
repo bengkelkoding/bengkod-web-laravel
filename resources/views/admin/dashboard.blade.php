@@ -6,78 +6,113 @@
     </x-slot>
 
     <div class="py-5 ">
+        <div class="container   ">
 
-        <div class="max-w-screen-md mx-auto sm:px-6 px-3 lg:px-8 w-full lg:w-[500px] h-[400px] rounded border-2 border-indigo-500/100 mt-3">
-            <h1 class="font-bold text-[28px] text-center py-3">Upload CSV</h1>
+            {{-- 
+                1. kelas.
+                2. berapa yang diatas rata"
+                3. dibawah rata-rata.
+                4. rata-rata semester
 
-            <div class="h-[30vh] flex flex-col items-center justify-center bg-gray-400/30 drop-shadow-lg rounded-md cursor-pointer" id="upload-icon" onclick="openInputFile()">
-                <img src="{{ asset('assets/admin/icons/drag_drop.png') }}" width="58px" height="58px" class="invert">
-                <h4>Seret File atau Klik Disini Untuk Upload File</h4>
-            </div>
+            --}}
+            <!-- component -->
+            <div class="flex flex-wrap justify-center mt-6 gap-5 ">
 
-            <form action="/import" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div>
-                    <input type="file" id="csv_file" name="csv_file" class="hidden" onchange="uploadIcon()">
-                </div>
-                @if($errors->any())
-                    <div id="errors" class="text-red-500 mt-1 ml-1 text-sm">
-                        {{ $errors->first() }}
+                <!-- Start Card -->
+                <div
+                    class="bg-blue-600 pt-1 px-2 bg-gradient-to-b from-blue-400 to-blue-500 rounded-xl shadow-lg w-64 h-72">
+                    <h1 class="font-bold text-xl text-center">Kelas 🏛️</h1>
+                    <div class="flex justify-center">
+                        <div
+                            class="flex justify-center p-4 items-center bg-blue-400 ring-2 ring-blue-300 rounded-lg shadow-xl w-32 mt-3">
+
+                            <p class="text-5xl text-center">
+                                {{ $totalClass }}
+                            </p>
+                        </div>
                     </div>
-                @endif
-                <div class="flex justify-center items-center mt-9">
-                    <button type="submit" class="bg-[#114D91] rounded-md w-[116px] text-xl h-auto hover:bg-cyan-500"><span class="text-[14px] text-white">Import CSV</span></button>
+                    <div class="p-4">
+                        <p class="text-white font-semibold">Kelas</p>
+                        <div class="mt-2">
+                            <p class="text-gray-200">Terdapat sekelas terdiri dari beberapa topik bahasan.</p>
+                        </div>
+                        <a href="{{ url('admin/classroom') }}">
+                            <button
+                                class="group relative mt-2 h-9 w-48 overflow-hidden rounded-2xl bg-green-500 text-lg font-bold text-white">
+                                Lihat Kelas
+                                <div
+                                    class="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30">
+                                </div>
+                            </button>
+                        </a>
+
+                    </div>
                 </div>
-            </form>
+                <!--End Card -->
+
+                <!-- Start Card -->
+                <div
+                    class="bg-blue-600 pt-1 px-2 bg-gradient-to-b from-yellow-300 to-yellow-400 rounded-xl shadow-lg w-64 h-72">
+                    <h1 class="font-bold text-xl text-center">Lulus 😄</h1>
+                    <div class=" flex justify-center">
+                        <div
+                            class="flex justify-center p-4 items-center bg-yellow-300 ring-2 ring-yellow-100 rounded-lg shadow-xl w-32 mt-3">
+                            <p class="text-5xl text-center">
+                                {{ $passed }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center text-white font-semibold">
+                        <p>Lulus Diatas 70</p>
+                        <p>Total Mhs = {{ $studentCount }}</p>
+                    </div>
+                </div>
+                <!--End Card -->
+
+                <!-- Start Card -->
+                <div
+                    class="bg-blue-600 pt-1 px-2 bg-gradient-to-b from-pink-400 to-pink-500 rounded-xl shadow-lg w-64 h-72">
+                    <h1 class="font-bold text-xl text-center">Tidak Lulus 😔</h1>
+                    <div class=" flex justify-center">
+                        <div
+                            class="flex justify-center p-4 items-center bg-pink-300 ring-2 ring-pink-200 rounded-lg shadow-xl w-32 mt-3">
+                            <p class="text-5xl text-center">
+                                {{ $unPassed }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center text-white font-semibold">
+                        <p>Tidak Lulus, Dibawah 70</p>
+                        <p>Total Mhs = {{ $studentCount }}</p>
+
+                    </div>
+                </div>
+                <!--End Card -->
+
+                <!-- Start Card -->
+                <div
+                    class="bg-blue-600 pt-1 px-2 bg-gradient-to-b from-indigo-400 to-indigo-500 rounded-xl shadow-lg w-64 h-72">
+                    <h1 class="font-bold text-xl text-center">Nilai Rata-Rata 📖</h1>
+                    <div class=" flex justify-center">
+                        <div
+                            class="flex justify-center p-4 items-center bg-indigo-300 ring-2 ring-indigo-200 rounded-lg shadow-xl w-32 mt-3">
+                            <p class="text-5xl text-center">
+                                {{ $totalAverage }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-white font-semibold text-center">Nilai Rata-Rata</p>
+
+                    </div>
+                </div>
+                <!--End Card -->
+            </div>
         </div>
+    </div>
+
 
     </div>
-    <script>
-        const dropArea = document.getElementById('upload-icon');
-        const fileContainer = document.getElementById('csv_file');
 
-        dropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropArea.classList.add('bg-green-400');
-        });
-
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('bg-green-400');
-        });
-
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropArea.classList.remove('bg-green-400');
-
-            fileContainer.files = e.dataTransfer.files;
-            uploadIcon()
-        });
-
-        function openInputFile() {
-            let input = document.getElementById('csv_file');
-            input.click();
-        }
-
-        function uploadIcon() {
-            let input = document.getElementById('csv_file');
-            let icon = document.getElementById('upload-icon');
-            let currentSaved = document.getElementById('current_saved');
-            let errors = document.getElementById('errors');
-
-            if(currentSaved === null) {
-                currentSaved = document.createElement('a');
-                currentSaved.setAttribute('id', 'current_saved');
-                currentSaved.setAttribute('class', 'text-black-500 mt-6 ml-1 text-xs');
-                icon.after(currentSaved);
-            }
-
-            if (input.value !== '') {
-                currentSaved.innerHTML = input.files[0].name;
-                if (errors !== null) {
-                    errors.remove()
-                }
-            }
-        }
-    </script>
 
 </x-admin>

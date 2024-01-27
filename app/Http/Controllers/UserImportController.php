@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -10,9 +11,59 @@ use Illuminate\Support\Facades\DB;
 
 class UserImportController extends Controller
 {
+
+    // pindah ke organize
     public function showForm()
     {
-        return view('admin.dashboard');
+        return view('admin.importCsv.importCsv');
+    }
+
+    
+    public function dashboardReport() {
+
+        /*
+            - TOLONG BANTUAN DIPERIKSA KEMBALI DALAM PERATA-RATA an nya. karena yang digunakan langsung dari table task
+        */
+
+        $students = User::role('student')->with('taskScore')->get();
+        $totalClass = DB::table('classrooms')->count();
+        $studentCount = $students->count();
+
+        // cek kelulusan
+        $passed = 0;
+       
+
+        // total dari all mhs
+        $totalFinalScore = Task::get()->sum('final_score');
+        $mhsSubmitTask = Task::count();
+        $totalAverage = round($totalFinalScore/ $mhsSubmitTask);
+
+        foreach ($students as $key => $s) {
+            // dd($s->taskScore->first()->final_score);
+            
+            $finalScore = 0;
+
+            $totalScore = 0;
+            
+            $countScore = 0;
+            
+            foreach (($s->taskScore->whereNotNull('final_score')) as $key => $score) {
+                $totalScore += $score->final_score;
+                $countScore++;
+            }
+            
+            $finalScore = ($countScore > 0) ? round($totalScore / $countScore) : 0;
+           
+           
+            if ($finalScore >= 70) {
+                $passed++;
+            }
+        }
+
+
+        $unPassed = $studentCount - $passed;
+
+        return view('admin.dashboard' , compact('totalClass','studentCount','passed','unPassed','totalAverage'));
     }
 
     public function import(Request $request)
@@ -51,3 +102,4 @@ class UserImportController extends Controller
         return redirect('/import')->with('success', 'Data from CSV file has been imported successfully.');
     }
 }
+    

@@ -51,9 +51,20 @@ class ClassroomController extends Controller
             }])
             ->paginate($per_page);
 
+            $studentCount = User::role('student')
+            // ->whereHas('classManagements.classroom', function ($query) use ($idClassroom) {
+            //     $query->where('id', $idClassroom);
+            // })
+            // ->where(function ($query) use ($search) {
+            //     $query->where('name', 'LIKE', "%{$search}%")
+            //         ->orWhere('code', 'LIKE', "%{$search}%")
+            //         ->orWhere('email', 'LIKE', "%{$search}%");
+            // })
+            ->count();
+
         $classroom = Classroom::find($idClassroom)->first();
 
-        return view('admin.classroom.student.index', compact('students', 'classroom'));
+        return view('admin.classroom.student.index', compact('students', 'classroom', 'studentCount'));
     }
 
     public function showStudent($idClassroom, Request $request): View
@@ -79,6 +90,7 @@ class ClassroomController extends Controller
 
         return view('lecture.classroom.student.index', compact('students', 'classroom'));
     }
+
 
     public function create(): View
     {
